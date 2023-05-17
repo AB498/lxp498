@@ -1,0 +1,88 @@
+http://localhost:8080/api/uploadbase/streamVideo/23
+
+###
+http://localhost:8080/api/videos/getSuggestedVideos
+
+###
+http://localhost:8080/api/listVideos
+
+
+####
+
+http://localhost:8080/api/listUsers
+
+####
+POST http://localhost:8080/api/getProgress
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q0OTgwMEBnbWFpbC5jb20iLCJpYXQiOjE2ODM5MTExMzB9.-PZWlUgAmmpT895E06-8VAs1lz-BChnMzdm6p3EzCp0
+
+{
+    "language": "en"
+}
+
+###
+POST http://localhost:8080/api/getSelf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q0OTgwMEBnbWFpbC5jb20iLCJpYXQiOjE2ODM5MTExMzB9.-PZWlUgAmmpT895E06-8VAs1lz-BChnMzdm6p3EzCp0
+
+
+###
+POST http://localhost:8080/api/getUser/6
+
+
+####
+POST http://localhost:8080/api/registerUser
+
+{
+    "email": "email1@gmail.com",
+    "password": "password1"
+}
+
+### Create Progress
+
+POST http://localhost:8080/api/createProgress
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q0OTgwMEBnbWFpbC5jb20iLCJpYXQiOjE2ODM5MTExMzB9.-PZWlUgAmmpT895E06-8VAs1lz-BChnMzdm6p3EzCp0
+
+{
+    "language": "en",
+    "date": "2020-01-01"
+}
+
+
+###
+POST http://localhost:8080/api/deleteAllUsers
+
+
+
+
+###
+https://accounts.google.com/o/oauth2/v2/auth?client_id=125721824911-pc2u2d9s3t2uu6bbesk74e3i30vj41lm.apps.googleusercontent.com
+
+####
+https://translation.googleapis.com/language/translate/v2/languages?key=ya29.c.b0Aaekm1IJx_KneAiy1S7xwkB47TDkfaDBsKOCbmzPI7Hw7pPlVu7Osk7MBuJAz9mFyBLVzHP0RTgANkXkvjknoOw96n94ur7YN9QnzlrXXw7droiMjZO9yjwIRTJ6I6rdv-3L_5KiPJEKXbnU3lpRBl_vyBcAHkZvlwbgiRIxn9udyDgGSDLYj3SE-K5PAGfYxcVVUuymurO7iSCLrOGXTGnXwUFBQJBR1vTL82qf89vZWl0NqnR-XMHcN5ER6lgm5RovwXZkvXWQFEZvEJSxyN90UWwfGPawAMTXnWb8SI59dSM0r4Yk-dLnyoWJkFmMD3Z_kZ8OyeQ7N4cG344Ak4Ooz9247IxFc5l7ova7_zoUVvZuOBXSm1dtBQc6srhB-1xyf3rIiZVsIWRff4s9upar5YRr4V7kjyXM2WWuaQXmQFtSZx-b0_z3hMei1rJS7BXxIBm_Fesn1iyO5e67p06dsxkYclvtahncjRoIvkfFy_vguej0V8We_h_5BMqV_V091qWdf4y3cho_WrOI-mJUubofhpvjvjUO7sjMScetBVUFc0xz3Bs3QntV7cMaVIxM7fI-7sktaOZF80d0V43U5xpII05bBMxabl_-mmj3QRO7hZRY9-723-O2mB-vyqwyF1hm8QM8jRxcJgdJvvb6hBy4Y7pYX9ruVymnQd_us4xi99F0b0hbOFtjFipRpm6MJgSdO_e1ymS5XxXl0srvFheUaVOYepksF8tWy_QItty0389is_F-o-I7_rrrmWndtkpIc_deWU6VXcm2qdUhx9BOixasnadBXtUU6SpaMRxnb1epUyaZBdpI5l6s3qyik8bpwoeF5Y1IO4o3dyqhf0o8XJQcegyI-vfIgdthmU_lMZQkslrQaV9fIbXIVQ3I80s1J0xd0hBzvU9g08hRX3yjt-y8tMvpSd_unxe-ooxocFqO6frcdJQ4jkbV4pp4Bt9XMOnsa6lX_wV29X50kI9uQqpgQj-i7BgMB7Wk-b_2vvVvOrw
+###
+
+https://translation.googleapis.com/v3/projects/lanxplore/locations/global/supportedLanguages
+Authorization: Bearer ya29.c.b0Aaekm1J7XoVvzpsYbu_-agGK36Rw16ZduOJlz8u9pdlYBVoyp0HpwAkG7VstXycWY1LbYDC1TDLj_RQylWeeqxxoab44v_AA4LUZdG7L5UFu0CUOuM6fSNVeBdehVUXmnnulDbE26Z7mttpIds_X2S_xCicY6tQmtp11zIKUc09jxaRJCaaU8ejDPXgEnyyI2k3-X8ECQ83QjcqoJ_kWUEohn_ZuLwL3KdiVGllECwggQtZe599oKLnKcUWBQJGSGLuO6DJXW5zDa6OfH7reaopBeOplJl0F_SWGKM1VVahHZCMkQSNbW86au6e372cE3ltipXmHaOLNhigE344CZOy8_S8YwlOS11ntm-3wRU0u1vojcbsg76mJ6Fqzql1Fhpblju30JiyZanaF42p1Ja61wWzbpbrX3nQozyuQ4Xhhg-o95mc54_aJYV8WrZ1bjp3jOwW7no0eJahwZZRQ1B8Ormwzb-oOyIlnXbeWXQkrcSpYlU8c5mbcXsBO44hR17emWJQXzlr5kdYe_7wXOYW75VMFt3kr5cq02i8Bq3jSmo048oaS2tl9nO1B5zUZldnx2hz5mJMdczy0dnb_iQdaimq8a7eqh2eraMw9X_yzMWXtkY889y2oqmFV7i8Vob-y1Oy2fedJR0d_Ztk17xhRY89-ffUrmVvSZWQFf3wkMUWdyg47Ir28kisy5mXFbvIS8SU7hlJ25yOIy7haXUZfVunU0gIazS3hgFIQqiv8hqyia81ViBRevOMMwyQ97xXizhynVmUdeMtXfW7UO6_Zx_ZM4Mx9ov7g6V3hkoSI2bue-2RUZa45mOwran0-t6X97g-Wkqaerbn1c_R5ub1vnBfQt6-6xpb1pZ37_twZ9Zbt_ZtzhB87oidbsXwsmnqJiQB4Se42hRwXaqdVRo0jgn1_-uuUbJ4l5IIy5Vauak-Q3a0MUoyJird-tzB7Jxx-85W9qZg4g3oS6c1h-jtxt_BBgfokZbaFow6a1iBFBqkuqpSctjy
+
+###
+http://localhost:8080/api/listProgress
+
+{
+    "userId": 1,
+    "progress": 1,
+    "date": "2020-01-01"
+}
+###
+POST http://localhost:8080/api/createProgress
+
+{
+    "userId": 1,
+    "progress": 1,
+    "date": "2020-01-01"
+}
+###
+http://localhost:8080/api/getProgress/6
+###
+POST http://localhost:8080/api/deleteAllProgress
+###
+POST http://localhost:8080/api/deleteProgress/6
+

@@ -1,0 +1,108 @@
+<script setup>
+import { ref } from 'vue'
+import { v4 as uuidv4 } from 'uuid';
+import { watch } from 'vue';
+
+window.glb.notifications = []
+
+
+window.glb.addNotf = (text, color, content) => {
+    let thisId = uuidv4();
+    let randCol = "#111144ef" || randomColor();
+    window.glb.notifications.push({
+        id: thisId,
+        text: text || "Notification number " + window.glb.notifications.length,
+        content: content || "",
+        color: color || randCol,
+        tmout: new Timeout(() => {
+            removeNotf(thisId)
+        }, 2000)
+    })
+}
+class Timeout {
+    constructor(callbackFunction, time) {
+        this.time = time;
+        this.callback = callbackFunction;
+        this.run(); // It will be automatically invoked when the constructor is run
+    }
+    run() {
+        this.startedTime = new Date().getTime();
+        if (this.time > 0) {
+            this.timeout = setTimeout(this.callback, this.time); // Timeout must be set if this.time is greater than 0
+        }
+    }
+    pause() {
+        let currentTime = new Date().getTime();
+        this.time = this.time - (currentTime - this.startedTime); // The time that was given when initializing the timeout is subtracted from the amount of time spent
+        clearTimeout(this.timeout);
+    }
+}
+
+
+const hovering = ref(false);
+const hoveredEl = ref(-1);
+
+
+watch(hovering, (newVal, oldVal) => {
+    if (newVal) {
+        // all after hoveredEl
+        for (let i = hoveredEl.value; i < window.glb.notifications.length; i++) {
+            window.glb.notifications[i].tmout.pause();
+        }
+    } else {
+        for (let i = 0; i < window.glb.notifications.length; i++) {
+            window.glb.notifications[i].tmout.run();
+        }
+    }
+
+})
+
+function removeNotf(id) {
+    let index = window.glb.indexByCol(window.glb.notifications, "id", id);
+    if (index != -1) {
+        window.glb.notifications.splice(index, 1);
+    }
+
+}
+function randomColor() {
+    return "#" + Math.floor(Math.random() * 16777215).toString(16) + "cc";
+}
+
+</script>
+
+<template>
+    <div class="absolute w-screen h-screen flex flex-col items-center justify-end text-white z-50 pointer-events-none"
+        @click="">
+        <div v-for="(item, index) in window.glb.notifications " :key="item.id"
+            class="min-h-[3rem] max-w-[30rem] min-w-[20rem] p-3 rounded border-2  pointer-events-auto m-1 overflow-auto "
+            :style="{ backgroundColor: item.color }" @mouseover="hovering = true; hoveredEl = index; cons(hoveredEl)"
+            @mouseleave=" hovering = false; hoveredEl = -1">
+            <div class="flex items-stretch justify-center px-2">
+
+                <div class="flex flex-col  justify-center">
+                    <div class="font-bold line-clamp-2">
+                        {{ item.text }}
+                    </div>
+                    <div class="text-sm line-clamp-3">
+                        {{ item.content }}
+                    </div>
+                </div>
+                <i class="fas fa-times ml-2 cursor-pointer p-2" @click=" removeNotf(item.id)"></i>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>

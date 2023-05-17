@@ -1,0 +1,55 @@
+<!-- alpinejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body class="text-white bg-cyan-950">
+    <div x-data="{ open: false, apiEndpoints: [] }" x-init="
+        apiEndpoints = (await (await fetch('http://localhost:8080/admin/apis')).json())
+        //console.log(apiEndpoints)
+    ">
+        <div class="space-y-2">
+
+            <template x-for="endpoint in apiEndpoints">
+                <div class="flex flex-col bg-fuchsia-950" x-data="{res:null, body:''}">
+                    <div class="flex w-full  items-center space-x-2 p-2">
+
+                        <div class="bg-slate-700 p-1 rounded" x-text="endpoint.method"></div>
+                        <div class="bg-slate-700 p-1 rounded" x-text="endpoint.url"></div>
+                        <div x-text="body"></div>
+                        <div class="grow"></div>
+                        <button class="rounded p-2 bg-blue-600 shadow-md hover:bg-blue-800 " @click="
+                            fetch('http://localhost:8080'+endpoint.url, {
+                                method: endpoint.method,
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                            })
+                            .then(res => res.json())
+                            .then(data => res = JSON.stringify(data))
+                        ">
+                            Send
+                        </button>
+                    </div>
+                    <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500" x-text="endpoint.body"
+                        x-model="body" />
+                    <div class="result bg-slate-500 p-2 border border-l-4 border-lime-500 overflow-auto h-64 "
+                        x-text="res"></div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
