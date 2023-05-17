@@ -66,7 +66,7 @@ let handler = {
         //     return null
         // }
         if (!target[key]) {
-            // console.log("Accessed non-existing key: " + key);
+            console.log("Accessed non-existing key: " + key);
             // target[key] = new Proxy({}, handler);
         }
         return target[key];
