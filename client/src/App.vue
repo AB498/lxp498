@@ -32,7 +32,7 @@ window.glb.lxsocket = {
 window.glb._serverSynced = {};
 
 // const URL = "http://localhost:8080";
-const URL = "http://34.125.247.156:8080";
+const URL = "ws://34.125.247.156:8080";
 if (window.glb.user) {
   console.log("connecting to socket");
   window.glb.lxsocket.socketObj = io(URL, {
