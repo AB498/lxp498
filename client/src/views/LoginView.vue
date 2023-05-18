@@ -33,6 +33,8 @@ async function signUp() {
   window.glb.user = user.user;
   window.glb.jwt = user.jwt;
   router.push("/")
+  window.glb.lxsocket.socketObj.connect();
+
 }
 async function login() {
   const [err, res] = await window.glb.safeAsync(axios.post(glb.baseUrl + "/api/loginUser", {
@@ -53,6 +55,7 @@ async function login() {
   window.glb.user = user.user;
   window.glb.jwt = user.jwt;
   router.push("/")
+  window.glb.lxsocket.socketObj.connect();
 }
 const hideTimeout = ref(null);
 

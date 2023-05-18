@@ -15,6 +15,7 @@ const router = useRouter()
 function logout() {
   window.glb.loggedIn = false
   window.glb.user = null
+  window.glb.lxsocket.socketObj.disconnect()
 }
 
 window.glb.selectLang = (callback) => {
