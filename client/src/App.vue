@@ -34,43 +34,45 @@ window.glb.lxsocket = {
 window.glb._serverSynced = {};
 
 // const URL = "http://localhost:8080";
-const URL = window.glb.baseUrl;
+const socketURL = window.glb.baseUrl;
+const socketOptions = {
+  extraHeaders: {
+    Authorization: `Bearer ${window.glb.jwt}`
+  }
+};
+window.glb.lxsocket.socketObj = io(socketURL, socketOptions);
+
 if (window.glb.user) {
   console.log("connecting to socket");
-  window.glb.lxsocket.socketObj = io(URL, {
-    autoConnect: true,
-    extraHeaders: {
-      Authorization: `Bearer ${window.glb.jwt}`
-    }
-  });
-
-  window.glb.lxsocket.socketObj.on("connect", () => {
-    console.log("my id: " + window.glb.lxsocket.socketObj.id);
-
-    window.glb.lxsocket.connected = true;
-    window.glb.lxsocket.socketObj.emit("resolveUser", window.glb.user.jwt);
-
-    const start = Date.now();
-    window.glb.lxsocket.socketObj.emit("ping", () => {
-      const duration = Date.now() - start;
-      console.log("Ping to server: " + duration);
-    });
-  });
-
-  window.glb.lxsocket.socketObj.on("disconnect", () => {
-    console.log("disconnected");
-    window.glb.lxsocket.connected = false;
-  });
-  window.glb.lxsocket.socketObj.on("serverSynced", (m) => {
-    window.glb._serverSynced = m;
-  });
-  window.glb.lxsocket.socketObj.on('pong', function (data) {
-    console.log('Received Pong: ', data);
-  });
-  window.glb.lxsocket.socketObj.on("ping", (callback) => {
-    callback();
-  });
+  window.glb.lxsocket.socketObj.connect();
 }
+
+window.glb.lxsocket.socketObj.on("connect", () => {
+  console.log("my id: " + window.glb.lxsocket.socketObj.id);
+
+  window.glb.lxsocket.connected = true;
+  window.glb.lxsocket.socketObj.emit("resolveUser", window.glb.user.jwt);
+
+  const start = Date.now();
+  window.glb.lxsocket.socketObj.emit("ping", () => {
+    const duration = Date.now() - start;
+    console.log("Ping to server: " + duration);
+  });
+});
+
+window.glb.lxsocket.socketObj.on("disconnect", () => {
+  console.log("disconnected");
+  window.glb.lxsocket.connected = false;
+});
+window.glb.lxsocket.socketObj.on("serverSynced", (m) => {
+  window.glb._serverSynced = m;
+});
+window.glb.lxsocket.socketObj.on('pong', function (data) {
+  console.log('Received Pong: ', data);
+});
+window.glb.lxsocket.socketObj.on("ping", (callback) => {
+  callback();
+});
 
 let indexByCol = (arr, col, val) => {
   return arr.findIndex((item) => item[col] == val)
