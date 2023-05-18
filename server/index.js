@@ -19,7 +19,7 @@ const adminController = require('./controllers/adminController');
 const { manageSocketIO } = require('./socketIO');
 //server setup
 const rootDirectory = path.dirname(require.main.filename);
-const port = 8080;
+const port = 80;
 var accessToken = "";
 const app = express();
 const server = http.createServer(app);
