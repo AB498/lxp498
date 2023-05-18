@@ -131,6 +131,7 @@ global.glb.apiEndpoints.forEach(endpoint => {
 
 })
 
+
 app.use('/', (req, res) => {
     proxy.web(req, res, { target: 'http://localhost:5173' });
 });
