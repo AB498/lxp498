@@ -31,6 +31,7 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 })
+
 manageSocketIO(io);
 app.use(
     cors({
