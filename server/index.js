@@ -131,9 +131,27 @@ global.glb.apiEndpoints.forEach(endpoint => {
 
 })
 
+function proxyRequest(req, res, target) {
+    return new Promise((resolve, reject) => {
+        proxy.web(req, res, { target }, (error) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve();
+            }
+        });
+    });
+}
 
 app.use('/', (req, res) => {
-    proxy.web(req, res, { target: 'http://localhost:5173' });
+    try {
+        await proxyRequest(req, res, 'http://localhost:5173');
+        console.log('Proxy request completed successfully');
+    } catch (error) {
+        console.error('Proxy error:', error);
+        res.statusCode = 500;
+        res.end('Frontend server is down');
+    }
 });
 app.get('/oauth2callback', (req, res) => {
     const code = req.query.code; // Get the authorization code from the query parameters
