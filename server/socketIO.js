@@ -15,51 +15,54 @@ global.socketConnections = socketConnections;
 
 module.exports.manageSocketIO = (io) => {
     io.on('connection', async (socket) => {
-        const headers = socket.handshake.headers;
-        if (!headers.authorization) {
-            console.log("No authorization header");
-            socket.disconnect();
+        try {
+            const headers = socket.handshake.headers;
+            if (!headers.authorization) {
+                console.log("No authorization header");
+                socket.disconnect();
+            }
+            const jwt = headers.authorization.split(" ")[1];
+            const decodedUser = await jwtUtil.decode(jwt);
+
+            if (!decodedUser || !decodedUser.email || !decodedUser.id) {
+                console.log("Invalid JWT", headers.authorization, decodedUser);
+                socket.disconnect();
+            }
+            let user = await models.User.findByPk(decodedUser.id);
+            if (!user || !user.jwts.includes(jwt)) {
+                console.log("No user");
+                socket.disconnect();
+            }
+            user = user.toJSON()
+            delete user.password;
+            delete user.jwts;
+            console.log(user.createdAt, user.updatedAt);
+            user.createdAt = JSON.stringify(user.createdAt);
+            user.updatedAt = JSON.stringify(user.updatedAt);
+
+
+            let userProxy = createProxy({ ...user, name: "Temp", ping: uuidv4() }, null, ['df'], [(path, value) => {
+                // console.log(path, value, socketConnections[socket.id].info);
+                socketConnections[socket.id].socket.emit('serverSynced', ({ ...socketConnections[socket.id].info }));
+            }]);
+
+            ping(socket);
+
+            if (!socketConnections[socket.id])
+                socketConnections[socket.id] = {};
+            socketConnections[socket.id].socket = socket;
+            socketConnections[socket.id].info = { self: userProxy };
+            socketConnections[socket.id].interval = setInterval(() => {
+                socketConnections[socket.id].info.onlineUsers =
+                    (() => Object.keys(socketConnections).filter(key => socketConnections[key].info.self.email != socketConnections[socket.id].info.self.email).map(key => socketConnections[key].info.self))();
+                userProxy.ping = uuidv4();
+            }, 5000);
+
+            console.log(socket.id + ' connected');
+            socket.emit('serverSynced', { ...socketConnections[socket.id].info });
+        } catch (e) {
+            console.log(e)
         }
-        const jwt = headers.authorization.split(" ")[1];
-        const decodedUser = await jwtUtil.decode(jwt);
-
-        if (!decodedUser || !decodedUser.email || !decodedUser.id) {
-            console.log("Invalid JWT", headers.authorization, decodedUser);
-            socket.disconnect();
-        }
-        let user = await models.User.findByPk(decodedUser.id);
-        if (!user || !user.jwts.includes(jwt)) {
-            console.log("No user");
-            socket.disconnect();
-        }
-        user = user.toJSON()
-        delete user.password;
-        delete user.jwts;
-        console.log(user.createdAt, user.updatedAt);
-        user.createdAt = JSON.stringify(user.createdAt);
-        user.updatedAt = JSON.stringify(user.updatedAt);
-
-
-        let userProxy = createProxy({ ...user, name: "Temp", ping: uuidv4() }, null, ['df'], [(path, value) => {
-            // console.log(path, value, socketConnections[socket.id].info);
-            socketConnections[socket.id].socket.emit('serverSynced', ({ ...socketConnections[socket.id].info }));
-        }]);
-
-        ping(socket);
-
-        if (!socketConnections[socket.id])
-            socketConnections[socket.id] = {};
-        socketConnections[socket.id].socket = socket;
-        socketConnections[socket.id].info = { self: userProxy };
-        socketConnections[socket.id].interval = setInterval(() => {
-            socketConnections[socket.id].info.onlineUsers =
-                (() => Object.keys(socketConnections).filter(key => socketConnections[key].info.self.email != socketConnections[socket.id].info.self.email).map(key => socketConnections[key].info.self))();
-            userProxy.ping = uuidv4();
-        }, 5000);
-
-        console.log(socket.id + ' connected');
-        socket.emit('serverSynced', { ...socketConnections[socket.id].info });
-
         socket.on('disconnect', () => {
             console.log('user disconnected');
             clearInterval(socketConnections[socket.id].interval);
