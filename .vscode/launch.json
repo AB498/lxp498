@@ -17,4 +17,3 @@
     }
   ]
 }
-concurrently "cd ~/lxp498/client && npm start" "cd ~/lxp498/server && npm start"
