@@ -143,7 +143,7 @@ function proxyRequest(req, res, target) {
     });
 }
 
-app.use('/', (req, res) => {
+app.use('/', async (req, res) => {
     try {
         await proxyRequest(req, res, 'http://localhost:5173');
         console.log('Proxy request completed successfully');
