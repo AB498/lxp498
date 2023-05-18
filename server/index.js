@@ -33,6 +33,7 @@ const io = new Server(server, {
 
 })
 
+
 manageSocketIO(io);
 app.use(
     cors({
