@@ -1,4 +1,9 @@
 {
+    "watch": [
+        "."
+    ],
+    "ext": "*",
+    "exec": "npm run build && serve dist -l 5173",
     "ignore": [
         "**/*.json",
         "!**/package.json",
