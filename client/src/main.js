@@ -97,8 +97,6 @@ app.config.globalProperties.window = window
 glb.baseUrl = 'http://localhost:8080'
 window.glb = glb
 
-let fdsf = 34;
-
 
 const vuetify = createVuetify({
     components,
