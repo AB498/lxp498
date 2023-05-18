@@ -41,7 +41,7 @@ const socketOptions = computed(() => ({
     Authorization: `Bearer ${window.glb.jwt || ''}`
   }
 }));
-window.glb.lxsocket.socketObj = io(socketURL, socketOptions);
+window.glb.lxsocket.socketObj = io(socketURL, socketOptions.value);
 
 if (window.glb.user) {
   console.log("connecting to socket");
