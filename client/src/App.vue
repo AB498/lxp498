@@ -47,6 +47,35 @@ function initializeSocket() {
   // Create and connect the socket
   window.glb.lxsocket.socketObj = io(socketURL, socketOptions);
   window.glb.lxsocket.socketObj.connect();
+
+
+  window.glb.lxsocket.socketObj.on("connect", () => {
+    console.log("my id: " + window.glb.lxsocket.socketObj.id);
+
+    window.glb.lxsocket.connected = true;
+    window.glb.lxsocket.socketObj.emit("resolveUser", window.glb.user.jwt);
+
+    const start = Date.now();
+    window.glb.lxsocket.socketObj.emit("ping", () => {
+      const duration = Date.now() - start;
+      console.log("Ping to server: " + duration);
+    });
+  });
+
+  window.glb.lxsocket.socketObj.on("disconnect", () => {
+    console.log("disconnected");
+    window.glb.lxsocket.connected = false;
+  });
+  window.glb.lxsocket.socketObj.on("serverSynced", (m) => {
+    window.glb._serverSynced = m;
+  });
+  window.glb.lxsocket.socketObj.on('pong', function (data) {
+    console.log('Received Pong: ', data);
+  });
+  window.glb.lxsocket.socketObj.on("ping", (callback) => {
+    callback();
+  });
+
 }
 
 function disconnectSocket() {
@@ -62,35 +91,8 @@ window.glb.lxsocket.disconnectSocket = disconnectSocket;
 
 if (window.glb.user) {
   console.log("connecting to socket");
-  // window.glb.lxsocket.socketObj.connect();
+  window.glb.lxsocket.initializeSocket();
 }
-
-window.glb.lxsocket.socketObj.on("connect", () => {
-  console.log("my id: " + window.glb.lxsocket.socketObj.id);
-
-  window.glb.lxsocket.connected = true;
-  window.glb.lxsocket.socketObj.emit("resolveUser", window.glb.user.jwt);
-
-  const start = Date.now();
-  window.glb.lxsocket.socketObj.emit("ping", () => {
-    const duration = Date.now() - start;
-    console.log("Ping to server: " + duration);
-  });
-});
-
-window.glb.lxsocket.socketObj.on("disconnect", () => {
-  console.log("disconnected");
-  window.glb.lxsocket.connected = false;
-});
-window.glb.lxsocket.socketObj.on("serverSynced", (m) => {
-  window.glb._serverSynced = m;
-});
-window.glb.lxsocket.socketObj.on('pong', function (data) {
-  console.log('Received Pong: ', data);
-});
-window.glb.lxsocket.socketObj.on("ping", (callback) => {
-  callback();
-});
 
 let indexByCol = (arr, col, val) => {
   return arr.findIndex((item) => item[col] == val)
