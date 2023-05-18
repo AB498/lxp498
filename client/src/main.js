@@ -93,8 +93,8 @@ app.use(router, app)
 
 app.config.globalProperties.cons = (s) => { console.log(s); return s }
 app.config.globalProperties.window = window
-// glb.baseUrl = "http://34.125.247.156:8080"
-glb.baseUrl = 'http://localhost:8080'
+glb.baseUrl = "http://34.142.131.205:8080"
+// glb.baseUrl = 'http://localhost:8080'
 window.glb = glb
 
 
