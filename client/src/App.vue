@@ -19,6 +19,8 @@ function logout() {
   window.glb.lxsocket.disconnectSocket();
 }
 
+
+
 window.glb.selectLang = (callback) => {
   window.glb.settings.showSelectLangModal = uuidv4()
   window.glb.selectLangCallback = callback
