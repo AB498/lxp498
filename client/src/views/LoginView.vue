@@ -32,8 +32,8 @@ async function signUp() {
   window.glb.loggedIn = true;
   window.glb.user = user.user;
   window.glb.jwt = user.jwt;
-  router.push("/")
   window.glb.lxsocket.socketObj.connect();
+  router.push("/")
 
 }
 async function login() {
@@ -54,8 +54,8 @@ async function login() {
   window.glb.loggedIn = true;
   window.glb.user = user.user;
   window.glb.jwt = user.jwt;
-  router.push("/")
   window.glb.lxsocket.socketObj.connect();
+  router.push("/")
 }
 const hideTimeout = ref(null);
 
