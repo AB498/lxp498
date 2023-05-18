@@ -38,7 +38,7 @@ window.glb._serverSynced = {};
 const socketURL = window.glb.baseUrl;
 const socketOptions = computed(() => ({
   extraHeaders: {
-    Authorization: `Bearer ${window.glb.jwt}`
+    Authorization: `Bearer ${window.glb.jwt || ''}`
   }
 }));
 window.glb.lxsocket.socketObj = io(socketURL, socketOptions);
