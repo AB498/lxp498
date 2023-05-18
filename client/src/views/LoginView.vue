@@ -70,8 +70,7 @@ async function loginWithGoogle() {
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-full ">
-      HI
+    <div class="flex flex-col w-full h-full ">
     <div class="flex flex-col w-full h-full bg-cyan-900">
       <div
         class="flex flex-col justify-center items-center login border w-96 self-center rounded m-6 transition pb-8 space-y-4 bg-gray-900"
