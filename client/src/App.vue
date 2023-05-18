@@ -15,6 +15,7 @@ const router = useRouter()
 function logout() {
   window.glb.loggedIn = false
   window.glb.user = null
+  window.glb.jwt = null
   window.glb.lxsocket.socketObj.disconnect()
 }
 
