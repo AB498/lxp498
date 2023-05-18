@@ -6,7 +6,6 @@ node_modules/
 glb/
 # dist/
 
-
 token.json
 sentences.tsv
 eng_sentences.tsv
