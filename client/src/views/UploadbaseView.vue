@@ -6,7 +6,8 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 </script>
-<template>
+<template> 
+
   <div class="w-full h-full  bg-slate-800 ">
     <div class="flex w-full h-full ">
       <div class="basis-11/12 h-full w-full bg-fuchsia-400 overflow-auto">

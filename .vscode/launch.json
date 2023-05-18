@@ -11,7 +11,7 @@
       "request": "launch",
       "restart": true,
       "runtimeExecutable": "concurrently",
-      "runtimeArgs": ["cd client && npm run dev", "cd server && npm start"],
+      "runtimeArgs": ["cd client && npm start", "cd server && npm start"],
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
     }

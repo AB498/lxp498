@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "nodemon --watch . --exec \"npm run build && serve dist -l 5173\""
   },
   "dependencies": {
     "@vueform/toggle": "^2.1.3",

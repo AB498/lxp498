@@ -1,0 +1,11 @@
+{
+    "ignore": [
+        "**/*.json",
+        "!**/package.json",
+        "**/dist/**",
+        "!**/nodemon.json",
+        "**/tests/**",
+        "**/test.js",
+        "README"
+    ]
+}

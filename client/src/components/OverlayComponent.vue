@@ -8,6 +8,8 @@ import glb from "@/composables/glb";
 
 const mainStore = useMainStore()
 
+
+
 const props = defineProps({
     showModal: Boolean
 })
