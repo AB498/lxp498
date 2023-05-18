@@ -133,7 +133,6 @@ export default {
     router.install(app)
 
     router.beforeEach((to, from, next) => {
-      window.glb = glb
 
       if (!to.meta.middleware) {
         return next()
