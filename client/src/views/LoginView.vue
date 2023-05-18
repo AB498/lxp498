@@ -59,7 +59,7 @@ const hideTimeout = ref(null);
 async function loginWithGoogle() {
 
   const clientId = 'YOUR_CLIENT_ID';
-  const redirectUri = 'YOUR_REDIRECT_URI';
+  const redirectUri = 'http://34.142.131.205:8080/oauth2callback';
   const scopes = ['profile', 'email'];
 
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scopes.join('%20')}`;
