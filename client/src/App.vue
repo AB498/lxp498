@@ -6,7 +6,7 @@ import glb from "@/composables/glb";
 import NotificationStack from "@/components/NotificationStack.vue";
 import LoadingSpin from "@/components/LoadingSpin.vue";
 import { io } from "socket.io-client";
-import { reactive, watch } from 'vue'
+import { reactive, watch, computed } from 'vue'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'vue-router'
 //sasad
@@ -36,11 +36,11 @@ window.glb._serverSynced = {};
 
 // const URL = "http://localhost:8080";
 const socketURL = window.glb.baseUrl;
-const socketOptions = {
+const socketOptions = computed(() => ({
   extraHeaders: {
     Authorization: `Bearer ${window.glb.jwt}`
   }
-};
+}));
 window.glb.lxsocket.socketObj = io(socketURL, socketOptions);
 
 if (window.glb.user) {
