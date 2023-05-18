@@ -9,6 +9,7 @@ token.json
 sentences.tsv
 eng_sentences.tsv
 sentence_database_main.sqlite
+*.sqlite
 
 # Logs
 logs
