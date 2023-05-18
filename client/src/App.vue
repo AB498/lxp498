@@ -41,7 +41,24 @@ const socketOptions = computed(() => ({
     Authorization: `Bearer ${window.glb?.jwt || ''}`
   }
 }));
-window.glb.lxsocket.socketObj = io(socketURL, socketOptions.value);
+window.glb.lxsocket.socketObj = null;
+
+function initializeSocket() {
+  // Create and connect the socket
+  window.glb.lxsocket.socketObj = io(socketURL, socketOptions);
+  window.glb.lxsocket.socketObj.connect();
+}
+
+function disconnectSocket() {
+  // Disconnect the socket if it exists and is connected
+  if (window.glb.lxsocket.socketObj && window.glb.lxsocket.socketObj.connected) {
+    window.glb.lxsocket.socketObj.disconnect();
+    window.glb.lxsocket.socketObj = null;
+  }
+}
+
+window.glb.lxsocket.initializeSocket = initializeSocket;
+window.glb.lxsocket.disconnectSocket = disconnectSocket;
 
 if (window.glb.user) {
   console.log("connecting to socket");
