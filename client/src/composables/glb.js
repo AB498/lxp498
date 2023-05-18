@@ -307,7 +307,6 @@ store.reloadUser = async () => {
   store.jwt = res.data.jwt;
 
 }
-store.reloadUser(); // reload user on page load
 
 
 export default store
