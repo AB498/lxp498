@@ -46,7 +46,7 @@ window.glb.lxsocket.socketObj = null;
 
 function initializeSocket() {
   // Create and connect the socket
-  console.log(socketOptions.value)
+  // console.log(socketOptions.value)
   window.glb.lxsocket.socketObj = io(socketURL, socketOptions.value);
   window.glb.lxsocket.socketObj.connect();
 
