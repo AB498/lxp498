@@ -45,7 +45,7 @@ window.glb.lxsocket.socketObj = io(socketURL, socketOptions.value);
 
 if (window.glb.user) {
   console.log("connecting to socket");
-  window.glb.lxsocket.socketObj.connect();
+  // window.glb.lxsocket.socketObj.connect();
 }
 
 window.glb.lxsocket.socketObj.on("connect", () => {
