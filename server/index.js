@@ -21,6 +21,7 @@ const { manageSocketIO } = require('./socketIO');
 const rootDirectory = path.dirname(require.main.filename);
 const port = 80;
 
+
 var accessToken = "";
 const app = express();
 const server = http.createServer(app);
