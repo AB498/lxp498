@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Sen&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Signika&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Galada&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -72,6 +73,9 @@
 
   .btn {
     @apply rounded-sm bg-blue-600 hover:bg-blue-800 border-b-2 p-2 active:outline-none active:ring-2 active:ring-gray-300 active:bg-blue-900;
+  }
+  .flex {
+    @apply flex-nowrap;
   }
 }
 ::-webkit-scrollbar {

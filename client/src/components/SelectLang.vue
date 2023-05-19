@@ -1,7 +1,7 @@
 <script setup>
 import langsImp from "../assets/json/langs_out.json";
 import { nextTick, ref } from 'vue';
-import Fuse from 'fuse.js'
+const Fuse = window.Fuse;
 
 let langs = ref(Object.entries(langsImp).map(([key, value]) => {
     return {

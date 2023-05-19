@@ -26,7 +26,9 @@ export default {
         'ripple': 'ripple 2s linear infinite',
       },
       fontFamily: {
-        'sans': ['Signika', 'sans-serif']
+        'sans': ['Signika', 'sans-serif'],
+        'Galada': ["Galada", "sans-serif"],
+
       },
     },
   },

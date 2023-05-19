@@ -13,18 +13,6 @@ const langPrgs = ref([]);
 
 langPrgs.value = window.glb.user.stats.languages;
 console.log(langPrgs.value)
-onMounted(() => {
-    // await(await fetch(window.glb.baseUrl + '/api/progress/open', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer ' + window.glb.token,
-    //     },
-    //     body: JSON.stringify({
-    //         language: 'en'
-    //     })
-    // })).json()
-})
 
 async function addProgressCallback(selectedLang) {
 

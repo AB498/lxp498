@@ -62,7 +62,7 @@ const hideTimeout = ref(null);
 async function loginWithGoogle() {
 
   const clientId = 'YOUR_CLIENT_ID';
-  const redirectUri = 'http://34.142.131.205:8080/oauth2callback';
+  const redirectUri = window.baseUrl + '/oauth2callback';
   const scopes = ['profile', 'email'];
 
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scopes.join('%20')}`;
@@ -70,15 +70,16 @@ async function loginWithGoogle() {
   window.location.href = authUrl;
 }
 
+
 </script>
 
 <template>
-    <div class="flex flex-col w-full h-full ">
+  <div class="flex flex-col w-full h-full ">
     <div class="flex flex-col w-full h-full bg-cyan-900">
       <div
         class="flex flex-col justify-center items-center login border w-96 self-center rounded m-6 transition pb-8 space-y-4 bg-gray-900"
         @mouseover="">
-        <div class="bg-violet-900/50  w-full flex items-center justify-around rounded">
+        <div class="bg-violet-900/50  w-full flex flex-nowrap items-center justify-around rounded">
           <div
             :class="!window.glb.showSignUp && 'bg-indigo-700 border-b-2 border-red-500 shadow-white' || 'text-gray-500'"
             class=" p-4 w-full center-main rounded-t" @click="window.glb.showSignUp = false">
@@ -102,8 +103,8 @@ async function loginWithGoogle() {
 
         <form id="loginForm" method="post" @submit.prevent="" class="space-y-4 m-2" v-if="!window.glb.showSignUp">
           <div class="flex-row login-error bg-secondary border-b-3 border-red-600"></div>
-          <v-text-field type="email" label="Email" v-model="email" hide-details class="w-64"></v-text-field>
-          <v-text-field type="password" label="Password" v-model="password" hide-details class="w-64"></v-text-field>
+          <input type="email" label="Email" v-model="email" hide-details class="w-64" />
+          <input type="password" label="Password" v-model="password" hide-details class="w-64" />
           <label class="form-check-label space-x-2 center-cross hover-ripple p-2 rounded" v-ripple>
             <input class="w-4 h-4" type="checkbox" name="remember" v-model="rememberMe">
             <span class="text-white ">Remember me</span>
@@ -115,8 +116,8 @@ async function loginWithGoogle() {
         <form v-else id="loginForm" method="post" @submit.prevent="" class="space-y-4 m-2">
           <div class=" flex-row login-error bg-secondary border-b-3 border-red-600">
           </div>
-          <v-text-field type="email" label="Email" v-model="email" hide-details class="w-64"></v-text-field>
-          <v-text-field type="password" label="Password" v-model="password" hide-details class="w-64"></v-text-field>
+          <input type="email" label="Email" v-model="email" hide-details class="w-64" />
+          <input type="password" label="Password" v-model="password" hide-details class="w-64" />
           <label class="form-check-label space-x-2 center-cross hover-ripple p-2 rounded" v-ripple>
             <input class="w-4 h-4" type="checkbox" name="remember" v-model="rememberMe">
             <span class="text-white ">Remember me</span>

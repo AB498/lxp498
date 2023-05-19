@@ -91,7 +91,7 @@ const store = reactive(globalProxy)
 watch(store, (val, oldValue) => {
   // console.log('store changed', store.user)
   // Object.assign(store, val)
-  let strFied = JSON.stringify(Object.fromEntries(Object.entries(store).filter(([k, v]) => !k.startsWith('_'))), circularJSONReplacer())
+  let strFied = JSON.stringify(Object.fromEntries(Object.entries(store).filter(([k, v]) => !k.startsWith('_') && typeof v != 'function')), circularJSONReplacer())
 
   localStorage.glb = strFied;
 
