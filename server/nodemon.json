@@ -1,10 +1,13 @@
 {
     "ignore": [
-        "./src",
         "!./package.json",
         "!./nodemon.json",
         "**/tests/**",
         "**/test.js",
         "README"
-    ]
+    ],
+    "watch": [
+        "src"
+    ],
+    "ext": "js"
 }
