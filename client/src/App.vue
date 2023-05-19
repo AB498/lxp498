@@ -25,8 +25,25 @@ function logout() {
   window.glb.loggedIn = false
   window.glb.user = null
   window.glb.jwt = null
-  window.glb.lxsocket.disconnectSocket();
 }
+// if (window.glb.user) {
+//   console.log("connecting to socket");
+//   window.glb.lxsocket.initializeSocket();
+// }
+
+const initializeLoad = ref(false);
+watch([() => window.glb.loggedIn, initializeLoad], (newVal, oldVal) => {
+  if (window.glb.loggedIn) {
+    console.log("connecting to socket");
+    window.glb.lxsocket.initializeSocket();
+  } else {
+    console.log("disconnecting from socket");
+    window.glb.lxsocket.disconnectSocket();
+  }
+})
+
+initializeLoad.value = true;
+
 
 window.glb.lxsocket = {
   connected: false,
@@ -94,10 +111,7 @@ function disconnectSocket() {
 window.glb.lxsocket.initializeSocket = initializeSocket;
 window.glb.lxsocket.disconnectSocket = disconnectSocket;
 
-if (window.glb.user) {
-  console.log("connecting to socket");
-  window.glb.lxsocket.initializeSocket();
-}
+
 //ds dsa
 ///// rnerwqa's
 

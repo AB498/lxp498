@@ -32,7 +32,6 @@ async function signUp() {
   window.glb.loggedIn = true;
   window.glb.user = user.user;
   window.glb.jwt = user.jwt;
-  window.glb.lxsocket.initializeSocket();
   router.push("/")
 
 }
@@ -54,7 +53,6 @@ async function login() {
   window.glb.loggedIn = true;
   window.glb.user = user.user;
   window.glb.jwt = user.jwt;
-  window.glb.lxsocket.initializeSocket();
   router.push("/")
 }
 const hideTimeout = ref(null);
@@ -67,7 +65,7 @@ async function loginWithGoogle() {
   const access_type = 'offline';
   const include_granted_scopes = 'true'
 
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scopes.join('%20')}&access_type=${access_type}&include_granted_scopes=${include_granted_scopes}`;
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&prompt=consent&scope=${scopes.join('%20')}&access_type=${access_type}&include_granted_scopes=${include_granted_scopes}`;
 
   window.location.href = authUrl;
 }
@@ -102,8 +100,7 @@ async function loginWithGoogle() {
           </div>
           <div class="w-3/4 h-0.5 bg-red-600"></div>
         </div>
-
-        <form id="loginForm" method="post" @submit.prevent="" class="space-y-4 m-2" v-if="!window.glb.showSignUp">
+            <form id="loginForm" method="post" @submit.prevent="" class="space-y-4 flex  flex-col items-start m-2" v-if="!window.glb.showSignUp">
           <div class="flex-row login-error bg-secondary border-b-3 border-red-600"></div>
           <input type="email" label="Email" v-model="email" hide-details class="w-64" />
           <input type="password" label="Password" v-model="password" hide-details class="w-64" />

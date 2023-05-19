@@ -367,7 +367,7 @@ const globalProxy = createProxy({
 
             const user = await models.User.findByPk(decodedUser.id);
 
-            if (!user || !user.jwts.includes(jwt)) {
+            if (!user || !user.jwts || !user.jwts.includes(jwt)) {
                 console.log("No user");
                 return res.status(401).send("Unauthorized");
             }

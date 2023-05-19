@@ -128,16 +128,47 @@ const router = createRouter({
     }
   ]
 })
+
+
+async function cookieAutoLogin({ next, store }) {
+
+  const cookieName = 'tempJwt'; // Replace with your desired cookie name
+  const cookieValue = getCookie(cookieName);
+  document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  if (cookieValue) {
+    await window.glb.reloadUser(cookieValue);
+    if (window.glb.user) {
+      return next();
+    }
+    // And redirect to the login page
+    return next({ name: 'login' });
+
+  } else {
+    return next();
+  }
+}
+function getCookie(name) {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(name + '=')) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  return null;
+}
 export default {
   install(app, options) {
     router.install(app)
 
-    router.beforeEach((to, from, next) => {
+    router.beforeEach(async (to, from, next) => {
 
       if (!to.meta.middleware) {
         return next()
       }
-      const middleware = to.meta.middleware
+
+      const defaultMiddlewares = [cookieAutoLogin];
+      const middleware = [...defaultMiddlewares, ...to.meta.middleware]
 
       const context = {
         to,

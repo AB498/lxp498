@@ -16,7 +16,7 @@ const userController = require('./controllers/userController');
 const videoController = require('./controllers/videoController');
 const ubController = require('./controllers/ubController');
 const adminController = require('./controllers/adminController');
-
+const jwtUtils = require('./utils/jwt');
 const { manageSocketIO } = require('./socketIO');
 //server setup
 const rootDirectory = path.dirname(require.main.filename);
@@ -150,7 +150,7 @@ function proxyRequest(req, res, target) {
 }
 
 
-app.get('/oauth2callback', async (req, res) => {
+app.get('/oauth2callback', async (req, res, next) => {
     console.log('oauth2callback');
     const code = req.query.code; // Get the authorization code from the query parameters
 
@@ -175,53 +175,55 @@ app.get('/oauth2callback', async (req, res) => {
         console.log('Access Token:', accessToken);
         console.log('Refresh Token:', refreshToken);
 
-        // await models.User.update({ gcpAccessToken: accessToken, gcpRefreshToken: refreshToken }, { where: { id: req.user.id } })
+        const [err2, response2] = await global.glb.safeAsync(axios.get('https://people.googleapis.com/v1/people/me', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`, // Include the access token in the Authorization header
+            },
+            params: {
+                personFields: 'names,emailAddresses,photos', // Specify the fields you want to retrieve
+            },
+        }));
 
-        try {
-            // Make a request to the Google People API to retrieve the user's profile
-            const [err, response] = await global.glb.safeAsync(axios.get('https://people.googleapis.com/v1/people/me', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`, // Include the access token in the Authorization header
-                },
-                params: {
-                    personFields: 'names,emailAddresses,photos', // Specify the fields you want to retrieve
-                },
-            }));
+        // Extract the profile data from the response2
+        const profile = response2.data;
 
-            // Extract the profile data from the response
-            const profile = response.data;
+        const email = profile.emailAddresses.filter(email => email.metadata.primary)[0].value;
 
-            const email = profile.emailAddresses.filter(email => email.metadata.primary)[0].value;
+        // Process the profile data as needed
+        console.log('Profile:', email);
 
-            // Process the profile data as needed
-            console.log('Profile:', email);
+        let triedUser = null;
+        if (await models.User.findOne({ where: { email: email } }) == null) {
+            triedUser = await models.User.create({
+                email: email,
+                gcpAccessToken: accessToken,
+                gcpRefreshToken: refreshToken,
+                loginType: 'google',
+                firstName: profile.names[0].givenName,
+                lastName: profile.names[0].familyName,
+                pfpUrl: profile.photos[0].url,
+            });
 
-            if (await models.User.findOne({ where: { email: email } }) == null) {
-                await models.User.create({
-                    email: email,
-                    gcpAccessToken: accessToken,
-                    gcpRefreshToken: refreshToken,
-                    loginType: 'google',
-                    firstName: profile.names[0].givenName,
-                    lastName: profile.names[0].familyName,
-                    pfpUrl: profile.photos[0].url,
-                });
-            } else {
-                await models.User.update({
-                    gcpAccessToken: accessToken,
-                }, { where: { email: email } })
-            }
+        } else {
+            triedUser = await models.User.update({
+                gcpAccessToken: accessToken,
+            }, { where: { email: email } })
 
-            // Redirect the user to a desired page after successful authentication
-            return res.redirect('/dashboard'); // Replace '/dashboard' with your desired destination URL
-        } catch (error) {
-            console.error('Error retrieving profile:', error.message);
-            // Handle the error appropriately
+            triedUser = await models.User.findOne({ where: { email: email } });
+
+
+        }
+        if (triedUser == null) {
             return res.status(500).send('Error retrieving profile');
         }
 
-        // Redirect the user to a desired page after successful authentication
-        return res.redirect('/dashboard'); // Replace '/dashboard' with your desired destination URL
+        const newJwt = await jwtUtils.encode({ id: triedUser.id, email: triedUser.email, loginType: triedUser.loginType });
+        triedUser.jwts = [newJwt, ...(triedUser.jwts ??= [])];
+        await triedUser.save();
+
+        req.user = triedUser.dataValues;
+        res.cookie('tempJwt', newJwt);
+        return res.redirect('/');
     } catch (error) {
         console.error('Error exchanging authorization code:', error.message);
         // Handle the error appropriately

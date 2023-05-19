@@ -34,6 +34,7 @@ module.exports.loginUser = async (req, res) => {
         ],
     });
     if (!user) return res.status(401).send("Unauthorized");
+    if (user.loginType === 'google') return res.status(401).json({ lxerrormessage: "User has no password. Please login in some other way." });
     if (!bcrypt.compareSync(password, user.password)) return res.status(401).send("Unauthorized");
     let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
     user.jwts = [newJwt, ...(user.jwts ??= [])];

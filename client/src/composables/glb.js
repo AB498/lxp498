@@ -245,17 +245,20 @@ store.safeAsync = async (asyncFn, func) => {
   return [errors, res];
 }
 store.isObject = isObject
-store.errorMessages = (errorObject) => {
-  if (typeof errorObject === "string" && errorObject != '')
-    return errorObject;
-
-  let errMessages = [];
+store.errorMessages = (errorObject, lxerrormessage = []) => {
+  let errMessages = []
   if (store.isObject(errorObject)) {
+    if (errorObject["lxerrormessage"]) {
+      console.log(errorObject["lxerrormessage"])
+      lxerrormessage.push(errorObject["lxerrormessage"]);
+      return [];
+    }
     for (let key in errorObject) {
+      if (lxerrormessage.length > 0) break;
       if (isObject(errorObject[key])) {
-        let nestedErrors = store.errorMessages(errorObject[key]);
+        let nestedErrors = store.errorMessages(errorObject[key], lxerrormessage);
         if (nestedErrors.length > 0)
-          errMessages.push(nestedErrors);
+          errMessages.push(...nestedErrors);
       }
       if (key === "message") {
         errMessages.push(errorObject[key]);
@@ -267,13 +270,12 @@ store.errorMessages = (errorObject) => {
         errMessages.push(errorObject[key]);
       } else if (key === "message") {
         errMessages.push(errorObject[key]);
-      } else if (key === "response") {
-        if (errorObject[key].data)
-          errMessages.push(errorObject[key].data);
       }
     }
   }
 
+  if (lxerrormessage.length > 0)
+    return lxerrormessage;
   return errMessages;
 
 }
@@ -291,21 +293,25 @@ store.safeAuthedReq = async (url, body) => {
   return res.data;
 
 }
-store.reloadUser = async () => {
+store.reloadUser = async (jwt) => {
   let [err, res] = await store.safeAsync(
     axios.post(store.baseUrl + "/api/getSelf", {}, {
       headers: {
-        Authorization: "Bearer " + store.jwt
+        Authorization: "Bearer " + (jwt || store.jwt)
       }
     }));
   if (err) {
     store.user = null;
+    store.jwt = null;
+    store.loggedIn = false;
     store.addNotf(store.errorMessages(err));
-    return;
+    return null;
   }
   store.user = res.data.user;
   store.jwt = res.data.jwt;
-
+  store.loggedIn = true;
+  // store.addNotf("Logged in as " + store.user.username);
+  return res.data;
 }
 
 
