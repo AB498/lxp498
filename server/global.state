@@ -1,0 +1,398 @@
+{
+  "videosState": {},
+  "states": {},
+  "accessToken": "ya29.c.b0Aaekm1KeadFDtQnmINxa4r8cy7JnVUFKbk23PcLHmYCJWIG3yO6mInhugRjDX8oeJIcn83ApF5U-lPa4o3JctmtIXf425yq0uMaGPZFo_ro7Foz4QZfW-EhsLSkH1pfvoVkYSmZHCZgxkKpt3TGm8gIC5kdeSmTmv44R7DWZ7toyvsaHZNJr3kRcS0TvlHxEZV9XjUTfMQCDnoWyq5sa25H1hIOIzStj0mK45CIH15j9SFUg7YSf-Dx2ALUYQuzTfVLUpdxK68_GxRk_uxeCiIdY7GTXzy_A9qV6_ASFSOB6U3fiFZ3K3Uas-w7fylk13lMzhAj923iSMx_mH345CM8Ym7j5bFFx3al4bvsUasMw1hS0w2OxhFcios2g1urrQZxMikrfIujjYpR07BiiXy4si4rO9wa9_d3Sks-3IJq6flq3gMxQkt73OQe-liOwuXtq-QO73l_iken21xU_c66lv44Mvmk-d2fkt8g5bQ49dqMuBQ5uBmBcfzZkYFYr5wMV-p3q1kqkOaOifhdJnX9sbw6oqI8ybFlwFhm5bpFgm4iWS6R_aMo17oy4_7UgF-tqq0cecRpquSxqUUw5em1o68hO5JUMmobt4MB45SMdFwtgueggvVd1BjuUs97Xuo7V1fIblR6lf1hIJJW4_XRdnRMerFlQQBiev8M_k7dnfyx8nagha_m1M7nZ4Bhn7c05hX1tBmJyxxyn_yendZQYSYRew6g_X83mdpRuzSVmWbiRmnnbaO0bqWhp612J63kSrj2izFBSSJpUc2JWsldZ0xZ2vyO6WbRQgXjq1ckbZ7gvFpkZdk4dhvBVcMx3BMoWq-Iw4f50ufSWQ7xocjBVwSBjZbzrYM0svUtvc0BB7gXfekyRiVcjoeclcdr1i-tt_9nc1obkg3pj_U2mYogmZOpr_t8qQuw2_1Mzh4gwqlV-MWXnuQgdRnSOSg3Wqwx86U5nZ48Wdu7Jvc3FzhiI2-yxmFm1lQ6YMqxVxv09idcQ-ee1vQl",
+  "apiEndpoints": [
+    {
+      "method": "GET",
+      "url": "/api/listProgress",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/createProgress",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/deleteAllProgress",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/deleteProgress/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/updateProgress/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getProgress",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/listUsers",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/registerUser",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/deleteAllUsers",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/deleteUser/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/updateUser/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getUser/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getSelf",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getUserByEmail/:email",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/loginUser",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/listVideos",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/deleteAllVideos",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/deleteVideo/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/updateVideo/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getVideo/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/generateSubtitles",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/videos/getSuggestedVideos",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/uploadbase/listVideos",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/uploadbase/getSuggestedVideos",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/deleteAllVideos",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/deleteVideo/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/updateVideo/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/getVideo/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/generateSubtitles",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/uploadVideos",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/getHistory",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/addHistory",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/uploadbase/streamVideo/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/admin/apicontrol",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/admin/apis",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    }
+  ]
+}
