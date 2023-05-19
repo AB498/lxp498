@@ -98,7 +98,7 @@ if (window.glb.user) {
   console.log("connecting to socket");
   window.glb.lxsocket.initializeSocket();
 }
-
+// ds
 /////sad
 </script>
 
