@@ -1,8 +1,8 @@
 {
     "ignore": [
-        "**/*.json",
-        "!**/package.json",
-        "!**/nodemon.json",
+        "./src",
+        "!./package.json",
+        "!./nodemon.json",
         "**/tests/**",
         "**/test.js",
         "README"
