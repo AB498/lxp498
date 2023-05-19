@@ -99,8 +99,8 @@ if (window.glb.user) {
   window.glb.lxsocket.initializeSocket();
 }
 
+//
 </script>
-
 
 
 <template>
