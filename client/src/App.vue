@@ -98,9 +98,7 @@ if (window.glb.user) {
   console.log("connecting to socket");
   window.glb.lxsocket.initializeSocket();
 }
-//dsa dsdsadfsdf
-/////dsad
-//dsa
+//dsa 
 /////
 
 </script>
