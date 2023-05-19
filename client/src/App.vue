@@ -127,7 +127,7 @@ if (window.glb.user) {
                   </span>
                 </span>
                 <div class="font-Galada text-4xl p-1">
-                    Lxdfsf
+                      Lx
                 </div>
               </RouterLink>
             </template>
