@@ -7,6 +7,8 @@
         "README"
     ],
     "watch": [
+        "index.js",
+        "s.js",
         "src"
     ],
     "ext": "js"

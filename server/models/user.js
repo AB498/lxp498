@@ -4,7 +4,11 @@ module.exports = sequelize => {
     const User = sequelize.define('User', {
         username: DataTypes.STRING,
         password: DataTypes.STRING,
-        email: DataTypes.STRING,
+        email: {
+            type: DataTypes.STRING,
+            unique: true,
+            required: true,
+        },
         jwts: {
             type: DataTypes.TEXT,
             get: function () {
@@ -60,7 +64,25 @@ module.exports = sequelize => {
 
                 return { languages };
             }
-        }
+        },
+        gcpAccessToken: DataTypes.STRING,
+        gcpRefreshToken: DataTypes.STRING,
+        gcpTokenExpiry: DataTypes.STRING,
+        gcpTokenScope: DataTypes.STRING,
+        gcpTokenType: DataTypes.STRING,
+        gcpIdToken: DataTypes.STRING,
+        gcpProfile: {
+            type: DataTypes.TEXT,
+            get: function () {
+                return global.glb.tryParseJSON(this.getDataValue('gcpProfile'));
+            }
+        },
+        emailVerified: DataTypes.BOOLEAN,
+        emailVerificationCode: DataTypes.STRING,
+        emailVerificationCodeExpiry: DataTypes.STRING,
+        loginType: DataTypes.STRING,
+        pfpUrl: DataTypes.STRING,
+
     });
 
     return User;

@@ -1,5 +1,6 @@
 const isDev = true;
 
+const axios = require('axios')
 const s = require('./s');
 const models = require("./models");
 const fword = require("./fword");
@@ -148,6 +149,85 @@ function proxyRequest(req, res, target) {
     });
 }
 
+
+app.get('/oauth2callback', async (req, res) => {
+    console.log('oauth2callback');
+    const code = req.query.code; // Get the authorization code from the query parameters
+
+    const clientId = '479533631965-jbl68e4tc4pfk9iesjr04kcq7tt3po0q.apps.googleusercontent.com';
+    try {
+        // Construct the token exchange request payload
+        const requestBody = {
+            code: code,
+            client_id: clientId,
+            client_secret: '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',
+            redirect_uri: 'http://lanxplore.xyz/oauth2callback',
+            grant_type: 'authorization_code',
+        };
+
+        // Make a POST request to the token endpoint
+        const [err, response] = await global.glb.safeAsync(axios.post('https://oauth2.googleapis.com/token', requestBody));
+        // Extract the access token and refresh token from the response
+        const accessToken = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+
+        // Process the tokens as needed
+        console.log('Access Token:', accessToken);
+        console.log('Refresh Token:', refreshToken);
+
+        // await models.User.update({ gcpAccessToken: accessToken, gcpRefreshToken: refreshToken }, { where: { id: req.user.id } })
+
+        try {
+            // Make a request to the Google People API to retrieve the user's profile
+            const [err, response] = await global.glb.safeAsync(axios.get('https://people.googleapis.com/v1/people/me', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`, // Include the access token in the Authorization header
+                },
+                params: {
+                    personFields: 'names,emailAddresses,photos', // Specify the fields you want to retrieve
+                },
+            }));
+
+            // Extract the profile data from the response
+            const profile = response.data;
+
+            const email = profile.emailAddresses.filter(email => email.metadata.primary)[0].value;
+
+            // Process the profile data as needed
+            console.log('Profile:', email);
+
+            if (await models.User.findOne({ where: { email: email } }) == null) {
+                await models.User.create({
+                    email: email,
+                    gcpAccessToken: accessToken,
+                    gcpRefreshToken: refreshToken,
+                    loginType: 'google',
+                    firstName: profile.names[0].givenName,
+                    lastName: profile.names[0].familyName,
+                    pfpUrl: profile.photos[0].url,
+                });
+            } else {
+                await models.User.update({
+                    gcpAccessToken: accessToken,
+                }, { where: { email: email } })
+            }
+
+            // Redirect the user to a desired page after successful authentication
+            return res.redirect('/dashboard'); // Replace '/dashboard' with your desired destination URL
+        } catch (error) {
+            console.error('Error retrieving profile:', error.message);
+            // Handle the error appropriately
+            return res.status(500).send('Error retrieving profile');
+        }
+
+        // Redirect the user to a desired page after successful authentication
+        return res.redirect('/dashboard'); // Replace '/dashboard' with your desired destination URL
+    } catch (error) {
+        console.error('Error exchanging authorization code:', error.message);
+        // Handle the error appropriately
+        return res.status(500).send('Error exchanging authorization code');
+    }
+});
 app.use('/', async (req, res) => {
     try {
         await proxyRequest(req, res, 'http://localhost:5173');
@@ -157,15 +237,6 @@ app.use('/', async (req, res) => {
         res.statusCode = 500;
         res.end('Frontend server is down');
     }
-});
-app.get('/oauth2callback', (req, res) => {
-    const code = req.query.code; // Get the authorization code from the query parameters
-    console.log(code);
-    // Process the authorization code and perform token exchange with Google OAuth2 API
-    // Your code to exchange the authorization code for access token and refresh token goes here
-
-    // Redirect the user to a desired page after successful authentication
-    res.redirect('/dashboard'); // Replace '/dashboard' with your desired destination URL
 });
 
 
