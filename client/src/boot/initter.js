@@ -29,6 +29,8 @@ export default boot(({ app }) => {
             loadingBar.style.left = '0';
             loadingBar.style.width = '100%';
             loadingBar.style.height = binding.value.height || '2px'; // Use a default height of 2px if not specified
+            // loadingBar.style.zIndex = '9999'; // Adjust the z-index as necessary
+
 
             // Customize the loading bar appearance
             if (binding.value.color) loadingBar.style.backgroundColor = binding.value.color

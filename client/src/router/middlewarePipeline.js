@@ -5,10 +5,10 @@ function middlewarePipeline(context, middleware, index) {
     return context.next
   }
 
-  return () => {
+  return async () => {
     const nextPipeline = middlewarePipeline(context, middleware, index + 1)
 
-    nextMiddleware({ ...context, next: nextPipeline })
+    await nextMiddleware({ ...context, next: nextPipeline })
   }
 }
 

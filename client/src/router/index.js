@@ -176,7 +176,7 @@ export default {
         next,
       }
 
-      return middleware[0]({
+      return await middleware[0]({
         ...context,
         next: middlewarePipeline(context, middleware, 1)
       })
