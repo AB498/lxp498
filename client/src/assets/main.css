@@ -143,6 +143,9 @@
 .hover-ripple:hover::after {
   animation: ripple 1s ease-out forwards;
 }
+.hover-ripple-fast:hover::after {
+  animation: ripple 0.3s ease-out forwards;
+}
 .loading-bar-container {
   position: relative;
   overflow: hidden;

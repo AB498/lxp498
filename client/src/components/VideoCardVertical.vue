@@ -14,7 +14,7 @@ import pic from "@/assets/logo.svg";
         <div
                     class="absolute h-full w-full hover:opacity-100 opacity-0  text-lg font-bold flex justify-center items-center  ">
                 <div
-                    class="w-full h-full bg-gradient-to-b from-indigo-500/75 to-emerald-700/25 break-words flex justify-center items-center space-x-2 text-yellow-400 hover-ripple">
+                        class="w-full h-full bg-gradient-to-b from-indigo-500/75 to-emerald-700/25 break-words flex justify-center items-center space-x-2 text-yellow-400 hover-ripple-fast">
                 <i class="fa fa-play-circle"></i>
                 <div>Play</div>
             </div>
