@@ -39,7 +39,7 @@ async function sendRequest(endpoint) {
 
                     <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
                         <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
-                            <inline-input v-model="endpoint.url" />
+                                <InlineInput v-model="endpoint.url" />
 
                         <div x-text="body"></div>
                         <div class="grow"></div>
