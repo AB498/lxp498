@@ -1,5 +1,6 @@
 <script setup>
 import { JsonView } from 'vue-json-viewer';
+import JsonEditorVue from 'json-editor-vue'
 
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
@@ -39,6 +40,8 @@ async function sendRequest(endpoint) {
                     </div>
                     <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                         v-model="endpoint.body"></textarea>
+                              <JsonEditorVue v-model="endpoint.body" v-bind="{/* local config */ }"/>
+
                      <JsonViewer
                             :value="endpoint.res"
                             class="bg-zinc-800" theme="my-awesome-json-theme">
