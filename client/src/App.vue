@@ -161,7 +161,7 @@ const searchText = ref("");
                           <input class="px-4 w-52 h-full rounded-full without-ring bg-transparent transition-all " placeholder="Search ..."
                           :class="searchCollapsed ? 'w-0 px-0 m-0' : ''" v-model="searchText"/>
                 <a href=""
-                                class="fa  text-gray-700 self-center hover:text-blue-500 w-8 h-8 rounded-full flex center hover:bg-gray-500/50 hover-ripple" 
+                                class="fa  text-gray-300 self-center hover:text-blue-500 w-8 h-8 rounded-full flex center hover:bg-gray-500/50 hover-ripple" 
                     :class="searchCollapsed ? 'fa-search' : 'fa-times'"
                     @click.prevent="searchCollapsed = !searchCollapsed; searchText = ''"
                 ></a>
