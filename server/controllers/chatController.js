@@ -10,7 +10,6 @@ module.exports.listChats = async (req, res) => {
 
 module.exports.createChat = async (req, res) => {
     const user1 = req.user;
-    console.log(req.body);
     const user2 = req.body.otherUserId;
     const user1Id = user1.id;
     const user2Id = user2;
@@ -38,7 +37,7 @@ module.exports.createChat = async (req, res) => {
         having: models.sequelize.literal(`COUNT(DISTINCT Users.id) = 2`), // Only include conversations with both users
     });
 
-    if (existingChat) {
+    if (existingChat && existingChat.length > 0) {
         return res.send(existingChat);
     }
 
