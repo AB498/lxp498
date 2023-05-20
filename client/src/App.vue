@@ -158,8 +158,8 @@ const searchText = ref("");
 
             <div
               class="  rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
-                    <input class="h-full rounded-full without-ring bg-transparent transition-all "
-                    placeholder="Search ..." :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4  w-52'" v-model="searchText" />
+              <input class="h-full rounded-full without-ring bg-transparent transition-all " placeholder="Search ..."
+                :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4  w-52'" v-model="searchText" />
               <a href=""
                 class="fa  text-gray-300 self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover:bg-gray-500/50 hover-ripple"
                 :class="searchCollapsed ? 'fa-search' : 'fa-times'"
@@ -226,11 +226,11 @@ const searchText = ref("");
 
       </div>
       <div class="bg-red-900 w-full h-[2px]" v-loading-bar="{ loading: true, height: '2px' }"></div>
-  <Suspense>
-        <div class="w-full h-full flex flex-col bg-gray-900 overflow-auto ">
+      <Suspense class="w-full h-full flex flex-col bg-gray-900 overflow-auto">
+        <div class="w-full h-full flex flex-col bg-gray-900 overflow-auto">
           <RouterView class="w-full h-full flex flex-col bg-gray-900 overflow-auto " />
         </div>
-  </Suspense>
+      </Suspense>
 
   </div>
 </template>
