@@ -1,7 +1,7 @@
 <script setup>
 import { JsonView } from 'vue-json-viewer';
 import JsonEditorVue from 'json-editor-vue'
-import axios from 'src/boot/axios';
+import axios from 'axios';
 
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
