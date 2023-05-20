@@ -14,7 +14,7 @@
 
 <body class="text-white bg-cyan-950">
     <div x-data="{ open: false, apiEndpoints: [] }" x-init="
-        apiEndpoints = (await (await fetch('http://localhost:80/admin/apis')).json())
+        apiEndpoints = (await (await fetch('http://lanxplore.xyz/admin/apis')).json())
         //console.log(apiEndpoints)
     ">
         <div class="space-y-2">
