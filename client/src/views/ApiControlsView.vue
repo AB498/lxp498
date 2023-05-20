@@ -16,9 +16,9 @@ window.glb.apiEndpoints = apiEndpoints.value
 
 async function sendRequest(endpoint) {
     if (endpoint.method.toUpperCase() == 'GET')
-        endpoint.res = await (await fetch('http://lanxplore.xyz' + endpoint.url)).json()
+        endpoint.res = await (await fetch('http://lanxplore.xyz/test' + endpoint.url)).json()
     else
-        endpoint.res = await (await fetch('http://lanxplore.xyz' + endpoint.url, {
+        endpoint.res = await (await fetch('http://lanxplore.xyz/test' + endpoint.url, {
             method: endpoint.method,
             headers: {
                 'Content-Type': 'application/json'
