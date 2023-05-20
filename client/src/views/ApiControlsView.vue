@@ -1,4 +1,6 @@
 <script setup>
+import { JsonView } from 'vue-json-viewer';
+
 
 const apiEndpoints = window.vue.ref(await(await fetch('http://lanxplore.xyz/admin/apis')).json())
 
@@ -12,7 +14,7 @@ async function sendRequest(endpoint) {
         body: endpoint.body ? endpoint.body : null
     }));
     try {
-        endpoint.res = JSON.stringify(await endpoint.res.json(), null, 2)
+        endpoint.res = (await endpoint.res.json())
     } catch (e) {
         endpoint.res = await res.text()
     }
@@ -36,7 +38,7 @@ async function sendRequest(endpoint) {
 
                     </div>
                         <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500" v-model="endpoint.body"></textarea>
-                            <div class="result bg-slate-500 p-2 border border-l-4 border-lime-500 overflow-auto h-64 " v-text="endpoint.res">
+                            <JsonView :src="endpoint.res" class="result bg-slate-500 p-2 border border-l-4 border-lime-500"></JsonView>
                 </div>
             </div>
         </div>
