@@ -18,6 +18,7 @@ const userController = require('./controllers/userController');
 const videoController = require('./controllers/videoController');
 const ubController = require('./controllers/ubController');
 const adminController = require('./controllers/adminController');
+const chatController = require('./controllers/chatController');
 const jwtUtils = require('./utils/jwt');
 const { manageSocketIO } = require('./socketIO');
 //server setup
