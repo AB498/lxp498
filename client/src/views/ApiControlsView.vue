@@ -13,6 +13,7 @@ async function sendRequest(endpoint) {
     }));
     try {
         endpoint.res = JSON.stringify(await endpoint / res.json())
+        console.log(endpoint.res)
     } catch (e) {
         endpoint.res = await res.text()
     }
