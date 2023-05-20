@@ -158,8 +158,8 @@ const searchText = ref("");
 
             <div
               class="  rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
-                <input class="px-4 w-52 h-full rounded-full without-ring bg-transparent transition-all border"
-                placeholder="Search ..." :class="searchCollapsed ? 'w-0 px-0 m-0' : ''" v-model="searchText" />
+                  <input class="px-4 h-full rounded-full without-ring bg-transparent transition-all "
+                  placeholder="Search ..." :class="searchCollapsed ? 'w-0 px-0 m-0' : ' w-52'" v-model="searchText" />
               <a href=""
                 class="fa  text-gray-300 self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover:bg-gray-500/50 hover-ripple"
                 :class="searchCollapsed ? 'fa-search' : 'fa-times'"
