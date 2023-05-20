@@ -12,7 +12,7 @@ async function sendRequest(endpoint) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: endpoint.body ? endpoint.body : null
+        body: endpoint.body ? JSON.strigify(endpoint.body) : null
     }));
     try {
         endpoint.res = (await endpoint.res.json())
