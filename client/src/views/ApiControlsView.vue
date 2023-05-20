@@ -1,6 +1,7 @@
 <script setup>
 import { JsonView } from 'vue-json-viewer';
 import JsonEditorVue from 'json-editor-vue'
+import axios from 'src/boot/axios';
 
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
@@ -14,19 +15,21 @@ apiEndpoints.value.forEach(element => {
 window.glb.apiEndpoints = apiEndpoints.value
 
 async function sendRequest(endpoint) {
+    if (endpoint.method.toUpperCase() == 'GET')
+        endpoint.res = await (await fetch('http://lanxplore.xyz' + endpoint.url)).json()
+    else
+        endpoint.res = await (await fetch('http://lanxplore.xyz' + endpoint.url, {
+            method: endpoint.method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: endpoint.body
+        })).json()
+    console.log(endpoint.res)
+    window.glb.apiEndpoints.find(x => x.url == endpoint.url).res = endpoint.res
+    window.glb.apiEndpoints.find(x => x.url == endpoint.url).body = endpoint.body
+    window.glb.apiEndpoints = window.glb.apiEndpoints
 
-    endpoint.res = (await fetch('http://lanxplore.xyz/test' + endpoint.url, {
-        method: endpoint.method,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: endpoint.body ? JSON.stringify(endpoint.body) : null
-    }));
-    try {
-        endpoint.res = (await endpoint.res.json())
-    } catch (e) {
-        endpoint.res = await endpoint.res.text()
-    }
 }
 
 
@@ -48,12 +51,10 @@ async function sendRequest(endpoint) {
                     </div>
                     <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                         v-model="endpoint.body"></textarea>
-                              <JsonEditorVue v-model="endpoint.body" v-bind="{/* local config */ }"/>
+                    <JsonEditorVue v-model="endpoint.body" v-bind="{/* local config */ }" />
 
-                     <JsonViewer
-                            :value="endpoint.res"
-                            class="bg-zinc-800" theme="my-awesome-json-theme">
-                          </JsonViewer>
+                    <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
+                    </JsonViewer>
                 </div>
             </div>
     </div>
