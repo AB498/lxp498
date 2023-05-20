@@ -72,21 +72,21 @@ export default boot(({ app }) => {
         },
         unmounted(el) {
             try {
-            console.log('loading-bar unmounted');
-            // Remove the loading bar when the directive is unmounted
-            const loadingBar = el.querySelector('.loading-bar');
-            if (loadingBar) {
-                el.removeChild(loadingBar);
-            }
+                console.log('loading-bar unmounted');
+                // Remove the loading bar when the directive is unmounted
+                const loadingBar = el.querySelector('.loading-bar');
+                if (loadingBar) {
+                    el.removeChild(loadingBar);
+                }
 
-            // Remove the loading bar container class
-            el.classList.remove('loading-bar-container');
+                // Remove the loading bar container class
+                el.classList.remove('loading-bar-container');
 
-            // Remove the overlay element from the body
-            const overlay = document.querySelector('.loading-overlay');
-            if (overlay) {
-                document.body.removeChild(overlay);
-            }
+                // Remove the overlay element from the body
+                const overlay = document.querySelector('.loading-overlay');
+                if (overlay) {
+                    el.removeChild(overlay);
+                }
             } catch (e) {
                 console.log(e);
             }
