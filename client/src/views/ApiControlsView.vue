@@ -75,7 +75,7 @@ async function sendRequest(endpoint) {
                             <!-- <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                             v-model="endpoint.body"></textarea> -->
                                 <div v-if="endpoint.body">
-                                    <JsonEditorVue class="jse-theme-dark" v-model="endpoint.body" 
+                                        <JsonEditorVue class="jse-theme-dark" value"endpoint.body" 
                                     v-bind="{/* local config */ }" />
                                 </div>
 
