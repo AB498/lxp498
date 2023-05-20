@@ -226,8 +226,11 @@ const searchText = ref("");
 
       </div>
       <div class="bg-red-900 w-full h-[2px]" v-loading-bar="{ loading: true, height: '2px' }"></div>
-
-    <RouterView class="w-full h-full flex flex-col bg-gray-900 overflow-auto " />
+  <Suspense>
+        <div class="w-full h-full flex flex-col bg-gray-900 overflow-auto ">
+          <RouterView class="w-full h-full flex flex-col bg-gray-900 overflow-auto " />
+        </div>
+  </Suspense>
 
   </div>
 </template>
