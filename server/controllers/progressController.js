@@ -78,7 +78,7 @@ module.exports.getProgress = async (req, res, next) => {
 
     const user = req.user;
     let progresses = await models.Progress.findAll({ where: { UserId: user.id, language: language } });
-    return res.send(progresses);
+    res.send(progresses);
 }
 
 module.exports.getProgressByUser = async (req, res) => {
