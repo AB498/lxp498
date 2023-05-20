@@ -43,7 +43,7 @@ async function sendRequest(endpoint) {
             <div class="flex flex-col bg-fuchsia-950">
                     <div class="flex w-full  items-center space-x-2 p-2">
 
-                            <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method" :class="endpoint.method == 'GET' ? 'bg-orange-400' : 'bg-blue-500'"></div>
+                                <div class="p-1 rounded" v-text="endpoint.method" :class="endpoint.method == 'GET' ? 'bg-orange-400' : 'bg-blue-500'"></div>
                         <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
                         <div v-for="param in endpoint.params">
                             <q-input v-model="endpoint.params[param]" outlined dense dark class="bg-slate-700 p-1 rounded"
