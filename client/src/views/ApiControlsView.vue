@@ -15,7 +15,7 @@ if (!window.glb.apiEndpoints)
 apiEndpoints.value.forEach(element => {
     element.body = window.glb.apiEndpoints.find(x => x.url == element.url)?.body
     element.res = window.glb.apiEndpoints.find(x => x.url == element.url)?.res
-    element.showRes = window.glb.apiEndpoints.find(x => x.url == element.url)?.show
+    element.show = window.glb.apiEndpoints.find(x => x.url == element.url)?.show
     element.params = window.glb.apiEndpoints.find(x => x.url == element.url)?.params
     element.params = element.url.match(/(?<=\/:)[a-zA-Z0-9]+/g)
 });
