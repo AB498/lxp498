@@ -49,35 +49,37 @@ async function sendRequest(endpoint) {
 
 <template>
         <div class="w-full h-full bg-red-400 overflow-auto">
-            <div v-for="endpoint in apiEndpoints">
-                <div class="flex flex-col bg-fuchsia-950">
-                    <div class="flex w-full  items-center space-x-2 p-2 hover-ripple-fast"
-                        v-loading-bar="{ loading: endpoint.loading }"
-                        :class="endpoint.res ? (endpoint.res.status == 200 ? 'bg-green-700' : 'bg-red-700') : 'bg-slate-700'">
+            <div class="w-full h-full bg-red-400 overflow-auto">
+                <div v-for="endpoint in apiEndpoints">
+                    <div class="flex flex-col bg-fuchsia-950">
+                        <div class="flex w-full  items-center space-x-2 p-2 hover-ripple-fast"
+                            v-loading-bar="{ loading: endpoint.loading }"
+                            :class="endpoint.res ? (endpoint.res.status == 200 ? 'bg-green-700' : 'bg-red-700') : 'bg-slate-700'">
 
-                        <div class="p-1 rounded" v-text="endpoint.method"
-                            :class="endpoint.method == 'GET' ? 'bg-orange-400' : 'bg-blue-500'"></div>
-                        <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
-                        <div v-for="param in endpoint.params">
-                            <q-input v-model="endpoint.params[param]" outlined dense dark class="bg-slate-700 p-1 rounded"
-                                :label="param"></q-input>
+                            <div class="p-1 rounded" v-text="endpoint.method"
+                                :class="endpoint.method == 'GET' ? 'bg-orange-400' : 'bg-blue-500'"></div>
+                            <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
+                            <div v-for="param in endpoint.params">
+                                <q-input v-model="endpoint.params[param]" outlined dense dark class="bg-slate-700 p-1 rounded"
+                                    :label="param"></q-input>
+                            </div>
+                            <div class="grow"></div>
+                            <i class="material-icons text-2xl text-lime-500 hover:bg-lime-500 hover:text-slate-900 cursor-pointer rounded-full w-8 h-8"
+                                @click="endpoint.show = !endpoint.show; window.glb.apiEndpoints.find(x => x.url == endpoint.url).show = endpoint.show"
+                                v-text="endpoint.show ? 'expand_less' : 'expand_more'"></i>
+                            <div class="btn" @click="sendRequest(endpoint); endpoint.show = true">Send</div>
+
                         </div>
-                        <div class="grow"></div>
-                        <i class="material-icons text-2xl text-lime-500 hover:bg-lime-500 hover:text-slate-900 cursor-pointer rounded-full w-8 h-8"
-                            @click="endpoint.show = !endpoint.show; window.glb.apiEndpoints.find(x => x.url == endpoint.url).show = endpoint.show"
-                            v-text="endpoint.show ? 'expand_less' : 'expand_more'"></i>
-                        <div class="btn" @click="sendRequest(endpoint); endpoint.show = true">Send</div>
-
-                    </div>
-                    <div class="flex flex-col w-full items-stretch  transition-all p-2"
-                        :class="endpoint.show ? 'h-auto' : 'h-0 opacity-0 pointer-events-none'">
-                        <!-- <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
+                        <div class="flex flex-col w-full items-stretch  transition-all p-2"
+                            :class="endpoint.show ? 'h-auto' : 'h-0 opacity-0 pointer-events-none'">
+                            <!-- <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                             v-model="endpoint.body"></textarea> -->
-                        <JsonEditorVue class="jse-theme-dark" v-model="endpoint.body" type="tree"
-                            v-bind="{/* local config */ }" />
+                            <JsonEditorVue class="jse-theme-dark" v-model="endpoint.body" type="tree"
+                                v-bind="{/* local config */ }" />
 
-                        <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
-                        </JsonViewer>
+                            <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
+                            </JsonViewer>
+                        </div>
                     </div>
                 </div>
             </div>
