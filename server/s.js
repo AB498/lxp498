@@ -380,6 +380,16 @@ const globalProxy = createProxy({
             res.status(500).send("Internal Server Error");
         }
     }
+    ,
+    async testAuthMiddleware(req, res, next) {
+        try {
+            const user = await models.User.findOne();
+            next();
+        } catch (error) {
+            console.error("Authentication error:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    }
 
 
 }, handler);

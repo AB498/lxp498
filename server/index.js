@@ -133,7 +133,7 @@ global.glb.apiEndpoints = [
 
 global.glb.apiEndpoints.forEach(endpoint => {
     app[endpoint.method.toLowerCase()](endpoint.url, ...endpoint.middlewares.main, ...endpoint.middlewares.both);
-    app[endpoint.method.toLowerCase()]('/test' + endpoint.url, ...endpoint.middlewares.test, ...endpoint.middlewares.both);
+    app[endpoint.method.toLowerCase()]('/test' + endpoint.url, ...(endpoint.middlewares.test ??= [global.glb.testAuthMiddleware]), ...endpoint.middlewares.both);
 
 })
 
