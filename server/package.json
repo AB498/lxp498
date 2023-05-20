@@ -18,6 +18,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.17.2",
+    "express-async-errors": "^3.1.1",
     "ffmetadata": "^1.7.0",
     "find-package-json": "^1.2.0",
     "fix-esm": "^1.0.1",
