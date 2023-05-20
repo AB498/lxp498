@@ -106,6 +106,11 @@ const router = createRouter({
       component: () => import('../views/AdminView.vue')
     },
     {
+      path: '/admin/apicontrols',
+      name: 'apicontrols',
+      component: () => import('../views/ApiControlsView.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
