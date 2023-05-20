@@ -55,8 +55,8 @@ async function sendRequest(endpoint) {
                     </div>
                     <div class="flex flex-col w-full items-stretch  transition-all p-2"
                         :class="endpoint.show ? 'h-auto' : 'h-0 opacity-0 pointer-events-none'">
-                        <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
-                            v-model="endpoint.body"></textarea>
+                            <!-- <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
+                            v-model="endpoint.body"></textarea> -->
                         <JsonEditorVue v-model="endpoint.body" v-bind="{/* local config */ }" />
 
                         <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
