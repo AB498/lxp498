@@ -384,7 +384,6 @@ const globalProxy = createProxy({
     async testAuthMiddleware(req, res, next) {
         try {
             const user = await models.User.findOne();
-            console.log(user);
             if (!user.jwts || user.jwts.length == 0)
                 user.jwts = [jwtUtil.encode({ id: user.id, email: user.email })];
             else
