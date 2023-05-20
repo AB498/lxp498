@@ -162,7 +162,7 @@ const searchCollapsed = ref(true);
                 :class="searchCollapsed ? 'w-0' : ''" />
               <a href=""
                 class="fa fa-search hover:scale-125 text-gray-400 self-center hover:text-blue-500 w-8 h-8 rounded-full flex center" 
-                @click="searchCollapsed = !searchCollapsed"
+                  @click.prevent="searchCollapsed = !searchCollapsed"
                 ></a>
             </div>
           </div>
