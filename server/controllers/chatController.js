@@ -27,7 +27,7 @@ module.exports.createChat = async (req, res) => {
                 through: {
                     attributes: [], // Exclude join table attributes from the result
                     where: {
-                        user_id: {
+                        UserId: {
                             [Op.or]: [user1Id, user2Id],
                         },
                     },
