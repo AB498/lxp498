@@ -63,7 +63,7 @@ export default boot(({ app }) => {
             console.log('loading-bar updated');
             // Get the loading bar and overlay elements
             const loadingBar = el.querySelector('.loading-bar');
-            const overlay = document.querySelector('.loading-overlay');
+            const overlay = el.querySelector('.loading-overlay');
 
             // Set the display style of the loading bar and overlay
             loadingBar.style.display = binding.value.loading ? 'block' : 'none';
