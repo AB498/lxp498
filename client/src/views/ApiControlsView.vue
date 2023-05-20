@@ -39,25 +39,28 @@ async function sendRequest(endpoint) {
     <div class="w-full h-full bg-red-400">
         <div v-for="endpoint in apiEndpoints">
             <div class="flex flex-col bg-fuchsia-950">
-                <div class="flex w-full  items-center space-x-2 p-2">
-
-                    <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
-                            <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
-                            <div v-for="param in endpoint.params">
-                                    <q-input v-model="endpoint.params[param]" outlined dense dark class="bg-slate-700 p-1 rounded"
-                                    :label="param"></q-input>
+                    <div class="flex w-full  items-center space-x-2 p-2" >
+                    
+                        <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
+                        <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
+                        <div v-for="param in endpoint.params">
+                            <q-input v-model="endpoint.params[param]" outlined dense dark class="bg-slate-700 p-1 rounded"
+                            :label="param"></q-input>
                         </div>
-                        <div v-text="body"></div>
                         <div class="grow"></div>
+                        <i class="material-icons text-2xl text-lime-500" @click="endpoint.show = !endpoint.show"
+                        v-text="endpoint.show ? 'expand_less' : 'expand_more'"></i>
                         <div class="btn" @click="sendRequest(endpoint)">Send</div>
-
+                    
                     </div>
+                    <div class="flex flex-col w-full items-center space-x-2 p-2" >
                     <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
-                        v-model="endpoint.body"></textarea>
+                    v-model="endpoint.body"></textarea>
                     <JsonEditorVue v-model="endpoint.body" v-bind="{/* local config */ }" />
-
+                
                     <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
                     </JsonViewer>
+                </div>
                 </div>
             </div>
     </div>
