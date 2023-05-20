@@ -18,7 +18,7 @@ module.exports.createProgress = async (req, res) => {
 
     await fsentence.init();
     if (!fsentence.tables[global.glb.iso1to3(language)])
-        return res.status(400).send({ message: "Language not supported." });
+        return res.status(400).send({ message: `Language ${language} not supported.` });
     for (let difficulty = 1; difficulty <= 6; difficulty++) {
         let sentences = await fsentence.tables[global.glb.iso1to3(language)].findAll({
             where: {
