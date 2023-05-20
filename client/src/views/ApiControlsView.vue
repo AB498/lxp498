@@ -7,7 +7,6 @@ const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/adm
 if (!window.apiEndpoints)
     window.apiEndpoints = [];
 
-console.log('apiEndpoints', apiEndpoints.value)
 apiEndpoints.value.forEach(element => {
     element.body = window.apiEndpoints.find(x => x.url == element.url)?.body
     element.res = window.apiEndpoints.find(x => x.url == element.url)?.res

@@ -10,6 +10,6 @@ module.exports.renderAdminPage = async (req, res) => {
 }
 
 module.exports.listAPIs = async (req, res) => {
-    const apis = { ...(await global.glb.apiEndpoints) };
+    const apis = [...(await global.glb.apiEndpoints)];
     return res.send(apis);
 }
