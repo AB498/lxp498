@@ -3,6 +3,7 @@ import { JsonView } from 'vue-json-viewer';
 import JsonEditorVue from 'json-editor-vue'
 import axios from 'axios';
 import InlineInput from 'vue-inline-input';
+import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
 
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
