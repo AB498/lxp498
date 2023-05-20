@@ -36,6 +36,10 @@ async function sendRequest(endpoint) {
                     <div class="grow"></div>
                     <div class="btn" @click="sendRequest(endpoint)">Send</div>
 
+                    </div>
+                    <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500" x-text="endpoint.body"
+                        x-model="body"></textarea>
+                    <div class="result bg-slate-500 p-2 border border-l-4 border-lime-500 overflow-auto h-64 " x-text="res">
                 </div>
             </div>
         </div>
