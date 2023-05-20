@@ -157,7 +157,7 @@ const searchCollapsed = ref(true);
             </PopperComponent>
 
             <div
-              class=" px-2 rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
+                class="  rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
                 <input class="w-52 h-full rounded-full without-ring bg-transparent transition-all" placeholder="Search ..."
                 :class="searchCollapsed ? 'w-0' : ''" />
               <a href=""
