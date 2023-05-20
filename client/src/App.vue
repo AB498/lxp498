@@ -111,6 +111,8 @@ function disconnectSocket() {
 window.glb.lxsocket.initializeSocket = initializeSocket;
 window.glb.lxsocket.disconnectSocket = disconnectSocket;
 
+const searchCollapsed = ref(true);
+
 
 //ds dsa
 ///// rnerwqa's
