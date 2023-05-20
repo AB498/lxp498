@@ -38,7 +38,7 @@ watch(() => window.glb.lxsocket.onlineUsers, (newVal, oldVal) => {
             </div>
           </div>
         </div>
-          <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb._serverSynced.onlineUsers }" v-ripple>Online</div>
+            <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb._serverSynced.onlineUsers }" v-ripple>Offline</div>
           <div class="" v-if="window.glb._serverSynced.offlineUsers">
             <div v-for="(user, index) in window.glb._serverSynced.onlineUsers" :key="index">
               <div class="btn" @click="" v-ripple>
