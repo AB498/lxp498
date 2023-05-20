@@ -4,6 +4,13 @@ import JsonEditorVue from 'json-editor-vue'
 
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
+if (!window.apiEndpoints)
+    window.apiEndpoints = [];
+
+apiEndpoints.value.forEach(element => {
+    element.body = window.apiEndpoints.find(x => x.url == element.url)?.body
+    element.res = window.apiEndpoints.find(x => x.url == element.url)?.res
+});
 
 async function sendRequest(endpoint) {
 
@@ -12,7 +19,7 @@ async function sendRequest(endpoint) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: endpoint.body ? JSON.strigify(endpoint.body) : null
+        body: endpoint.body ? JSON.stringify(endpoint.body) : null
     }));
     try {
         endpoint.res = (await endpoint.res.json())
