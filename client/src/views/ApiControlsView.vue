@@ -37,10 +37,10 @@ async function sendRequest(endpoint) {
                     <div class="btn" @click="sendRequest(endpoint)">Send</div>
 
                     </div>
-                    <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
-                        v-model="endpoint.body"></textarea>
-                    <JsonView :src="endpoint.res" class="result bg-slate-500 p-2 border border-l-4 border-lime-500"></JsonView>
+                        <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
+                            v-model="endpoint.body"></textarea>
+                        <JsonView :src="endpoint.res" class="result bg-slate-500 p-2 border border-l-4 border-lime-500"></JsonView>
                 </div>
             </div>
-        </div>
-</div></template>
+    </div>
+</template>
