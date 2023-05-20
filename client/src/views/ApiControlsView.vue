@@ -10,7 +10,7 @@ async function sendRequest(endpoint) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: body ? body : null
+        body: endpoint.body ? endpoint.body : null
     }));
     try {
 
