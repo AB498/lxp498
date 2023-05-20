@@ -71,6 +71,7 @@ export default boot(({ app }) => {
             if (binding.value.color) loadingBar.style.backgroundColor = binding.value.color
         },
         unmounted(el) {
+            try {
             console.log('loading-bar unmounted');
             // Remove the loading bar when the directive is unmounted
             const loadingBar = el.querySelector('.loading-bar');
@@ -86,6 +87,10 @@ export default boot(({ app }) => {
             if (overlay) {
                 document.body.removeChild(overlay);
             }
+            } catch (e) {
+                console.log(e);
+            }
+
         }
     });
 
