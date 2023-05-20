@@ -39,7 +39,7 @@ async function sendRequest(endpoint) {
                     </div>
                         <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                             v-model="endpoint.body"></textarea>
-                        <JsonView :src="endpoint.res" class="result bg-slate-500 p-2 border border-l-4 border-lime-500"></JsonView>
+                            <JsonView :src="endpoint.res || []" class="result bg-slate-500 p-2 border border-l-4 border-lime-500"></JsonView>
                 </div>
             </div>
     </div>
