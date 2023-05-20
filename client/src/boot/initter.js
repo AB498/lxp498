@@ -83,7 +83,7 @@ export default boot(({ app }) => {
                 el.classList.remove('loading-bar-container');
 
                 // Remove the overlay element from the body
-                const overlay = document.querySelector('.loading-overlay');
+                const overlay = el.querySelector('.loading-overlay');
                 if (overlay) {
                     el.removeChild(overlay);
                 }
