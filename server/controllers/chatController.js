@@ -14,7 +14,7 @@ module.exports.createChat = async (req, res) => {
     const user1Id = user1.id;
     const user2Id = user2;
 
-    const existingChat = await Conversation.findAll({
+    const existingChat = await models.Conversation.findAll({
         include: [
             {
                 model: User,
