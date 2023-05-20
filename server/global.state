@@ -1,7 +1,7 @@
 {
   "videosState": {},
   "states": {},
-  "accessToken": "ya29.c.b0Aaekm1IbioLwOIOEjQMv0HBgAoV0grfXmKflLXgwurO2QCx9PQVUXppaVIM9_n8yXY5giqiilVONuU-HFBKinyQQRY_n7BtniBqDbifwrWh7F2bRHDwlnxebYHYWVFOJs5OzF3fogKsASHcwaJJ72ZQAlfTuMjqle-HiboI1xme3tzdIdgdAvIpfoeHTsP0SvodY2Q2UPlaTe-qvfnzhPwbrk4B_RxXdCY8UMKi14s2ppTbD_Ss17E_olXJjGtKEndHZNmVDqjMPxgc8_7HU3JpESekQ8LkUWrQIHFiaQt9oq0FbDCHnNjGM9F-qjUlRAGv67zDHs3ovxgT343K5a-IvQSXaxgy7Vz7QfIg5F8dX_b7nfQ61hzOilmjuiXaBS0R6ulJpceUxesQoixphai3n8UgiXI7zR3OzQJfQnW5eFk9cM-WQk007xzzdxyOU2dp6Rs08gOWnOwd0d0zYyRoZYOFcV6cwtrZ0XV42kltrR0z_JU422-ma9tSIjYzdOpbgXu9q7Rvyyo8_zY9p54Y4hxeQibV77X0IojqIzZIrSidgVzJekYmfWshFSiWBz-mwoJWJcmXbp5Bz_n51nv6wxsu65XySl8p4kgga47m_XdytjXW8UBslh0lodi7eYoVa-SxRsRktZyQ_WbrW1vZ54op_cn0dJy1x7q7l-nwUjQ8b8c0d2lzWx1SqUSnuxnn2pogRIlUO5Mz0kS6tk5UfBx_WdZgpZrpYppg0z5hS-ySuaYf14i3_UUQMZQoj2WJt7byamYOvoUxq9aq67XoRI3IFcpyhFx1dk0YVm87fW69nirwlVO1k75OV5x8fwSxv_imROiXfy6BZofxy1wX6FdIF4zOc9j1oh1X0v8OdeZ_--MIFW5-_-jrrBwylZaJRWwsvYfnVa7jt2I5M9756t4su2V4uu6m3bbIZ91-hRdrhwsnvwZB28-d6IxyvmtXSf87JWvU8wwz6y7s8Ox5Qu1XYYw4s1pQhb0RZRRvl7a4IkRavsU6",
+  "accessToken": "ya29.c.b0Aaekm1JH6UPYTkOQhT9VSCjsU5kHzgzde3cOvWexNc1TaJfXF8mZDmx2r61AUGmBhLQokdU2et3bY5gFXbnaR7xdNd-l43ZmkiKdB6siKl0b4xUxnWB_NTVW4V_hJq24sfPrElIW3YGZijuBEGdYSkMfGwwWRAe9kMTskMaywrW0gljj3oEpdTNLuxEejYwgKiq2wF0K-wDAG5Aoo5J6iXyOfPwUZ10VmT3NBVjivwL0DecftP8MY8WJMeJvKjMgIqJmXoul_m5I4-h0sfbuziSDH-1EmCeNnbiecmxtjNhK1ddYg3SGsbBEwtnEuHe-pcAeINPZNOeYpIZZE345DrRywptO0m3nxUd3QoqwIzYvBkkoU92f5X-to1vr6FRq-Qi1dZ8z6564u4FB1UoBXMtOO-7c5uzrjmFZw7pJvo-5g1t-tOzUyUOdoBqVOYkJjl1nwFebpBUhiUe5B5pVy0toj9qhRekbUp3t6nOdx3uZ33_aYuso7gUf5538JcWesFfn_4ftp4w5qjY39MFc9uflb8M7BOsxW3i8y_BjqRh450J15_q_kpbf5oblRJ0mURQgIo7gv_1c3rX5h9-i_xb7OgUgSB0JvxRJwIchby_I3p1tRY-niZqao87skY4a-vQBIz3x3nZjzk6S2mj9O6ofYjeVgoYifzOmhzR94QlWcjtVk71h7UiJwbJwxwie9r5WqW2lnvd9IZI5-BxYsJZyUq66Fkj89OqBjQ7Sgb18t99fiF6Mz0F_-eQFBYB9f1ix6gzv5skRpI2aJB6Q6osg5h0_lZbwVnXg3kjiw9im7rxwwXlhRg1cRVbmti3rlcR89o73XIXQqRt_18oFa_wWX0yZYd48XqIbU-vzWWxy2BsmzUj3FqfqjXi6ZsMpW1zueIn_ih3svpktRSM7sqy1jU3Q7RbWjUdajXyfvbgRjUl590vm_p5eew5_rbdaQBg2w3FqZQQ-ee21gkRZOqZejZmBo0gt5Mgxk0sO0Jg839rtSQ-SFcY",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -18,7 +18,9 @@
       "method": "POST",
       "url": "/api/createProgress",
       "middlewares": {
-        "main": [],
+        "main": [
+          null
+        ],
         "test": [],
         "both": [
           null
@@ -62,7 +64,9 @@
       "method": "POST",
       "url": "/api/getProgress",
       "middlewares": {
-        "main": [],
+        "main": [
+          null
+        ],
         "test": [],
         "both": [
           null
@@ -229,7 +233,9 @@
       "method": "POST",
       "url": "/api/generateSubtitles",
       "middlewares": {
-        "main": [],
+        "main": [
+          null
+        ],
         "test": [],
         "both": [
           null
@@ -328,10 +334,11 @@
       "method": "POST",
       "url": "/api/uploadbase/uploadVideos",
       "middlewares": {
-        "main": [],
+        "main": [
+          null
+        ],
         "test": [],
         "both": [
-          null,
           null,
           null
         ]
@@ -341,10 +348,11 @@
       "method": "POST",
       "url": "/api/uploadbase/getHistory",
       "middlewares": {
-        "main": [],
+        "main": [
+          null
+        ],
         "test": [],
         "both": [
-          null,
           null
         ]
       }
@@ -353,10 +361,11 @@
       "method": "POST",
       "url": "/api/uploadbase/addHistory",
       "middlewares": {
-        "main": [],
+        "main": [
+          null
+        ],
         "test": [],
         "both": [
-          null,
           null
         ]
       }
