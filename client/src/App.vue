@@ -155,10 +155,13 @@ window.glb.lxsocket.disconnectSocket = disconnectSocket;
             </PopperComponent>
 
             <div
-                class=" px-2 rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
-                      <input class="w-52 h-full rounded-full without-ring bg-transparent" placeholder="Search ..." :class="true ? 'w-0' : ''"/>
-                  <a href="" 
-                class="fa fa-search hover:scale-125 text-gray-400 self-center hover:text-blue-500 w-8 h-8 rounded-full flex center"></a>
+              class=" px-2 rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
+              <input class="w-52 h-full rounded-full without-ring bg-transparent" placeholder="Search ..."
+                :class="searchCollapsed ? 'w-0' : ''" />
+              <a href=""
+                class="fa fa-search hover:scale-125 text-gray-400 self-center hover:text-blue-500 w-8 h-8 rounded-full flex center" 
+                @click="searchCollapsed = !searchCollapsed"
+                ></a>
             </div>
           </div>
           <div class="nav-center flex items-center transition-all duration-150 flex-nowrap" v-if="window.glb.loggedIn">
