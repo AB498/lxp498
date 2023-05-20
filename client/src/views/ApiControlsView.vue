@@ -1,7 +1,6 @@
 <script setup>
 
-const apiEndpoints = (await(await fetch('http://lanxplore.xyz/admin/apis')).json())
-
+const apiEndpoints = window.vue.ref(await(await fetch('http://lanxplore.xyz/admin/apis')).json())
 
 async function sendRequest(endpoint) {
 
@@ -38,7 +37,7 @@ async function sendRequest(endpoint) {
 
                     </div>
                         <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500" v-model="endpoint.body"></textarea>
-                        <div class="result bg-slate-500 p-2 border border-l-4 border-lime-500 overflow-auto h-64 " v-text="res">
+                            <div class="result bg-slate-500 p-2 border border-l-4 border-lime-500 overflow-auto h-64 " v-text="endpoint.res">
                 </div>
             </div>
         </div>
