@@ -74,7 +74,7 @@ async function sendRequest(endpoint) {
                             :class="endpoint.show ? 'h-auto' : 'h-0 opacity-0 pointer-events-none'">
                             <!-- <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                             v-model="endpoint.body"></textarea> -->
-                                <JsonEditorVue class="jse-theme-dark" v-model="endpoint.body" 
+                                    <JsonEditorVue class="jse-theme-dark" v-model="endpoint.body ? endpoint.body : {}" 
                                 v-bind="{/* local config */ }" />
 
                             <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
