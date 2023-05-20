@@ -6,6 +6,8 @@ const models = require("./models");
 const fword = require("./fword");
 const httpProxy = require('http-proxy');
 const express = require('express');
+require('express-async-errors');
+
 const http = require('http');
 const cors = require('cors');
 const path = require('path');
