@@ -240,6 +240,16 @@ app.use('/', async (req, res) => {
         res.end('Frontend server is down');
     }
 });
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err); // Log the error for debugging purposes
+
+    // Set an appropriate status code based on the error type
+    const statusCode = err.statusCode || 500;
+
+    // Send an error response to the client
+    res.status(statusCode).json({ error: err.message });
+});
 
 
 (async () => {
