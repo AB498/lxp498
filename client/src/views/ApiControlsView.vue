@@ -42,10 +42,10 @@ async function sendRequest(endpoint) {
                 <div class="flex w-full  items-center space-x-2 p-2">
 
                     <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
-                        <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
-    {{ endpoint.params }}
-                        <div v-for="param in endpoint.params">
-                            {{ param }}
+                            <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
+                            <div v-for="param in endpoint.params">
+                                <q-input v-model="endpoint.params[param]" outlined dense class="bg-slate-700 p-1 rounded"
+                                    :label="param"></q-input>
                         </div>
                         <div v-text="body"></div>
                         <div class="grow"></div>
