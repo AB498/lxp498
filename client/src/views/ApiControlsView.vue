@@ -53,7 +53,7 @@ async function sendRequest(endpoint) {
                         <div class="btn" @click="sendRequest(endpoint)">Send</div>
                     
                     </div>
-                    <div class="flex flex-col w-full items-center space-x-2 p-2" >
+                        <div class="flex flex-col w-full items-stretch space-x-2 p-2" >
                     <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                     v-model="endpoint.body"></textarea>
                     <JsonEditorVue v-model="endpoint.body" v-bind="{/* local config */ }" />
