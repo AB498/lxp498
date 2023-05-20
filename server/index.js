@@ -131,7 +131,7 @@ global.glb.apiEndpoints = [
     { method: 'GET', url: '/api/uploadbase/streamVideo/:id', middlewares: { main: [], test: [], both: [ubController.streamVideo] } },
     { method: 'GET', url: '/admin/apicontrol', middlewares: { main: [], test: [], both: [adminController.renderAdminPage] } },
     { method: 'GET', url: '/admin/apis', middlewares: { main: [], test: [], both: [adminController.listAPIs] } },
-    { method: 'GET', url: '/api/createChat', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.createChat] } },
+    { method: 'POST', url: '/api/createChat', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.createChat] } },
 
 ]
 
