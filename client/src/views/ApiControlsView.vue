@@ -25,8 +25,8 @@ async function sendRequest(endpoint) {
                 <div class="flex flex-col bg-fuchsia-950">
                     <div class="flex w-full  items-center space-x-2 p-2">
 
-                        <div class="bg-slate-700 p-1 rounded" x-text="endpoint.method"></div>
-                        <div class="bg-slate-700 p-1 rounded" x-text="'/test'+endpoint.url"></div>
+                            <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
+                            <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
                         <div x-text="body"></div>
                         <div class="grow"></div>
                         <div class="btn" @click="sendRequest(endpoint)">Send</div>
