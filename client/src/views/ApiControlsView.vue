@@ -3,7 +3,7 @@
 const apiEndpoints = (await(await fetch('http://lanxplore.xyz/admin/apis')).json())
 
 
-function sendRequest(endpoint) {
+async function sendRequest(endpoint) {
 
     const res = (await fetch('http://lanxplore.xyz/test' + endpoint.url, {
         method: endpoint.method,
