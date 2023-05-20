@@ -21,7 +21,7 @@ let langs = ref(Object.entries(langsImp).map(([key, value]) => {
         iso6391: value['iso6391'],
         iso6393: value['iso6393'],
     };
-})
+}))
 
 const initialLoad = ref(true)
 
