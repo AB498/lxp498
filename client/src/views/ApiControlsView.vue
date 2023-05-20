@@ -2,6 +2,7 @@
 import { JsonView } from 'vue-json-viewer';
 import JsonEditorVue from 'json-editor-vue'
 import axios from 'axios';
+import InlineInput from 'vue-inline-input';
 
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
@@ -38,6 +39,8 @@ async function sendRequest(endpoint) {
 
                     <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
                     <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
+                        <inline-input v-model="amount" />
+
                     <div x-text="body"></div>
                     <div class="grow"></div>
                     <div class="btn" @click="sendRequest(endpoint)">Send</div>
