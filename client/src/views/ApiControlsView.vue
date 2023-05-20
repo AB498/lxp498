@@ -62,7 +62,7 @@ async function sendRequest(endpoint) {
                                     :label="param"></q-input>
                             </div>
                             <div class="grow"></div>
-                            <i class="material-icons text-2xl text-lime-500"
+                                <i class="material-icons text-2xl text-lime-500 hover:text-lime-300 cursor-pointer"
                                 @click="endpoint.show = !endpoint.show; window.glb.apiEndpoints.find(x => x.url == endpoint.url).show = endpoint.show"
                                 v-text="endpoint.show ? 'expand_less' : 'expand_more'"></i>
                             <div class="btn" @click="sendRequest(endpoint); endpoint.show = true">Send</div>
