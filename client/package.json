@@ -17,6 +17,7 @@
     "bcrypt": "^5.1.0",
     "find-package-json": "^1.2.0",
     "fuse.js": "^6.6.2",
+    "json-editor-vue": "^0.10.6",
     "quasar": "^2.6.0",
     "rippleui": "^1.12.1",
     "socket.io-client": "^4.6.1",
