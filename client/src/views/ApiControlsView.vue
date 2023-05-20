@@ -43,7 +43,7 @@ async function sendRequest(endpoint) {
 
                     <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
                         <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
-
+    {{ endpoint.params }}
                         <div v-for="param in endpoint.params">
                             {{ param }}
                         </div>
