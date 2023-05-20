@@ -17,7 +17,7 @@ module.exports.createChat = async (req, res) => {
     const existingChat = await models.Conversation.findAll({
         include: [
             {
-                model: User,
+                model: models.User,
                 where: {
                     id: {
                         [Op.or]: [user1Id, user2Id],
