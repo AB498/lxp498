@@ -44,7 +44,7 @@ async function sendRequest(endpoint) {
                     <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
                             <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
                             <div v-for="param in endpoint.params">
-                                <q-input v-model="endpoint.params[param]" outlined dense class="bg-slate-700 p-1 rounded"
+                                    <q-input v-model="endpoint.params[param]" outlined dense dark class="bg-slate-700 p-1 rounded"
                                     :label="param"></q-input>
                         </div>
                         <div v-text="body"></div>
