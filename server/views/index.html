@@ -33,7 +33,7 @@
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
-                                body: body
+                                body: body?body:null
                             })).json();
                             res=JSON.stringify(res)
                             console.log(JSON.stringify(res))
