@@ -107,12 +107,12 @@
 }
 
 /* Ripple magic */
-.hover-ripple {
+.hover-ripple-fast, .hover-ripple {
   position: relative;
   overflow: hidden;
 }
 
-.hover-ripple:after {
+.hover-ripple-fast:after, .hover-ripple:after {
   content: "";
   position: absolute;
   top: 50%;
