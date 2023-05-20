@@ -91,16 +91,6 @@ app.use(logResponse);
 
 app.use("/static", express.static(path.join(__dirname, "./static/")));
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err); // Log the error for debugging purposes
-
-    // Set an appropriate status code based on the error type
-    const statusCode = err.statusCode || 500;
-
-    // Send an error response to the client
-    res.status(statusCode).json({ error: err.message });
-});
 
 global.glb.apiEndpoints = [
     { method: 'GET', url: '/api/listProgress', middlewares: { main: [], test: [], both: [progressController.listProgress] } },
@@ -146,6 +136,16 @@ global.glb.apiEndpoints.forEach(endpoint => {
     app[endpoint.method.toLowerCase()]('/test' + endpoint.url, ...[global.glb.testAuthMiddleware], ...endpoint.middlewares.both);
 
 })
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err); // Log the error for debugging purposes
+
+    // Set an appropriate status code based on the error type
+    const statusCode = err.statusCode || 500;
+
+    // Send an error response to the client
+    res.status(statusCode).json({ error: err.message });
+});
 
 function proxyRequest(req, res, target) {
     return new Promise((resolve, reject) => {
