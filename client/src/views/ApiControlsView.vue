@@ -39,11 +39,11 @@ async function sendRequest(endpoint) {
 
                     <div class="bg-slate-700 p-1 rounded" v-text="endpoint.method"></div>
                     <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
-                        <inline-input v-model="amount" />
+                        <inline-input v-model="endpoint.url" />
 
-                    <div x-text="body"></div>
-                    <div class="grow"></div>
-                    <div class="btn" @click="sendRequest(endpoint)">Send</div>
+                        <div x-text="body"></div>
+                        <div class="grow"></div>
+                        <div class="btn" @click="sendRequest(endpoint)">Send</div>
 
                     </div>
                     <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
