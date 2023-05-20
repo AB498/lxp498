@@ -11,6 +11,7 @@ apiEndpoints.value.forEach(element => {
     element.body = window.apiEndpoints.find(x => x.url == element.url)?.body
     element.res = window.apiEndpoints.find(x => x.url == element.url)?.res
 });
+window.apiEndpoints = apiEndpoints.value
 
 async function sendRequest(endpoint) {
 
