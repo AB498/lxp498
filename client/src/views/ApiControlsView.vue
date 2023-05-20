@@ -1,5 +1,4 @@
 <script setup>
-import { JsonView } from 'vue-json-viewer';
 import JsonEditorVue from 'json-editor-vue'
 import axios from 'axios';
 import InlineInput from 'vue-inline-input';
@@ -74,6 +73,8 @@ async function sendRequest(endpoint) {
                                 :class="endpoint.show ? 'h-auto' : 'h-0 opacity-0 pointer-events-none'">
                                 <!-- <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
                             v-model="endpoint.body"></textarea> -->
+                                            <JsonEditorVue class="jse-theme-dark" v-model="endpoint.body"  value="'hello'"
+                                        v-bind="{/* local config */ }" />
 
                             <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
                             </JsonViewer>
