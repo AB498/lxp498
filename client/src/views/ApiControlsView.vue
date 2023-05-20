@@ -48,7 +48,7 @@ async function sendRequest(endpoint) {
 <template>
         <div class="w-full h-full bg-red-400 overflow-auto">
             <div v-for="endpoint in apiEndpoints">
-                <div class="flex flex-col bg-fuchsia-950">
+                    <div class="flex flex-col bg-fuchsia-950" v-loading-bar="{ loading: endpoint.loading }">
                     <div class="flex w-full  items-center space-x-2 p-2"
                         :class="endpoint.res ? (endpoint.res.status == 200 ? 'bg-green-700' : 'bg-red-700') : 'bg-slate-700'">
 
