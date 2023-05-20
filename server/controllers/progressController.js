@@ -11,6 +11,7 @@ module.exports.listProgress = async (req, res) => {
 module.exports.createProgress = async (req, res) => {
     const user = req.user;
     const { language } = req.body;
+    if (!language) return res.status(400).send({ message: "Language is required." });
     let progresses = await models.Progress.findAll({ where: { UserId: user.id, language: global.glb.iso1to3(language) } });
     console.log(user.id)
     if (progresses.length >= 6) return res.send(progresses);
