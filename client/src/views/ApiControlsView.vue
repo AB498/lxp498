@@ -37,9 +37,12 @@ async function sendRequest(endpoint) {
                     <div class="btn" @click="sendRequest(endpoint)">Send</div>
 
                     </div>
-                        <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
-                            v-model="endpoint.body"></textarea>
-                            <JsonView :src="endpoint.res || []" class="result bg-slate-500 p-2 border border-l-4 border-lime-500"></JsonView>
+                    <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500"
+                        v-model="endpoint.body"></textarea>
+                     <JsonViewer
+                            :value="endpoint.res"
+                            class="bg-zinc-800" theme="my-awesome-json-theme">
+                          </JsonViewer>
                 </div>
             </div>
     </div>
