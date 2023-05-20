@@ -22,14 +22,22 @@ apiEndpoints.value.forEach(element => {
 window.glb.apiEndpoints = apiEndpoints.value
 
 async function sendRequest(endpoint) {
-    if (endpoint.method.toUpperCase() == 'GET')
-        endpoint.res = await axios.get('http://lanxplore.xyz/test' + endpoint.url, { params: endpoint.params })
-    else
-        endpoint.res = await axios.post('http://lanxplore.xyz/test' + endpoint.url, window.glb.tryParseJSON(endpoint.body))
-    console.log(endpoint.res)
-    window.glb.apiEndpoints.find(x => x.url == endpoint.url).res = endpoint.res
-    window.glb.apiEndpoints.find(x => x.url == endpoint.url).body = endpoint.body
-    window.glb.apiEndpoints = window.glb.apiEndpoints
+    endpoint.loading = true
+    try {
+
+        if (endpoint.method.toUpperCase() == 'GET')
+            endpoint.res = await axios.get('http://lanxplore.xyz/test' + endpoint.url, { params: endpoint.params })
+        else
+            endpoint.res = await axios.post('http://lanxplore.xyz/test' + endpoint.url, window.glb.tryParseJSON(endpoint.body))
+        console.log(endpoint.res)
+        window.glb.apiEndpoints.find(x => x.url == endpoint.url).res = endpoint.res
+        window.glb.apiEndpoints.find(x => x.url == endpoint.url).body = endpoint.body
+        window.glb.apiEndpoints = window.glb.apiEndpoints
+    } catch (e) {
+        console.log(e)
+    } finally {
+        endpoint.loading = false
+    }
 
 }
 
