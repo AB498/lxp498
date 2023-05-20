@@ -75,17 +75,8 @@ module.exports.updateProgress = async (req, res) => {
 }
 
 module.exports.getProgress = async (req, res) => {
-    const headers = req.headers;
-    if (!headers.authorization) return res.status(401).send("Unauthorized");
-    const jwt = headers.authorization.split(" ")[1];
-    const { language } = req.body;
-    if (!language) return res.status(400).send("Language is required");
-    const decodedUser = await jwtUtil.decode(jwt);
-    const email = decodedUser.email;
-    if (!email) return res.status(401).send("Unauthorized");
-    const user = await models.User.findOne({ where: { email } });
-    if (!user) return res.status(400).send("User does not exist");
-    if (!user.jwts.includes(jwt)) return res.status(401).send("Unauthorized");
+
+    const user = req.user;
     let progresses = await models.Progress.findAll({ where: { UserId: user.id, language: language } });
     return res.send(progresses);
 }
