@@ -51,7 +51,7 @@ async function sendRequest(endpoint) {
         <div class="w-full h-full bg-red-400 overflow-auto">
             <div v-for="endpoint in apiEndpoints">
                 <div class="flex flex-col bg-fuchsia-950">
-                    <div class="flex w-full  items-center space-x-2 p-2 "
+                    <div class="flex w-full  items-center space-x-2 p-2 hover-ripple-fast"
                         v-loading-bar="{ loading: endpoint.loading }"
                         :class="endpoint.res ? (endpoint.res.status == 200 ? 'bg-green-700' : 'bg-red-700') : 'bg-slate-700'">
 
@@ -63,7 +63,7 @@ async function sendRequest(endpoint) {
                                 :label="param"></q-input>
                         </div>
                         <div class="grow"></div>
-                        <i class="material-icons text-2xl text-lime-500 hover:bg-lime-500 hover:text-slate-900 cursor-pointer"
+                        <i class="material-icons text-2xl text-lime-500 hover:bg-lime-500 hover:text-slate-900 cursor-pointer rounded-full"
                             @click="endpoint.show = !endpoint.show; window.glb.apiEndpoints.find(x => x.url == endpoint.url).show = endpoint.show"
                             v-text="endpoint.show ? 'expand_less' : 'expand_more'"></i>
                         <div class="btn" @click="sendRequest(endpoint); endpoint.show = true">Send</div>
