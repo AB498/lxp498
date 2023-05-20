@@ -4,14 +4,14 @@ import JsonEditorVue from 'json-editor-vue'
 
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
-if (!window.apiEndpoints)
-    window.apiEndpoints = [];
+if (!window.glb.apiEndpoints)
+    window.glb.apiEndpoints = [];
 
 apiEndpoints.value.forEach(element => {
-    element.body = window.apiEndpoints.find(x => x.url == element.url)?.body
-    element.res = window.apiEndpoints.find(x => x.url == element.url)?.res
+    element.body = window.glb.apiEndpoints.find(x => x.url == element.url)?.body
+    element.res = window.glb.apiEndpoints.find(x => x.url == element.url)?.res
 });
-window.apiEndpoints = apiEndpoints.value
+window.glb.apiEndpoints = apiEndpoints.value
 
 async function sendRequest(endpoint) {
 
