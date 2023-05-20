@@ -28,7 +28,7 @@
                         <div x-text="body"></div>
                         <div class="grow"></div>
                         <button class="rounded p-2 bg-blue-600 shadow-md hover:bg-blue-800 " @click="
-                            res = await (await fetch('http://lanxplore.xyz'+endpoint.url, {
+                            res = await (await fetch('http://lanxplore.xyz/test'+endpoint.url, {
                                 method: endpoint.method,
                                 headers: {
                                     'Content-Type': 'application/json'
