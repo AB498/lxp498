@@ -41,7 +41,7 @@ async function sendRequest(endpoint) {
     <div class="w-full h-full bg-red-400">
         <div v-for="endpoint in apiEndpoints">
             <div class="flex flex-col bg-fuchsia-950">
-                                <div class="flex w-full  items-center space-x-2 p-2" :class="endpoint.res ? (endpoint.res.status == 200 ? 'bg-green-700' : 'bg-red-700') : 'bg-slate-700'">
+                                    <div class="flex w-full  items-center space-x-2 p-2" :class="endpoint.res ? (endpoint.res.status == 200 ? 'bg-green-700' : 'bg-red-700') : 'bg-slate-800'">
 
                         <div class="p-1 rounded" v-text="endpoint.method"
                             :class="endpoint.method == 'GET' ? 'bg-orange-400' : 'bg-blue-500'"></div>
