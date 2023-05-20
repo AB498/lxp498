@@ -28,21 +28,26 @@
                         <div x-text="body"></div>
                         <div class="grow"></div>
                         <button class="rounded p-2 bg-blue-600 shadow-md hover:bg-blue-800 " @click="
-                            res = await (await fetch('http://lanxplore.xyz/test'+endpoint.url, {
+                            res = (await fetch('http://lanxplore.xyz/test'+endpoint.url, {
                                 method: endpoint.method,
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
                                 body: body?body:null
-                            })).json();
-                            res=JSON.stringify(res)
+                            }));
+                            try{
+
+                                res=JSON.stringify(await res.json())
+                            }catch(e){
+                                res=await res.text()
+                            }
                             console.log(JSON.stringify(res))
                         ">
                             Send
                         </button>
                     </div>
                     <textarea class="result bg-slate-500 p-2 border border-l-4 border-lime-500" x-text="endpoint.body"
-                        x-model="body" ></textarea>
+                        x-model="body"></textarea>
                     <div class="result bg-slate-500 p-2 border border-l-4 border-lime-500 overflow-auto h-64 "
                         x-text="res"></div>
                 </div>
