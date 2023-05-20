@@ -4,7 +4,7 @@ const apiEndpoints = window.vue.ref(await(await fetch('http://lanxplore.xyz/admi
 
 async function sendRequest(endpoint) {
 
-    let res = (await fetch('http://lanxplore.xyz/test' + endpoint.url, {
+    endpoint.res = (await fetch('http://lanxplore.xyz/test' + endpoint.url, {
         method: endpoint.method,
         headers: {
             'Content-Type': 'application/json'
@@ -13,9 +13,9 @@ async function sendRequest(endpoint) {
     }));
     try {
 
-        res = JSON.stringify(await res.json())
+        endpoint.res = JSON.stringify(await res.json())
     } catch (e) {
-        res = await res.text()
+        endpoint.res = await res.text()
     }
 }
 
