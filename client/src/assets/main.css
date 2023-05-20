@@ -113,6 +113,7 @@
 }
 
 .hover-ripple-fast:after, .hover-ripple:after {
+  pointer-events: none;
   content: "";
   position: absolute;
   top: 50%;
