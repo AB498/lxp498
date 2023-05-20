@@ -7,7 +7,6 @@ import InlineInput from 'vue-inline-input';
 
 const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
 apiEndpoints.value.forEach(element => {
-    element.params = element.url.match(/(?<=\/:)[a-zA-Z0-9]+/g)
 });
 if (!window.glb.apiEndpoints)
     window.glb.apiEndpoints = [];
@@ -16,6 +15,7 @@ apiEndpoints.value.forEach(element => {
     element.body = window.glb.apiEndpoints.find(x => x.url == element.url)?.body
     element.res = window.glb.apiEndpoints.find(x => x.url == element.url)?.res
     element.params = window.glb.apiEndpoints.find(x => x.url == element.url)?.params
+    element.params = element.url.match(/(?<=\/:)[a-zA-Z0-9]+/g)
 });
 window.glb.apiEndpoints = apiEndpoints.value
 
