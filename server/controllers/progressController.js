@@ -9,16 +9,8 @@ module.exports.listProgress = async (req, res) => {
 }
 
 module.exports.createProgress = async (req, res) => {
-    const headers = req.headers;
-    if (!headers.authorization) return res.status(401).send("Unauthorized");
-    const jwt = headers.authorization.split(" ")[1];
+    const user = req.user;
     const { language } = req.body;
-    const decodedUser = await jwtUtil.decode(jwt);
-    const email = decodedUser.email;
-    if (!email) return res.status(401).send("Unauthorized");
-    const user = await models.User.findOne({ where: { email } });
-    if (!user) return res.status(400).send("User does not exist");
-    if (!user.jwts.includes(jwt)) return res.status(401).send("Unauthorized");
     let progresses = await models.Progress.findAll({ where: { UserId: user.id, language: global.glb.iso1to3(language) } });
     console.log(user.id)
     if (progresses.length >= 6) return res.send(progresses);
