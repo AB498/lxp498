@@ -9,6 +9,8 @@ module.exports.listChats = async (req, res) => {
 }
 
 module.exports.createChat = async (req, res) => {
+    const user1 = req.user;
+    const user2 = req.body.user2;
     const newChat = await models.Conversation.create({
 
     });
