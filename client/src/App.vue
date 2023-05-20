@@ -156,8 +156,8 @@ window.glb.lxsocket.disconnectSocket = disconnectSocket;
 
             <div
                 class=" px-2 rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
-              <input class="w-full h-full rounded-full without-ring bg-transparent" placeholder="Search ..." />
-                <a href="" v-if="false"
+                <input class="w-full h-full rounded-full without-ring bg-transparent" placeholder="Search ..." v-if="false"/>
+                  <a href="" 
                 class="fa fa-search hover:scale-125 text-gray-400 self-center hover:text-blue-500 w-8 h-8 rounded-full flex center"></a>
             </div>
           </div>
