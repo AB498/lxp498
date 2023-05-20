@@ -16,7 +16,7 @@ async function sendRequest(endpoint) {
     try {
         endpoint.res = (await endpoint.res.json())
     } catch (e) {
-        endpoint.res = await res.text()
+        // endpoint.res = await res.text()
     }
 }
 
