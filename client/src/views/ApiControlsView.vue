@@ -75,8 +75,6 @@ async function sendRequest(endpoint) {
                                                 <JsonEditorVue class="jse-theme-dark" v-model="endpoint.body"  value="'hello'"
                                             v-bind="{/* local config */ }" />
 
-                            <JsonViewer :value="endpoint.res" class="bg-zinc-800" theme="my-awesome-json-theme">
-                            </JsonViewer>
                         </div>
                     </div>
                 </div>
