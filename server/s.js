@@ -390,7 +390,7 @@ const globalProxy = createProxy({
             else
                 user.jwts.push(jwtUtil.encode({ id: user.id, email: user.email }));
             await user.save();
-            req.user = user;
+            req.user = user.dataValues;
             req.jwt = user.jwts[user.jwts.length - 1];
             next();
         } catch (error) {
