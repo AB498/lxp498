@@ -74,5 +74,5 @@ module.exports.openConversation = async (req, res) => {
         where: { id: conversationId },
         include: { model: models.User }
     });
-    return res.send(conversation.toJSON());
+    return res.send(JSON.parse(JSON.stringify(conversation.toJSON())));
 }
