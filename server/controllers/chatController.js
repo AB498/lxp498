@@ -51,3 +51,14 @@ module.exports.createChat = async (req, res) => {
 
     return res.send(fetchedConversation);
 }
+
+module.exports.getAllUsers = async (req, res) => {
+    const users = await models.User.findAll({
+        where: {
+            id: {
+                [Op.not]: req.user.id,
+            },
+        },
+    });
+    return res.send(users);
+}
