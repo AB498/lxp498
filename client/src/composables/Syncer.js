@@ -30,6 +30,8 @@ const makeSyncer = (url) => {
             rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
                 if (localChange)
                     server2Socket.emit("updateObj", { path: p, value: v });
+                console.log(localChange, p, '/openChat/email')
+
             }); //onchange
 
             server2Socket.on('updateObj', ({ path, value }) => {
