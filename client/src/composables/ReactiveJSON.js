@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 
 const handlerMain = {
     set: function (target, key, value) {
@@ -5,30 +6,26 @@ const handlerMain = {
             target[key] = value
             return;
         }
-        let oldtarget = fastObjCopy(target);
-        if (typeof target[key] == 'object')
-            target[key] = createProxy(target[key], this, false, target, key)
-        else
-            target[key] = value
-        let newtarget = target;
+        let orgValue = target[key];
 
         let targetPath = [...this._path, key].join('/');
+        let modpath = targetPath
 
         if (this._root._blacklistpaths[targetPath]) {
             this._root._blacklistpaths[targetPath] = false;
             return true;
         }
         for (let keyval in this._root._callbacks) {
-            let oldval = oldtarget[key]
-            if (typeof target[key] == 'object')
-                target[key] = createProxy(target[key], this, false, target, key)
+            target[key] = orgValue;
+            let oldval = rjget(this, keyval)
+            // console.log(rjget(this, keyval))
+            if (typeof value == 'object')
+                target[key] = createProxy(value, this, false, target, key)
             else
                 target[key] = value
-            let modpath = targetPath
-            let newval = newtarget[key]
+            let newval = rjget(this, keyval)
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
-
                     cb(oldval, newval, modpath, key, value)
                 });
             }
@@ -94,19 +91,22 @@ const rjwatch = (obj, key, cb) => {
             cb(oldval, newVal, modpath, key, value)
     })
 }
-// let rjson = createProxy({ deep: 'deephello', deep2: 'deep2hello', deep3: { deep4: 'deep4hello' } });
+let rjson = createProxy({ deep: 'deephello', deep2: 'deep2hello', deep3: { deep4: 'deep4hello' } });
 
-// rjwatch(rjson.deep3, null, (old, newval, pth, key, value) => {
-//     // rjson.deep.deep2 = 'hello'
-//     rjmod(rjson, '', 'hello2dsad')
+rjwatch(rjson.deep3, null, (old, newval, pth, key, value) => {
+    // rjson.deep.deep2 = 'hello'
+    rjmod(rjson, '', 'hello2dsad')
+    console.log(old, newval, pth, key, value)
 
 
-// })
-// rjmod(rjson, '/deep3/deep4', 27,true)
+})
+rjmod(rjson, '/deep3/deep4', 27, true)
 
-// // rjson.a = 232432
+// rjson.a = 232432
 
-// // rjson.deep3.deep4 = 'helinnlo23'
+rjson.deep3.deep4 = { sda: 23 }
+
+rjson.deep3.deep4.sda = 32432
 
 
 function rjmod(root, path, value, silent) {
@@ -139,6 +139,7 @@ function rjget(root, path) {
     }
     return fastObjCopy(obj)
 }
+// console.log(rjget(rjson['[[handler]]'], '/deep3/deep4/sda'))
 
 function fastObjCopy(obj) {
     if (obj === null) return null;
@@ -171,4 +172,5 @@ if (typeof window != 'undefined') {
     window.rjmod = rjmod
     window.rjget = rjget
 }
+
 export { createProxy, rjwatch, rjmod, rjget }
