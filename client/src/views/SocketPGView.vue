@@ -13,6 +13,7 @@ const URL = "http://localhost:3000";
 
 let syncer = makeSyncer(URL)
 syncer.init()
+syncer.syncerObj = reactive(syncer.syncerObj);
 
 
 onUnmounted(() => {
