@@ -280,7 +280,6 @@ store.errorMessages = (errorObject, lxerrormessage = []) => {
 
 }
 store.safeAuthedReq = async (url, body) => {
-  console.log('body', body)
   let [err, res] = await store.safeAsync(axios.post(store.baseUrl + url, body, {
     headers: {
       'Authorization': 'Bearer ' + store.jwt
