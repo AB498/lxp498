@@ -157,11 +157,13 @@ if (typeof window != 'undefined') {
     window.rjmod = rjmod
     window.rjget = rjget
 }
-if (module) {
+try {
+
     console.log('module')
     module.exports.createProxy = createProxy;
     module.exports.rjwatch = rjwatch;
     module.exports.rjmod = rjmod;
     module.exports.rjget = rjget;
-} else {
+} catch (e) {
+    console.log(e)
 }
