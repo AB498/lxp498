@@ -7,16 +7,6 @@ const handlerMain = {
         }
         let oldval = target[key]
         target[key] = value
-        let targetPath = [...this._path, key].join('/');
-        for (let keyval in this._root._callbacks) {
-            if (keyval == targetPath.slice(0, keyval.length)) {
-                this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
-                    cb(targetPath.slice(0, keyval.length), oldval)
-                });
-            }
-        }
-        if (typeof target[key] == 'object')
-            target[key] = createProxy(target[key], this, false, target, key)
     },
     _path: [],
     _root: null,
