@@ -11,7 +11,7 @@ const socketOptions = computed(() => ({
   }
 }));
 let syncerSocket = null;
-
+initializeSocket()
 function initializeSocket(){
     // Create and connect the socket
     syncerSocket = io(socketURL, socketOptions.value);
