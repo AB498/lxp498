@@ -14,20 +14,16 @@ watch(() => window.glb.lxsocket.onlineUsers, (newVal, oldVal) => {
 window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
 window.glb.syncerObj.openChat = {}
 
-// async function openConversation() {
-//   console.log('openConversation')
-//   let res = await fetch(window.glb.baseUrl + '/api/conversations/open', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       otherEmail: window.glb.lxsocket.onlineUsers[0].user.email
-//     })
-//   })
-//   let data = await res.json()
-//   console.log('data', data)
-// }
+async function openConversation(user) {
+  // window.glb.syncerObj.openChat.user = { email: 'dsadsa', id: 89786 };
+  let res = await window.glb.safeAuthedReq('/api/createChat', { otherUserId: user.id })
+  if (res) {
+    router.push('/chat/' + res.id)
+  } else {
+    window.glb.addNotf('error', 'Error creating chat')
+  }
+  // router.push('/chat/' + user.id)
+}
 
 
 
@@ -40,7 +36,7 @@ window.glb.syncerObj.openChat = {}
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
               <div class="btn hover-ripple-fast"
-                      @click="window.glb.syncerObj.openChat.user = { email: 'dsadsa', id: 89786 }; router.push('/chat/' + user.id)">
+                        @click="openConversation(user)">
                 {{ user.email }}
               </div>
             </div>
