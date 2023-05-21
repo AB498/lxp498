@@ -66,7 +66,7 @@ module.exports.getAllUsers = async (req, res) => {
             },
         },
     });
-    return res.send(users));
+    return res.send(users.map((user) => user.toJSON()));
 }
 module.exports.openConversation = async (req, res) => {
     const conversationId = req.body.id;
