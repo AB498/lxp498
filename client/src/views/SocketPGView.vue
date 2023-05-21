@@ -5,7 +5,6 @@ import { io } from "socket.io-client";
 import { reactive } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
-import { makeSyncer } from '@/composables/Syncer'
 
 // const  { createProxy, rjwatch, rjmod } = obj
 
