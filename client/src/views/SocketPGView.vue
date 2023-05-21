@@ -19,11 +19,6 @@ let socketState = reactive({
 let testInterval;
 init()
 function init(url) {
-    socket = io(url, {
-        extraHeaders: {
-            Authorization: `Bearer ${window.glb?.jwt || ''}`
-        }
-    });
     socket.connect();
 
     socket.on("connect", () => {
