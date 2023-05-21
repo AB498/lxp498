@@ -96,7 +96,7 @@ const searchText = ref("");
                 <RouterLink to="/"
                   class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
                   <!-- loading if not connected -->
-                  <i v-if="!con" class="">
+                    <i v-if="!window.glb.con" class="">
                     <q-spinner-radio color="brown" />
                   </i>
                   <span class="relative flex h-3 w-3 center" v-else>
