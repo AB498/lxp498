@@ -40,8 +40,11 @@ module.exports.createChat = async (req, res) => {
     });
 
     if (existingChat && existingChat.length > 0) {
-        console.log(existingChat)
-        return res.send(existingChat);
+        const fetchedConversation = await models.Conversation.findOne({
+            where: { id: existingChat[0].id },
+            include: { model: models.User }
+        });
+        return res.send(fetchedConversation);
     }
 
     const conversation = await models.Conversation.create({ name: 'My Conversation' });
