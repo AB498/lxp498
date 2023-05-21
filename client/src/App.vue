@@ -20,6 +20,7 @@ import NotificationStack from "@/components/NotificationStack.vue";
 import "vue3-json-viewer/dist/index.css";
 import { io } from "socket.io-client";
 
+import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 import { makeSyncer } from '@/composables/Syncer'
 const route = useRoute()
 const router = useRouter()
@@ -28,7 +29,10 @@ const URL = "http://localhost:3000";
 let syncer = makeSyncer(URL)
 syncer.init()
 
-window.glb.syncerObj = reactive(syncer.syncerObj);
+rjwatch(syncer.syncerObj, 'text', (newVal, oldVal) => {
+  console.log('text changed', newVal, oldVal)
+  window.glb.syncerObj = reactive(syncer.syncerObj);
+})
 
 function logout() {
   window.glb.loggedIn = false
