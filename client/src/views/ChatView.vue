@@ -1,6 +1,10 @@
 <script setup>
 import { ref, watch, onUnmounted, onMounted, nextTick } from 'vue'
 import Toggle from '@vueform/toggle'
+import { useRoute, useRouter, RouterLink, RouterView } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
 
 
 watch(() => window.glb.lxsocket.onlineUsers, (newVal, oldVal) => {
