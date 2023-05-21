@@ -95,11 +95,12 @@ rjmod(rjson, '/deep/deep1', 'hello2')
 
 console.log(rjson.deep.deep1)
 
-if (window) {
-    window.createProxy = createProxy
-    window.rjwatch = rjwatch
-    window.rjmod = rjmod
-}
-if (module) {
-    module.exports = { createProxy, rjwatch, rjmod }
-}
+// if (window) {
+//     window.createProxy = createProxy
+//     window.rjwatch = rjwatch
+//     window.rjmod = rjmod
+// }
+// if (module) {
+//     module.exports = { createProxy, rjwatch, rjmod }
+// }
+module.exports = { createProxy, rjwatch, rjmod }
