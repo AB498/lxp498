@@ -77,6 +77,9 @@
   .flex {
     @apply flex-nowrap;
   }
+  .full {
+    @apply w-full h-full bg-gray-900;
+  }
   .without-ring {
     @apply focus:ring-0 focus:ring-offset-0;
   }
