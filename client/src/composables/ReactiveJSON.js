@@ -6,12 +6,12 @@ const handlerMain = {
             return;
         }
         let targetPath = [...this._path, key].join('/');
-        target[key] = value
         for (let keyval in this._root._callbacks) {
-            let oldval = rjget(target, targetPath.slice(0, keyval.length))
+            let oldval = rjget(this, targetPath.slice(0, keyval.length))
+            target[key] = value
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
-                    cb(targetPath.slice(0, keyval.length), oldval)
+                    cb(targetPath.slice(0, keyval.length), oldval, value)
                 });
             }
         }
@@ -70,21 +70,25 @@ const rjwatch = (obj, key, cb) => {
 
     if (!objHandler._root._callbacks[targetPath])
         objHandler._root._callbacks[targetPath] = [];
-    objHandler._root._callbacks[targetPath].push((path, oldval) => {
+    objHandler._root._callbacks[targetPath].push((path, oldval, newVal) => {
         if (key)
-            cb(oldval, obj[key], path, key);
+            cb(oldval, newVal, path, key);
         else
-            cb(oldval, obj, path, key)
+            cb(oldval, newVal, path, key)
     })
 }
 // let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
-// //
-// rjwatch(rjson.deep, 'deep1', (k, v, p, v2) => {
+
+// rjwatch(rjson.deep, null, (k, v, p, v2) => {
 //     rjson.deep.deep2 = 'hello'
 //     console.log(k, v, p, v2)
 // })
 // rjwatch(rjson.deep, 'deep2', (k, v) => {
 // })
+
+// rjson.deep = 'hello23'
+
+
 const rjmod = (root, path, value) => {
     let pathArr = path.split('/').slice(1,)
     let obj = root
@@ -93,14 +97,17 @@ const rjmod = (root, path, value) => {
     }
     obj[pathArr[pathArr.length - 1]] = value  // might error?
 }
-const rjget = (root, path) => {
+function rjget(root, path) {
     let pathArr = path.split('/').slice(1,)
-    let obj = root['[[handler]]']._root._obj;
+    let obj = root._root._obj;
     for (let i = 0; i < pathArr.length; i++) {
         obj = obj[pathArr[i]]
     }
     return obj
 }
+
+// rjmod(rjson, '/deep/deep1', 'hello2ds2')
+// console.log(rjget(rjson.deep, '/deep/deep1'))
 
 // rjson.deep.deep1 = 'hello3'
 
@@ -108,12 +115,13 @@ const rjget = (root, path) => {
 
 // console.log(rjson.deep.deep1)
 
-let obj = { createProxy, rjwatch, rjmod }
+let obj = { createProxy, rjwatch, rjmod, rjget }
 if (window) {
     window.rjexport = obj
     window.createProxy = createProxy
     window.rjwatch = rjwatch
     window.rjmod = rjmod
+    window.rjget = rjget
 }
 // if (module) {
 //     module.exports = { createProxy, rjwatch, rjmod }
