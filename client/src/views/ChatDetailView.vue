@@ -14,6 +14,23 @@ const chatSendText = ref('')
 const textAreaDisabled = ref(false)
 const numLines = ref(1)
 
+const sendMessage = () => {
+    if (chatSendText.value.length > 0) {
+        window.glb.syncerObj.openChat.sendMessage(chatSendText.value)
+        chatSendText.value = ''
+    }
+}
+
+const updateNumLines = () => {
+    numLines.value = chatSendText.value.split('\n').length
+}
+
+watch(chatSendText, updateNumLines)
+
+
+const clamp = (number, min, max) =>
+    Math.max(min, Math.min(number, max));
+
 
 
 </script>
