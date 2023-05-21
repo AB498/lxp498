@@ -19,12 +19,8 @@ const handlerMain = {
             let oldval = rjget(this, keyval)
             // console.log(rjget(this, keyval))
             if (typeof value == 'object') {
-                try {
-                    target[key] = createProxy(value, this, false, target, key)
-                } catch (e) {
-                    target[key] = value
-                    console.log(e, value)
-                }
+                target[key] = createProxy(value, this, false, target, key)
+
             }
             else
                 target[key] = value
@@ -72,7 +68,12 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
         if (typeof obj[key] == 'object')
             obj[key] = createProxy(obj[key], handler, false, obj, key)
     }
-    return new Proxy(obj, handler);
+    try {
+        return new Proxy(obj, handler);
+    } catch (e) {
+        return obj;
+        console.log(e, obj)
+    }
 }
 
 
