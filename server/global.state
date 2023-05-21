@@ -1,7 +1,7 @@
 {
   "videosState": {},
   "states": {},
-  "accessToken": "ya29.c.b0Aaekm1IEVy3mD_GM27lZ7FlmavIXmf5j3R8YdbcvF5GwSl9RZHfqvolWFddxpKldWzWWdxOZ2WEWPjKsJ3e6UE9oAGKAJT1K3jcUws3T9nCnbjp5CopjgpfeJl2Z5QYOC46dE-oD5F22z5zD4UzgUSRfyIKSHul2oW5k6ELjZ3IcYcU7F7MXW598L6ONHHAkVphzuClQVbZ4ump5SDOvmMnz-y22x0_JOSIlyHWvsLne99NIjPDSRCWDsaZSt43Ox_Qcd5cPBhqtYZphjUx6NN3wIty6xVR-0oB4CkOFtpk7OgMqaEbOY0gKrEwFzUXDTdom8blRmITVaNQG344PUr8JYMl7y54p-2zhqhFSsaRex201_6c1aZsooWkQcpkbd3WUk8W2oe6BBIY40-WQX6eq1IQs6O3U5a1Fsvv6lppQFubxUeIV6hMZomWFp6ciVQOM6lUlQxRxRbqJ33hv44tuoJpYtwtbOO6ZQvpeI0ddpx_pUzFJ7y1h3dXWIbSxqpfzgj-f5x6oyFedu1342s9boyMFl1rZx2bJeoX_x90pJbk6Iou4_5Ibe-lYc9F6WSXz67lskaOQw1b5ZO7FuSQeUxnXb4JcVBcB2ctaqWt8rRfS_YouSd_Sta1oWofI1YZbfM2Rdle4xWZdY9gtom4_n3oc0Mer0jQn8JsgWSn36b_Je9hzVi1b3XMj603MISOmpc10ubd6fya0mRQrkmnjaqqodm2iJ48g3FUYWm8-_vRhZxcw5emj22rQMIMO7oh-7utcaOmOc6Zleg23vIsipmWUcsIO5tndc6rMIaOYmnW6WqFx8oVgo77rsYWBS19wck_ljp_pddYWBQVcUtpxWB-Q6wSYilOpY5I0UYOIz84gYoZq1Ys39F7qobzJg9SwZV0y_WJiv8Jkg_Q-uaShYJcka3kwhiZnuX8dXedJYaRa0jJjf6gSB_XS7uFb5Fkz_U1hScUWe48Zw8agjgFfI0c3060X20wmhlI5hqMt-syZnhY5ZzY",
+  "accessToken": "ya29.c.b0Aaekm1LSe-daaPDuf07Q0VgEpmm3JmORYhv6isyOw8nE2zFaxGPh3aVb7R7UsIRiPObvPv72WE6CmSp3IGkP5pkf1qZw1WkhBlipQhOkCbc-hsFZgc2zQgOT5AbK1kzhEDoAiWFj-WmDXaEEOdYDsaU3DsM7B90K-O68-ieBt5UnuYKkIVo03kT-srkA0e0t0TmHEV6wGFtEmPiyuhXirWc357tSyhHWgJ1e7CHg0RDTT4-2UdLzW0hh3TzdiWNv7Ndkn_NM1XR3idKtOBRpPwX4Icnr5Fmgf5lXf6LPMAeR0ZYQJH4uaXtyM9HjuTFzZxb5zM9suAKV3BsE344C2UFt9hqkoIaIpO4oVr7pjfVyJbcMF9Slqtaty5bnUJjx8dvvuu7cZwcqf2hFm85kIM3veJ07auR9nn_v9lIQ-amBbv8OJxrqijOZIvk3OZb8XyYJVX8q8Xev_xjFQIRdUeIXI2tu5oBmXdUWcddf5x6J6_mY_QhnjObm3vsR1XfxbnJb6ja7_8-xtdrJ4UzavvWfMvdOQf1lWskhq2r94k5h7iM05wc4ixd_61R4Ieobfqnalc-wmlMus9yearcmw-VYOzzWRQ8jsneIZSoQ_m7i6OYg7Jen-ph53ogsSynBUXvMy7UXvqyw0IRSQSqkwe88vFaBmrqfRqaYWY30QvjfUqfm3qZy8temt9yd-VzyQFQZR_URbul27yedr2v1ORJFjqdB2WJhROX1goVz8u337yyj0adioxF8R7M4hgV_x1WBJdlJbr9ia2JZRaOkxUJua6ldasdlm8vguXd3nphXRrqFMfUbV3Orqz9-ewJe5pkW1wlS8Yx_ulgRa1_zS4pfnVXdgvokOkhMQJhkkWWBdcSzubl3iacYZuO0exRdx0SraVJi_bR0wBS2wwcop4zYR6FhI4gxjuF7S0JvaaU8MdkI3uycqgnYmI5cm3pRO0_RbY0_fVovf8ZisImU3B2BWvOrp2_ianq6eRF8wR2-qmQQ1f_u9gY",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -406,6 +406,19 @@
     {
       "method": "POST",
       "url": "/api/createChat",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getAllUsers",
       "middlewares": {
         "main": [
           null
