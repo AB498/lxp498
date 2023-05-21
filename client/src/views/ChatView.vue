@@ -13,7 +13,7 @@ watch(() => window.glb.lxsocket.onlineUsers, (newVal, oldVal) => {
 
 window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
 window.glb.syncerObj.openChat = {}
-window.glb.syncerObj.em = 'dadf'
+window.glb.syncerObj.openChat.email = 'dadf'
 
 // async function openConversation() {
 //   console.log('openConversation')

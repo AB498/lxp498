@@ -29,7 +29,6 @@ let syncer = makeSyncer(URL)
 syncer.init()
 
 window.glb.syncerObj = reactive(syncer.syncerObj);
-window.glb.syncerObj.em = 'dadf'
 
 function logout() {
   window.glb.loggedIn = false
