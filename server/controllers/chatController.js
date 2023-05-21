@@ -55,7 +55,7 @@ module.exports.createChat = async (req, res) => {
         include: { model: models.User }
     });
 
-    return res.send(fetchedConversation);
+    return res.send(fetchedConversation.toJSON());
 }
 
 module.exports.getAllUsers = async (req, res) => {
@@ -66,7 +66,7 @@ module.exports.getAllUsers = async (req, res) => {
             },
         },
     });
-    return res.send(users);
+    return res.send(users.toJSON());
 }
 module.exports.openConversation = async (req, res) => {
     const conversationId = req.body.id;
@@ -74,5 +74,5 @@ module.exports.openConversation = async (req, res) => {
         where: { id: conversationId },
         include: { model: models.User }
     });
-    return res.send(conversation);
+    return res.send(conversation.toJSON());
 }
