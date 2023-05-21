@@ -29,7 +29,7 @@ const URL = "http://localhost:3000";
 let syncer = makeSyncer(URL)
 syncer.init()
 
-rjwatch(syncer.syncerObj, 'text', (newVal, oldVal) => {
+rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
   console.log('text changed', newVal, oldVal)
   window.glb.syncerObj = reactive(syncer.syncerObj);
 })
