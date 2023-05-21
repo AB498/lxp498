@@ -32,7 +32,7 @@ watch(chatSendText, updateNumLines)
 const clamp = (number, min, max) =>
     Math.max(min, Math.min(number, max));
 
-const msgs = computed(() => window.glb.syncerObj)
+const msgs = window.glb.syncerObj.openChat.messages
 
 
 
