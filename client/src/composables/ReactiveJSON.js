@@ -171,7 +171,4 @@ if (typeof window != 'undefined') {
     window.rjmod = rjmod
     window.rjget = rjget
 }
-if (module) {
-    module.exports = { createProxy, rjwatch, rjmod }
-} else {
-}
+export { createProxy, rjwatch, rjmod, rjget }
