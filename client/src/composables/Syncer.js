@@ -10,34 +10,34 @@ import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 const makeSyncer = (url) => {
     var syncerObj = createProxy({});
     let localChange = true;
-    let socket = null;
+    let server2Socket = null;
     let socketState = reactive({
         connected: false
     })
     let testInterval;
 
     function init(url) {
-        socket = io(url);
-        socket.connect();
+        server2Socket = io(url);
+        server2Socket.connect();
 
-        socket.on("connect", () => {
+        server2Socket.on("connect", () => {
             socketState.connected = true;
 
 
             rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
                 if (localChange)
-                    socket.emit("updateObj", { path: p, value: v });
+                    server2Socket.emit("updateObj", { path: p, value: v });
                 console.log(`${localChange}  ${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
             }); //onchange
 
-            socket.on('updateObj', ({ path, value }) => {
+            server2Socket.on('updateObj', ({ path, value }) => {
                 localChange = false;
                 rjmod(syncerObj, path, value);
                 localChange = true;
             }); //onreceive
         });
 
-        socket.on("disconnect", (e) => {
+        server2Socket.on("disconnect", (e) => {
             console.log("disconnected", e);
             socketState.connected = false
         });
@@ -45,10 +45,10 @@ const makeSyncer = (url) => {
     }
     function destroy() {
         clearInterval(testInterval);
-        socket.disconnect();
+        server2Socket.disconnect();
     }
 
-    return { syncerObj, socketState, socket, init, destroy }
+    return { syncerObj, socketState, server2Socket, init, destroy }
 }
 
 export { makeSyncer }
