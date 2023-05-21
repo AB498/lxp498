@@ -34,7 +34,7 @@ const clamp = (number, min, max) =>
 async function openConversation(id) {
     let res = await window.glb.safeAuthedReq('/api/openConversation', { id: id })
     if (res) {
-        window.glb.syncerObj.openChat.user = { ...res.Users.find(u => u.id != window.glb.user.id) };
+        window.glb.syncerObj.openChat.user = { ...res.Users.find(u => u.id != window.glb.user.id), stats: 'a' };
     } else {
         window.glb.addNotf('error', 'Error creating chat')
     }
