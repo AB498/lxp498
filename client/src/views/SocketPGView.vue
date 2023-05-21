@@ -23,6 +23,10 @@ let syncerObj= createProxy({
     onlineUsers:[],
     conversations:[],
 })
+rjwatch(syncerObj,mull, (o,n,p,k)=>{
+    console.log("syncerObj changed",o,n,p,k)
+})
+
 initializeSocket()
 function initializeSocket(){
     // Create and connect the socket
