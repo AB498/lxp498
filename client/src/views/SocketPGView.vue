@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onUnmounted, onMounted, nextTick, computed } from 'vue'
 import Toggle from '@vueform/toggle'
+import { io } from "socket.io-client";
 
 
 const URL = "http://localhost:3000";
