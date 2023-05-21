@@ -34,7 +34,7 @@ const clamp = (number, min, max) =>
 async function openConversation(id) {
     let res = await window.glb.safeAuthedReq('/api/openConversation', { id: id })
     if (res) {
-        window.glb.syncerObj.openChat.user = res.Users.find(u => u.id != window.glb.user.id);
+        window.glb.syncerObj.openChat.user = fastObjCopy(res.Users.find(u => u.id != window.glb.user.id));
         console.log(window.glb.syncerObj.openChat.user, res.Users.find(u => u.id != window.glb.user.id))
     } else {
         window.glb.addNotf('error', 'Error creating chat')
@@ -42,6 +42,20 @@ async function openConversation(id) {
 }
 await openConversation(route.params.id);
 
+function fastObjCopy(obj) {
+    if (obj === null) return null;
+    if (typeof obj !== 'object') return obj;
+    if (obj.constructor === Date) return new Date(obj);
+    if (obj.constructor === RegExp) return new RegExp(obj);
+    let newObj = new obj.constructor();  //保持继承链
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {   //不遍历其原型链上的属性
+            let val = obj[key];
+            newObj[key] = typeof val === 'object' ? fastObjCopy(val) : val; // 使用arguments.callee解除与函数名的耦合
+        }
+    }
+    return newObj;
+}
 // window.glb.syncerObj.openChat.user = await window.glb.safeAuthedReq('/getUser/')
 window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
 
