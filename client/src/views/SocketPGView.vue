@@ -42,7 +42,6 @@ function initializeSocket() {
             localChange = false;
             rjmod(syncerObj, path, value);
             localChange = true;
-            console.log(syncerObj);
         }); //onreceive
 
 
