@@ -158,6 +158,9 @@ if (typeof window != 'undefined') {
     window.rjget = rjget
 }
 if (module) {
-    module.exports = { createProxy, rjwatch, rjmod }
+    module.exports.createProxy
+    module.exports.rjwatch
+    module.exports.rjmod
+    module.exports.rjget
 } else {
 }
