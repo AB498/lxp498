@@ -43,100 +43,10 @@ async function pollChanges() {
 
 <template>
   <div class="flex flex-col w-full h-full bg-gray-700">
+      <div class="h-10 bg-red-800 w-full">
+        <i class="fas fa-api p-2">APIS</i>
+        <i class="fas fa-api p-2">SocketPG</i>
 
-    <div class="flex w-full">
-      <div class="basis-full flex items-center justify-center btn rounded-none"
-        :class="window.glb.admin.showingWindow == 0 ? 'activated' : ''" @click="window.glb.admin.showingWindow = 0">
-        ErrorResult
-      </div>
-      <div class="basis-full flex items-center justify-center btn rounded-none"
-        :class="window.glb.admin.showingWindow == 1 ? 'activated' : ''"
-        @click="window.glb.admin.showingWindow = 1; cons(1)">
-        RequestResponse
-      </div>
-      <div class="basis-full flex items-center justify-center btn rounded-none"
-        :class=" window.glb.admin.showingWindow == 2 ? 'activated' : '' " @click=" window.glb.admin.showingWindow = 2; ">
-        Global
-      </div>
-    </div>
-    <div class="flex" v-if=" window.glb.admin.showingWindow == 2 ">
-          <div class=" errors flex flex-col w-full h-full whitespace-pre-wrap basis-full">
-                  <JsonViewer :value=" window.glb " class="bg-zinc-800" theme="my-awesome-json-theme">
-                  </JsonViewer>
-          </div>
-        </div>
-        <div class="flex" v-if=" window.glb.admin.showingWindow == 1 ">
-          <div class=" errors flex flex-col w-full h-full whitespace-pre-wrap basis-full">
-            <div class="bg-cyan-700 p-1 text-2xl font-mono flex items-center justify-center">Requests</div>
-            <div
-              v-for="(                                            item, index                                            ) in                                             requests                                            "
-              :key=" index " class="hover:-translate-y-1 transition-all bg-red-500/75 shadow-xl shadow-blue-700">
-              <div class="flex flex-row w-full border ">
-                <div class="flex flex-col basis-1/4">
-                  {{ Object.entries(item)[0][0] }}
-                </div>
-                <div class="flex flex-col basis-3/4">
-
-                  <JsonViewer :value=" Object.entries(item)[0][1] " class="bg-zinc-800" theme="my-awesome-json-theme">
-                  </JsonViewer>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class=" errors flex flex-col w-full h-full whitespace-pre-wrap basis-full">
-            <div class="bg-cyan-700 p-1 text-2xl font-mono flex items-center justify-center">Responses</div>
-            <div
-              v-for="(                                            item, index                                            ) in                                             responses                                            "
-              :key=" index " class="hover:-translate-y-1 transition-all bg-red-500/75 shadow-xl shadow-blue-700">
-              <div class="flex flex-row w-full border ">
-                <div class="flex flex-col basis-1/4">
-                  {{ Object.entries(item)[0][0] }}
-                </div>
-                <div class="flex flex-col basis-3/4">
-
-                  <JsonViewer :value=" Object.entries(item)[0][1] " class="bg-zinc-800" theme="my-awesome-json-theme">
-                  </JsonViewer>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex" v-if=" window.glb.admin.showingWindow == 0 ">
-          <div class=" errors flex flex-col w-full h-full whitespace-pre-wrap basis-full">
-            <div class="bg-cyan-700 p-1 text-2xl font-mono flex items-center justify-center">Errors</div>
-            <div
-              v-for="(                                           item, index                                           ) in                                            errors                                           "
-              :key=" index " class="hover:-translate-y-1 transition-all bg-red-500/75 shadow-xl shadow-blue-700">
-              <div class="flex flex-row w-full border ">
-                <div class="flex flex-col basis-1/4">
-                  {{ Object.entries(item)[0][0] }}
-                </div>
-                <div class="flex flex-col basis-3/4">
-
-                  <JsonViewer :value=" Object.entries(item)[0][1] " class="bg-zinc-800" theme="my-awesome-json-theme">
-                  </JsonViewer>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="results flex flex-col w-full h-full whitespace-pre-wrap basis-full">
-            <div class="bg-cyan-700 p-1 text-2xl font-mono flex items-center justify-center">Results</div>
-            <div
-              v-for="(                                           item, index                                           ) in                                            results                                           "
-          :key=" index " class="hover:-translate-y-1 transition-all bg-red-500/75 shadow-xl shadow-blue-700">
-          <div class="flex flex-row w-full border ">
-            <div class="flex flex-col basis-1/4">
-              {{ Object.entries(item)[0][0] }}
-            </div>
-            <div class="flex flex-col basis-3/4">
-
-              <JsonViewer :value=" Object.entries(item)[0][1] " class="bg-zinc-800" theme="my-awesome-json-theme">
-              </JsonViewer>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
 
   </div>
