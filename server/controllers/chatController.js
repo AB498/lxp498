@@ -68,3 +68,11 @@ module.exports.getAllUsers = async (req, res) => {
     });
     return res.send(users);
 }
+module.exports.openConversation = async (req, res) => {
+    const conversationId = req.body.id;
+    const conversation = await models.Conversation.findOne({
+        where: { id: conversationId },
+        include: { model: models.User }
+    });
+    return res.send(conversation);
+}

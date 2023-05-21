@@ -1,7 +1,7 @@
 {
   "videosState": {},
   "states": {},
-  "accessToken": "ya29.c.b0Aaekm1INqzzyRX5kMXybJg7TymuqHzAdNQVWP9vHMbUEJ94-BV22Of6n9mVZfuWdumddE70riaNhIJ6p4gV6YxORgK2Ce5LFzicOsBSh6mYPJ59S21nGxQPcqAK4J0pjl8mDd3Z6uA6x5eIm4dh_LArwhkNmiW86FSnprMkuECOAyNk2yYbt6xcRLZQ-3lLU2qQ-o3inTKetEiGB42VSrjkJuoPtKRHC7ZgKsDe7qm_yK9IKH7lB6q1QROJq-h29KxMAY8tLhpTRBduJv5-s3356m9dSHus_1-9iIXJt8XuMKe7ptGEvTMNmCUU454Afk4V0kP1dz_A_T9J6E345CbyV6cR13OsYS1vqa8sIdWYRq0pytWV1dnlUw2r3zZ8vek4mbZvcfS1dgU64eJZBIqF17UJY3x6oY38UFsf0B9jqeQ2dfk3s1pjOZwhUgbl2on8udQrSXkj38fUrWsa4S0Myv9XsXes7aRc5xR_zQnWZldWn7VYe1Xnpopmtu8xkiR1yUd0W-6tM6qmkvwi17z7jRYamSZg6Fe6Z3JwvkwoYQZu2smqu1QyaXpjxnwrmqSYMXxyxRmr27p0nzfyd1db6d5WoyRBppajcQ8k-Vz8140ml3jZwY41tr_Q1nRq13So7V2IOIh6hw7s15yqdSVee0Xo_Bc6JOzWuzZuOJdkj-t9FvFyYvZUVxXlqssnluSnqWtrXyu059tW4svyczOMun21ulhq3siw5ivnQaQkopSca3mOcRVgBwQ9fuavohXnB_u0vQ46bvz7Blq2v86pqQ-q95S_edQoU_kd-hWQ2mk4yz30_I_piVhxd4kt0uwa88YjbxX56doR4X2ViZY57Fzk9eoSXIymJrXOgpbRqiyg1a-8m35SZt94B_5tQsbm0BRcMjQOsd8Z8FQ7jmo9j0Y4MSZgbhmgm_JSl6_9Saqghh-xMV_xoJhij8av0Omh4yu_yF1XUsSOI3yZd7jn352bcVaRhxFgdJid_ZOawF8ZqOn9arpk",
+  "accessToken": "ya29.c.b0Aaekm1IVZd_WkQb7LedY6MBdogJpxMYIzgBwOEVw2Xfb9D_LkWkGoLm4lQLkCSqqsFlPw0W4GnKHY__YvBYfjDVO8eBKPRdmuBu_S3zQBHQtW-UaIpYz6zv7eWoe7RZQKhTK8wp-wNzOnFGQ12c7CNZLYwPEXu9AhUy5iiM35yYGmSfTVSoPkCNsxCvbg6Lx1M_Lgon6hkEvV-bfifSQAC-2hMFQR4w8w4axzIVL96DnZ3Aky4gm_aSBzUApwGs5wkfN42yRt3A_yZZLK39ZUNSc-DbEjqCYje2RARyLjutDifOgwWOFiggCAyfEiv2ZnEp3MHa4xL7yw5ET344K6BeIgoYgeuuzBOX-wsYF2gxRw7O9YUUJ-vmW2Z9pc_b-ipctp0kz8zpso03eI87bF7o-3p2mn-1VxeslfiuajRq63RdJVbjaf6unemftjR-930SeZ9_4M13BIyFfz0ozcheIUi7Jpesm95n-99_2os85jgyRrR8eQ0F3MlamROosXVwzUtagFpu3hIXVzVFFuBBB5Vs85a2qw4QJWUhJgVj9dtB9-pFnvJocfwugQcu3hrtFoZm7gtpugJiZQSImk1t3Y1ht-YOzYrVnVMJl4ge0Z9qZ9_olbbwUek2mUaIaxbpz5b2_46MYkj9dn0vwi6szm3qBxq-ftbdh5t8kM2l4q-hI1sV_M-IwI_ciludYV72-abUpspI3hfxmzvpqnUSc26r8uv_Myj4uV0aWy2sch9k-WokoOUW-__ld3bFw8jug3jFV61mmcOcIcnhY40mjfrzh_jwd1WaYvcQUffZF_-hYWn_vXn5djzi3aFo0lyBpedXahSz1YdjzbM4lqM-7F9sWQpou7MiXQbS7bssM4BdYxnZrzqp5p4Igo6b6Bq_4BBW6hsQ_5B-9UhZlcYBdzemwy2_tFQ5rlkVfaxOmdd-jI6c5XyayMmvmVWgQMaIeUnBua3Y7a1c3FBm2S1QU0ux4mR-vfSBvZyxVU-_M4pjVu_UoFjm",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -419,6 +419,19 @@
     {
       "method": "POST",
       "url": "/api/getAllUsers",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/openConversation",
       "middlewares": {
         "main": [
           null

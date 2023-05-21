@@ -33,7 +33,7 @@ const clamp = (number, min, max) =>
 
 async function openConversation(id) {
     console.log('opening conversation', id)
-    let res = await window.glb.safeAuthedReq('/api/createChat', { otherUserId: id })
+    let res = await window.glb.safeAuthedReq('/api/openConversation', { id: id })
     if (res) {
         window.glb.syncerObj.openChat.user = res.Users.find(u => u.id == id);
         // router.push('/chat/' + res.id)

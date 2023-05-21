@@ -133,6 +133,7 @@ global.glb.apiEndpoints = [
     { method: 'GET', url: '/admin/apis', middlewares: { main: [], test: [], both: [adminController.listAPIs] } },
     { method: 'POST', url: '/api/createChat', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.createChat] } },
     { method: 'POST', url: '/api/getAllUsers', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.getAllUsers] } },
+    { method: 'POST', url: '/api/openConversation', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.openConversation] } },
 
 ]
 
