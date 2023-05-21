@@ -26,8 +26,10 @@ let syncerObj= createProxy({
 })
 rjwatch(syncerObj,null, (o,n,p,k,v)=>{ //(oldval, newval, modpath, key, value)
     console.log(`${p||'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
+    if (syncerSocket) {
+        syncerSocket.emit("updateObj", {path:p, value:v});
+    }
 })
-syncerObj.a=43;
 
 initializeSocket()
 function initializeSocket(){
@@ -38,6 +40,7 @@ function initializeSocket(){
     syncerSocket.on("connect", () => {
         console.log("my id: " + syncerSocket.id);
         socketState.connected=true;
+syncerObj.a=43;
     });
     
     syncerSocket.on("disconnect", () => {
