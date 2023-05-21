@@ -24,7 +24,7 @@ let syncerObj= createProxy({
     onlineUsers:[],
     conversations:[],
 })
-rjwatch(syncerObj,null, (o,n,p,k)=>{
+rjwatch(syncerObj,null, (o,n,p,k,v)=>{ //(oldval, newval, modpath, key, value)
     console.log(`${p||'root'}->${k} changed from ${JSON.stringify(o)} to ${n}`)
 })
 syncerObj.a=43;
