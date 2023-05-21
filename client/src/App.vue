@@ -53,10 +53,8 @@ const initializeLoad = ref(false);
 watch([() => window.glb.loggedIn, initializeLoad], (newVal, oldVal) => {
   if (window.glb.loggedIn) {
     console.log("connecting to socket");
-    window.glb.lxsocket.initializeSocket();
   } else {
     console.log("disconnecting from socket");
-    window.glb.lxsocket.disconnectSocket();
   }
 })
 
