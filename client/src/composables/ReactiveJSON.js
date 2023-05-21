@@ -90,22 +90,22 @@ const rjwatch = (obj, key, cb) => {
             cb(oldval, newVal, modpath, key, value)
     })
 }
-let rjson = createProxy({ deep: 'deephello', deep2: 'deep2hello', deep3: { deep4: 'deep4hello' } });
+// let rjson = createProxy({ deep: 'deephello', deep2: 'deep2hello', deep3: { deep4: 'deep4hello' } });
 
-rjwatch(rjson.deep3, null, (old, newval, pth, key, value) => {
-    // rjson.deep.deep2 = 'hello'
-    rjmod(rjson, '', 'hello2dsad')
-    console.log(old, newval, pth, key, value)
+// rjwatch(rjson.deep3, null, (old, newval, pth, key, value) => {
+//     // rjson.deep.deep2 = 'hello'
+//     rjmod(rjson, '', 'hello2dsad')
+//     console.log(old, newval, pth, key, value)
 
 
-})
-rjmod(rjson, '/deep3/deep4', 27, true)
+// })
+// rjmod(rjson, '/deep3/deep4', 27, true)
 
-// rjson.a = 232432
+// // rjson.a = 232432
 
-rjson.deep3.deep4 = { sda: 23 }
+// rjson.deep3.deep4 = { sda: 23 }
 
-rjson.deep3.deep4.sda = 32432
+// rjson.deep3.deep4.sda = 32432
 
 
 function rjmod(root, path, value, silent) {
