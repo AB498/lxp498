@@ -3,6 +3,7 @@ import { ref, watch, onUnmounted, onMounted, nextTick, computed } from 'vue'
 import Toggle from '@vueform/toggle'
 import { io } from "socket.io-client";
 import { reactive } from 'vue';
+import { v4 as uuidv4 } from 'uuid';
 import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 // const  { createProxy, rjwatch, rjmod } = obj
 
@@ -48,7 +49,7 @@ function initializeSocket(){
         
      testInterval = setInterval(() => {
         syncerObj.b = Math.random() * 1000 + 1 | 0;
-        syncerObj.uuid = Math.random() * 1000 + 1 | 0;
+        syncerObj.uuid = uuidv4();
     }, 1000);
         // syncerObj.a=43;
     });
