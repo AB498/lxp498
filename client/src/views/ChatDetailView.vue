@@ -39,7 +39,7 @@ const clamp = (number, min, max) =>
         <div class="w-full h-full  bg-slate-800 overflow-auto">
             <div class="flex flex-col w-full h-full overflow-auto">
                 <div class="text-2xl p-2 ">{{ converstionId || 'Username' }}</div>
-
+    {{ window.glb.syncerObj.openChat.messages }}
                     <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages" v-if="window.glb.syncerObj.openChat">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
                         {{ message }}
