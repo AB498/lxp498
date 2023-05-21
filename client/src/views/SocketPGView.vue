@@ -36,10 +36,10 @@ function initializeSocket(){
         
         rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
         console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
-        socket.emit("updateObj", { path: p, value: v });
+        syncerSocket.emit("updateObj", { path: p, value: v });
         }); //onchange
 
-        socket.on('updateObj', ({ path, value }) => {
+        syncerSocket.on('updateObj', ({ path, value }) => {
         // console.log(path, value);
         rjmod(syncerObj, path, value);
         console.log(syncerObj);
