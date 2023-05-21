@@ -41,7 +41,7 @@ function initializeSocket(){
 
         syncerSocket.on('updateObj', ({ path, value }) => {
         // console.log(path, value);
-        rjmod(syncerObj, path, value);
+        rjmod(syncerObj, path, value,true);
         console.log(syncerObj);
         }); //onreceive
         
