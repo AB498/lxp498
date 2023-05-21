@@ -107,7 +107,7 @@ const searchText = ref("");
                     </span>
                   </span>
                   <div class="font-Galada text-4xl p-1">
-                    Lx
+                      Lx{{ window.glb.syncerObj?.a }}
                   </div>
                 </RouterLink>
               </template>
