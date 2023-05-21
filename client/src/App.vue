@@ -85,17 +85,17 @@ const searchText = ref("");
     <div class="whole h-screen w-screen flex flex-nowrap flex-col text-white font-sans overflow-auto">
       <NotificationStack />
       <div class="w-full h-16  shrink-0 sticky top-0 backdrop-blur-lg z-50">
-          <div class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap
+        <div class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap
         overflow-x-auto w-full">
-            <div class="nav-right px-4 flex items-stretch">
-              <PopperComponent>
-                <template #tohover>
-                  <RouterLink to="/"
-                    class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
-                    <!-- loading if not connected -->
-                        <i v-if="!con" class="">
-          <q-spinner-radio color="brown" />
-                      </i>
+          <div class="nav-right px-4 flex items-stretch">
+            <PopperComponent>
+              <template #tohover>
+                <RouterLink to="/"
+                  class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
+                  <!-- loading if not connected -->
+                  <i v-if="!con" class="">
+                    <q-spinner-radio color="brown" />
+                  </i>
                   <span class="relative flex h-3 w-3 center" v-else>
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500">
