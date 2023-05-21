@@ -31,11 +31,11 @@ syncer.init()
 
 rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
   console.log('syncerObj changed', newVal, { ...syncer.syncerObj })
-  window.glb.syncerObj = { ...syncer.syncerObj };
+  window.glb.syncerObj = syncer.syncerObj;
 })
 watch(() => window.glb.syncerObj, (newVal, oldVal) => {
   console.log('window.glb.syncerObj changed', newVal, oldVal)
-  syncer.syncerObj = { ...window.glb.syncerObj };
+  syncer.syncerObj = window.glb.syncerObj;
 })
 window.glb.syncerObj = syncer.syncerObj;
 
