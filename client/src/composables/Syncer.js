@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 
 
-makeSyncer = (url) => {
+const makeSyncer = (url) => {
     const socketOptions = computed(() => ());
     var syncerObj = createProxy({});
     let localChange = true;
