@@ -27,7 +27,7 @@ const makeSyncer = (url) => {
             rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
                 if (localChange)
                     socket.emit("updateObj", { path: p, value: v });
-                console.log(`${localChange}  ${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
+                console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
             }); //onchange
 
             socket.on('updateObj', ({ path, value }) => {
@@ -35,6 +35,13 @@ const makeSyncer = (url) => {
                 rjmod(syncerObj, path, value);
                 localChange = true;
             }); //onreceive
+
+
+            testInterval = setInterval(() => {
+                syncerObj.b = Math.random() * 1000 + 1 | 0;
+                // syncerObj.uuid = uuidv4();
+            }, 1000);
+            // syncerObj.a=43;
         });
 
         socket.on("disconnect", () => {
@@ -43,7 +50,10 @@ const makeSyncer = (url) => {
         });
 
     }
-    function destroy() { }
+    function destroy() {
+        clearInterval(testInterval);
+        socket.disconnect();
+    }
 
     return { syncerObj, socketState, socket, init, destroy }
 }
