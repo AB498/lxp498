@@ -25,7 +25,7 @@ let syncerObj= createProxy({
     conversations:[],
 })
 rjwatch(syncerObj,null, (o,n,p,k)=>{
-    console.log("syncerObj changed",o,n,p,k)
+    // console.log("syncerObj changed",o,n,p,k)
 })
 syncerObj.a=43;
 
