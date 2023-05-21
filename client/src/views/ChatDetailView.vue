@@ -41,7 +41,7 @@ const msgs = computed(() => window.glb.syncerObj.openChat.messages)
         <div class="w-full h-full  bg-slate-800 overflow-auto">
             <div class="flex flex-col w-full h-full overflow-auto">
                 <div class="text-2xl p-2 ">{{ converstionId || 'Username' }}</div>
-                {{ msgs || 'unddef' }}
+                    {{ window.glb.syncerObj.openChat.messages || 'unddef' }}
                         <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages" v-if="window.glb.syncerObj.openChat.messages">
                     <div v-for="(message, index) in msgs" :key="message.id">
                         {{ message }}
