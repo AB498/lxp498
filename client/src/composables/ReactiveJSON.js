@@ -101,5 +101,5 @@ if (window) {
     window.rjmod = rjmod
 }
 if (module) {
-    module.exports = { rjson, rjwatch, rjmod }
+    module.exports = { createProxy, rjwatch, rjmod }
 }
