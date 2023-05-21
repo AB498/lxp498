@@ -37,7 +37,8 @@ module.exports.createChat = async (req, res) => {
         having: models.sequelize.literal(`COUNT(DISTINCT Users.id) = 2`), // Only include conversations with both users
     });
 
-    if (existingChat && existingChat.length > 0) {
+    if (existingChat && existingChat.length > 0)
+        console.log(existingChat)   
         return res.send(existingChat);
     }
 
