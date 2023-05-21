@@ -17,6 +17,7 @@ const makeSyncer = (url) => {
     let testInterval;
 
     function init(url) {
+    socket = io(url);
         socket = io(url, {});
         socket.connect();
 
