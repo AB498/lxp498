@@ -31,6 +31,7 @@ const makeSyncer = (url) => {
             }); //onchange
 
             server2Socket.on('updateObj', ({ path, value }) => {
+                console.log(`${path} changed to ${JSON.stringify(value)}`)
                 localChange = false;
                 rjmod(syncerObj, path, value);
                 localChange = true;
