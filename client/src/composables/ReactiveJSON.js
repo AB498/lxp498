@@ -9,9 +9,10 @@ const handlerMain = {
         for (let keyval in this._root._callbacks) {
             let oldval = rjget(this, targetPath.slice(0, keyval.length))
             target[key] = value
+            let modpath = targetPath
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
-                    cb(targetPath.slice(0, keyval.length), oldval, value)
+                    cb(targetPath.slice(0, keyval.length), oldval, value, modpath)
                 });
             }
         }
@@ -70,16 +71,16 @@ const rjwatch = (obj, key, cb) => {
 
     if (!objHandler._root._callbacks[targetPath])
         objHandler._root._callbacks[targetPath] = [];
-    objHandler._root._callbacks[targetPath].push((path, oldval, newVal) => {
+    objHandler._root._callbacks[targetPath].push((path, oldval, newVal, modpath) => {
         if (key)
-            cb(oldval, newVal, path, key);
+            cb(oldval, newVal, modpath, key);
         else
-            cb(oldval, newVal, path, key)
+            cb(oldval, newVal, modpath, key)
     })
 }
 let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
 
-// rjwatch(rjson.deep, null, (k, v, p, v2) => {
+// rjwatch(rjson, null, (k, v, p, v2) => {
 //     rjson.deep.deep2 = 'hello'
 //     rjmod(rjson, '', 'hello2dsad')
 //     console.log(rjson)
