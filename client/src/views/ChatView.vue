@@ -18,6 +18,7 @@ async function openConversation(user) {
   let res = await window.glb.safeAuthedReq('/api/createChat', { otherUserId: user.id })
   if (res) {
     window.glb.syncerObj.openChat.user = res.Users.find(u => u.id == user.id);
+    console.log('openChat', window.glb.syncerObj.openChat)
     router.push('/chat/' + res.id)
   } else {
     window.glb.addNotf('error', 'Error creating chat')
