@@ -31,7 +31,7 @@ syncer.init()
 
 rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
   console.log('text changed', newVal, oldVal)
-  window.glb.syncerObj = reactive(syncer.syncerObj);
+  // window.glb.syncerObj = reactive(syncer.syncerObj);
 })
 
 function logout() {
