@@ -102,7 +102,7 @@ if (window) {
     window.rjwatch = rjwatch
     window.rjmod = rjmod
 }
-if (module) {
-    module.exports = { createProxy, rjwatch, rjmod }
-}
-export default obj
+// if (module) {
+//     module.exports = { createProxy, rjwatch, rjmod }
+// }
+// export default obj
