@@ -22,7 +22,6 @@ async function openConversation(user) {
   } else {
     window.glb.addNotf('error', 'Error creating chat')
   }
-  // router.push('/chat/' + user.id)
 }
 
 
