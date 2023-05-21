@@ -27,7 +27,7 @@ const makeSyncer = (url) => {
             rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
                 if (localChange)
                     socket.emit("updateObj", { path: p, value: v });
-                console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
+                console.log(`${localChange}  ${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
             }); //onchange
 
             socket.on('updateObj', ({ path, value }) => {
