@@ -34,7 +34,7 @@ window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
           <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
             <div class="" v-if="window.glb.chats">
               <div v-for="(user, index) in window.glb.chats" :key="index">
-                <div class="btn" @click="">
+                  <div class="btn hover-ripple-fast" @click="window.glb.syncerObj.openChat = user.email">
                 {{ user.email }}
               </div>
             </div>
