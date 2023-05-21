@@ -1,42 +1,9 @@
 <script setup>
 import { ref, watch, reactive, onMounted, nextTick, onUnmounted } from 'vue'
+import { RouterView, useRouter } from 'vue-router'
 
-const errors = ref([])
-const results = ref([])
-let umntd = true;
+const router = useRouter()
 
-onUnmounted(() => {
-  umntd = false;
-})
-
-const requests = ref([])
-const responses = ref([])
-
-if (!window.glb.admin) window.glb.admin = {}
-
-window.glb.admin.showingWindow = window.glb.admin.showingWindow || 0
-
-onMounted(async () => {
-  errors.value = window.glb.tryParseJSON(await (await fetch(window.glb.baseUrl + '/admin/errors')).text())
-  results.value = window.glb.tryParseJSON(await (await fetch(window.glb.baseUrl + '/admin/results')).text())
-
-  requests.value = window.glb.tryParseJSON(await (await fetch(window.glb.baseUrl + '/admin/requests')).text())
-  responses.value = window.glb.tryParseJSON(await (await fetch(window.glb.baseUrl + '/admin/responses')).text())
-  pollChanges();
-
-})
-
-async function pollChanges() {
-  let reqVal = '';
-  await window.glb.poll(async () => {
-    reqVal = window.glb.tryParseJSON(await (await fetch(window.glb.baseUrl + '/admin/requests')).text())
-    return [null, JSON.stringify(reqVal) != JSON.stringify(requests.value)]
-  })
-  console.log('changed');
-  requests.value = reqVal;
-  if (umntd)
-    pollChanges();
-}
 
 
 </script>
@@ -44,11 +11,11 @@ async function pollChanges() {
 <template>
   <div class="flex flex-col w-full h-full bg-gray-700">
       <div class="h-10 bg-red-800 w-full">
-          <i class="fas fa-api p-2" @click="router.push('apicontrols')">APIS</i>
-          <i class="fas fa-api p-2" @click="router.push('socketpg')">SocketPG</i>
+        <i class="fas fa-api p-2" @click="router.push('apicontrols')">APIS</i>
+        <i class="fas fa-api p-2" @click="router.push('socketpg')">SocketPG</i>
 
-    </div>
-
+      </div>
+      <RouterView />
   </div>
 </template> 
 
