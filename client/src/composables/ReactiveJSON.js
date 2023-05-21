@@ -30,7 +30,7 @@ const handlerMain = {
     }
 }
 
-function createProxy(obj, handlerInc = handlerMain, isRoot = true, parent, key) {
+const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     let handler;
     handler = { ...handlerMain }
     if (isRoot) {
