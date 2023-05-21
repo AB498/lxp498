@@ -12,7 +12,7 @@ watch(() => window.glb.lxsocket.onlineUsers, (newVal, oldVal) => {
 })
 
 window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
-window.glb.syncerObj.openChat = {}
+window.glb.syncerObjRef.openChat = {}
 
 // async function openConversation() {
 //   console.log('openConversation')
@@ -39,7 +39,7 @@ window.glb.syncerObj.openChat = {}
           <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
             <div class="" v-if="window.glb.chats">
               <div v-for="(user, index) in window.glb.chats" :key="index">
-                                <div class="btn hover-ripple-fast" @click="window.glb.syncerObj.openChat.email = user.email; router.push('/chat/' + user.email)">
+                                  <div class="btn hover-ripple-fast" @click="window.glb.syncerObjRef.openChat.email = user.email; router.push('/chat/' + user.email)">
                   {{ user.email }}
               </div>
             </div>
