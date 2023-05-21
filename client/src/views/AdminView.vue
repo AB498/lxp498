@@ -11,8 +11,8 @@ const router = useRouter()
 <template>
   <div class="flex flex-col w-full h-full bg-gray-700">
           <div class="h-10 bg-red-800 w-full flex justify-around">
-          <i class="btn fas fa-api p-2" @click="router.push('apicontrols')">APIS</i>
-          <i class="btn fas fa-api p-2" @click="router.push('socketpg')">SocketPG</i>
+            <i class="btn w-full fas fa-api p-2" @click="router.push('apicontrols')">APIS</i>
+            <i class="btn w-full fas fa-api p-2" @click="router.push('socketpg')">SocketPG</i>
 
       </div>
       <RouterView />
