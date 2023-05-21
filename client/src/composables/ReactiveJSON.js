@@ -49,9 +49,13 @@ const handlerMain = {
         return target[prop];
     }
 }
+function isObject(x) {
+    return x != null && (typeof x == "object" || typeof x == "function");
+}
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     if (!obj) return obj;
+    if (!isObject(obj)) return obj;
     if (obj instanceof Proxy) {
         obj = { ...obj }
     }
