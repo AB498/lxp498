@@ -40,8 +40,7 @@ window.glb.syncerObj.openChat = {}
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
               <div class="btn hover-ripple-fast"
-                    @click="window.glb.syncerObj.openChat.user = {
-  email:"dsadsa",id:89786}" router.push('/chat/' + user.id)">
+                    @click="window.glb.syncerObj.openChat.user = { email: 'dsadsa', id: 89786 }" router.push('/chat/' + user.id)">
                 {{ user.email }}
               </div>
             </div>
