@@ -35,6 +35,7 @@ async function openConversation(id) {
     let res = await window.glb.safeAuthedReq('/api/openConversation', { id: id })
     if (res) {
         window.glb.syncerObj.openChat.user = res.Users.find(u => u.id != window.glb.user.id);
+        console.log('openConversation', res)
     } else {
         window.glb.addNotf('error', 'Error creating chat')
     }
@@ -42,7 +43,7 @@ async function openConversation(id) {
 await openConversation(route.params.id);
 
 // window.glb.syncerObj.openChat.user = await window.glb.safeAuthedReq('/getUser/')
-// window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
+window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
 
 
 </script>
