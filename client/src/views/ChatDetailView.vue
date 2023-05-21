@@ -31,7 +31,19 @@ watch(chatSendText, updateNumLines)
 const clamp = (number, min, max) =>
     Math.max(min, Math.min(number, max));
 
-// window.glb.syncerObj.openChat.user=await window.glb.safeAuthedReq('/getUser/')
+async function openConversation(user) {
+    let res = await window.glb.safeAuthedReq('/api/createChat', { otherUserId: user.id })
+    if (res) {
+        window.glb.syncerObj.openChat.user = res.Users.find(u => u.id == user.id);
+        // router.push('/chat/' + res.id)
+    } else {
+        window.glb.addNotf('error', 'Error creating chat')
+    }
+    // router.push('/chat/' + user.id)
+}
+await openConversation(route.params.id);
+
+// window.glb.syncerObj.openChat.user = await window.glb.safeAuthedReq('/getUser/')
 window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
 
 
