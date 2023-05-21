@@ -49,7 +49,7 @@ const makeSyncer = (url) => {
         server2Socket.disconnect();
     }
 
-    return { syncerObj, socketState, server2Socket, init, destroy }
+    return { syncerObj, socketState, server2Socket, init, destroy, connectedCallbacks }
 }
 
 export { makeSyncer }
