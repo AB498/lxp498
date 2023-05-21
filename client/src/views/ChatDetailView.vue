@@ -30,7 +30,7 @@ watch(chatSendText, updateNumLines)
 
 const clamp = (number, min, max) =>
     Math.max(min, Math.min(number, max));
-
+console.log(window.glb.syncerObj.openChat.user)
 window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
 
 
