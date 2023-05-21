@@ -55,7 +55,7 @@ const makeSyncer = (url) => {
 
     }
 
-    return { syncerObj, socketState, server2Socket, init, destroy, connectedCallbacks }
+    return { syncerObj, socketState, server2Socket, init, destroy, connectedCallbacks, disconnectedCallbacks }
 }
 
 export { makeSyncer }
