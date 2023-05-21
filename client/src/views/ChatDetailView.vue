@@ -33,6 +33,7 @@ const clamp = (number, min, max) =>
 
 async function openConversation(id) {
     let res = await window.glb.safeAuthedReq('/api/openConversation', { id: id })
+    window.glb.syncerObj.openChat.user = {}
     if (res) {
         Object.assign(window.glb.syncerObj.openChat.user, res.Users.find(u => u.id != window.glb.user.id));
         console.log(window.glb.syncerObj.openChat.user, res.Users.find(u => u.id != window.glb.user.id))
