@@ -16,6 +16,14 @@ let syncerSocket = null;
 let socketState=reactive({
     connected:false
 })
+
+let syncerObj= createProxy({
+    connected:socketState.connected,
+    fooEvents:[],
+    barEvents:[],
+    onlineUsers:[],
+    conversations:[],
+})
 initializeSocket()
 function initializeSocket(){
     // Create and connect the socket
