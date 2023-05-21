@@ -11,6 +11,7 @@ const makeSyncer = (url) => {
     var syncerObj = createProxy({});
     let localChange = true;
     let server2Socket = null;
+    let connectedCallbacks = [];
     let socketState = reactive({
         connected: false
     })
@@ -22,8 +23,7 @@ const makeSyncer = (url) => {
 
         server2Socket.on("connect", () => {
             socketState.connected = true;
-
-
+            connectedCallbacks.forEach(cb => cb());
             rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
                 if (localChange)
                     server2Socket.emit("updateObj", { path: p, value: v });
