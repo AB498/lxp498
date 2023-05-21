@@ -17,9 +17,7 @@ makeSyncer = (url) => {
     })
     let testInterval;
 
-    initializeSocket()
-
-    function initializeSocket(url) {
+    function init(url) {
         socket = io(url, {});
         socket.connect();
 
@@ -54,7 +52,7 @@ makeSyncer = (url) => {
 
     }
 
-    return { socket, socketState, testInterval }
+    return { syncerObj, socketState, socket, init }
 }
 
-export { createProxy, rjwatch, rjmod, rjget }
+export { makeSyncer }
