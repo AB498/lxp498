@@ -34,10 +34,6 @@ const clamp = (number, min, max) =>
 
 const msgs = computed(() => window.glb.syncerObj.openChat.messages)
 
-watch(() => window.glb.syncerObj, (newVal, oldVal) => {
-    console.log('text changed', newVal, oldVal)
-    window.glb.syncerObj = syncer.syncerObj;
-})
 
 </script>
 

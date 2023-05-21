@@ -35,6 +35,11 @@ rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
 })
 window.glb.syncerObj = syncer.syncerObj;
 
+watch(() => window.glb.syncerObj, (newVal, oldVal) => {
+  console.log('text changed', newVal, oldVal)
+  // window.glb.syncerObj = syncer.syncerObj;
+})
+
 function logout() {
   window.glb.loggedIn = false
   window.glb.user = null
