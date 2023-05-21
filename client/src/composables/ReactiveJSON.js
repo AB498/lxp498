@@ -103,4 +103,5 @@ if (window) {
 if (module) {
     module.exports = { createProxy, rjwatch, rjmod }
 }
-export default { createProxy, rjwatch, rjmod }
+let obj = { createProxy, rjwatch, rjmod }
+export default obj
