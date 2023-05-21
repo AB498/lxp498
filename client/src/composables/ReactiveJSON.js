@@ -49,10 +49,18 @@ const handlerMain = {
         return target[prop];
     }
 }
+function isJSONObject(obj) {
+    if (typeof obj == 'object' && obj !== null && !Array.isArray(obj)) {
+        return true;
+    }
+    return false;
+}
+
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     if (!obj) return obj;
-    if (typeof obj == 'object')
+    // if object, unwrap proxy
+    if (isJSONObject(obj))
         obj = { ...obj }
     let handler;
     handler = { ...handlerMain }
