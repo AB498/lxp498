@@ -13,6 +13,11 @@ const handlerMain = {
         let newtarget = target;
 
         let targetPath = [...this._path, key].join('/');
+
+        if (this._root._blacklistpaths[targetPath]) {
+            this._root._blacklistpaths[targetPath] = false;
+            return true;
+        }
         for (let keyval in this._root._callbacks) {
             let oldval = oldtarget[key]
             if (typeof target[key] == 'object')
@@ -35,6 +40,7 @@ const handlerMain = {
     _root: null,
     _parent: null,
     _callbacks: {},
+    _blacklistpaths: {},
     get(target, prop) {
         if (prop == "[[handler]]") {
             return this;
@@ -96,14 +102,18 @@ const rjwatch = (obj, key, cb) => {
 
 
 // })
-// rjson.a = 232432
-// rjmod(rjson, '/a', 27)
+// rjmod(rjson, '/deep3/deep4', 27,true)
+
+// // rjson.a = 232432
+
+// // rjson.deep3.deep4 = 'helinnlo23'
 
 
-// rjson.deep3.deep4 = 'helinnlo23'
+function rjmod(root, path, value, silent) {
+    if (silent) {
+        root['[[handler]]']._root._blacklistpaths[path] = true
 
-
-function rjmod(root, path, value) {
+    }
     let pathArr = path.split('/').slice(1,)
     let obj = root
 
@@ -115,6 +125,10 @@ function rjmod(root, path, value) {
         obj = obj[pathArr[i]]
     }
     obj[pathArr[pathArr.length - 1]] = value  // might error?
+    if (silent) {
+        delete root['[[handler]]']._root._blacklistpaths[path]
+
+    }
 }
 function rjget(root, path) {
     let pathArr = path.split('/').slice(1,)
@@ -157,5 +171,7 @@ if (typeof window != 'undefined') {
     window.rjmod = rjmod
     window.rjget = rjget
 }
-
-export { createProxy, rjwatch, rjmod, rjget }
+if (module) {
+    module.exports = { createProxy, rjwatch, rjmod }
+} else {
+}
