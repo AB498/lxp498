@@ -44,6 +44,11 @@ syncer.connectedCallbacks.push(() => {
   window.glb.con = true;
 })
 
+syncer.disconnectedCallbacks.push(() => {
+  console.log("disconnected");
+  window.glb.con = false;
+})
+
 function logout() {
   window.glb.loggedIn = false
   window.glb.user = null
