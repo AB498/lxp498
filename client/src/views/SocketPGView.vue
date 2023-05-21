@@ -45,7 +45,7 @@ function initializeSocket(){
         console.log(syncerObj);
         }); //onreceive
         
-        syncerObj.a=43;
+        // syncerObj.a=43;
     });
     
     syncerSocket.on("disconnect", () => {
