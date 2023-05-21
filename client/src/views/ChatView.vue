@@ -35,8 +35,7 @@ window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
             <div class="" v-if="window.glb.chats">
               <div v-for="(user, index) in window.glb.chats" :key="index">
                     <div class="btn hover-ripple-fast" @click="window.glb.syncerObj.openChat = user.email; router.push('/chat/' + user.email)">
-                      {{ user.email }}
-                {{ user.email }}
+                  {{ user.email }}
               </div>
             </div>
           </div>
