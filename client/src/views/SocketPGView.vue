@@ -19,7 +19,7 @@ let socketState = reactive({
 let testInterval;
 init()
 function init(url) {
-    socket = io(url);
+    socket = io(url, { transports: ['websocket'] });
     socket.connect();
 
     socket.on("connect", () => {
