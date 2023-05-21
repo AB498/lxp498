@@ -30,7 +30,6 @@ let syncer = makeSyncer(URL)
 syncer.init()
 
 rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
-  console.log('changed', window.glb.syncerObj)
   window.glb.syncerObj = { ...syncer.syncerObj };
 })
 window.glb.syncerObj = syncer.syncerObj;
@@ -81,54 +80,6 @@ const socketOptions = computed(() => ({
     Authorization: `Bearer ${window.glb?.jwt || ''}`
   }
 }));
-window.glb.lxsocket.socketObj = null;
-
-function initializeSocket() {
-  // Create and connect the socket
-  // console.log(socketOptions.value)
-  window.glb.lxsocket.socketObj = io(socketURL, socketOptions.value);
-  window.glb.lxsocket.socketObj.connect();
-
-
-  window.glb.lxsocket.socketObj.on("connect", () => {
-    console.log("my id: " + window.glb.lxsocket.socketObj.id);
-
-    window.glb.lxsocket.connected = true;
-    window.glb.lxsocket.socketObj.emit("resolveUser", window.glb.user.jwt);
-
-    const start = Date.now();
-    window.glb.lxsocket.socketObj.emit("ping", () => {
-      const duration = Date.now() - start;
-      console.log("Ping to server: " + duration);
-    });
-  });
-
-  window.glb.lxsocket.socketObj.on("disconnect", () => {
-    console.log("disconnected");
-    window.glb.lxsocket.connected = false;
-  });
-  window.glb.lxsocket.socketObj.on("serverSynced", (m) => {
-    window.glb._serverSynced = m;
-  });
-  window.glb.lxsocket.socketObj.on('pong', function (data) {
-    console.log('Received Pong: ', data);
-  });
-  window.glb.lxsocket.socketObj.on("ping", (callback) => {
-    callback();
-  });
-
-}
-
-function disconnectSocket() {
-  // Disconnect the socket if it exists and is connected
-  if (window.glb.lxsocket.socketObj && window.glb.lxsocket.socketObj.connected) {
-    window.glb.lxsocket.socketObj.disconnect();
-    window.glb.lxsocket.socketObj = null;
-  }
-}
-
-window.glb.lxsocket.initializeSocket = initializeSocket;
-window.glb.lxsocket.disconnectSocket = disconnectSocket;
 
 const searchCollapsed = ref(true);
 const searchText = ref("");
