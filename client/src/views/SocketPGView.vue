@@ -18,7 +18,6 @@ let socketState=reactive({
 })
 
 let syncerObj= createProxy({
-    connected:socketState.connected,
     fooEvents:[],
     barEvents:[],
     onlineUsers:[],
