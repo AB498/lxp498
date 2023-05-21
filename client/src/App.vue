@@ -5,6 +5,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'App'
 })
+
 </script>
 
 
@@ -20,6 +21,11 @@ import { io } from "socket.io-client";
 
 const route = useRoute()
 const router = useRouter()
+
+let syncer = makeSyncer(URL)
+syncer.init()
+
+window.glb.syncerObj = reactive(syncer.syncerObj);
 
 function logout() {
   window.glb.loggedIn = false
