@@ -39,9 +39,10 @@ window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
 <template>
         <div class="w-full h-full  bg-slate-800 overflow-auto">
             <div class="flex flex-col w-full h-full overflow-auto">
-                    <div class="text-2xl p-2 ">{{ converstionId || 'Username' }}</div>
-                                        <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages" v-if="window.glb.syncerObj.openChat.messages">
-                        <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
+                <div class="text-2xl p-2 ">{{ window.glb.syncerObj.openChat.user.firstName || 'Username' }}</div>
+                <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages"
+                    v-if="window.glb.syncerObj.openChat.messages">
+                    <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
                         {{ message }}
                     </div>
                 </div>
