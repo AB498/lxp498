@@ -23,6 +23,7 @@ import { io } from "socket.io-client";
 import { makeSyncer } from '@/composables/Syncer'
 const route = useRoute()
 const router = useRouter()
+const URL = "http://localhost:3000";
 
 let syncer = makeSyncer(URL)
 syncer.init()
