@@ -36,7 +36,7 @@ async function openConversation(user) {
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
               <div class="btn hover-ripple-fast"
-                        @click="openConversation(user)">
+                          @click="openConversation(user.id)">
                 {{ user.email }}
               </div>
             </div>
