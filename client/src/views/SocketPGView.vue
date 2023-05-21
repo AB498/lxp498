@@ -49,6 +49,10 @@ function initializeSocket(){
     });
   
 }
+onUnmounted(()=>{
+    syncerSocket.disconnect()
+})
+
 
 </script>
 
