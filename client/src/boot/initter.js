@@ -17,7 +17,6 @@ export default boot(({ app }) => {
 
     app.directive('loading-bar', {
         mounted(el, binding) {
-            console.log('loading-bar mounted');
             // Create the loading bar element
             const loadingBar = document.createElement('div');
             loadingBar.className = 'loading-bar';
