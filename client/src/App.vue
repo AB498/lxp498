@@ -94,8 +94,8 @@ const searchText = ref("");
                     class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
                     <!-- loading if not connected -->
                         <i v-if="!con" class="">
-                    <LoadingSpin w="4" h="4" />
-                  </i>
+          <q-spinner-radio color="brown" />
+                      </i>
                   <span class="relative flex h-3 w-3 center" v-else>
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500">
