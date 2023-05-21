@@ -35,13 +35,6 @@ const makeSyncer = (url) => {
                 rjmod(syncerObj, path, value);
                 localChange = true;
             }); //onreceive
-
-
-            testInterval = setInterval(() => {
-                syncerObj.b = Math.random() * 1000 + 1 | 0;
-                // syncerObj.uuid = uuidv4();
-            }, 1000);
-            // syncerObj.a=43;
         });
 
         socket.on("disconnect", () => {
