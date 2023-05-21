@@ -95,7 +95,9 @@ rjmod(rjson, '/deep/deep1', 'hello2')
 
 console.log(rjson.deep.deep1)
 
+let obj = { createProxy, rjwatch, rjmod }
 if (window) {
+    window.rjexport = obj
     window.createProxy = createProxy
     window.rjwatch = rjwatch
     window.rjmod = rjmod
@@ -103,5 +105,4 @@ if (window) {
 if (module) {
     module.exports = { createProxy, rjwatch, rjmod }
 }
-let obj = { createProxy, rjwatch, rjmod }
 export default obj

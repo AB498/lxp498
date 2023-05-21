@@ -3,8 +3,8 @@ import { ref, watch, onUnmounted, onMounted, nextTick, computed } from 'vue'
 import Toggle from '@vueform/toggle'
 import { io } from "socket.io-client";
 import { reactive } from 'vue';
-import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON.js'
 
+const  { createProxy, rjwatch, rjmod } =window.rjexport
 const URL = "http://localhost:3000";
 const socketURL = URL;
 const socketOptions = computed(() => ({
