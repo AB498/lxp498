@@ -34,11 +34,6 @@ rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
 })
 window.glb.syncerObj = syncer.syncerObj;
 
-watch(window.glb.syncerObj, (newVal, oldVal) => {
-  console.log('text changed', newVal, oldVal)
-  // window.glb.syncerObj = syncer.syncerObj;
-})
-
 syncer.connectedCallbacks.push(() => {
   console.log("connected");
   window.glb.con = true;
