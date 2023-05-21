@@ -44,7 +44,7 @@ module.exports.createChat = async (req, res) => {
             where: { id: existingChat[0].id },
             include: { model: models.User }
         });
-        return res.send(fetchedConversation);
+        return res.send(fetchedConversation.toJSON());
     }
 
     const conversation = await models.Conversation.create({ name: 'My Conversation' });
