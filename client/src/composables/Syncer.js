@@ -37,13 +37,16 @@ const makeSyncer = (url) => {
             }); //onreceive
         });
 
-        socket.on("disconnect", () => {
-            console.log("disconnected");
+        socket.on("disconnect", (e) => {
+            console.log("disconnected", e);
             socketState.connected = false
         });
 
     }
-    function destroy() { }
+    function destroy() {
+        clearInterval(testInterval);
+        socket.disconnect();
+    }
 
     return { syncerObj, socketState, socket, init, destroy }
 }
