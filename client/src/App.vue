@@ -29,10 +29,6 @@ const URL = "http://localhost:3000";
 let syncer = makeSyncer(URL)
 syncer.init()
 
-rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
-  window.glb.syncerObj = { ...syncer.syncerObj };
-  console.log('syncerObj changed', newVal, oldVal)
-})
 window.glb.syncerObj = syncer.syncerObj;
 
 syncer.connectedCallbacks.push(() => {
