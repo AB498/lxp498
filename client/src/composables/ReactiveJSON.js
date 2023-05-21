@@ -72,14 +72,14 @@ const rjwatch = (obj, key, cb) => {
             cb(oldval, obj, path, key)
     })
 }
-let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
-// 
-rjwatch(rjson.deep, 'deep1', (k, v, p, v2) => {
-    rjson.deep.deep2 = 'hello'
-    console.log(k, v, p, v2)
-})
-rjwatch(rjson.deep, 'deep2', (k, v) => {
-})
+// let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
+// //
+// rjwatch(rjson.deep, 'deep1', (k, v, p, v2) => {
+//     rjson.deep.deep2 = 'hello'
+//     console.log(k, v, p, v2)
+// })
+// rjwatch(rjson.deep, 'deep2', (k, v) => {
+// })
 const rjmod = (root, path, value) => {
     let pathArr = path.split('/').slice(1,)
     let obj = root
@@ -89,11 +89,11 @@ const rjmod = (root, path, value) => {
     obj[pathArr[pathArr.length - 1]] = value
 }
 
-rjson.deep.deep1 = 'hello3'
+// rjson.deep.deep1 = 'hello3'
 
-rjmod(rjson, '/deep/deep1', 'hello2')
+// rjmod(rjson, '/deep/deep1', 'hello2')
 
-console.log(rjson.deep.deep1)
+// console.log(rjson.deep.deep1)
 
 let obj = { createProxy, rjwatch, rjmod }
 if (window) {
