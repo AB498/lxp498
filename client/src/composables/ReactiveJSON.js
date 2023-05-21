@@ -1,12 +1,6 @@
 
 const handlerMain = {
     set: function (target, key, value) {
-        if (key.slice(0, 1) == '_') {
-            target[key] = value
-            return;
-        }
-        let oldval = target[key]
-        target[key] = value
     },
     _path: [],
     _root: null,
