@@ -16,7 +16,8 @@ syncer.init()
 
 
 onUnmounted(() => {
-    syncer.destroy()
+    socket.disconnect()
+    clearInterval(testInterval)
 })
 
 
@@ -24,7 +25,7 @@ onUnmounted(() => {
 
 <template>
             <div class="full">
-            
+
 
         </div>
 </template>
