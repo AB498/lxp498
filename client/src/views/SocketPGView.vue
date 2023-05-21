@@ -29,7 +29,7 @@ function initializeSocket(){
         socketState.connected=true;
         var syncerObj = createProxy({});
         
-        rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
+    rjwatch(syncerObj, 'uuid', (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
         console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
         syncerSocket.emit("updateObj", { path: p, value: v });
         }); //onchange
@@ -43,6 +43,7 @@ function initializeSocket(){
         
      testInterval = setInterval(() => {
         syncerObj.b = Math.random() * 1000 + 1 | 0;
+        syncerObj.uuid = Math.random() * 1000 + 1 | 0;
     }, 1000);
         // syncerObj.a=43;
     });
