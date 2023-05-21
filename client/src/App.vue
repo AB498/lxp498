@@ -31,9 +31,9 @@ syncer.init()
 
 rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
   window.glb.syncerObj = { ...syncer.syncerObj };
-  console.log('syncerObj changed', newVal, oldVal)
+  console.log('syncerObj changed', newVal, { ...syncer.syncerObj })
 })
-window.glb.syncerObj = syncer.syncerObj;
+window.glb.syncerObj = { ...syncer.syncerObj };
 
 syncer.connectedCallbacks.push(() => {
   console.log("connected");
