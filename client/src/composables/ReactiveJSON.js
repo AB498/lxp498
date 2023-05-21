@@ -149,21 +149,9 @@ function fastObjCopy(obj) {
 
 
 
-let obj = { createProxy, rjwatch, rjmod, rjget }
-if (typeof window != 'undefined') {
-    window.rjexport = obj
-    window.createProxy = createProxy
-    window.rjwatch = rjwatch
-    window.rjmod = rjmod
-    window.rjget = rjget
-}
-try {
 
     console.log('module')
     module.exports.createProxy = createProxy;
     module.exports.rjwatch = rjwatch;
     module.exports.rjmod = rjmod;
-    module.exports.rjget = rjget;
-} catch (e) {
-    console.log(e)
-}
+module.exports.rjget = rjget;
