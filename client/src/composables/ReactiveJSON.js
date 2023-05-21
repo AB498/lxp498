@@ -105,4 +105,4 @@ if (window) {
 // if (module) {
 //     module.exports = { createProxy, rjwatch, rjmod }
 // }
-// export default obj
+export default obj
