@@ -158,9 +158,9 @@ if (typeof window != 'undefined') {
     window.rjget = rjget
 }
 if (module) {
-    module.exports.createProxy
-    module.exports.rjwatch
-    module.exports.rjmod
-    module.exports.rjget
+    module.exports.createProxy = createProxy;
+    module.exports.rjwatch = rjwatch;
+    module.exports.rjmod = rjmod;
+    module.exports.rjget = rjget;
 } else {
 }
