@@ -17,7 +17,7 @@ let syncerSocket = null;
 let socketState=reactive({
     connected:false
 })
-
+let testInterval;
 
 initializeSocket()
 function initializeSocket(){
@@ -40,6 +40,10 @@ function initializeSocket(){
         console.log(syncerObj);
         }); //onreceive
         
+        
+     testInterval = setInterval(() => {
+        syncerObj.b = Math.random() * 1000 + 1 | 0;
+    }, 1000);
         // syncerObj.a=43;
     });
     
@@ -51,6 +55,7 @@ function initializeSocket(){
 }
 onUnmounted(()=>{
     syncerSocket.disconnect()
+    clearInterval(testInterval)
 })
 
 
