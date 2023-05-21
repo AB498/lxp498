@@ -77,10 +77,12 @@ const rjwatch = (obj, key, cb) => {
             cb(oldval, newVal, path, key)
     })
 }
-// let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
+let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
 
 // rjwatch(rjson.deep, null, (k, v, p, v2) => {
 //     rjson.deep.deep2 = 'hello'
+//     rjmod(rjson, '', 'hello2dsad')
+//     console.log(rjson)
 //     console.log(k, v, p, v2)
 // })
 // rjwatch(rjson.deep, 'deep2', (k, v) => {
@@ -89,9 +91,13 @@ const rjwatch = (obj, key, cb) => {
 // rjson.deep = 'hello23'
 
 
-const rjmod = (root, path, value) => {
+function rjmod(root, path, value) {
     let pathArr = path.split('/').slice(1,)
     let obj = root
+    if (pathArr.length == 0) {
+        Object.assign(root['[[handler]]']._root._obj, typeof value == 'object' ? value : { [value]: value })
+        return
+    }
     for (let i = 0; i < pathArr.length - 1; i++) {
         obj = obj[pathArr[i]]
     }
