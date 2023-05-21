@@ -16,7 +16,7 @@ const handlerMain = {
         }
         for (let keyval in this._root._callbacks) {
             target[key] = orgValue;
-            let oldval = rjget(this, keyval)
+            let oldval = fastObjCopy(rjget(this, keyval))
             // console.log(rjget(this, keyval))
             if (typeof value == 'object') {
                 target[key] = createProxy(value, this, false, target, key)
@@ -24,7 +24,7 @@ const handlerMain = {
             }
             else
                 target[key] = value
-            let newval = rjget(this, keyval)
+            let newval = fastObjCopy(rjget(this, keyval))
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
                     cb(oldval, newval, modpath, key, value)
