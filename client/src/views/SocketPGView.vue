@@ -14,7 +14,7 @@ const URL = "http://localhost:3000";
 let syncer = makeSyncer(URL)
 syncer.init()
 
-let sObj = reactive(syncer.syncerObj)
+
 onUnmounted(() => {
     syncer.destroy()
 })
@@ -24,7 +24,7 @@ onUnmounted(() => {
 
 <template>
             <div class="full">
-                        <q-input dark v-model="sObj.text" label="URL" />
+            
 
         </div>
 </template>
