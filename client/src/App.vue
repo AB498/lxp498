@@ -41,6 +41,11 @@ watch(window.glb.syncerObj, (newVal, oldVal) => {
 
 const con = computed(() => syncer.connected)
 
+watch(() => syncer.connected, (newVal, oldVal) => {
+  console.log('connected changed', newVal, oldVal)
+  // window.glb.syncerObj = syncer.syncerObj;
+})
+
 function logout() {
   window.glb.loggedIn = false
   window.glb.user = null
