@@ -36,7 +36,7 @@ async function openConversation(id) {
     window.glb.syncerObj.openChat.user = {}
     if (res) {
         (window.glb.syncerObj.openChat.user = res.Users.find(u => u.id != window.glb.user.id));
-        console.log(window.glb.syncerObj.openChat.user.stats, res.Users.find(u => u.id != window.glb.user.id))
+        console.log(JSON.parse(JSON.stringify(window.glb.syncerObj.openChat.user.stats)), res.Users.find(u => u.id != window.glb.user.id))
     } else {
         window.glb.addNotf('error', 'Error creating chat')
     }
