@@ -5,13 +5,22 @@ const handlerMain = {
             target[key] = value
             return;
         }
+        let oldtarget = fastObjCopy(target);
+        if (typeof target[key] == 'object')
+            target[key] = createProxy(target[key], this, false, target, key)
+        else
+            target[key] = value
+        let newtarget = target;
+
         let targetPath = [...this._path, key].join('/');
         for (let keyval in this._root._callbacks) {
-            let oldval = rjget(this, targetPath.slice(0, keyval.length))
-
-            target[key] = value
+            let oldval = oldtarget[key]
+            if (typeof target[key] == 'object')
+                target[key] = createProxy(target[key], this, false, target, key)
+            else
+                target[key] = value
             let modpath = targetPath
-            let newval = rjget(this, targetPath.slice(0, keyval.length))
+            let newval = newtarget[key]
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
 
@@ -19,9 +28,6 @@ const handlerMain = {
                 });
             }
         }
-        if (typeof target[key] == 'object')
-            target[key] = createProxy(target[key], this, false, target, key)
-
         return true;
     },
     _obj: null,
@@ -82,23 +88,25 @@ const rjwatch = (obj, key, cb) => {
             cb(oldval, newVal, modpath, key, value)
     })
 }
-let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
+// let rjson = createProxy({ deep: 'deephello', deep2: 'deep2hello', deep3: { deep4: 'deep4hello' } });
 
-rjwatch(rjson.deep, null, (old, newval, pth, key, value) => {
-    // rjson.deep.deep2 = 'hello'
-    rjmod(rjson, '', 'hello2dsad')
+// rjwatch(rjson.deep3, null, (old, newval, pth, key, value) => {
+//     // rjson.deep.deep2 = 'hello'
+//     rjmod(rjson, '', 'hello2dsad')
 
 
-})
-// rjwatch(rjson.deep, 'deep2', (k, v) => {
 // })
+// rjson.a = 232432
+// rjmod(rjson, '/a', 27)
 
-rjson.deep.deep1 = 'helinnlo23'
+
+// rjson.deep3.deep4 = 'helinnlo23'
 
 
 function rjmod(root, path, value) {
     let pathArr = path.split('/').slice(1,)
     let obj = root
+
     if (pathArr.length == 0) {
         Object.assign(root['[[handler]]']._root._obj, typeof value == 'object' ? value : { [value]: value })
         return
@@ -142,14 +150,14 @@ function fastObjCopy(obj) {
 
 
 let obj = { createProxy, rjwatch, rjmod, rjget }
-if (window) {
+if (typeof window != 'undefined') {
     window.rjexport = obj
     window.createProxy = createProxy
     window.rjwatch = rjwatch
     window.rjmod = rjmod
     window.rjget = rjget
 }
-// if (module) {
-//     module.exports = { createProxy, rjwatch, rjmod }
-// }
-export default obj
+if (module) {
+    module.exports = { createProxy, rjwatch, rjmod }
+} else {
+}
