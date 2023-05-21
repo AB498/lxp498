@@ -5,59 +5,16 @@ import { io } from "socket.io-client";
 import { reactive } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
+import { makeSyncer } from '@/composables/Syncer'
+
 // const  { createProxy, rjwatch, rjmod } = obj
 
 const URL = "http://localhost:3000";
-const socketURL = URL;
-const socketOptions = computed(() => ({
-    extraHeaders: {
-        Authorization: `Bearer ${window.glb?.jwt || ''}`
-    }
-}));
-let socket = null;
-let socketState = reactive({
-    connected: false
-})
-let testInterval;
 
-initializeSocket()
-function initializeSocket() {
-    // Create and connect the socket
-    socket = io(socketURL, socketOptions.value);
-    socket.connect();
-
-    socket.on("connect", () => {
-        socketState.connected = true;
-        var syncerObj = createProxy({});
-        let localChange = true;
+let syncer = makeSyncer(URL)
+syncer.init()
 
 
-        rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-            if (localChange)
-                socket.emit("updateObj", { path: p, value: v });
-            console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
-        }); //onchange
-
-        socket.on('updateObj', ({ path, value }) => {
-            localChange = false;
-            rjmod(syncerObj, path, value);
-            localChange = true;
-        }); //onreceive
-
-
-        testInterval = setInterval(() => {
-            syncerObj.b = Math.random() * 1000 + 1 | 0;
-            // syncerObj.uuid = uuidv4();
-        }, 1000);
-        // syncerObj.a=43;
-    });
-
-    socket.on("disconnect", () => {
-        console.log("disconnected");
-        socketState.connected = false
-    });
-
-}
 onUnmounted(() => {
     socket.disconnect()
     clearInterval(testInterval)
