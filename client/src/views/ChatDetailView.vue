@@ -31,10 +31,10 @@ watch(chatSendText, updateNumLines)
 const clamp = (number, min, max) =>
     Math.max(min, Math.min(number, max));
 
-async function openConversation(user) {
-    let res = await window.glb.safeAuthedReq('/api/createChat', { otherUserId: user.id })
+async function openConversation(id) {
+    let res = await window.glb.safeAuthedReq('/api/createChat', { otherUserId: id })
     if (res) {
-        window.glb.syncerObj.openChat.user = res.Users.find(u => u.id == user.id);
+        window.glb.syncerObj.openChat.user = res.Users.find(u => u.id == id);
         // router.push('/chat/' + res.id)
     } else {
         window.glb.addNotf('error', 'Error creating chat')
