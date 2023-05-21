@@ -39,7 +39,7 @@ module.exports.createChat = async (req, res) => {
 
     if (existingChat && existingChat.length > 0) {
         console.log(existingChat)   
-        return res.send(existingChat);
+        return res.send(existingChat[0]);
     }
 
     const conversation = await models.Conversation.create({ name: 'My Conversation' });
