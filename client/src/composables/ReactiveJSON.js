@@ -158,4 +158,4 @@ if (typeof window != 'undefined') {
     window.rjget = rjget
 }
 
-export default obj
+export { createProxy, rjwatch, rjmod, rjget }
