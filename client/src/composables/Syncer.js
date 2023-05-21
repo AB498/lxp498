@@ -43,10 +43,7 @@ const makeSyncer = (url) => {
         });
 
     }
-    function destroy() {
-        clearInterval(testInterval);
-        socket.disconnect();
-    }
+    function destroy() { }
 
     return { syncerObj, socketState, socket, init, destroy }
 }
