@@ -39,6 +39,8 @@ watch(window.glb.syncerObj, (newVal, oldVal) => {
   // window.glb.syncerObj = syncer.syncerObj;
 })
 
+const con = computed(() => syncer.connected)
+
 function logout() {
   window.glb.loggedIn = false
   window.glb.user = null
@@ -80,18 +82,18 @@ const searchText = ref("");
 
 
 <template>
-  <div class="whole h-screen w-screen flex flex-nowrap flex-col text-white font-sans overflow-auto">
-    <NotificationStack />
-    <div class="w-full h-16  shrink-0 sticky top-0 backdrop-blur-lg z-50">
-        <div class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap
+    <div class="whole h-screen w-screen flex flex-nowrap flex-col text-white font-sans overflow-auto">
+      <NotificationStack />
+      <div class="w-full h-16  shrink-0 sticky top-0 backdrop-blur-lg z-50">
+          <div class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap
         overflow-x-auto w-full">
-          <div class="nav-right px-4 flex items-stretch">
-            <PopperComponent>
-              <template #tohover>
-                <RouterLink to="/"
-                  class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
-                  <!-- loading if not connected -->
-                      <i v-if="!window.glb.syncer?.connected" class="">
+            <div class="nav-right px-4 flex items-stretch">
+              <PopperComponent>
+                <template #tohover>
+                  <RouterLink to="/"
+                    class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
+                    <!-- loading if not connected -->
+                        <i v-if="!con" class="">
                     <LoadingSpin w="4" h="4" />
                   </i>
                   <span class="relative flex h-3 w-3 center" v-else>
