@@ -12,6 +12,7 @@ const makeSyncer = (url) => {
     let localChange = true;
     let server2Socket = null;
     let connectedCallbacks = [];
+    let disconnectedCallbacks = [];
     let socketState = reactive({
         connected: false
     })
@@ -24,6 +25,8 @@ const makeSyncer = (url) => {
         server2Socket.on("connect", () => {
             socketState.connected = true;
             connectedCallbacks.forEach(cb => cb());
+            connectedCallbacks = [];
+
             rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
                 if (localChange)
                     server2Socket.emit("updateObj", { path: p, value: v });
@@ -47,6 +50,9 @@ const makeSyncer = (url) => {
     function destroy() {
         clearInterval(testInterval);
         server2Socket.disconnect();
+        disconnectedCallbacks.forEach(cb => cb());
+        disconnectedCallbacks = [];
+
     }
 
     return { syncerObj, socketState, server2Socket, init, destroy, connectedCallbacks }
