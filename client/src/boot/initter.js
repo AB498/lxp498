@@ -59,7 +59,6 @@ export default boot(({ app }) => {
             el.classList.add('loading-bar-container');
         },
         updated(el, binding) {
-            console.log('loading-bar updated');
             // Get the loading bar and overlay elements
             const loadingBar = el.querySelector('.loading-bar');
             const overlay = el.querySelector('.loading-overlay');
@@ -71,7 +70,6 @@ export default boot(({ app }) => {
         },
         unmounted(el) {
             try {
-                console.log('loading-bar unmounted');
                 // Remove the loading bar when the directive is unmounted
                 const loadingBar = el.querySelector('.loading-bar');
                 if (loadingBar) {
