@@ -31,7 +31,7 @@ function initializeSocket(){
         var syncerObj = createProxy({});
         
     rjwatch(syncerObj, 'uuid', (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-        console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
+        // console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
         syncerSocket.emit("updateObj", { path: p, value: v });
             }); //onchange
         rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
