@@ -37,7 +37,7 @@ rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
 watch(() => window.glb.syncerObj, (newVal, oldVal) => {
   console.log('window.glb.syncerObj changed', newVal, oldVal)
   // syncer.syncerObj = window.glb.syncerObj;
-  Object.assign(syncer.syncerObj, window.glb.syncerObj)
+  rjmod(syncer.syncerObj, '', { ...window.glb.syncerObj }, true)
 
 })
 window.glb.syncerObj = syncer.syncerObj;
