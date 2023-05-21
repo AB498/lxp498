@@ -30,10 +30,10 @@ let syncer = makeSyncer(URL)
 syncer.init()
 
 rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
-  window.glb.syncerObj = { ...syncer.syncerObj };
+  // window.glb.syncerObj = { ...syncer.syncerObj };
+  window.glb.syncerObj = syncer.syncerObj;
   console.log('syncerObj changed', newVal, oldVal)
 })
-window.glb.syncerObj = syncer.syncerObj;
 window.glb.syncerObj.a = 324
 
 syncer.connectedCallbacks.push(() => {
