@@ -13,6 +13,8 @@ const URL = "http://localhost:3000";
 
 let syncer = makeSyncer(URL)
 syncer.init()
+let syncer2 = makeSyncer(URL)
+syncer2.init()
 syncer.syncerObj = reactive(syncer.syncerObj);
 
 
