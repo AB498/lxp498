@@ -23,7 +23,7 @@ const handlerMain = {
                     target[key] = createProxy(value, this, false, target, key)
                 } catch (e) {
                     target[key] = value
-                    console.log(e, target, key, value)
+                    console.log(e, value)
                 }
             }
             else
