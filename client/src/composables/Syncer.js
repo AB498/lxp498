@@ -50,8 +50,12 @@ const makeSyncer = (url) => {
         });
 
     }
+    function destroy() {
+        clearInterval(testInterval);
+        socket.disconnect();
+    }
 
-    return { syncerObj, socketState, socket, init }
+    return { syncerObj, socketState, socket, init, destroy }
 }
 
 export { makeSyncer }
