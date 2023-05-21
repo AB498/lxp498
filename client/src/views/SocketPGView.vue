@@ -4,7 +4,7 @@ import Toggle from '@vueform/toggle'
 import { io } from "socket.io-client";
 import { reactive } from 'vue';
 import * as rjson from '@/composables/ReactiveJSON'
-const  { createProxy, rjwatch, rjmod } =rjson
+const  { createProxy, rjwatch, rjmod } =window.rjexports
 
 const URL = "http://localhost:3000";
 const socketURL = URL;
