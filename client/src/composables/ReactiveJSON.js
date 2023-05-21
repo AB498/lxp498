@@ -18,10 +18,8 @@ const handlerMain = {
             target[key] = orgValue;
             let oldval = fastObjCopy(rjget(this, keyval))
             // console.log(rjget(this, keyval))
-            if (typeof value == 'object') {
+            if (typeof value == 'object')
                 target[key] = createProxy(value, this, false, target, key)
-
-            }
             else
                 target[key] = value
             let newval = fastObjCopy(rjget(this, keyval))
@@ -31,6 +29,11 @@ const handlerMain = {
                 });
             }
         }
+
+        if (typeof value == 'object')
+            target[key] = createProxy(value, this, false, target, key)
+        else
+            target[key] = value
         return true;
     },
     _obj: null,
