@@ -61,8 +61,8 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
     if (!obj) return obj;
     // if object, unwrap proxy
     if (isJSONObject(obj)) {
-        obj = { ...obj }
         console.log(obj)
+        obj = { ...obj }
     }
     let handler;
     handler = { ...handlerMain }
