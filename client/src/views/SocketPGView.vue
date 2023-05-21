@@ -14,7 +14,7 @@ const socketOptions = computed(() => ({
         Authorization: `Bearer ${window.glb?.jwt || ''}`
     }
 }));
-let syncerSocket = null;
+let socket = null;
 let socketState = reactive({
     connected: false
 })
@@ -23,10 +23,10 @@ let testInterval;
 initializeSocket()
 function initializeSocket() {
     // Create and connect the socket
-    syncerSocket = io(socketURL, socketOptions.value);
-    syncerSocket.connect();
+    socket = io(socketURL, socketOptions.value);
+    socket.connect();
 
-    syncerSocket.on("connect", () => {
+    socket.on("connect", () => {
         socketState.connected = true;
         var syncerObj = createProxy({});
         let localChange = true;
@@ -53,14 +53,14 @@ function initializeSocket() {
         // syncerObj.a=43;
     });
 
-    syncerSocket.on("disconnect", () => {
+    socket.on("disconnect", () => {
         console.log("disconnected");
         socketState.connected = false
     });
 
 }
 onUnmounted(() => {
-    syncerSocket.disconnect()
+    socket.disconnect()
     clearInterval(testInterval)
 })
 
