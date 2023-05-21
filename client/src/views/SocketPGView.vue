@@ -12,7 +12,7 @@ import { makeSyncer } from '@/composables/Syncer'
 const URL = "http://localhost:3000";
 
 let syncer = makeSyncer(URL)
-// syncer.init()
+syncer.init()
 
 
 onUnmounted(() => {
