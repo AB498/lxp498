@@ -28,7 +28,7 @@ const URL = "http://localhost:3000";
 let syncer = makeSyncer(URL)
 syncer.init()
 
-window.glb.syncerObj = syncer.syncerObj;
+window.glb.syncerObj = reactive(syncer.syncerObj);
 
 function logout() {
   window.glb.loggedIn = false

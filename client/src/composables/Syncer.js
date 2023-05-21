@@ -8,7 +8,7 @@ import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 
 
 const makeSyncer = (url) => {
-    var syncerObj = createProxy(reactive({}));
+    var syncerObj = createProxy({});
     let localChange = true;
     let server2Socket = null;
     let socketState = reactive({
