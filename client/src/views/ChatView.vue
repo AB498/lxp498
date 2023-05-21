@@ -37,10 +37,11 @@ window.glb.syncerObj.openChat = {}
     <div class="flex w-full h-full">
       <div class="basis-1/4 h-full bg-cyan-900">
           <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
-            <div class="" v-if="window.glb.chats">
-              <div v-for="(user, index) in window.glb.chats" :key="index">
-                                      <div class="btn hover-ripple-fast" @click="window.glb.syncerObj.openChat.email = user.email; router.push('/chat/' + user.id)">
-                  {{ user.email }}
+          <div class="" v-if="window.glb.chats">
+            <div v-for="(user, index) in window.glb.chats" :key="index">
+              <div class="btn hover-ripple-fast"
+                @click="window.glb.syncerObj.openChat.user = user; router.push('/chat/' + user.id)">
+                {{ user.email }}
               </div>
             </div>
           </div>
