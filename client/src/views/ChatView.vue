@@ -7,7 +7,7 @@ watch(() => window.glb.lxsocket.onlineUsers, (newVal, oldVal) => {
   // console.log('onlineUsers changed', newVal, oldVal)
 })
 
-// window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
+window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
 
 // async function openConversation() {
 //   console.log('openConversation')
