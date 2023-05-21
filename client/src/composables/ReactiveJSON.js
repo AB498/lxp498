@@ -157,10 +157,5 @@ if (typeof window != 'undefined') {
     window.rjmod = rjmod
     window.rjget = rjget
 }
-try {
 
-    console.log('module')
-    export default obj
-} catch (e) {
-    console.log(e)
-}
+export default obj
