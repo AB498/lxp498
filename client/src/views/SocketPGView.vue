@@ -24,7 +24,7 @@ onUnmounted(() => {
 
 <template>
             <div class="full">
-
+    <q-input dark v-model="syncer.socketObj.text" label="Synced Text" />
 
         </div>
 </template>
