@@ -110,6 +110,7 @@ const rjwatch = (obj, key, cb) => {
 
 
 function rjmod(root, path, value, silent) {
+    console.log('rjmod')
     if (silent) {
         root['[[handler]]']._root._blacklistpaths[path] = true
 
