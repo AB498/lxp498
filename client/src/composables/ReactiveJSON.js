@@ -119,7 +119,6 @@ function rjmod(root, path, value, silent) {
 
     if (pathArr.length == 0) {
         Object.assign(root['[[handler]]']._root._obj, typeof value == 'object' ? value : { [value]: value })
-        console.log('rjmod')
         return
     }
     for (let i = 0; i < pathArr.length - 1; i++) {
