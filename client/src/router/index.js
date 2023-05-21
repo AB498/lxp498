@@ -104,12 +104,16 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       // component: () => import('../views/AdminView.vue')
-      component: () => import('../views/ApiControlsView.vue')
-    },
-    {
-      path: '/admin/apicontrols',
-      name: 'apicontrols',
-      component: () => import('../views/ApiControlsView.vue')
+      children: [
+        {
+          path: '/admin/apicontrols',
+          component: () => import('../views/ApiControlsView.vue')
+        },
+        {
+          path: '/admin/socketpg',
+          component: () => import('../views/SocketPGView.vue')
+        },
+      ],
     },
     {
       path: '/login',
