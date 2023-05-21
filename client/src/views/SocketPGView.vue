@@ -10,55 +10,13 @@ import { makeSyncer } from '@/composables/Syncer'
 // const  { createProxy, rjwatch, rjmod } = obj
 
 const URL = "http://localhost:3000";
-var syncerObj = createProxy({});
-let localChange = true;
-let socket = null;
-let socketState = reactive({
-    connected: false
-})
-let testInterval;
-init()
-function init(url) {
-    socket = io(url, {
-        extraHeaders: {
-            Authorization: `Bearer ${window.glb?.jwt || ''}`
-        }
-    });
-    socket.connect();
 
-    socket.on("connect", () => {
-        socketState.connected = true;
-
-
-        rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-            if (localChange)
-                socket.emit("updateObj", { path: p, value: v });
-            console.log(`${localChange}  ${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
-        }); //onchange
-
-        socket.on('updateObj', ({ path, value }) => {
-            localChange = false;
-            rjmod(syncerObj, path, value);
-            localChange = true;
-        }); //onreceive
-    });
-
-    socket.on("disconnect", (e) => {
-        console.log("disconnected", e);
-        socketState.connected = false
-    });
-
-}
-function destroy() {
-    clearInterval(testInterval);
-    socket.disconnect();
-}
-
+let syncer = makeSyncer(URL)
+syncer.init()
 
 
 onUnmounted(() => {
-    socket.disconnect()
-    clearInterval(testInterval)
+    syncer.destroy()
 })
 
 

@@ -17,8 +17,11 @@ const makeSyncer = (url) => {
     let testInterval;
 
     function init(url) {
-    socket = io(url);
-        socket = io(url, {});
+        socket = io(url, {
+            extraHeaders: {
+                Authorization: `Bearer ${window.glb?.jwt || ''}`
+            }
+        });
         socket.connect();
 
         socket.on("connect", () => {
