@@ -2,7 +2,8 @@
 import { ref, watch, onUnmounted, onMounted, nextTick, computed } from 'vue'
 import Toggle from '@vueform/toggle'
 import { io } from "socket.io-client";
-
+import { reactive } from 'vue';
+import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON.js'
 
 const URL = "http://localhost:3000";
 const socketURL = URL;
@@ -12,6 +13,9 @@ const socketOptions = computed(() => ({
   }
 }));
 let syncerSocket = null;
+let socketState=reactive({
+    connected:false
+})
 initializeSocket()
 function initializeSocket(){
     // Create and connect the socket
@@ -20,13 +24,12 @@ function initializeSocket(){
     
     syncerSocket.on("connect", () => {
         console.log("my id: " + syncerSocket.id);
-    
-        syncerSocket.emit("resolveUser", window.glb.user.jwt);
+        socketState.connected=true;
     });
     
     syncerSocket.on("disconnect", () => {
         console.log("disconnected");
-        window.glb.lxsocket.connected = false;
+        socketState.connected=false
     });
     
     syncerSocket.on("connect_error", (err) => {
