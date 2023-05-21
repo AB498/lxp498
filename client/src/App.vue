@@ -62,15 +62,6 @@ watch([() => window.glb.loggedIn, initializeLoad], (newVal, oldVal) => {
 
 initializeLoad.value = true;
 
-
-window.glb.lxsocket = {
-  connected: false,
-  fooEvents: [],
-  barEvents: [],
-  onlineUsers: [],
-};
-
-
 window.glb._serverSynced = {};
 
 // const URL = "http://localhost:8080";
@@ -102,7 +93,7 @@ const searchText = ref("");
                 <RouterLink to="/"
                   class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
                   <!-- loading if not connected -->
-                  <i v-if="!window.glb.lxsocket?.connected" class="">
+                    <i v-if="!window.glb.syncer.connected" class="">
                     <LoadingSpin w="4" h="4" />
                   </i>
                   <span class="relative flex h-3 w-3 center" v-else>
