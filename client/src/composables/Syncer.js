@@ -30,11 +30,9 @@ const makeSyncer = (url) => {
             rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
                 if (localChange)
                     server2Socket.emit("updateObj", { path: p, value: v });
-                console.log(`${localChange}  ${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
             }); //onchange
 
             server2Socket.on('updateObj', ({ path, value }) => {
-                console.log(`${path} changed to ${JSON.stringify(value)}`)
                 localChange = false;
                 rjmod(syncerObj, path, value);
                 localChange = true;
