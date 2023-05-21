@@ -51,6 +51,9 @@ const handlerMain = {
 }
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
+    if (obj instanceof Proxy) {
+        obj = { ...obj }
+    }
     if (!obj) return obj;
     let handler;
     handler = { ...handlerMain }
