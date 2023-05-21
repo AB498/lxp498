@@ -18,12 +18,6 @@ let socketState=reactive({
     connected:false
 })
 
-let syncerObj= createProxy({
-    fooEvents:[],
-    barEvents:[],
-    onlineUsers:[],
-    conversations:[],
-})
 
 initializeSocket()
 function initializeSocket(){
@@ -33,6 +27,7 @@ function initializeSocket(){
     
     syncerSocket.on("connect", () => {
         socketState.connected=true;
+        var syncerObj = createProxy({});
         
         rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
         console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
