@@ -15,7 +15,7 @@ const handlerMain = {
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
 
-                    cb(newval, oldval, modpath, key, value)
+                    cb(oldval, newval, modpath, key, value)
                 });
             }
         }
@@ -75,7 +75,7 @@ const rjwatch = (obj, key, cb) => {
 
     if (!objHandler._root._callbacks[targetPath])
         objHandler._root._callbacks[targetPath] = [];
-    objHandler._root._callbacks[targetPath].push((newVal, oldval, modpath, key, value) => {
+    objHandler._root._callbacks[targetPath].push((oldval, newVal, modpath, key, value) => {
         if (key)
             cb(oldval, newVal, modpath, key, value);
         else
