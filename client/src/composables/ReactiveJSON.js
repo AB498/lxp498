@@ -56,8 +56,13 @@ function isObject(x) {
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     if (!obj) return obj;
     if (!isObject(obj)) return obj;
-    if (obj instanceof Proxy) {
-        obj = { ...obj }
+    try {
+        if (obj instanceof Proxy) {
+            obj = { ...obj }
+        }
+    } catch (e) {
+        console.log(obj, e)
+
     }
     let handler;
     handler = { ...handlerMain }
