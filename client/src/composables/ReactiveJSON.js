@@ -71,8 +71,8 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
     try {
         return new Proxy(obj, handler);
     } catch (e) {
-        return obj;
         console.log(e, obj)
+        return obj;
     }
 }
 
