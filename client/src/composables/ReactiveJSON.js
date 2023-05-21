@@ -5,10 +5,10 @@ const handlerMain = {
             target[key] = value
             return;
         }
-        let oldval = target[key]
-        target[key] = value
         let targetPath = [...this._path, key].join('/');
+        target[key] = value
         for (let keyval in this._root._callbacks) {
+            let oldval = rjget(target, targetPath.slice(0, keyval.length))
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
                     cb(targetPath.slice(0, keyval.length), oldval)
@@ -20,6 +20,7 @@ const handlerMain = {
 
         return true;
     },
+    _obj: null,
     _path: [],
     _root: null,
     _parent: null,
@@ -39,12 +40,14 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
         handler._root = handler
         handler._parent = null
         handler._path = [''];
-        handler._callbacks = {}
+        handler._callbacks = {},
+            handler._obj = obj
     } else {
         handler._root = handlerInc._root
         handler._parent = handlerInc
         handler._path = [...handlerInc._path, key];
         handler._callbacks = {}
+        handler._obj = obj
     }
     for (let key in obj) {
         if (key.slice(0, 1) == '_') continue;
@@ -88,7 +91,15 @@ const rjmod = (root, path, value) => {
     for (let i = 0; i < pathArr.length - 1; i++) {
         obj = obj[pathArr[i]]
     }
-    obj[pathArr[pathArr.length - 1]] = value
+    obj[pathArr[pathArr.length - 1]] = value  // might error?
+}
+const rjget = (root, path) => {
+    let pathArr = path.split('/').slice(1,)
+    let obj = root['[[handler]]']._root._obj;
+    for (let i = 0; i < pathArr.length; i++) {
+        obj = obj[pathArr[i]]
+    }
+    return obj
 }
 
 // rjson.deep.deep1 = 'hello3'
