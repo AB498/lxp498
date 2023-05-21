@@ -5,13 +5,6 @@ import { defineProps } from 'vue'
 import { computed } from 'vue'
 import UserMessage from '@/components/UserMessage.vue'
 
-// const props = defineProps({
-//     id: {
-//         type: String,
-//         required: true
-//     }
-// })
-
 const router = useRouter()
 const route = useRoute()
 const initialLoad = ref(true)
@@ -30,7 +23,7 @@ const numLines = ref(1)
             <div class="flex flex-col w-full h-full overflow-auto">
                 <div class="text-2xl p-2 ">{{ converstionId || 'Username' }}</div>
 
-                <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages">
+                    <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages" v-if="window.glb.syncerObj.openChat">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
                         {{ message }}
                     </div>
