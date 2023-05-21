@@ -38,7 +38,6 @@ module.exports.createChat = async (req, res) => {
     });
 
     if (existingChat && existingChat.length > 0) {
-        console.log(existingChat)   
         return res.send(existingChat[0]);
     }
 
