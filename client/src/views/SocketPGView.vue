@@ -10,58 +10,56 @@ import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 const URL = "http://localhost:3000";
 const socketURL = URL;
 const socketOptions = computed(() => ({
-  extraHeaders: {
-    Authorization: `Bearer ${window.glb?.jwt || ''}`
-  }
+    extraHeaders: {
+        Authorization: `Bearer ${window.glb?.jwt || ''}`
+    }
 }));
 let syncerSocket = null;
-let socketState=reactive({
-    connected:false
+let socketState = reactive({
+    connected: false
 })
 let testInterval;
 
 initializeSocket()
-function initializeSocket(){
+function initializeSocket() {
     // Create and connect the socket
     syncerSocket = io(socketURL, socketOptions.value);
     syncerSocket.connect();
-    
+
     syncerSocket.on("connect", () => {
-        socketState.connected=true;
+        socketState.connected = true;
         var syncerObj = createProxy({});
-        
-    rjwatch(syncerObj, 'uuid', (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-        // console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
-        syncerSocket.emit("updateObj", { path: p, value: v });
-        console.log('emit');
+        let localChange = true;
 
-            }); //onchange
+
         rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-            if(k=='uuid')return;
+            if (localChange)
+                socket.emit("updateObj", { path: p, value: v });
             console.log(`${p || 'root'}->${k} changed from ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
-            }); //onchange
+        }); //onchange
 
-        syncerSocket.on('updateObj', ({ path, value }) => {
-        // console.log(path, value);
-        rjmod(syncerObj, path, value);
-        console.log(syncerObj);
+        socket.on('updateObj', ({ path, value }) => {
+            localChange = false;
+            rjmod(syncerObj, path, value);
+            localChange = true;
+            console.log(syncerObj);
         }); //onreceive
-        
-        
-     testInterval = setInterval(() => {
-        syncerObj.b = Math.random() * 1000 + 1 | 0;
-        syncerObj.uuid = uuidv4();
-    }, 1000);
+
+
+        testInterval = setInterval(() => {
+            syncerObj.b = Math.random() * 1000 + 1 | 0;
+            // syncerObj.uuid = uuidv4();
+        }, 1000);
         // syncerObj.a=43;
     });
-    
+
     syncerSocket.on("disconnect", () => {
         console.log("disconnected");
-        socketState.connected=false
+        socketState.connected = false
     });
-  
+
 }
-onUnmounted(()=>{
+onUnmounted(() => {
     syncerSocket.disconnect()
     clearInterval(testInterval)
 })
@@ -70,11 +68,8 @@ onUnmounted(()=>{
 </script>
 
 <template>
-
-<div class="full">
-    
-
-</div>
+        <div class="full">
 
 
+        </div>
 </template>
