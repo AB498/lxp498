@@ -96,7 +96,7 @@ rjmod(rjson, '/deep/deep1', 'hello2')
 console.log(rjson.deep.deep1)
 
 if (window) {
-    window.rjson = rjson
+    window.createProxy = createProxy
     window.rjwatch = rjwatch
     window.rjmod = rjmod
 }
