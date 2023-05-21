@@ -17,10 +17,10 @@ import PopperComponent from "@/components/PopperComponent.vue";
 import LoadingSpin from "@/components/LoadingSpin.vue";
 import NotificationStack from "@/components/NotificationStack.vue";
 
-import { makeSyncer } from '@/composables/Syncer'
 import "vue3-json-viewer/dist/index.css";
 import { io } from "socket.io-client";
 
+import { makeSyncer } from '@/composables/Syncer'
 const route = useRoute()
 const router = useRouter()
 
