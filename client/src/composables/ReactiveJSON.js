@@ -8,11 +8,14 @@ const handlerMain = {
         let targetPath = [...this._path, key].join('/');
         for (let keyval in this._root._callbacks) {
             let oldval = rjget(this, targetPath.slice(0, keyval.length))
+
             target[key] = value
             let modpath = targetPath
+            let newval = rjget(this, targetPath.slice(0, keyval.length))
             if (keyval == targetPath.slice(0, keyval.length)) {
                 this._root._callbacks[targetPath.slice(0, keyval.length)].forEach(cb => {
-                    cb(targetPath.slice(0, keyval.length), oldval, value, modpath)
+
+                    cb(newval, oldval, modpath, key, value)
                 });
             }
         }
@@ -69,27 +72,28 @@ const rjwatch = (obj, key, cb) => {
         targetPath = [...objHandler._path].join('/');
     }
 
+
     if (!objHandler._root._callbacks[targetPath])
         objHandler._root._callbacks[targetPath] = [];
-    objHandler._root._callbacks[targetPath].push((path, oldval, newVal, modpath) => {
+    objHandler._root._callbacks[targetPath].push((newVal, oldval, modpath, key, value) => {
         if (key)
-            cb(oldval, newVal, modpath, key);
+            cb(oldval, newVal, modpath, key, value);
         else
-            cb(oldval, newVal, modpath, key)
+            cb(oldval, newVal, modpath, key, value)
     })
 }
 let rjson = createProxy({ hello: 'world', deep: { deep1: 'hi', deep2: 23454 } });
 
-// rjwatch(rjson, null, (k, v, p, v2) => {
-//     rjson.deep.deep2 = 'hello'
-//     rjmod(rjson, '', 'hello2dsad')
-//     console.log(rjson)
-//     console.log(k, v, p, v2)
-// })
+rjwatch(rjson.deep, null, (old, newval, pth, key, value) => {
+    // rjson.deep.deep2 = 'hello'
+    rjmod(rjson, '', 'hello2dsad')
+
+
+})
 // rjwatch(rjson.deep, 'deep2', (k, v) => {
 // })
 
-// rjson.deep = 'hello23'
+rjson.deep.deep1 = 'helinnlo23'
 
 
 function rjmod(root, path, value) {
@@ -106,21 +110,36 @@ function rjmod(root, path, value) {
 }
 function rjget(root, path) {
     let pathArr = path.split('/').slice(1,)
+
     let obj = root._root._obj;
     for (let i = 0; i < pathArr.length; i++) {
         obj = obj[pathArr[i]]
     }
-    return obj
+    return fastObjCopy(obj)
 }
 
+function fastObjCopy(obj) {
+    if (obj === null) return null;
+    if (typeof obj !== 'object') return obj;
+    if (obj.constructor === Date) return new Date(obj);
+    if (obj.constructor === RegExp) return new RegExp(obj);
+    let newObj = new obj.constructor();  //保持继承链
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {   //不遍历其原型链上的属性
+            let val = obj[key];
+            newObj[key] = typeof val === 'object' ? fastObjCopy(val) : val; // 使用arguments.callee解除与函数名的耦合
+        }
+    }
+    return newObj;
+}
 // rjmod(rjson, '/deep/deep1', 'hello2ds2')
-// console.log(rjget(rjson.deep, '/deep/deep1'))
+
 
 // rjson.deep.deep1 = 'hello3'
 
 // rjmod(rjson, '/deep/deep1', 'hello2')
 
-// console.log(rjson.deep.deep1)
+
 
 let obj = { createProxy, rjwatch, rjmod, rjget }
 if (window) {
