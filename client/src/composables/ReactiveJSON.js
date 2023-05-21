@@ -80,7 +80,7 @@ rjwatch(rjson.deep, 'deep1', (k, v, p, v2) => {
 })
 rjwatch(rjson.deep, 'deep2', (k, v) => {
 })
-rjmod = (root, path, value) => {
+const rjmod = (root, path, value) => {
     let pathArr = path.split('/').slice(1,)
     let obj = root
     for (let i = 0; i < pathArr.length - 1; i++) {
