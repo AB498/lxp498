@@ -18,8 +18,14 @@ const handlerMain = {
             target[key] = orgValue;
             let oldval = rjget(this, keyval)
             // console.log(rjget(this, keyval))
-            if (typeof value == 'object')
-                target[key] = createProxy(value, this, false, target, key)
+            if (typeof value == 'object') {
+                try {
+                    target[key] = createProxy(value, this, false, target, key)
+                } catch (e) {
+                    target[key] = value
+                    console.log(e, target, key, value)
+                }
+            }
             else
                 target[key] = value
             let newval = rjget(this, keyval)
