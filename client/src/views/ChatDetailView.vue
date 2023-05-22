@@ -24,13 +24,10 @@ const sendMessage = () => {
 
 watch(window.syncerObj.openChat.messages, (newVal, oldVal) => {
     messages.value = newVal
-    if (initialLoad.value) {
-        initialLoad.value = false
         nextTick(() => {
             const chatMessages = document.getElementById('chat-messages')
             chatMessages.scrollTop = chatMessages.scrollHeight
-        })
-    }
+    })
 })
 
 const updateNumLines = () => {
