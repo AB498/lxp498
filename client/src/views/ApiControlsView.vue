@@ -25,7 +25,7 @@ async function sendRequest(endpoint) {
     try {
 
         if (endpoint.method.toUpperCase() == 'GET')
-            endpoint.res = await axios.get('http://lanxplore.xyz/test' + endpoint.url, { params: endpoint.params })
+            endpoint.res = await axios.get('http://lanxplore.xyz/test' + endpoint.url.replace(/\/:[a-zA-Z0-9]+/g, (x) => '/' + endpoint.params[x.slice(2)]))
         else
             endpoint.res = await axios.post('http://lanxplore.xyz/test' + endpoint.url, window.glb.tryParseJSON(endpoint.body))
         console.log(endpoint.res)
