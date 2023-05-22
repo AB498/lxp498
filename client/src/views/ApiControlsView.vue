@@ -62,8 +62,8 @@ async function sendRequest(endpoint) {
                             :class="endpoint.method == 'GET' ? 'bg-orange-400' : 'bg-blue-500'"></div>
                         <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
                             <div v-for="param in endpoint.params" v-if="endpoint.params">
-                                {{ param }}
-                                                    <q-input v-model="param.value" outlined dense class="bg-slate-700 text-white" />    
+                                <q-input v-model="param.value" outlined dense class="bg-slate-700 text-white" label="param"
+                                    :placeholder="param.key"></q-input>
                         </div>
                         <div class="grow"></div>
                         <i class="material-icons text-2xl text-lime-500 hover:bg-lime-500 hover:text-slate-900 cursor-pointer rounded-full w-8 h-8"
