@@ -20,13 +20,7 @@ watch(hovering, (newVal, oldVal) => {
 
 })
 
-function removeNotf(id) {
-    let index = window.glb.indexByCol(window.glb.notifications, "id", id);
-    if (index != -1) {
-        window.glb.notifications.splice(index, 1);
-    }
 
-}
 
 
 </script>
@@ -48,7 +42,7 @@ function removeNotf(id) {
                         {{ item.content }}
                     </div>
                 </div>
-                <i class="fas fa-times ml-2 cursor-pointer p-2" @click=" removeNotf(item.id)"></i>
+                    <i class="fas fa-times ml-2 cursor-pointer p-2" @click=" window.glb.removeNotf(item.id)"></i>
             </div>
         </div>
 

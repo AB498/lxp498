@@ -277,7 +277,7 @@ store.errorMessages = (errorObject, lxerrormessage = [], parent, pkey) => {
         errMessages.push(errorObject[key]);
       } else if (key === "data" && parent === "response") {
         errMessages.push(errorObject[key]);
-      } 
+      }
     }
   }
 
@@ -356,6 +356,13 @@ store.addNotf = (text, content, color) => {
       removeNotf(thisId)
     }, 2000)
   })
+}
+store.removeNotf = (id) => {
+  let index = window.glb.indexByCol(window.glb.notifications, "id", id);
+  if (index != -1) {
+    window.glb.notifications.splice(index, 1);
+  }
+
 }
 
 export default store
