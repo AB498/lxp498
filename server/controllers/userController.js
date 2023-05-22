@@ -5,23 +5,32 @@ const { generateFromEmail, generateUsername } = require("unique-username-generat
 
 module.exports.registerUser = async (req, res) => {
     let { email, password, username, firstName, lastName } = req.body;
-    console.log(req.body);
-    const existingUser = await models.User.findOne({ where: { email: email } });
+    const existingUser = await models.User.findOne({
+        where:
+        {
+            [Op.or]: [
+                { email: email },
+                { username: username || '' }
+            ]
+        }
+    });
+
     if (existingUser) return res.status(400).send("User already exists");
-    const user = await models.User.create({ email, password: password ? bcrypt.hashSync(password, 10) : null });
 
 
     let usernameRollIteration = 0;
     while (!username || await models.User.findOne({ where: { username: username } })) {
-            username = generateUsername("-");
-            usernameRollIteration++;
-            if (usernameRollIteration % 10) console.log("Warning: username roll iteration exceeded " + usernameRollIteration)
-        }
+        username = generateUsername("-");
+        usernameRollIteration++;
+        if (usernameRollIteration % 10) console.log("Warning: username roll iteration exceeded " + usernameRollIteration)
+    }
     if (!firstName && !lastName) {
         firstName = generateFromEmail(email);
     }
+    const user = await models.User.create({ email, password: password ? bcrypt.hashSync(password, 10) : null });
     let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
     user.jwts = [newJwt, ...(user.jwts ??= [])];
+
     await user.save();
     return res.json({ user, jwt: newJwt, username, firstName, lastName });
 }
