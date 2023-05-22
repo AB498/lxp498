@@ -93,7 +93,7 @@ export default boot(({ app }) => {
 
     app.use(router, app)
 
-    app.config.globalProperties.cons = (s) => { console.log(s); return s }
+    app.config.globalProperties.cons = (s, m) => { console.log(s, m); return s }
     app.config.globalProperties.window = window
     glb.baseUrl = "http://lanxplore.xyz"
     glb.socketUrl = "http://lanxplore.xyz"
