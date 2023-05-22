@@ -70,8 +70,13 @@ makeServer = (server) => {
                 syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
             }
             if (p == '/openChat/deleteMessage') {
-                await models.Message.destroy({ where: { id: v } });
+                let msg = await models.Message.findByPk(v);
+                if (msg.UserId == user.id) await msg.destroy();
+                else return syncerObj.error = "You can only delete your own messages";
                 syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
+            }
+            if (p == '/openYTVideo/id') {
+                syncerObj.openYTVideo.videoInfo = (await models.YTVideo.findOne({ where: { id: v } })).dataValues;
             }
         }); //onchange
 
