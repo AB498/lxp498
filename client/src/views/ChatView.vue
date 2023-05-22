@@ -33,7 +33,7 @@ async function openConversation(user) {
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
               <div class="bg-slate-600 p-2 m-1 rounded hover-ripple-fast" @click="openConversation(user)">
-                <img :src="user.avatar" class="w-8 h-8 rounded-full inline-block mr-2">
+                  <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
                 <div class="name">{{ user.firstName + ' ' + user.lastName }}</div>
 
               
