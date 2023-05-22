@@ -23,7 +23,7 @@ window.glb.apiEndpoints = apiEndpoints.value
 async function sendRequest(endpoint) {
     endpoint.loading = true
     try {
-        console.log(endpoint.url.replace(/\/:[a-zA-Z0-9]+/g, (x) => '/' + endpoint.params[x.slice(2)]))
+        console.log(endpoint.params.reduce((acc, cur) => acc.replace(':' + cur.key, cons(cur.value)), endpoint.url))
 
         if (endpoint.method.toUpperCase() == 'GET')
             endpoint.res = await axios.get('http://lanxplore.xyz/test' + endpoint.params.reduce((acc, cur) => acc.replace(':' + cur.key, cons(cur.value)), endpoint.url))
