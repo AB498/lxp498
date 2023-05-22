@@ -11,9 +11,10 @@ module.exports.listChats = async (req, res) => {
 
 module.exports.createChat = async (req, res) => {
     const user1 = req.user;
-    const user2 = req.body.otherUserId;
+    const user2 = await models.User.findOne({ where: { id: req.body.id } });
+    if (!user2) return res.status(400).send("User not found");
     const user1Id = user1.id;
-    const user2Id = user2;
+    const user2Id = user2.id;
 
     const existingChat = await models.Conversation.findAll({
         include: [
