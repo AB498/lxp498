@@ -26,11 +26,11 @@ watch(() => window.glb.syncerObj?.openChat?.messages, (newVal, oldVal) => {
     messages.value = newVal
     // console.log(newVal?.length, oldVal?.length)
     if (newVal?.length > oldVal?.length)
-    nextTick(() => {
-        const chatMessages = document.getElementById('chat-messages')
-        if (!chatMessages) return
-        chatMessages.scrollTop = chatMessages.scrollHeight
-    })
+        nextTick(() => {
+            const chatMessages = document.getElementById('chat-messages')
+            if (!chatMessages) return
+            chatMessages.scrollTop = chatMessages.scrollHeight
+        })
 })
 
 const updateNumLines = () => {
@@ -76,14 +76,17 @@ function fastObjCopy(obj) {
 <template>
     <div class="w-full h-full  bg-slate-800 overflow-auto">
         <div class="flex flex-col w-full h-full overflow-auto">
-            <div class="text-2xl p-2 w-full">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}</div>
-            <div class="h-full w-full bg-teal-900 flex flex-col  overflow-auto " id="chat-messages"
-                v-if="window.glb.syncerObj.openChat.messages">
+                <div class="flex">
+                    <div class="text-2xl p-2 w-full">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}</div>
+                    <i class="fas fa-bars p-2 text-2xl cursor-pointer" @click="router.push('/chat')" />
+                </div>
+                <div class="h-full w-full bg-teal-900 flex flex-col  overflow-auto " id="chat-messages"
+                    v-if="window.glb.syncerObj.openChat.messages">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id" class="">
                         <UserMessage :message="message"
                             :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
                             index="message.id" />
-                            <div class="px-8  w-full">
+                        <div class="px-8  w-full">
                         <div class="h-[1px] bg-gray-200/50"></div>
                     </div>
                 </div>
