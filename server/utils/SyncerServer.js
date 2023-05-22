@@ -21,23 +21,22 @@ makeServer = (server) => {
             const headers = socket.handshake.headers;
             if (!headers.authorization) {
                 console.log("No authorization header");
-                socket.disconnect();
+                return socket.disconnect();
             }
             const jwt = headers.authorization.split(" ")[1];
             const decodedUser = await jwtUtil.decode(jwt);
 
             if (!decodedUser || !decodedUser.email || !decodedUser.id) {
                 console.log("Invalid JWT", headers.authorization, decodedUser);
-                socket.disconnect();
+                return socket.disconnect();
             }
             user = await models.User.findByPk(decodedUser.id);
             if (!user || !user.jwts.includes(jwt)) {
                 console.log("No user");
-                socket.disconnect();
-                return;
+                return socket.disconnect();
             }
         } catch (e) {
-            console.log(e)
+            return console.log(e)
         }
         connections[socket.id] = socket;
         console.log(Object.keys(connections).length + " users connected");
