@@ -13,6 +13,7 @@ const props = defineProps({
 })
 
 const mes = ref(props.message)
+const user = ref(props.user)
 
 const srcStr = ref('')
 const showActions = ref(false)
