@@ -77,7 +77,8 @@ function fastObjCopy(obj) {
                 <div class="text-2xl p-2 ">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}</div>
                 <div class="h-full bg-teal-900 flex flex-col  overflow-auto" id="chat-messages"
                     v-if="window.glb.syncerObj.openChat.messages">
-                    <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
+                        <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id"
+                        class="divide-y">
                         <UserMessage :message="message"
                             :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
                             index="message.id" />
