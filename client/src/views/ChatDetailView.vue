@@ -65,9 +65,10 @@ initialLoad.value = false
 </script>
 
 <template>
+    <div class="w-full h-full  bg-slate-800 overflow-auto"></div>
         <div class="w-full h-full  bg-slate-800 overflow-auto"
-                    v-loading-bar="{ loading: !window.glb.syncerObj.openChat?.conversationId }">
-                <div class="flex flex-col w-full h-full overflow-auto" v-if="window.glb.syncerObj.openChat?.conversationId">
+            v-loading-bar="{ loading: !window.glb.syncerObj.openChat?.conversationId }">
+            <div class="flex flex-col w-full h-full overflow-auto" v-if="window.glb.syncerObj.openChat?.conversationId">
                 <div class="flex center-cross">
                     <div class="text-2xl p-1 m-1 px-2 hover-ripple hover:cursor-pointer hover:bg-gray-600 rounded-lg ">{{
                         window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}
@@ -84,15 +85,16 @@ initialLoad.value = false
                             :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
                             index="message.id" />
                         <div class="px-8  w-full">
-                        <div class="h-[1px] bg-gray-200/50"></div>
+                            <div class="h-[1px] bg-gray-200/50"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="flex justify-center">
-                <textarea :style="{ height: clamp((1 * numLines) + 2, 0, 6) + 'rem' }"
-                    class="center p-2 m-2 w-full bg-gray-700" type="text" v-model="chatSendText"
-                    @keydown.enter.exact.prevent="sendMessage()" :readonly="textAreaDisabled" />
-                <button class="p-2 m-2 ml-0 btn" @click="sendMessage">Send</button>
+                <div class="flex justify-center">
+                    <textarea :style="{ height: clamp((1 * numLines) + 2, 0, 6) + 'rem' }"
+                        class="center p-2 m-2 w-full bg-gray-700" type="text" v-model="chatSendText"
+                        @keydown.enter.exact.prevent="sendMessage()" :readonly="textAreaDisabled" />
+                    <button class="p-2 m-2 ml-0 btn" @click="sendMessage">Send</button>
+                </div>
             </div>
         </div>
     </div>
