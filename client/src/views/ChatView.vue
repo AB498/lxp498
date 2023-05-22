@@ -32,24 +32,24 @@ async function openConversation(user) {
         <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
         <div class="" v-if="window.glb.chats">
           <div v-for="(user, index) in window.glb.chats" :key="index">
-            <div class="bg-slate-600 p-2 m-1 rounded hover-ripple-fast flex center-cross "
-              @click="openConversation(user)">
-              <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
-              <div class="flex flex-col center-main">
-                <div class="name">{{ user.firstName + ' ' + user.lastName }}
-                    <i v-if="user.isOnline" class="text-xs px-2 fas fa-circle text-green-500 ">
-                    <i class="text-xs px-2 fas fa-circle text-yellow-500 animate-ping absolute top-0 left-0"></i>
-                  </i>
-                  <i v-else class='bx bx-wifi-off text-gray-300'></i>
+              <div class="bg-slate-600 p-2 m-1 rounded  flex center-cross "
+                @click="openConversation(user)">
+                <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
+                <div class="flex flex-col center-main">
+                  <div class="name">{{ user.firstName + ' ' + user.lastName }}
+                    <i v-if="user.isOnline" class="text-xs px-2 fas fa-circle text-green-500 relative">
+                      <i class="text-xs px-2 fas fa-circle text-yellow-500 animate-ping absolute top-0 left-0"></i>
+                    </i>
+                    <i v-else class='bx bx-wifi-off text-gray-300'></i>
+                  </div>
+                  <div class="username text-xs">{{ user.username || '@nousername' }}</div>
                 </div>
-                <div class="username text-xs">{{ user.username || '@nousername' }}</div>
+
+
               </div>
-
-
             </div>
           </div>
         </div>
-      </div>
         <div class="basis-3/4 h-full 0 overflow-auto z-10">
         <RouterView></RouterView>
 
