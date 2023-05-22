@@ -34,7 +34,7 @@ async function deleteMessage() {
                     {{ mes.UserId.username || 'No Name' }} {{ window.glb.getFormattedTime(new Date(mes.createdAt)) }} {{ mes.id
                     }}
                 </div>
-                    <div class="text-md">
+                        <div class="text-md text-thin">
                     {{ mes.text }}
                 </div>
 
