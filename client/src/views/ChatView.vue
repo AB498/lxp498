@@ -28,7 +28,7 @@ async function openConversation(user) {
 <template>
   <div class="w-full h-full  bg-slate-800 ">
     <div class="flex w-full h-full">
-        <div class="basis-1/4 h-full bg-cyan-950 z-10">
+        <div class="basis-1/4 h-full bg-cyan-950 x">
           <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
@@ -46,11 +46,11 @@ async function openConversation(user) {
                 </div>
 
 
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="basis-3/4 h-full 0 overflow-auto ">
+        <div class="basis-3/4 h-full 0 overflow-auto -z-10">
         <RouterView></RouterView>
 
       </div>
