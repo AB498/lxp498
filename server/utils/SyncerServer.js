@@ -67,10 +67,15 @@ makeServer = (server) => {
         }); //onchange
 
         socket.on('updateObj', ({ path, value }) => {
+            try {
             localChange = false;
             console.log(`${'foreign change: '}: ${path} changed `)
             rjmod(syncerObj, path, value);
-            localChange = true;
+                localChange = true;
+            } catch (e) {
+                console.log(e)
+            }
+
         }); //onreceive
 
         socket.on('disconnect', () => {
