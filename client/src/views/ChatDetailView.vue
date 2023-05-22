@@ -78,7 +78,7 @@ function fastObjCopy(obj) {
         <div class="flex flex-col w-full h-full overflow-auto">
                 <div class="flex">
                     <div class="text-2xl p-2 w-full">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}</div>
-                            <i class="fas fa-three-dots p-2"></i>
+        <q-icon name="bx-language" />
             </div>
             <div class="h-full w-full bg-teal-900 flex flex-col  overflow-auto " id="chat-messages"
                     v-if="window.glb.syncerObj.openChat.messages">
