@@ -77,7 +77,7 @@ makeServer = (server) => {
         socket.on('updateObj', ({ path, value }) => {
             try {
                 console.log(`${'foreign change: '}: ${path} changed `)
-                syncerObj.blockemit = path;
+                // syncerObj.blockemit = path;
                 rjmod(syncerObj, path, value);
             } catch (e) {
                 console.log(e)
