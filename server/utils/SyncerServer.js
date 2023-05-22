@@ -60,7 +60,11 @@ makeServer = (server) => {
             }
             if (p == '/openChat/addMessage') {
                 await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
-                console.log('add msg')
+                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
+                localChange = false;
+            }
+            if (p == '/openChat/deleteMessage') {
+                await models.Message.destroy({ where: { id: v } });
                 syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
                 localChange = false;
             }
