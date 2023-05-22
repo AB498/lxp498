@@ -29,6 +29,7 @@ watch([() => route.params.slug, initialLoad], async () => {
   setTimeout(() => {
     player.value.loadVideoById(route.params.slug, 0, 0)
   }, 10);
+  window.glb.syncerObj.openYTVideo = { id: route.params.slug }
 
 })
 
