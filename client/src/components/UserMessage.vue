@@ -46,11 +46,7 @@ async function deleteMessage() {
                 <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fa-trash"
                     @click="deleteMessage"> </button>
                 <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fa-solid fa-langauge"
-                    @click="deleteMessage"> </button>
-        <a class="icon-link" href="#">
-          <svg class="bi" aria-hidden="true"><use xlink:href="#box-seam"></use></svg>
-          Icon link
-        </a>
+                        @click="deleteMessage"> </button>
             </div>
         </div>
 </template>
