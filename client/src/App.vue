@@ -29,11 +29,11 @@ const URL = "http://localhost:3000";
 let syncer = makeSyncer(URL)
 syncer.init()
 
-rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
-  window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
-})
+// rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
+//   window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
+// })
 window.glb.syncerObj = syncer.syncerObj;
-window.glb.syncerObjRef = syncer.syncerObj;
+// window.glb.syncerObjRef = syncer.syncerObj;
 
 
 syncer.connectedCallbacks.push(() => {
