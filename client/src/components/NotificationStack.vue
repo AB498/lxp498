@@ -30,18 +30,18 @@ watch(hovering, (newVal, oldVal) => {
         @click="">
         <div v-for="(item, index) in window.glb.notifications " :key="item.id"
             class="min-h-[3rem] max-w-[30rem] min-w-[20rem] p-3 rounded border-2  pointer-events-auto m-1 overflow-auto "
-            :style="{ backgroundColor: item.color }" @mouseover="hovering = true; hoveredEl = index; cons(hoveredEl)"
-            @mouseleave=" hovering = false; hoveredEl = -1">
-            <div class="flex items-stretch justify-center px-2">
+                :style="{ backgroundColor: !hovering ? item.color : 'bg-bg-gray-500' }" @mouseover="hovering = true; hoveredEl = index; cons(hoveredEl)"
+                @mouseleave=" hovering = false; hoveredEl = -1">
+                <div class="flex items-stretch justify-center px-2">
 
-                <div class="flex flex-col  justify-center">
-                    <div class="font-bold line-clamp-2">
-                        {{ item.text }}
+                    <div class="flex flex-col  justify-center">
+                        <div class="font-bold line-clamp-2">
+                            {{ item.text }}
+                        </div>
+                        <div class="text-sm line-clamp-3">
+                            {{ item.content }}
+                        </div>
                     </div>
-                    <div class="text-sm line-clamp-3">
-                        {{ item.content }}
-                    </div>
-                </div>
                     <i class="fas fa-times ml-2 cursor-pointer p-2" @click=" window.glb.removeNotf(item.id)"></i>
             </div>
         </div>
