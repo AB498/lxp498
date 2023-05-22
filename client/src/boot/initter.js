@@ -62,13 +62,13 @@ export default boot(({ app }) => {
             // Get the loading bar and overlay elements
             const loadingBar = el.querySelector('.loading-bar');
             const overlay = el.querySelector('.loading-overlay');
-            const overlay2 = el.querySelector('.loading-overlay2');
+            // const overlay2 = el.querySelector('.loading-overlay2');
 
             // Set the display style of the loading bar and overlay
             setTimeout(() => {
                 loadingBar.style.display = binding.value.loading ? 'block' : 'none';
                 overlay.style.display = binding.value.loading ? 'block' : 'none';
-                overlay2.style.display = binding.value.loading ? 'block' : 'none';
+                // overlay2.style.display = binding.value.loading ? 'block' : 'none';
                 if (binding.value.color) loadingBar.style.backgroundColor = binding.value.color
             }, binding.value.loading ? 0 : 1000);
         },
