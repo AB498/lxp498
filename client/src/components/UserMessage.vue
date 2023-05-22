@@ -48,7 +48,7 @@ async function deleteMessage() {
                 <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fa-solid fa-langauge"
                             @click="deleteMessage"> </button>
 
-                            <box-icon name="rocket"></box-icon>
+                                <box-icon name="down"></box-icon>
 
                         
             </div>
