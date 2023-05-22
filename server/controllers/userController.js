@@ -5,6 +5,7 @@ const { generateFromEmail, generateUsername } = require("unique-username-generat
 
 module.exports.registerUser = async (req, res) => {
     const { email, password, username, firstName, lastName } = req.body;
+    console.log(req.body);
     const existingUser = await models.User.findOne({ where: { email: email } });
     if (existingUser) return res.status(400).send("User already exists");
     const user = await models.User.create({ email, password: password ? bcrypt.hashSync(password, 10) : null });
