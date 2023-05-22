@@ -48,7 +48,6 @@ export default boot(({ app }) => {
             overlay.style.left = '0';
             overlay.style.width = '100%';
             overlay.style.height = '100%';
-            overlay.style.backdropFilter = 'blur(8px)';
 
 
 
