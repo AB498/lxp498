@@ -40,7 +40,7 @@ makeServer = (server) => {
             return console.log(e)
         }
         connections[socket.id] = socket;
-        console.log(Object.keys(connections).length + " users connected");
+        console.log(user.email + " users connected");
         var syncerObj = createProxy({});
         let localChange = true;
 
