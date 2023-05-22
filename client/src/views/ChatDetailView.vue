@@ -45,7 +45,7 @@ async function openConversation(id) {
     }
 }
 await openConversation(route.params.id);
-window.glb.syncerObj.openChat.conversationId = route.params.id;
+// window.glb.syncerObj.openChat.conversationId = route.params.id;
 
 function fastObjCopy(obj) {
     if (obj === null) return null;
