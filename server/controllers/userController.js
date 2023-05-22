@@ -18,7 +18,7 @@ module.exports.registerUser = async (req, res) => {
             if (usernameRollIteration % 10) console.log("Warning: username roll iteration exceeded " + usernameRollIteration)
         }
     if (!firstName && !lastName) {
-        firstName = generateFromEmail(email).split(" ")[0];
+        firstName = generateFromEmail(email);
     }
     let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
     user.jwts = [newJwt, ...(user.jwts ??= [])];
