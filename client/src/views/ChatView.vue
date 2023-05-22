@@ -32,7 +32,7 @@ async function openConversation(user) {
         <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
         <div class="" v-if="window.glb.chats">
           <div v-for="(user, index) in window.glb.chats" :key="index">
-              <div class=" hover-ripple-fast" @click="openConversation(user)">
+                <div class="bg-fuchsia-900 hover-ripple-fast" @click="openConversation(user)">
               {{ user.firstName + ' '+ user.lastName }}
             </div>
           </div>
