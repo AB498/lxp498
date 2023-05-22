@@ -59,6 +59,11 @@ makeServer = (server) => {
                 syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { conversationId: v } }))];
                 localChange = false;
             }
+            if (p == '/openChat/addMessage') {
+                await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
+                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { conversationId: v } }))];
+                localChange = false;
+            }
         }); //onchange
 
         socket.on('updateObj', ({ path, value }) => {
