@@ -69,7 +69,7 @@ export default boot(({ app }) => {
                 overlay.style.display = binding.value.loading ? 'block' : 'none';
                 overlay2.style.display = binding.value.loading ? 'block' : 'none';
                 if (binding.value.color) loadingBar.style.backgroundColor = binding.value.color
-            }, binding.value.loading ? 0 : 1000);
+            }, binding.value.loading ? 0 : 300);
         },
         unmounted(el) {
             try {
