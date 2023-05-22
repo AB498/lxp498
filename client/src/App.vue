@@ -35,7 +35,7 @@ syncer.init()
 
 rjwatch(syncer.syncerObj, null, (o, n, p, k, v) => {
   if (p == "/openChat/messages") {
-    console.log(v[0]);
+    console.log(...v[0]);
   }
   window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
   window.glb.syncerObj = syncer.syncerObj;
