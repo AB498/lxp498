@@ -26,7 +26,7 @@ async function deleteMessage() {
 </script>
 
 <template>
-                    <div class="w-full p-3 border-b-2 flex center space-x-2" v-if="mes && mes.UserId" @mouseover="showActions = true"
+                        <div class="w-full p-3 border-b-1 border-b-gray-700/50 flex center space-x-2" v-if="mes && mes.UserId" @mouseover="showActions = true"
             @mouseout="showActions = false">
                                     <img class="w-6 h-6" :src="userInc.pfpUrl || '/logo.svg'" />
             <div class="flex flex-col w-full h-full">
