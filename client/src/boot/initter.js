@@ -57,6 +57,7 @@ export default boot(({ app }) => {
             el.dataset.loadingOverlayElement = overlay;
             // Add a class to the parent div to indicate it has a loading bar
             el.classList.add('loading-bar-container');
+            console.log('mounted')
         },
         updated(el, binding) {
             // Get the loading bar and overlay elements
