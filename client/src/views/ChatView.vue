@@ -43,7 +43,7 @@ async function openConversation(user) {
                     </i>
                     <i v-else class="text-xs px-2 fas fa-circle text-gray-300"></i>
                   </div>
-                  <div class="username text-xs">{{ user.username || '@nousername' }}</div>
+                  <div class="username text-xs">{{ user.username || '@nousddsdsadername' }}</div>
                 </div>
 
 
