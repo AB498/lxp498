@@ -353,7 +353,7 @@ store.addNotf = (text, content, color) => {
     content: content || "",
     color: color || randCol,
     tmout: new Timeout(() => {
-      removeNotf(thisId)
+      store.removeNotf(thisId)
     }, 2000)
   })
 }
