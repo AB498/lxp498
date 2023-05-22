@@ -40,7 +40,7 @@ async function deleteMessage() {
 
             </div>
             <!-- cross button -->
-            <div class="flex flex-col  self-stretch" :class="showActions ? 'visible' : 'invisible'" @click="deleteMessage">
+                <div class="flex absolute top-4 right-4" :class="showActions ? 'visible' : 'invisible'" @click="deleteMessage">
                                         <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fa-pen">            </button>
                                     <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fa-trash">            </button>
             </div>
