@@ -140,7 +140,7 @@
   }
   100% {
     opacity: 0.1;
-    transform: scale(200, 200);
+    transform: scale(100, 100);
   }
 }
 
