@@ -26,7 +26,7 @@ async function deleteMessage() {
 </script>
 
 <template>
-            <div class="w-full p-3 flex center space-x-2 hover:bg-slate-600" v-if="mes && mes.UserId"
+        <div class="w-full p-3 flex center space-x-2 hover:bg-slate-600" v-if="mes && mes.UserId"
             @mouseover="showActions = true" @mouseout="showActions = false">
             <img class="w-8 h-8 self-start rounded-full" :src="userInc.pfpUrl || '/logo.svg'" />
             <div class="flex flex-col w-full h-full">
@@ -40,7 +40,7 @@ async function deleteMessage() {
 
             </div>
             <!-- cross button -->
-                <div class="flex flex-col justify-start" :class="showActions ? 'visible' : 'invisible'" @click="deleteMessage">
+            <div class="flex flex-col ه-فَلل justify-start" :class="showActions ? 'visible' : 'invisible'" @click="deleteMessage">
                 <button class="btn btn-sm btn-circle btn-ghost">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
