@@ -26,14 +26,14 @@ async function deleteMessage() {
 </script>
 
 <template>
-            <div class="w-full p-3 flex center space-x-2" v-if="mes && mes.UserId"
-            @mouseover="showActions = true" @mouseout="showActions = false">
-                    <img class="w-6 h-6 self-start" :src="userInc.pfpUrl || '/logo.svg'" />
+        <div class="w-full p-3 flex center space-x-2" v-if="mes && mes.UserId" @mouseover="showActions = true"
+            @mouseout="showActions = false">
+            <img class="w-6 h-6 self-start" :src="userInc.pfpUrl || '/logo.svg'" />
             <div class="flex flex-col w-full h-full">
-                        <div class="text-xs text-gray-300">
-                                            {{ (user.firstName + ' ' + user.lastName) }} {{ window.glb.getFormattedTime(new Date(mes.createdAt)) }}
+                <div class="text-xs text-gray-300">
+                    {{ (user.firstName + ' ' + user.lastName) }} {{ window.glb.getFormattedTime(new Date(mes.createdAt)) }}
                 </div>
-                    <div class="text-md whitespace-pre-wrap">
+                <div class="text-md whitespace-pre-wrap">
                     {{ mes.text }}
                 </div>
 

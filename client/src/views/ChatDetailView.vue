@@ -72,23 +72,26 @@ function fastObjCopy(obj) {
 </script>
 
 <template>
-        <div class="w-full h-full  bg-slate-800 overflow-auto">
-            <div class="flex flex-col w-full h-full overflow-auto">
-                <div class="text-2xl p-2 w-full">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}</div>
-                <div class="h-full w-full bg-teal-900 flex flex-col  overflow-auto " id="chat-messages"
-                    v-if="window.glb.syncerObj.openChat.messages">
-                    <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id" class="">
-                        <UserMessage :message="message"
-                            :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
-                            index="message.id" />
+    <div class="w-full h-full  bg-slate-800 overflow-auto">
+        <div class="flex flex-col w-full h-full overflow-auto">
+            <div class="text-2xl p-2 w-full">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}</div>
+            <div class="h-full w-full bg-teal-900 flex flex-col  overflow-auto " id="chat-messages"
+                v-if="window.glb.syncerObj.openChat.messages">
+                <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id" class="">
+                    <UserMessage :message="message"
+                        :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
+                        index="message.id" />
+                    <div class="px-6   w-full">
+                        <div class="h-[1px] bg-gray-200/50"></div>
                     </div>
                 </div>
-                <div class="flex justify-center">
-                    <textarea :style="{ height: clamp((1 * numLines) + 2, 0, 6) + 'rem' }"
-                        class="center p-2 m-2 w-full bg-gray-700" type="text" v-model="chatSendText"
-                        @keydown.enter.exact.prevent="sendMessage()" :readonly="textAreaDisabled" />
-                    <button class="p-2 m-2 ml-0 btn" @click="sendMessage">Send</button>
-                </div>
+            </div>
+            <div class="flex justify-center">
+                <textarea :style="{ height: clamp((1 * numLines) + 2, 0, 6) + 'rem' }"
+                    class="center p-2 m-2 w-full bg-gray-700" type="text" v-model="chatSendText"
+                    @keydown.enter.exact.prevent="sendMessage()" :readonly="textAreaDisabled" />
+                <button class="p-2 m-2 ml-0 btn" @click="sendMessage">Send</button>
             </div>
         </div>
+    </div>
 </template>
