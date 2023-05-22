@@ -52,15 +52,15 @@ makeServer = (server) => {
             }
 
             if (p == '/openChat/conversationId') {
-                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: v } })).map(m => m.dataValues)];
+                syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: v } })).map(m => m.dataValues);
             }
             if (p == '/openChat/addMessage') {
                 await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
-                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
+                syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
             }
             if (p == '/openChat/deleteMessage') {
                 await models.Message.destroy({ where: { id: v } });
-                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
+                syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
             }
         }); //onchange
 
