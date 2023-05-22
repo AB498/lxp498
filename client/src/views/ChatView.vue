@@ -38,7 +38,7 @@ async function openConversation(user) {
                 <div class="flex flex-col">
                   <div class="name">{{ user.firstName + ' ' + user.lastName }}
                       <i v-if="user.isOnline" class="text-xs px-2 fas fa-circle text-green-500"></i>
-                              <i v-else class="text-xs px-2 fa fa-wifi-slash text-gray-300"></i>
+                            <i v-else class="text-xs px-2 fas fa-circle-down text-gray-300"></i>
                   </div>
                   <div class="username text-xs">{{ user.username || '@nousername' }}</div>
                 </div>
