@@ -65,7 +65,7 @@ initialLoad.value = false
 </script>
 
 <template>
-    <div class="w-full h-full  bg-slate-800 overflow-auto">
+        <div class="w-full h-full  bg-slate-800 overflow-auto" v-loading-bar="{ loading: window.glb.syncerObj.openChat}">
             <div class="flex flex-col w-full h-full overflow-auto" v-if="window.glb.syncerObj.openChat">
                 <div class="flex center-cross">
                     <div class="text-2xl p-1 m-1 px-2 hover-ripple hover:cursor-pointer hover:bg-gray-600 rounded-lg ">{{
