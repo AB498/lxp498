@@ -58,6 +58,8 @@ function fastObjCopy(obj) {
     }
     return newObj;
 }
+window.glb.syncerObj.openChat = {}
+
 // window.glb.syncerObj.openChat.user = await window.glb.safeAuthedReq('/getUser/')
 window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
 
