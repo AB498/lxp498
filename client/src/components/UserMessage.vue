@@ -5,6 +5,10 @@ const props = defineProps({
     message: {
         type: Object,
         required: true
+    },
+    user: {
+        type: Object,
+        required: true
     }
 })
 
@@ -22,7 +26,7 @@ async function deleteMessage() {
 <template>
         <div class="w-full h-34   flex center space-x-2" v-if="mes && mes.UserId" @mouseover="showActions = true"
             @mouseout="showActions = false">
-                            <img class="w-6 h-6" :src="mes.User?.pfpUrl || '/logo.svg'" />
+                                <img class="w-6 h-6" :src="user.pfpUrl || '/logo.svg'" />
             <div class="flex flex-col w-full h-full">
                 <div class="text-xs">
                     {{ mes.UserId.username || 'No Name' }} {{ window.glb.getFormattedTime(new Date(mes.createdAt)) }} {{ mes.id
