@@ -4,15 +4,26 @@ const bcrypt = require("bcrypt");
 const { generateFromEmail, generateUsername } = require("unique-username-generator");
 
 module.exports.registerUser = async (req, res) => {
-    const { email, password, username } = req.body;
-    if (!username) username = generateUsername("-");
+    const { email, password, username, firstName, lastName } = req.body;
     const existingUser = await models.User.findOne({ where: { email: email } });
     if (existingUser) return res.status(400).send("User already exists");
     const user = await models.User.create({ email, password: bcrypt.hashSync(password, 10) });
+
+
+    let usernameRollIteration = 0;
+    if (!username)
+        while (await models.User.findOne({ where: { username: username } })) {
+            username = generateUsername("-");
+            usernameRollIteration++;
+            if (usernameRollIteration % 10) console.log("Warning: username roll iteration exceeded " + usernameRollIteration)
+        }
+    if (!firstName && !lastName) {
+        firstName = generateFromEmail(email).split(" ")[0];
+    }
     let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
     user.jwts = [newJwt, ...(user.jwts ??= [])];
     await user.save();
-    return res.json({ user, jwt: newJwt });
+    return res.json({ user, jwt: newJwt, username });
 }
 module.exports.getSelf = async (req, res) => {
     const user = await models.User.findOne({
