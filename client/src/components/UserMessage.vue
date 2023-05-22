@@ -42,7 +42,7 @@ async function deleteMessage() {
             <!-- cross button -->
                         <div class="flex flex-col  self-stretch" :class="showActions ? 'visible' : 'invisible'"
                 @click="deleteMessage">
-                    <button class="btn">
+                        <button class="bg-slate-600 p-2 m-1 rounded hover-ripple-fast flex center-cross ">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
