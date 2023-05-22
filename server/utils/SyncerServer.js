@@ -65,6 +65,7 @@ makeServer = (server) => {
                 localChange = false;
             }
             if (p == '/openChat/deleteMessage') {
+                console.log("delete message", v)
                 await models.Message.destroy({ where: { id: v } });
                 localChange = true;
                 syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
