@@ -182,7 +182,6 @@
   background-color: rgba(255, 255, 255, 0.5);
   z-index: 9999;
   animation: flashing-animation 1s ease-in-out infinite;
-    pointer-events: none;
 
 }
 .loading-overlay2 {
@@ -193,8 +192,7 @@
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
   z-index: 9999;
-    backdrop-filter: blur(8px);
-    pointer-events: none;
+    backdrop-filter: blur(4px);
 
 }
 
