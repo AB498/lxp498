@@ -1,5 +1,4 @@
 <script setup>
-import feather from 'feather-icons'
 import { defineProps, ref } from 'vue'
 
 const props = defineProps({
@@ -47,9 +46,11 @@ async function deleteMessage() {
                 <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fa-trash"
                     @click="deleteMessage"> </button>
                 <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fa-solid fa-langauge"
-                    @click="deleteMessage"> </button>
-                {{ feather.icons.circle.toSvg({ class: 'foo bar' }) }}
+                            @click="deleteMessage"> </button>
 
+                            <box-icon name="rocket"></box-icon>
+
+                        
             </div>
         </div>
 </template>
