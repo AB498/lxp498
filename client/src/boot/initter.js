@@ -47,7 +47,6 @@ export default boot(({ app }) => {
             const overlay2 = document.createElement('div');
             overlay2.className = 'loading-overlay2';
             overlay2.style.display = binding.value.loading ? 'block' : 'none';
-            overlay2.style.backdropFilter = 'blur(8px)';
             overlay2.style.animation = '';
             el.appendChild(overlay2);
 
