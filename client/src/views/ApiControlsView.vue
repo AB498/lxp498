@@ -4,21 +4,22 @@ import axios from 'axios';
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
 
 
-const apiEndpoints = window.vue.ref(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
-apiEndpoints.value.forEach(element => {
+const apiEndpoints = window.vue.reacto(await (await fetch('http://lanxplore.xyz/admin/apis')).json())
+apiEndpoints.forEach(element => {
 });
 if (!window.glb.apiEndpoints)
     window.glb.apiEndpoints = [];
 
-apiEndpoints.value.forEach(element => {
+apiEndpoints.forEach(element => {
     element.body = window.glb.apiEndpoints.find(x => x.url == element.url)?.body || '{}'
     element.res = window.glb.apiEndpoints.find(x => x.url == element.url)?.res
     element.show = window.glb.apiEndpoints.find(x => x.url == element.url)?.show
-    // element.params = window.glb.apiEndpoints.find(x => x.url == element.url)?.params
-    element.params = element.url.match(/(?<=\/:)[a-zA-Z0-9]+/g)?.map(x => ({ key: x, value: '' }))
+    element.params = window.glb.apiEndpoints.find(x => x.url == element.url)?.params || element.url.match(/(?<=\/:)[a-zA-Z0-9]+/g)?.map(x => ({ key: x, value: '' }))
     console.log(element.params)
 });
-window.glb.apiEndpoints = apiEndpoints.value
+if (!window.glb.apiEndpoints)
+    window.glb.apiEndpoints = []
+window.glb.apiEndpoints = apiEndpoints
 
 async function sendRequest(endpoint) {
     endpoint.loading = true
