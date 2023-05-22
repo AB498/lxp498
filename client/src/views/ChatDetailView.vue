@@ -79,7 +79,7 @@ function fastObjCopy(obj) {
                     v-if="window.glb.syncerObj.openChat.messages">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
                         <UserMessage :message="message"
-                            :user="cons(window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId), 'undef')"
+                                :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
                             index="message.id" />
                     </div>
                 </div>
