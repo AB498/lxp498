@@ -81,8 +81,8 @@ function fastObjCopy(obj) {
                             <UserMessage :message="message"
                                 :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
                                 index="message.id" />
-                                <q-divider v-if="index < window.glb.syncerObj.openChat.messages.length - 1" />
-                    </div>
+                <q-separator inset="item" />
+                            </div>
                 </div>
                 <div class="flex justify-center">
                     <textarea :style="{ height: clamp((1 * numLines) + 2, 0, 6) + 'rem' }"
