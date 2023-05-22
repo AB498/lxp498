@@ -142,7 +142,6 @@ function rjmod(root, path, value, silent) {
         return
     }
     for (let i = 0; i < pathArr.length - 1; i++) {
-        console.log(pathArr[i])
         obj = obj[pathArr[i]]
     }
     obj[pathArr[pathArr.length - 1]] = value  // might error?
