@@ -65,9 +65,11 @@ export default boot(({ app }) => {
             const overlay = el.querySelector('.loading-overlay');
 
             // Set the display style of the loading bar and overlay
-            loadingBar.style.display = binding.value.loading ? 'block' : 'none';
-            overlay.style.display = binding.value.loading ? 'block' : 'none';
-            if (binding.value.color) loadingBar.style.backgroundColor = binding.value.color
+            setTimeout(() => {
+                loadingBar.style.display = binding.value.loading ? 'block' : 'none';
+                overlay.style.display = binding.value.loading ? 'block' : 'none';
+                if (binding.value.color) loadingBar.style.backgroundColor = binding.value.color
+            }, 1000);
         },
         unmounted(el) {
             try {
