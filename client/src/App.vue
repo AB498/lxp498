@@ -34,7 +34,7 @@ let syncer = makeSyncer(URL, {
 syncer.init()
 
 rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {
-  // window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
+  window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
   window.glb.syncerObj = syncer.syncerObj;
 })
 window.glb.syncerObj = syncer.syncerObj;
