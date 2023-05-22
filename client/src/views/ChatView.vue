@@ -36,7 +36,7 @@ async function openConversation(user) {
                 <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
                 <div class="flex flex-col">
                   <div class="name">{{ user.firstName + ' ' + user.lastName }}</div>
-                    <div class="username">{{ user.username || 'nousername' }}</div>
+                      <div class="username text-sm">{{ user.username || '@nousername' }}</div>
                 </div>
 
 
