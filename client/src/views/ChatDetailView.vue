@@ -74,7 +74,7 @@ window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
                 <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages"
                     v-if="window.glb.syncerObj.openChat.messages">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
-                        {{ message }}
+                        <UserMessage :message="message" :user="window.glb.syncerObj.openChat.user" :index="index" />
                     </div>
                 </div>
                 <div class="flex justify-center">
