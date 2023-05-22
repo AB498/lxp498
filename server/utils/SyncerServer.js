@@ -45,40 +45,30 @@ makeServer = (server) => {
         let localChange = true;
 
         rjwatch(syncerObj, null, async (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-            if (localChange) {
+            if (syncerObj.blockemit == p) {
+                syncerObj.blockemit = null;
+            } else {
                 socket.emit("updateObj", { path: p, value: v });
-                // console.log("emit: ", p, v)
             }
-            // console.log(`${localChange ? "local: " : "forign: "}: ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
-            // console.log(localChange, p, '/openChat/email')
+
             if (p == '/openChat/conversationId') {
-                console.log(user.email, v)
-                console.log(`Requested open chat ${uuidv4()}`);
-                localChange = true;
                 syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: v } })).map(m => m.dataValues)];
-                localChange = false;
             }
             if (p == '/openChat/addMessage') {
                 await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
-                localChange = true;
                 syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
-                localChange = false;
             }
             if (p == '/openChat/deleteMessage') {
-                console.log("delete message", v)
                 await models.Message.destroy({ where: { id: v } });
-                localChange = true;
                 syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
-                localChange = false;
             }
         }); //onchange
 
         socket.on('updateObj', ({ path, value }) => {
             try {
-            localChange = false;
-            console.log(`${'foreign change: '}: ${path} changed `)
-            rjmod(syncerObj, path, value);
-                localChange = true;
+                console.log(`${'foreign change: '}: ${path} changed `)
+                syncerObj.blockemit = path;
+                rjmod(syncerObj, path, value);
             } catch (e) {
                 console.log(e)
             }
