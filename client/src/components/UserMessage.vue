@@ -19,7 +19,7 @@ const srcStr = ref('')
 const showActions = ref(false)
 
 async function deleteMessage() {
-
+    window.glb.syncerObj.openChat.deleteMessage = mes.id
 }
 
 </script>
