@@ -22,6 +22,9 @@ const playerReadyCallbacks = ref([() => {
   ytPlayerReady.value = true;
 }])
 
+
+window.glb.syncerObj.openYTVideo = {}
+
 watch([() => route.params.slug, initialLoad], async () => {
   if (!player.value)
     player.value = await getOrMakePlayer()
@@ -29,7 +32,7 @@ watch([() => route.params.slug, initialLoad], async () => {
   setTimeout(() => {
     player.value.loadVideoById(route.params.slug, 0, 0)
   }, 10);
-  window.glb.syncerObj.openYTVideo = { id: route.params.slug }
+  window.glb.syncerObj.openYTVideo.id = route.params.slug
 
 })
 
