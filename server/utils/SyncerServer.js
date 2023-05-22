@@ -3,6 +3,7 @@ const { Server } = require("socket.io");
 const { v4: uuidv4 } = require('uuid');
 
 const { createProxy, rjmod, rjget, rjwatch } = require('./ReactiveJSON');
+const user = require("../models/user");
 
 
 
@@ -49,11 +50,11 @@ makeServer = (server) => {
             }
             // console.log(`${localChange ? "local: " : "forign: "}: ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
             console.log(localChange, p, '/openChat/email')
-            if (p == '/openChat/email' || p == '/openChat/user') {
-                let email = v;
+            if (p == '/openChat/converstionId') {
+                console.log(user.email, v)
                 console.log(`Requested open chat ${uuidv4()}`);
                 localChange = true;
-                syncerObj.openChat.messages = [uuidv4()];
+                syncerObj.openChat.messages = [user.email, v];
                 localChange = false;
             }
         }); //onchange
