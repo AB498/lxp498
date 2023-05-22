@@ -32,11 +32,12 @@ async function openConversation(user) {
           <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
-              <div class="bg-slate-600 p-2 m-1 rounded hover-ripple-fast flex center-cross" @click="openConversation(user)">
+              <div class="bg-slate-600 p-2 m-1 rounded hover-ripple-fast flex center-cross space-x-2" 
+              @click="openConversation(user)">
                 <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
                 <div class="flex flex-col">
                   <div class="name">{{ user.firstName + ' ' + user.lastName }}</div>
-                        <div class="username text-xs">{{ user.username || '@nousername' }}</div>
+                  <div class="username text-xs">{{ user.username || '@nousername' }}</div>
                 </div>
 
 
