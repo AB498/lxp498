@@ -65,7 +65,6 @@ initialLoad.value = false
 </script>
 
 <template>
-        <div class="w-full h-full  bg-slate-800 overflow-auto">
         <div class="w-full h-full  bg-slate-800 overflow-auto"
             v-loading-bar="{ loading: !window.glb.syncerObj.openChat?.conversationId }">
             <div class="flex flex-col w-full h-full overflow-auto" v-if="window.glb.syncerObj.openChat?.conversationId">
@@ -94,7 +93,6 @@ initialLoad.value = false
                         class="center p-2 m-2 w-full bg-gray-700" type="text" v-model="chatSendText"
                         @keydown.enter.exact.prevent="sendMessage()" :readonly="textAreaDisabled" />
                     <button class="p-2 m-2 ml-0 btn" @click="sendMessage">Send</button>
-                </div>
             </div>
         </div>
     </div>
