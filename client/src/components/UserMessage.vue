@@ -49,7 +49,7 @@ async function deleteMessage() {
                                 @click="deleteMessage"> <q-tooltip text="Translate"></q-tooltip>
                         </button>
 
-                            <img src="'@/assets/langauge.png'" class="w-8 h-8 rounded-full inline-block mr-2">
+                                <img src="'@/assets/language.png'" class="w-8 h-8 rounded-full inline-block mr-2">
 
             </div>
         </div>
