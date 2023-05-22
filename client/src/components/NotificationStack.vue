@@ -3,13 +3,14 @@ import { ref } from 'vue'
 import { watch } from 'vue';
 
 const hovering = ref(false);
-const hoveredEl = ref(-1);
+const hoveredEl = ref(null);
 
 
 watch(hovering, (newVal, oldVal) => {
     if (newVal) {
         // all after hoveredEl
-        for (let i = hoveredEl.value; i < window.glb.notifications.length; i++) {
+        let hoveredIndex = window.glb.notifications.findIndex(n => n.id == hoveredEl.value);
+        for (let i = hoveredIndex; i < window.glb.notifications.length; i++) {
             window.glb.notifications[i].tmout.pause();
         }
     } else {
@@ -31,9 +32,9 @@ watch(hovering, (newVal, oldVal) => {
         <div v-for="(item, index) in window.glb.notifications " :key="item.id"
             class="min-h-[3rem] max-w-[30rem] min-w-[20rem] p-3 rounded border-2  pointer-events-auto m-1 overflow-auto "
                             :class="item.tmout.running ? 'bg-blue-800' : 'bg-blue-300'"
-                    :style="{ backgroundColor: (hoveredEl != index) ? item.color : '#333' }"
-                @mouseover="hovering = true; hoveredEl = index; cons(hoveredEl)"
-                @mouseleave=" hovering = false; hoveredEl = -1">
+                        :style="{ backgroundColor: (hoveredEl != item.id) ? item.color : '#333' }"
+                    @mouseover="hovering = true; hoveredEl = item.id; cons(hoveredEl)"
+                    @mouseleave=" hovering = false; hoveredEl = null">
                 <div class="flex items-stretch justify-center px-2">
 
                     <div class="flex flex-col  justify-center">
