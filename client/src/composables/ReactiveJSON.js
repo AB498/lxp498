@@ -55,6 +55,8 @@ function isObject(obj) {
 }
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
+
+    console.log(obj instanceof Date)
     if (!obj) return obj;
     if (isObject(obj))
         obj = { ...obj }
@@ -76,14 +78,19 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
     for (let key in obj) {
         if (key.slice(0, 1) == '_') continue;
         if (typeof obj[key] == 'object') {
-            if (isObject(obj))
+            console.log(obj[key] instanceof Date)
+
+            if (isObject(obj[key]))
                 obj[key] = { ...obj[key] }
             if (obj[key] == null) continue;
             obj[key] = createProxy(obj[key], handler, false, obj, key)
         }
     }
     try {
-        return new Proxy(obj, handler);
+        if (isObject(obj))
+            return new Proxy(obj, handler);
+        else
+            return obj;
     } catch (e) {
         console.log(e, obj)
         return obj;
@@ -128,6 +135,8 @@ const rjwatch = (obj, key, cb) => {
 
 // rjson.deep3.deep4.sda = 32432
 
+let rjson = createProxy({ deep: new Date() })
+console.log(rjson)
 
 function rjmod(root, path, value, silent) {
     if (silent) {
