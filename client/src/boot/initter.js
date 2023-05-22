@@ -48,6 +48,10 @@ export default boot(({ app }) => {
             overlay.style.left = '0';
             overlay.style.width = '100%';
             overlay.style.height = '100%';
+            overlay.backdropFilter = 'blur(8px)';
+
+
+
             // overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)'; // Customize the overlay color and transparency if needed
             // overlay.style.zIndex = '9999'; // Adjust the z-index as necessary
 
