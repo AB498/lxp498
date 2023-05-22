@@ -1,9 +1,12 @@
 const models = require("../models");
 const jwtUtil = require("../utils/jwt");
 const bcrypt = require("bcrypt");
+const { generateFromEmail, generateUsername } = require("unique-username-generator");
 
 module.exports.registerUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
+    if (!username) const username = generateUsername("-");
+
     const existingUser = await models.User.findOne({ where: { email: email } });
     if (existingUser) return res.status(400).send("User already exists");
     const user = await models.User.create({ email, password: bcrypt.hashSync(password, 10) });
