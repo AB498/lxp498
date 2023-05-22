@@ -26,7 +26,11 @@ const route = useRoute()
 const router = useRouter()
 const URL = window.glb.baseUrl;
 
-let syncer = makeSyncer(URL)
+let syncer = makeSyncer(URL, {
+  extraHeaders: {
+    Authorization: `Bearer ${window.glb?.jwt || ''}`
+  }
+})
 syncer.init()
 
 // rjwatch(syncer.syncerObj, null, (newVal, oldVal) => {

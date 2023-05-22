@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 
 
-const makeSyncer = (url) => {
+const makeSyncer = (url, options) => {
     var syncerObj = createProxy(({}));
     let localChange = true;
     let server2Socket = null;
@@ -19,7 +19,7 @@ const makeSyncer = (url) => {
     let testInterval;
 
     function init() {
-        server2Socket = io(url);
+        server2Socket = io(url, options);
         server2Socket.connect();
 
         server2Socket.on("connect", () => {
