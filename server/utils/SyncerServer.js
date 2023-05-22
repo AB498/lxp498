@@ -55,13 +55,13 @@ makeServer = (server) => {
                 console.log(user.email, v)
                 console.log(`Requested open chat ${uuidv4()}`);
                 localChange = true;
-                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: v } }))];
+                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: v } })).map(m => m.dataValues)];
                 localChange = false;
             }
             if (p == '/openChat/addMessage') {
                 await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
                 console.log('add msg')
-                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } }))];
+                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues)];
                 localChange = false;
             }
         }); //onchange
