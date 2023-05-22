@@ -24,7 +24,7 @@ import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
 import { makeSyncer } from '@/composables/Syncer'
 const route = useRoute()
 const router = useRouter()
-const URL = "http://localhost:3000";
+const URL = window.glb.baseUrl;
 
 let syncer = makeSyncer(URL)
 syncer.init()
