@@ -44,7 +44,7 @@ makeServer = (server) => {
             return socket.disconnect();
         }
         user = user.toJSON()
-        console.log(user.createdAt, user.updatedAt);
+        console.log(typeof user.createdAt, user.createdAt);
         delete user.password;
         delete user.jwts;
         connections.push({ user, socket });
