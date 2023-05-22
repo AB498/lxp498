@@ -47,8 +47,6 @@ makeServer = (server) => {
                 socket.emit("updateObj", { path: p, value: v });
                 console.log("emit: ", p, v)
             }
-            console.log('mod done')
-
             // console.log(`${localChange ? "local: " : "forign: "}: ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
             console.log(localChange, p, '/openChat/email')
             if (p == '/openChat/email' || p == '/openChat/user') {
@@ -62,7 +60,7 @@ makeServer = (server) => {
 
         socket.on('updateObj', ({ path, value }) => {
             localChange = false;
-            console.log(`${'foreign change: '}: ${path} changed to ${JSON.stringify(value)}`)
+            console.log(`${'foreign change: '}: ${path} changed `)
             rjmod(syncerObj, path, value);
             localChange = true;
         }); //onreceive
