@@ -40,8 +40,7 @@ async function openConversation(user) {
                       <i v-if="user.isOnline" class="text-xs px-2 fas fa-circle text-green-500 relative">
                         <i class="text-xs px-2 fas fa-circle text-yellow-500 animate-ping absolute top-0 left-0"></i>
                     </i>
-                    <i v-else class="text-xs px-2 fas fa-circle text-gray-300"></i>
-                  </div>
+    <i v-else class='bx bx-wifi-off'></i>                  </div>
                     <div class="username text-xs">{{ user.username || '@nousername' }}</div>
                 </div>
 
