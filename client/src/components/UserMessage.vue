@@ -45,7 +45,7 @@ async function deleteMessage() {
                     @click="editMessage"> </button>
                 <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fa-trash"
                     @click="deleteMessage"> </button>
-                    <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fa-solid fa-globe"
+                        <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fa-globe"
                     @click="deleteMessage"> </button>
                     <img :src="'/langauge.png'" class="w-8 h-8 rounded-full inline-block mr-2">
 
