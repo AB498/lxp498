@@ -56,27 +56,31 @@ makeServer = (server) => {
         let localChange = true;
 
         rjwatch(syncerObj, null, async (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-            if (blockemit == p) {
-                blockemit = null;
-            } else {
-                socket.emit("updateObj", { path: p, value: v });
-            }
+            try {
+                if (blockemit == p) {
+                    blockemit = null;
+                } else {
+                    socket.emit("updateObj", { path: p, value: v });
+                }
 
-            if (p == '/openChat/conversationId') {
-                syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: v } })).map(m => m.dataValues);
-            }
-            if (p == '/openChat/addMessage') {
-                await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
-                syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
-            }
-            if (p == '/openChat/deleteMessage') {
-                let msg = await models.Message.findByPk(v);
-                if (msg.UserId == user.id) await msg.destroy();
-                else return syncerObj.error = "You can only delete your own messages";
-                syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
-            }
-            if (p == '/openYTVideo/id') {
-                syncerObj.openYTVideo.videoInfo = (await models.YTVideo.findOne({ where: { id: v } })).dataValues;
+                if (p == '/openChat/conversationId') {
+                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: v } })).map(m => m.dataValues);
+                }
+                if (p == '/openChat/addMessage') {
+                    await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
+                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
+                }
+                if (p == '/openChat/deleteMessage') {
+                    let msg = await models.Message.findByPk(v);
+                    if (msg.UserId == user.id) await msg.destroy();
+                    else return syncerObj.error = "You can only delete your own messages";
+                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
+                }
+                if (p == '/openYTVideo/id') {
+                    syncerObj.openYTVideo.videoInfo = (await models.YTVideo.findOne({ where: { id: v } })).dataValues;
+                }
+            } catch (e) {
+                console.log(e)
             }
         }); //onchange
 
