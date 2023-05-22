@@ -35,6 +35,7 @@ async function openConversation(id) {
     let res = await window.glb.safeAuthedReq('/api/openConversation', { id: id })
     if (res) {
         window.glb.syncerObj.openChat.participants = res.Users;
+        window.glb.syncerObj.openChat.otherUser = res.Users.find(u => u.id != window.glb.syncerObj.user.id);
     } else {
         window.glb.addNotf('error', 'Error creating chat')
     }
@@ -64,7 +65,7 @@ function fastObjCopy(obj) {
 <template>
         <div class="w-full h-full  bg-slate-800 overflow-auto">
             <div class="flex flex-col w-full h-full overflow-auto">
-                <div class="text-2xl p-2 ">{{ window.glb.syncerObj.openChat.user.firstName || 'Username' }}</div>
+                    <div class="text-2xl p-2 ">{{ window.glb.syncerObj.openChat.otherUser.firstName || 'Username' }}</div>
                 <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages"
                     v-if="window.glb.syncerObj.openChat.messages">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
