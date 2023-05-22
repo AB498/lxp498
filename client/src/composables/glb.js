@@ -134,7 +134,6 @@ store.getTime = () => {
   let ampm = hours >= 12 ? 'pm' : 'am';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0' + minutes : minutes;
   let strTime = hours + ':' + minutes + ':' + secmilli + ' ' + ampm;
   return strTime;
 }
@@ -147,7 +146,6 @@ store.getFormattedTime = (date) => {
   let ampm = hours >= 12 ? 'pm' : 'am'
   hours = hours % 12
   hours = hours ? hours : 12 // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0' + minutes : minutes
   let strTime = hours + ':' + minutes + ' ' + ampm
 
   return strTime
