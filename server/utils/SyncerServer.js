@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const { createProxy, rjmod, rjget, rjwatch } = require('./ReactiveJSON');
 const user = require("../models/user");
 const jwtUtil = require("./jwt");
+const models = require("../models");
 
 
 makeServer = (server) => {
