@@ -40,22 +40,17 @@ export default boot(({ app }) => {
             // Create the overlay element
             const overlay = document.createElement('div');
             overlay.className = 'loading-overlay';
-
-            // Set the overlay position and dimensions
             overlay.style.display = binding.value.loading ? 'block' : 'none';
-            overlay.style.position = 'absolute';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-
-
-
-            // overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)'; // Customize the overlay color and transparency if needed
-            // overlay.style.zIndex = '9999'; // Adjust the z-index as necessary
-
-            // Append the overlay to the body
             el.appendChild(overlay);
+            
+            
+            const overlay2 = document.createElement('div');
+            overlay2.className = 'loading-overlay';
+            overlay2.style.display = binding.value.loading ? 'block' : 'none';
+            overlay2.style.backdropFilter = 'blur(8px)';
+            overlay2.style.animation = '';
+            el.appendChild(overlay2);
+
             el.dataset.loadingBarElement = loadingBar;
             el.dataset.loadingOverlayElement = overlay;
             // Add a class to the parent div to indicate it has a loading bar
