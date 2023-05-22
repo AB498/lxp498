@@ -50,9 +50,14 @@ const handlerMain = {
     }
 }
 
+function isObject(obj) {
+    return typeof obj == 'object' && obj != null && !Array.isArray(obj);
+}
+
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     if (!obj) return obj;
-    obj = { ...obj }
+    if (isObject(obj))
+        obj = { ...obj }
     let handler;
     handler = { ...handlerMain }
     if (isRoot) {
@@ -71,7 +76,8 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
     for (let key in obj) {
         if (key.slice(0, 1) == '_') continue;
         if (typeof obj[key] == 'object') {
-            obj[key] = { ...obj[key] }
+            if (isObject(obj))
+                obj[key] = { ...obj[key] }
             if (obj[key] == null) continue;
             obj[key] = createProxy(obj[key], handler, false, obj, key)
         }
