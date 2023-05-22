@@ -37,6 +37,11 @@ rjwatch(syncer.syncerObj, null, (o, n, p, k, v) => {
   window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
   window.glb.syncerObj = syncer.syncerObj;
 })
+rjwatch(syncer.syncerObj, 'error', (o, n, p, k, v) => {
+  if (v) {
+    window.glb.addNotf('error', v)
+  }
+})
 window.glb.syncerObj = syncer.syncerObj;
 // window.glb.syncerObjRef = syncer.syncerObj;
 
