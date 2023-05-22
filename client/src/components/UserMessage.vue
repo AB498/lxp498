@@ -48,8 +48,9 @@ async function deleteMessage() {
                 <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fa-solid fa-langauge"
                             @click="deleteMessage"> </button>
 
-                                <box-icon name="down"></box-icon>
-
+                            <i class='bx bx-user'></i>
+        <i class='bx bxs-user'></i>
+        <i class='bx bxl-facebook-square'></i>
                         
             </div>
         </div>
