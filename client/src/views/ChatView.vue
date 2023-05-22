@@ -29,7 +29,7 @@ async function openConversation(user) {
   <div class="w-full h-full  bg-slate-800 ">
     <div class="flex w-full h-full">
       <div class="basis-1/4 h-full bg-cyan-950 ">
-          <div class="text-2xl p-2" >Online</div>
+          <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
               <div class="bg-slate-600 p-2 m-1 rounded hover-ripple-fast flex center-cross "
