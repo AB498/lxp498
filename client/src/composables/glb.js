@@ -276,7 +276,7 @@ store.errorMessages = (errorObject, lxerrormessage = []) => {
 
   if (lxerrormessage.length > 0)
     return lxerrormessage;
-  return errMessages;
+  return errMessages.reverse();
 
 }
 store.safeAuthedReq = async (url, body) => {
