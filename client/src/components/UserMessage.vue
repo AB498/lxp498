@@ -49,7 +49,7 @@ async function deleteMessage() {
                             @click="deleteMessage"> </button>
 
                                     <i class='bx bx-language'></i>
-        <i class='bx bxs-user'></i>
+            <i class='bx bx-globe'></i>
         <i class='bx bxl-facebook-square'></i>
                         
             </div>
