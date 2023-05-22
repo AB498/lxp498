@@ -61,7 +61,7 @@ async function sendRequest(endpoint) {
                         <div class="bg-slate-700 p-1 rounded" v-text="'/test' + endpoint.url"></div>
                             <div v-for="param in endpoint.params" v-if="endpoint.params">
                                         {{ endpoint.params[param] }}
-                                        <!-- <q-input v-model="params[param]" outlined dense class="bg-slate-700 text-white" /> -->
+                                            <q-input v-model="endpoint.params
                         </div>
                         <div class="grow"></div>
                         <i class="material-icons text-2xl text-lime-500 hover:bg-lime-500 hover:text-slate-900 cursor-pointer rounded-full w-8 h-8"
