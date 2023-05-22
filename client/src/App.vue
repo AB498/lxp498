@@ -34,9 +34,7 @@ let syncer = makeSyncer(URL, {
 syncer.init()
 
 rjwatch(syncer.syncerObj, null, (o, n, p, k, v) => {
-  if (p == "/openChat/messages") {
-    console.log((v[0].createdAt));
-  }
+  console.log(p);
   window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
   window.glb.syncerObj = syncer.syncerObj;
 })
