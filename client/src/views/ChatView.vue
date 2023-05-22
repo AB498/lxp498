@@ -37,7 +37,7 @@ async function openConversation(user) {
               <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
               <div class="flex flex-col center-main">
                 <div class="name">{{ user.firstName + ' ' + user.lastName }}
-                  <i v-if="user.isOnline" class="text-xs px-2 fas fa-circle text-green-500 relative">
+                    <i v-if="user.isOnline" class="text-xs px-2 fas fa-circle text-green-500 ">
                     <i class="text-xs px-2 fas fa-circle text-yellow-500 animate-ping absolute top-0 left-0"></i>
                   </i>
                   <i v-else class='bx bx-wifi-off text-gray-300'></i>
