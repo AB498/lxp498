@@ -61,7 +61,7 @@ makeServer = (server) => {
             if (p == '/openChat/addMessage') {
                 await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
                 console.log('add msg')
-                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: v } }))];
+                syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } }))];
                 localChange = false;
             }
         }); //onchange
