@@ -26,6 +26,7 @@ watch(() => window.glb.syncerObj?.openChat?.messages, (newVal, oldVal) => {
     messages.value = newVal
     nextTick(() => {
         const chatMessages = document.getElementById('chat-messages')
+        if (!chatMessages) return
         chatMessages.scrollTop = chatMessages.scrollHeight
     })
 })
