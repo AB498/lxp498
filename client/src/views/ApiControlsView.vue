@@ -28,7 +28,7 @@ async function sendRequest(endpoint) {
         if (endpoint.method.toUpperCase() == 'GET')
             endpoint.res = await axios.get('http://lanxplore.xyz/test' + endpoint.params ? endpoint.params.reduce((acc, cur) => acc.replace(':' + cur.key, (cur.value)), endpoint.url) : endpoint.url)
         else
-            endpoint.res = await axios.post('http://lanxplore.xyz/test' + endpoint.params ? endpoint.params.reduce((acc, cur) => acc.replace(':' + cur.key, (cur.value)), endpoint.url) : endpoint.url)
+            endpoint.res = await axios.post('http://lanxplore.xyz/test' + typeof endpoint.params != 'undefined' ? endpoint.params.reduce((acc, cur) => acc.replace(':' + cur.key, (cur.value)), endpoint.url) : endpoint.url)
         console.log(endpoint.res)
         window.glb.apiEndpoints.find(x => x.url == endpoint.url).res = endpoint.res
         window.glb.apiEndpoints.find(x => x.url == endpoint.url).body = endpoint.body
