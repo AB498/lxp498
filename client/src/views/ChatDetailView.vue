@@ -22,11 +22,11 @@ const sendMessage = () => {
     }
 }
 
-watch(window.syncerObj.openChat.messages, (newVal, oldVal) => {
+watch(window.glb.syncerObj.openChat.messages, (newVal, oldVal) => {
     messages.value = newVal
-        nextTick(() => {
-            const chatMessages = document.getElementById('chat-messages')
-            chatMessages.scrollTop = chatMessages.scrollHeight
+    nextTick(() => {
+        const chatMessages = document.getElementById('chat-messages')
+        chatMessages.scrollTop = chatMessages.scrollHeight
     })
 })
 
@@ -78,7 +78,7 @@ function fastObjCopy(obj) {
                     v-if="window.glb.syncerObj.openChat.messages">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
                         <UserMessage :message="message"
-                                        :user="cons(window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId), 'undef')"
+                            :user="cons(window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId), 'undef')"
                             index="message.id" />
                     </div>
                 </div>
