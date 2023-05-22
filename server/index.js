@@ -31,16 +31,10 @@ const app = express();
 const server = http.createServer(app);
 const proxy = httpProxy.createProxyServer();
 
-const io = new Server(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
-    }
 
-})
+const connections = require(join(rootDirectory, 'utils', 'SyncerServer')).makeServer(server).connections;
 
-
-manageSocketIO(io);
+// manageSocketIO(io);
 app.use(
     cors({
         origin: "*",
