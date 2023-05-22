@@ -43,6 +43,11 @@ makeServer = (server) => {
             console.log("Already connected");
             return socket.disconnect();
         }
+        user = user.toJSON()
+        delete user.password;
+        delete user.jwts;
+        connections.push({ user, socket });
+
 
         console.log(user.email + " connected");
         var syncerObj = createProxy({});
