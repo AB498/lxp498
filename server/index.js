@@ -32,7 +32,7 @@ const server = http.createServer(app);
 const proxy = httpProxy.createProxyServer();
 
 
-const connections = require(join(rootDirectory, 'utils', 'SyncerServer')).makeServer(server).connections;
+const connections = require(path.join(rootDirectory, 'utils', 'SyncerServer')).makeServer(server).connections;
 
 // manageSocketIO(io);
 app.use(
