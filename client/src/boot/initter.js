@@ -49,7 +49,7 @@ export default boot(({ app }) => {
             overlay2.style.display = binding.value.loading ? 'block' : 'none';
             overlay2.style.backdropFilter = 'blur(8px)';
             overlay2.style.animation = '';
-            el.appendChild(overlay2);
+            // el.appendChild(overlay2);
 
             el.dataset.loadingBarElement = loadingBar;
             el.dataset.loadingOverlayElement = overlay;
