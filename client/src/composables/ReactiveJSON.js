@@ -56,7 +56,6 @@ function isObject(obj) {
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
 
-    console.log(obj instanceof Date)
     if (!obj) return obj;
     if (isObject(obj))
         obj = { ...obj }
@@ -78,8 +77,6 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
     for (let key in obj) {
         if (key.slice(0, 1) == '_') continue;
         if (typeof obj[key] == 'object') {
-            console.log(obj[key] instanceof Date)
-
             if (isObject(obj[key]))
                 obj[key] = { ...obj[key] }
             if (obj[key] == null) continue;
