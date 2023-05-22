@@ -11,8 +11,7 @@ module.exports.registerUser = async (req, res) => {
 
 
     let usernameRollIteration = 0;
-    if (!username)
-        while (await models.User.findOne({ where: { username: username } })) {
+    while (await models.User.findOne({ where: { username: username } }) || !username) {
             username = generateUsername("-");
             usernameRollIteration++;
             if (usernameRollIteration % 10) console.log("Warning: username roll iteration exceeded " + usernameRollIteration)
