@@ -44,14 +44,13 @@ makeServer = (server) => {
         var syncerObj = createProxy({});
         let localChange = true;
 
-        console.log("rjwatching")
         rjwatch(syncerObj, null, async (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
             if (localChange) {
                 socket.emit("updateObj", { path: p, value: v });
-                console.log("emit: ", p, v)
+                // console.log("emit: ", p, v)
             }
             // console.log(`${localChange ? "local: " : "forign: "}: ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
-            console.log(localChange, p, '/openChat/email')
+            // console.log(localChange, p, '/openChat/email')
             if (p == '/openChat/converstionId') {
                 console.log(user.email, v)
                 console.log(`Requested open chat ${uuidv4()}`);
@@ -61,6 +60,7 @@ makeServer = (server) => {
             }
             if (p == '/openChat/addMessage') {
                 await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
+                console.log('add msg')
                 syncerObj.openChat.messages = ["hle", ...(await models.Message.findAll({ where: { conversationId: v } }))];
                 localChange = false;
             }
