@@ -14,9 +14,7 @@ module.exports.registerUser = async (req, res) => {
             ]
         }
     });
-
     if (existingUser) return res.status(400).send("User already exists");
-
 
     let usernameRollIteration = 0;
     while (!username || await models.User.findOne({ where: { username: username } })) {
