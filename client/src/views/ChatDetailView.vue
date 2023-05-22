@@ -31,7 +31,6 @@ watch(chatSendText, updateNumLines)
 const clamp = (number, min, max) =>
     Math.max(min, Math.min(number, max));
 window.glb.syncerObj.openChat = {}
-window.glb.syncerObj.openChat.conversationId = route.params.id;
 
 async function openConversation(id) {
     let res = await window.glb.safeAuthedReq('/api/openConversation', { id: id })
@@ -46,6 +45,7 @@ async function openConversation(id) {
     }
 }
 await openConversation(route.params.id);
+window.glb.syncerObj.openChat.conversationId = route.params.id;
 
 function fastObjCopy(obj) {
     if (obj === null) return null;
