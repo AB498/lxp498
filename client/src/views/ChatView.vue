@@ -35,7 +35,7 @@ async function openConversation(user) {
               <div class="bg-slate-600 p-2 m-1 rounded hover-ripple-fast flex center-cross "
                 @click="openConversation(user)">
                 <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
-                <div class="flex flex-col center">
+                  <div class="flex flex-col center-main">
                   <div class="name">{{ user.firstName + ' ' + user.lastName }}
                     <i v-if="!user.isOnline" class="text-xs px-2 fas fa-circle text-green-500 relative">
                       <i v-if="!user.isOnline"
