@@ -17,6 +17,7 @@ makeServer = (server) => {
         }
     })
     io.on('connection', async (socket) => {
+        let blockemit = null;
         let user = null;
         try {
             const headers = socket.handshake.headers;
@@ -55,8 +56,8 @@ makeServer = (server) => {
         let localChange = true;
 
         rjwatch(syncerObj, null, async (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
-            if (syncerObj.blockemit == p) {
-                syncerObj.blockemit = null;
+            if (blockemit == p) {
+                blockemit = null;
             } else {
                 socket.emit("updateObj", { path: p, value: v });
             }
@@ -77,7 +78,7 @@ makeServer = (server) => {
         socket.on('updateObj', ({ path, value }) => {
             try {
                 console.log(`${'foreign change: '}: ${path} changed `)
-                syncerObj.blockemit = path;
+                blockemit = path;
                 rjmod(syncerObj, path, value);
             } catch (e) {
                 console.log(e)
