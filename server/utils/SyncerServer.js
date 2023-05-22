@@ -86,7 +86,8 @@ makeServer = (server) => {
 
         socket.on('disconnect', () => {
             console.log('user disconnected');
-            delete connections[socket.id]
+            connections = connections.filter(c => c.socket.id != socket.id);
+
         });
     })
     return { io, connections }
