@@ -80,8 +80,8 @@ function removeFile(idx) {
                     </a>
                 </div>
                 <!-- <video :src="files[index]"></video> -->
-                                    <q-input dark color="lightblue" label="Video Title" v-model="fileData[index].title" hide-details></q-input>
-                                    <q-input dark color="lightblue" label="Description" hide-details></q-input>
+                                        <q-input dark color="sky" label="Video Title" v-model="fileData[index].title" hide-details></q-input>
+                                        <q-input dark color="sky" label="Description" hide-details></q-input>
                 <label :for="'pic-upload' + index"
                     class="fas p-3 fa-upload bg-blue-600 m-2 rounded shadow active:shadow-xl self-center"
                     v-if="fileNames.length == 0">
