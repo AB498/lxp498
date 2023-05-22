@@ -50,7 +50,7 @@ async function openConversation(user) {
           </div>
         </div>
       </div>
-      <div class="basis-3/4 h-full 0 overflow-auto -z-10">
+        <div class="basis-3/4 h-full 0 overflow-auto z-10">
         <RouterView></RouterView>
 
       </div>
