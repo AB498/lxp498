@@ -38,6 +38,7 @@ async function openConversation(id) {
     window.glb.syncerObj.openChat.user = {}
     if (res) {
         console.log(res.Users.find(u => u.id != window.glb.user.id).stats, res.Users.find(u => u.id != window.glb.user.id))
+        window.glb.syncerObj.openChat.participants = res.Users;
         // console.log(window.glb.syncerObj.openChat.user.stats, res.Users.find(u => u.id != window.glb.user.id))
         window.glb.syncerObj.openChat.user = JSON.parse(JSON.stringify(res.Users.find(u => u.id != window.glb.user.id)));
     } else {
@@ -74,7 +75,7 @@ window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
                 <div class="h-full bg-slate-600 flex flex-col  overflow-auto" id="chat-messages"
                     v-if="window.glb.syncerObj.openChat.messages">
                     <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id">
-                        <UserMessage :message="message" :user="window.glb.syncerObj.openChat.user" :index="index" />
+                            <UserMessage :message="message" :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"  index="message.id" />
                     </div>
                 </div>
                 <div class="flex justify-center">
