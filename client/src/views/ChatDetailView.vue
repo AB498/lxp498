@@ -51,7 +51,7 @@ async function openConversation(id) {
         window.glb.addNotf('error', 'Error creating chat')
     }
 }
-watch([() => route.params.id, initialLoad], (newVal, oldVal) => {
+watch([() => route.params.id, initialLoad], async (newVal, oldVal) => {
     if (newVal != oldVal) {
         window.glb.syncerObj.openChat = {}
         await openConversation(route.params.id);
