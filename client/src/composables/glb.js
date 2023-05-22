@@ -245,7 +245,11 @@ store.safeAsync = async (asyncFn, func) => {
   return [errors, res];
 }
 store.isObject = isObject
-store.errorMessages = (errorObject, lxerrormessage = []) => {
+store.errorMessages = (errorObject, lxerrormessage = [], parent) => {
+  if (!parent) {
+    if (typeof errorObject !== "object")
+      return [errorObject];
+  }
   let errMessages = []
   if (store.isObject(errorObject)) {
     if (errorObject["lxerrormessage"]) {
@@ -256,7 +260,7 @@ store.errorMessages = (errorObject, lxerrormessage = []) => {
     for (let key in errorObject) {
       if (lxerrormessage.length > 0) break;
       if (isObject(errorObject[key])) {
-        let nestedErrors = store.errorMessages(errorObject[key], lxerrormessage);
+        let nestedErrors = store.errorMessages(errorObject[key], lxerrormessage, errorObject);
         if (nestedErrors.length > 0)
           errMessages.push(...nestedErrors);
       }
