@@ -2,6 +2,7 @@ const models = require("../models");
 const jwtUtil = require("../utils/jwt");
 const bcrypt = require("bcrypt");
 const { generateFromEmail, generateUsername } = require("unique-username-generator");
+const { Op } = require("sequelize");
 
 module.exports.registerUser = async (req, res) => {
     let { email, password, username, firstName, lastName } = req.body;
