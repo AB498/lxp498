@@ -51,7 +51,7 @@ const handlerMain = {
 }
 
 function isObject(obj) {
-    return typeof obj == 'object' && obj != null && !Array.isArray(obj) && !(obj instanceof Date) && !(obj instanceof RegExp) && !(obj instanceof Map) && !(obj instanceof Set) && !(obj instanceof WeakMap) && !(obj instanceof WeakSet) && !(obj instanceof Promise) && !(obj instanceof Error) && !(obj instanceof Number) && !(obj instanceof String) && !(obj instanceof Boolean) && !(obj instanceof Function) && !(obj instanceof Symbol) && !(obj instanceof BigInt) && !(obj instanceof ArrayBuffer) && !(obj instanceof DataView) && !(obj instanceof Float32Array) && !(obj instanceof Float64Array) && !(obj instanceof Int8Array) && !(obj instanceof Int16Array) && !(obj instanceof Int32Array) && !(obj instanceof Uint8Array) && !(obj instanceof Uint8ClampedArray) && !(obj instanceof Uint16Array) && !(obj instanceof Uint32Array) && !(obj instanceof BigInt64Array) && !(obj instanceof BigUint64Array) && !(obj instanceof SharedArrayBuffer) && !(obj instanceof WeakRef) && !(obj instanceof FinalizationRegistry);
+    return typeof obj == 'object' && obj != null && !Array.isArray(obj) && !(obj instanceof Date) && !(obj instanceof RegExp);
 }
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
