@@ -261,7 +261,7 @@ store.errorMessages = (errorObject, lxerrormessage = [], parent, pkey) => {
     for (let key in errorObject) {
       if (lxerrormessage.length > 0) break;
       if (isObject(errorObject[key])) {
-        let nestedErrors = store.errorMessages(errorObject[key], lxerrormessage, parent, pkey);
+        let nestedErrors = store.errorMessages(errorObject[key], lxerrormessage, parent, key);
         if (nestedErrors.length > 0)
           errMessages.push(...nestedErrors);
       }
@@ -275,7 +275,9 @@ store.errorMessages = (errorObject, lxerrormessage = [], parent, pkey) => {
         errMessages.push(errorObject[key]);
       } else if (key === "message") {
         errMessages.push(errorObject[key]);
-      }
+      } else if (key === "data" && parent === "response") {
+        errMessages.push(errorObject[key]);
+      } 
     }
   }
 
