@@ -81,7 +81,7 @@ function fastObjCopy(obj) {
                         window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}
                     </div>
                     <div class="grow"></div>
-                                <q-icon name="more_vert p-2 text-xl hover:bg-gray-600 hover-ripple  " />
+                                <q-icon name="more_vert" class="p-2 text-xl hover:bg-gray-600 hover-ripple  " />
                         <!-- <span class="material-symbols-outlined"> more_vert </span> -->
 
                 </div>
