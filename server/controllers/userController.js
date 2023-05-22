@@ -74,6 +74,7 @@ module.exports.deleteAllUsers = async (req, res) => {
 
 module.exports.deleteUser = async (req, res) => {
     const user = await models.User.destroy({ where: { id: req.params.id } });
+    console.log(req.params.id);
     return res.status(200).json(user);
 }
 
