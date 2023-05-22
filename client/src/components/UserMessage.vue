@@ -30,7 +30,7 @@ async function deleteMessage() {
             @mouseover="showActions = true" @mouseout="showActions = false">
                     <img class="w-6 h-6 self-start" :src="userInc.pfpUrl || '/logo.svg'" />
             <div class="flex flex-col w-full h-full">
-                <div class="text-xs">
+                    <div class="text-xs text-gray-500">
                     {{ mes.UserId.username || 'No Name' }} {{ window.glb.getFormattedTime(new Date(mes.createdAt)) }} {{ mes.id
                     }}
                 </div>
