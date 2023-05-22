@@ -132,8 +132,8 @@ const rjwatch = (obj, key, cb) => {
 
 // rjson.deep3.deep4.sda = 32432
 
-let rjson = createProxy({ deep: new Date() })
-console.log(rjson)
+// let rjson = createProxy({ deep: new Date() })
+// console.log(rjson)
 
 function rjmod(root, path, value, silent) {
     if (silent) {
