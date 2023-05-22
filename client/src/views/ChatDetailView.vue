@@ -77,7 +77,7 @@ function fastObjCopy(obj) {
     <div class="w-full h-full  bg-slate-800 overflow-auto">
         <div class="flex flex-col w-full h-full overflow-auto">
                 <div class="flex">
-                    <div class="text-2xl p-2 w-full">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}
+                        <div class="text-2xl p-2 w-full hover:bg-gray-600 rounded-lg">{{ window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}
                     </div>
                                     <span class="p-2 text-xl hover:bg-gray-600 hover-ripple  material-symbols-outlined"> more_vert </span>
                 </div>
