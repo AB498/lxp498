@@ -20,6 +20,11 @@ const sendMessage = () => {
         window.glb.syncerObj.openChat.addMessage = chatSendText.value
         chatSendText.value = ''
     }
+    // scroll to bottom
+    nextTick(() => {
+        let chatMessages = document.getElementById('chat-messages')
+        chatMessages.scrollTop = chatMessages.scrollHeight
+    })
 }
 
 const updateNumLines = () => {
