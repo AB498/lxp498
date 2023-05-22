@@ -50,7 +50,9 @@ async function deleteMessage() {
 
                                     <i class='bx bx-language'></i>
             <i class='bx bx-globe'></i>
-        <i class='bx bxl-facebook-square'></i>
+            <i class='bx bxl-facebook-square'></i>
+
+            <img src="/langauge.png" class="w-8 h-8 rounded-full inline-block mr-2">
                         
             </div>
         </div>
