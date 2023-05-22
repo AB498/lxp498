@@ -35,7 +35,7 @@ const router = createRouter({
       children: [
         {
           path: ':id',
-          component: import('../views/ChatDetailView.vue'),
+          component: () => import('../views/ChatDetailView.vue'),
         }
       ],
       meta: {
