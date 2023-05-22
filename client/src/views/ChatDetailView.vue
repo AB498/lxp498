@@ -77,11 +77,11 @@ function fastObjCopy(obj) {
     <div class="w-full h-full  bg-slate-800 overflow-auto">
         <div class="flex flex-col w-full h-full overflow-auto">
                         <div class="flex center-cross">
-                    <div class="text-2xl p-1 m-1 px-2 hover-ripple hover:cursor-pointer hover:bg-gray-600 rounded-lg">{{
-                        window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}
-                    </div>
-                    <div class="grow"></div>
-                                <q-icon name="more_vert" class="p-2 text-xl hover:bg-gray-600 hover-ripple  " />
+                        <div class="text-2xl p-1 m-1 px-2 hover-ripple hover:cursor-pointer hover:bg-gray-600 rounded-lg ">{{
+                            window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}
+                        </div>
+                        <div class="grow"></div>
+                                    <q-icon name="more_vert" class="p-2 text-xl hover:bg-gray-600 hover-ripple rounded shadow px-2" />
                         <!-- <span class="material-symbols-outlined"> more_vert </span> -->
 
                 </div>
