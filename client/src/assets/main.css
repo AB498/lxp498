@@ -186,7 +186,7 @@
 
 }
 
-.hover-ripple-fast:after, .hover-ripple:after {
+.loading-overlay:after{
   position: fixed;
   top: 0;
   left: 0;
