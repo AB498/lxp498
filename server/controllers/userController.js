@@ -25,7 +25,10 @@ module.exports.registerUser = async (req, res) => {
     if (!firstName && !lastName) {
         firstName = generateFromEmail(email);
     }
-    const user = await models.User.create({ email, password: password ? bcrypt.hashSync(password, 10) : null });
+    const user = await models.User.create({
+        email, password: password ? bcrypt.hashSync(password, 10) : null,
+        username, firstName, lastName
+    });
     let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
     user.jwts = [newJwt, ...(user.jwts ??= [])];
 
