@@ -3,22 +3,6 @@ import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid';
 import { watch } from 'vue';
 
-window.glb.notifications = []
-
-
-window.glb.addNotf = (text, color, content) => {
-    let thisId = uuidv4();
-    let randCol = "#111144ef" || randomColor();
-    window.glb.notifications.push({
-        id: thisId,
-        text: text || "Notification number " + window.glb.notifications.length,
-        content: content || "",
-        color: color || randCol,
-        tmout: new Timeout(() => {
-            removeNotf(thisId)
-        }, 2000)
-    })
-}
 class Timeout {
     constructor(callbackFunction, time) {
         this.time = time;

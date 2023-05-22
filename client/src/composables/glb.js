@@ -320,5 +320,21 @@ store.reloadUser = async (jwt) => {
   return res.data;
 }
 
+store.notifications = []
+
+
+store.addNotf = (text, content, color) => {
+  let thisId = uuidv4();
+  let randCol = "#111144ef" || randomColor();
+  store.notifications.push({
+    id: thisId,
+    text: text || "Notification number " + window.glb.notifications.length,
+    content: content || "",
+    color: color || randCol,
+    tmout: new Timeout(() => {
+      removeNotf(thisId)
+    }, 2000)
+  })
+}
 
 export default store
