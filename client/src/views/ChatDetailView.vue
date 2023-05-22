@@ -20,12 +20,18 @@ const sendMessage = () => {
         window.glb.syncerObj.openChat.addMessage = chatSendText.value
         chatSendText.value = ''
     }
-    // scroll to bottom
-    nextTick(() => {
-        let chatMessages = document.getElementById('chat-messages')
-        chatMessages.scrollTop = chatMessages.scrollHeight
-    })
 }
+
+watch(window.syncerObj.openChat.messages, (newVal, oldVal) => {
+    messages.value = newVal
+    if (initialLoad.value) {
+        initialLoad.value = false
+        nextTick(() => {
+            const chatMessages = document.getElementById('chat-messages')
+            chatMessages.scrollTop = chatMessages.scrollHeight
+        })
+    }
+})
 
 const updateNumLines = () => {
     numLines.value = chatSendText.value.split('\n').length
