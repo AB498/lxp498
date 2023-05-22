@@ -31,7 +31,7 @@ async function deleteMessage() {
                     <img class="w-6 h-6 self-start" :src="userInc.pfpUrl || '/logo.svg'" />
             <div class="flex flex-col w-full h-full">
                         <div class="text-xs text-gray-300">
-                            {{ mes.UserId.username || 'No Name' }} {{ window.glb.getFormattedTime(new Date(mes.createdAt)) }}
+                                {{ (mes.UserId.firstName + ' ' + mes.UserId.lastName) }} {{ window.glb.getFormattedTime(new Date(mes.createdAt)) }}
                 </div>
                     <div class="text-md whitespace-pre-wrap">
                     {{ mes.text }}
