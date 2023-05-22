@@ -57,7 +57,8 @@ function isObject(obj) {
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     if (!obj) return obj;
     if (isObject(obj)) {
-        console.log("unwrap", obj)
+        if (obj instanceof Date)
+            console.log("unwrap", obj)
         obj = { ...obj }
     }
     let handler;
