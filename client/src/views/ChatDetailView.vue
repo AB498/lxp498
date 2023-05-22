@@ -81,7 +81,7 @@ function fastObjCopy(obj) {
                         <UserMessage :message="message"
                             :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
                             index="message.id" />
-                        <div class="h-2 p-4 bg-gray-200 w-full"></div>
+                            <div class="h-1 mx-4 bg-gray-200 w-full"></div>
                     </div>
                 </div>
                 <div class="flex justify-center">
