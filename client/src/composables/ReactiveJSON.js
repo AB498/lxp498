@@ -56,8 +56,10 @@ function isObject(obj) {
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     if (!obj) return obj;
-    if (isObject(obj))
+    if (isObject(obj)) {
+        console.log("unwrap", obj)
         obj = { ...obj }
+    }
     let handler;
     handler = { ...handlerMain }
     if (isRoot) {
