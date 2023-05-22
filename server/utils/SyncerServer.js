@@ -16,6 +16,7 @@ makeServer = (server) => {
         }
     })
     io.on('connection', async (socket) => {
+        let user = null;
         try {
             const headers = socket.handshake.headers;
             if (!headers.authorization) {
@@ -29,10 +30,11 @@ makeServer = (server) => {
                 console.log("Invalid JWT", headers.authorization, decodedUser);
                 socket.disconnect();
             }
-            let user = await models.User.findByPk(decodedUser.id);
+            user = await models.User.findByPk(decodedUser.id);
             if (!user || !user.jwts.includes(jwt)) {
                 console.log("No user");
                 socket.disconnect();
+                return;
             }
         } catch (e) {
             console.log(e)
