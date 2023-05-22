@@ -1,4 +1,3 @@
-const axios = require('axios');
 
 const handlerMain = {
     set: function (target, key, value) {
