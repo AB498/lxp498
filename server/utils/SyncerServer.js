@@ -51,7 +51,7 @@ makeServer = (server) => {
             }
             // console.log(`${localChange ? "local: " : "forign: "}: ${JSON.stringify(o)} to ${JSON.stringify(n)}`)
             // console.log(localChange, p, '/openChat/email')
-            if (p == '/openChat/converstionId') {
+            if (p == '/openChat/conversationId') {
                 console.log(user.email, v)
                 console.log(`Requested open chat ${uuidv4()}`);
                 localChange = true;

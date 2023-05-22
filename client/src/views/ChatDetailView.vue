@@ -62,7 +62,7 @@ function fastObjCopy(obj) {
 
 // window.glb.syncerObj.openChat.user = await window.glb.safeAuthedReq('/getUser/')
 window.glb.syncerObj.openChat.email = window.glb.syncerObj.openChat.user.email;
-window.glb.syncerObj.openChat.converstionId = route.params.id;
+window.glb.syncerObj.openChat.conversationId = route.params.id;
 
 
 </script>
