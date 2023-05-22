@@ -29,7 +29,7 @@ async function sendRequest(endpoint) {
         else
             endpoint.res = await axios.post('http://lanxplore.xyz/test' + (typeof endpoint.params != 'undefined' ? endpoint.params.reduce((acc, cur) => acc.replace(':' + cur.key, (cur.value)), endpoint.url) : endpoint.url),
                 {
-                    body: JSON.parse(endpoint.body)
+                    body: body ? JSON.parse(endpoint.body) : {}
                 })
         console.log(endpoint.res)
         window.glb.apiEndpoints.find(x => x.url == endpoint.url).res = endpoint.res
