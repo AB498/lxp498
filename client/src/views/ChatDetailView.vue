@@ -24,7 +24,7 @@ const sendMessage = () => {
 
 watch(() => window.glb.syncerObj?.openChat?.messages, (newVal, oldVal) => {
     messages.value = newVal
-    console.log(newVal, oldVal?.length)
+    console.log(newVal?.length, oldVal?.length)
     nextTick(() => {
         const chatMessages = document.getElementById('chat-messages')
         if (!chatMessages) return
