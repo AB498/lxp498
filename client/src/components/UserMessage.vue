@@ -40,7 +40,7 @@ async function deleteMessage() {
 
             </div>
             <!-- cross button -->
-                <div class="flex flex-col h-full border self-stretch" :class="showActions ? 'visible' : 'invisible'"
+                    <div class="flex flex-col h-full self-stretch" :class="showActions ? 'visible' : 'invisible'"
                 @click="deleteMessage">
                 <button class="btn btn-sm btn-circle btn-ghost">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
