@@ -23,7 +23,7 @@ module.exports.registerUser = async (req, res) => {
     let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
     user.jwts = [newJwt, ...(user.jwts ??= [])];
     await user.save();
-    return res.json({ user, jwt: newJwt, username });
+    return res.json({ user, jwt: newJwt, username, firstName, lastName });
 }
 module.exports.getSelf = async (req, res) => {
     const user = await models.User.findOne({
