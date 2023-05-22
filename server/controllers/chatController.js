@@ -1,5 +1,6 @@
 const fsentence = require("../fsentence");
 const models = require("../models");
+const user = require("../models/user");
 const jwtUtil = require("../utils/jwt");
 const { Op } = require("sequelize");
 
@@ -13,7 +14,6 @@ module.exports.createChat = async (req, res) => {
     const user2 = req.body.otherUserId;
     const user1Id = user1.id;
     const user2Id = user2;
-    console.log(user1Id, user2Id);
 
     const existingChat = await models.Conversation.findAll({
         include: [
@@ -46,7 +46,7 @@ module.exports.createChat = async (req, res) => {
         return res.send(fetchedConversation.toJSON());
     }
 
-    const conversation = await models.Conversation.create({ name: 'My Conversation' });
+    const conversation = await models.Conversation.create({ name: user1.username + " - " + user2.username });
     await conversation.addUsers([user1, user2]);
 
     const fetchedConversation = await models.Conversation.findOne({
