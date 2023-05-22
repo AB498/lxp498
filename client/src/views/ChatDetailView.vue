@@ -22,7 +22,7 @@ const sendMessage = () => {
     }
 }
 
-watch(window.glb.syncerObj.openChat.messages, (newVal, oldVal) => {
+watch(() => window.glb.syncerObj.openChat.messages, (newVal, oldVal) => {
     messages.value = newVal
     nextTick(() => {
         const chatMessages = document.getElementById('chat-messages')
