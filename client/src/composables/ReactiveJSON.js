@@ -1,3 +1,4 @@
+const axios = require('axios');
 
 const handlerMain = {
     set: function (target, key, value) {
@@ -52,6 +53,7 @@ const handlerMain = {
 
 const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) => {
     if (!obj) return obj;
+    obj = { ...obj }
     let handler;
     handler = { ...handlerMain }
     if (isRoot) {
@@ -69,8 +71,11 @@ const createProxy = (obj, handlerInc = handlerMain, isRoot = true, parent, key) 
     }
     for (let key in obj) {
         if (key.slice(0, 1) == '_') continue;
-        if (typeof obj[key] == 'object')
+        if (typeof obj[key] == 'object') {
+            obj[key] = { ...obj[key] }
+            if (obj[key] == null) continue;
             obj[key] = createProxy(obj[key], handler, false, obj, key)
+        }
     }
     try {
         return new Proxy(obj, handler);
@@ -132,6 +137,7 @@ function rjmod(root, path, value, silent) {
         return
     }
     for (let i = 0; i < pathArr.length - 1; i++) {
+        console.log(pathArr[i])
         obj = obj[pathArr[i]]
     }
     obj[pathArr[pathArr.length - 1]] = value  // might error?
