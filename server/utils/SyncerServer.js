@@ -45,7 +45,7 @@ makeServer = (server) => {
         let localChange = true;
 
         console.log("rjwatching")
-        rjwatch(syncerObj, null, (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
+        rjwatch(syncerObj, null, async (o, n, p, k, v) => { //(oldval, newval, modpath, key, value)
             if (localChange) {
                 socket.emit("updateObj", { path: p, value: v });
                 console.log("emit: ", p, v)
@@ -56,7 +56,7 @@ makeServer = (server) => {
                 console.log(user.email, v)
                 console.log(`Requested open chat ${uuidv4()}`);
                 localChange = true;
-                syncerObj.openChat.messages = [models.Message.findAll({ where: { conversationId: v } })];
+                syncerObj.openChat.messages = [await models.Message.findAll({ where: { conversationId: v } })];
                 localChange = false;
             }
         }); //onchange
