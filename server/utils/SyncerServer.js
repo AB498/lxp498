@@ -56,7 +56,7 @@ makeServer = (server) => {
                 console.log(user.email, v)
                 console.log(`Requested open chat ${uuidv4()}`);
                 localChange = true;
-                syncerObj.openChat.messages = [user.email, v];
+                syncerObj.openChat.messages = [models.Message.findAll({ where: { conversationId: v } })];
                 localChange = false;
             }
         }); //onchange
