@@ -51,25 +51,16 @@ async function openConversation(id) {
         window.glb.addNotf('error', 'Error creating chat')
     }
 }
-window.glb.syncerObj.openChat = {}
-await openConversation(route.params.id);
-window.glb.syncerObj.openChat.conversationId = route.params.id;
+watch([() => route.params.id, initialLoad], (newVal, oldVal) => {
+    if (newVal != oldVal) {
+        window.glb.syncerObj.openChat = {}
+        await openConversation(route.params.id);
+        window.glb.syncerObj.openChat.conversationId = route.params.id;
 
-function fastObjCopy(obj) {
-    if (obj === null) return null;
-    if (typeof obj !== 'object') return obj;
-    if (obj.constructor === Date) return new Date(obj);
-    if (obj.constructor === RegExp) return new RegExp(obj);
-    let newObj = new obj.constructor();  //保持继承链
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {   //不遍历其原型链上的属性
-            let val = obj[key];
-            newObj[key] = typeof val === 'object' ? fastObjCopy(val) : val; // 使用arguments.callee解除与函数名的耦合
-        }
     }
-    return newObj;
-}
+})
 
+initialLoad.value = false
 
 </script>
 
