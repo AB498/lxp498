@@ -17,7 +17,7 @@ const numLines = ref(1)
 
 const sendMessage = () => {
     if (chatSendText.value.length > 0) {
-        window.glb.syncerObj.openChat.sendMessage(chatSendText.value)
+        window.glb.syncerObj.openChat.addMessage = chatSendText.value
         chatSendText.value = ''
     }
 }
