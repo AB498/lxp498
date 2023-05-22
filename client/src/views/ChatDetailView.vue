@@ -53,7 +53,7 @@ async function openConversation(id) {
 }
 watch([() => route.params.id, initialLoad], async (newVal, oldVal) => {
     if (newVal != oldVal) {
-        window.glb.syncerObj.openChat = {}
+        window.glb.syncerObj.openChat = { conversationId: null }
         await openConversation(route.params.id);
         window.glb.syncerObj.openChat.conversationId = route.params.id;
 
