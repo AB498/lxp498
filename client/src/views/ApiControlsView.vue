@@ -37,7 +37,7 @@ async function sendRequest(endpoint) {
         window.glb.apiEndpoints = window.glb.apiEndpoints
     } catch (e) {
         console.log(e)
-        endpoint.res = window.glb.errorMessages(e)
+        endpoint.res = (e)
 
     } finally {
         endpoint.loading = false
