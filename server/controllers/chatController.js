@@ -13,8 +13,6 @@ module.exports.createChat = async (req, res) => {
     const user2 = req.body.otherUserId;
     const user1Id = user1.id;
     const user2Id = user2;
-    console.log("user1Id", user1Id);
-    console.log("user2Id", user2Id);
 
     const existingChat = await models.Conversation.findAll({
         include: [
