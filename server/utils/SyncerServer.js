@@ -9,7 +9,7 @@ const models = require("../models");
 
 
 makeServer = (server) => {
-    let connections = {}
+    let connections = []
     const io = new Server(server, {
         cors: {
             origin: "*",
@@ -39,7 +39,11 @@ makeServer = (server) => {
         } catch (e) {
             return console.log(e)
         }
-        connections[socket.id] = socket;
+        if (connections.find(c => c.user.id == user.id)) {
+            console.log("Already connected");
+            return socket.disconnect();
+        }
+
         console.log(user.email + " connected");
         var syncerObj = createProxy({});
         let localChange = true;
