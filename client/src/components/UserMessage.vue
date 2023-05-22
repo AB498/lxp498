@@ -41,7 +41,7 @@ async function deleteMessage() {
             </div>
             <!-- cross button -->
             <div class="flex flex-col  self-stretch" :class="showActions ? 'visible' : 'invisible'" @click="deleteMessage">
-                    <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fas-time">            </button>
+                        <button class="bg-blue-600 shadow p-2 m-1 rounded hover-ripple-fast flex center-cross fas fa-time">            </button>
             </div>
         </div>
 </template>
