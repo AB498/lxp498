@@ -29,15 +29,14 @@ async function openConversation(user) {
   <div class="w-full h-full  bg-slate-800 ">
     <div class="flex w-full h-full">
       <div class="basis-1/4 h-full bg-cyan-900">
-          <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
-          <div class="" v-if="window.glb.chats">
-            <div v-for="(user, index) in window.glb.chats" :key="index">
-              <div class="btn hover-ripple-fast"
-                            @click="openConversation(user)">
-                {{ user.email }}
-              </div>
+        <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
+        <div class="" v-if="window.glb.chats">
+          <div v-for="(user, index) in window.glb.chats" :key="index">
+            <div class="btn hover-ripple-fast" @click="openConversation(user)">
+              {{ user.firstName + ' '+ user.lastName }}
             </div>
           </div>
+        </div>
       </div>
       <div class="basis-3/4 h-full 0 overflow-auto ">
         <RouterView></RouterView>
