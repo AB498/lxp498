@@ -77,7 +77,7 @@ makeServer = (server) => {
                     syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
                 }
                 if (p == '/openYTVideo/id') {
-                    syncerObj.openYTVideo.videoInfo = (await models.YTVideo.findOne({ where: { id: v } })).dataValues;
+                    syncerObj.openYTVideo.videoInfo = (await models.Video.findOne({ where: { id: v } })).dataValues;
                 }
             } catch (e) {
                 console.log(e)
