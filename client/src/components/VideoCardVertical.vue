@@ -9,12 +9,12 @@ import pic from "@/assets/logo.svg";
 </script>
 
 <template>
-    <div class="flex flex-col h-full w-full relative hover:-translate-y-1 shadow-md transition">
-        <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="w-full">
-        <div
-                    class="absolute h-full w-full hover:opacity-100 opacity-0  text-lg font-bold flex justify-center items-center  ">
+        <div class="flex flex-col  w-full relative hover:-translate-y-1 shadow-md transition">
+            <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="w-full">
+            <div
+                class="absolute h-full w-full hover:opacity-100 opacity-0  text-lg font-bold flex justify-center items-center  ">
                 <div
-                            class="w-full h-full bg-gradient-to-b from-indigo-500/75 to-emerald-700/25 break-words flex justify-center items-center space-x-2 text-yellow-400 hover-ripple-fast">
+                    class="w-full h-full bg-gradient-to-b from-indigo-500/75 to-emerald-700/25 break-words flex justify-center items-center space-x-2 text-yellow-400 hover-ripple-fast">
                 <i class="fa fa-play-circle"></i>
                 <div>Play</div>
             </div>
