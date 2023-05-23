@@ -145,7 +145,7 @@ class SubtitleServices {
         },
       })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       return false;
     }
     return true;

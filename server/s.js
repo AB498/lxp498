@@ -220,19 +220,8 @@ const globalProxy = createProxy({
             const newCont = {}
 
             let error = errorObject;
-            if (errorObject.response)
-                errorObject = error.response.data;
-            else if (errorObject.request)
-                errorObject = error.request;
-            else if (errorObject.message)
-                errorObject = {};
 
-            errorObject.message = error.message;
-            errorObject.stack = { stack: { trace: error.stack } };
-            errorObject.name = error.name;
-            errorObject.code = error.code;
-            errorObject.errno = error.errno;
-
+            errors = error;
             newCont[timeNow] = errorObject;
 
             fs.writeFileSync(join(logDir,
@@ -244,6 +233,7 @@ const globalProxy = createProxy({
                     ]
                 )
             );
+
         }
         return [errors, res];
     },
