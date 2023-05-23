@@ -1,5 +1,5 @@
 const { resolve } = require("path");
-const s require("../s");
+const s = require("../s");
 const downloadedVideosDirectory = resolve("./downloadedVideos")
 const YTDlpWrap = require("yt-dlp-wrap").default;
 const binaryPath = "C:\\Users\\a\\Downloads\\yt-dlp_win\\yt-dlp.exe";
