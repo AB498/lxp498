@@ -127,7 +127,7 @@ const globalProxy = createProxy({
     },
     tryStringify(s) {
         try {
-            return JSON.stringify();
+            return JSON.stringify(s);
         } catch (error) {
             return null;
         }
