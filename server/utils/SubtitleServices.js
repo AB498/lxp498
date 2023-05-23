@@ -17,7 +17,6 @@ const dataAPIKey = "AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y";
 class SubtitleServices {
   constructor() {
     this.processes = {};
-    this.accessToken = "";
     this.progress = 0;
     this.bucket_name = "lxbucket"; // Replace with your bucket name
   }
@@ -267,7 +266,6 @@ class SubtitleServices {
           //   progress.currentSpeed,
           //   progress.eta
           // );
-          this.progress = progress.percent;
           await models.Video.update({
             subtitleGenerationProgress: progress.percent
           }, {
@@ -298,12 +296,10 @@ class SubtitleServices {
     });
 
     if (response.data?.metadata?.progressPercent)
-      this.progress = response.data?.metadata?.progressPercent;
-
     if (response.data.done) {
       return response;
     } else {
-      console.log("Polling for transcription... Progress: " + this.progress);
+      console.log("Polling for transcription...");
       await this.timeout(10000);
       return await this.getTranscriptionResults(operationName);
     }
