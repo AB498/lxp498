@@ -137,28 +137,28 @@ initialLoad.value = false;
           <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
             <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
               id="subWordsHolderId"
-              v-if="window.glb.videoInfo.subtitlesAvailable == 1 && glb.isIterable(words) && words.length > 0">
-              <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
-                <PowerWord :word-inc="word">
-                </PowerWord>
-              </div>
-            </div>
-            <div v-else-if="window.glb.videoInfo.subtitlesAvailable == -1"
-              class=" w-full h-full flex items-center justify-center">
-              <div class="btn" @click="requestSubGen">Generate Subtitles
-                <i class="fa fa-bolt"></i>
-              </div>
-            </div>
-            <div v-else-if="window.glb.videoInfo.subtitlesAvailable == 0"
-              class=" w-full h-full flex items-center justify-center">
-              <div class=" flex items-center px-2 space-x-2">
-                <div>
-                  Subtitles Generation in Progress
+                v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
+                <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
+                  <PowerWord :word-inc="word">
+                  </PowerWord>
                 </div>
-                <LoadingSpin />
               </div>
-            </div>
-            <div v-else-if="window.glb.videoInfo.subtitlesAvailable == -2"
+              <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == -1"
+                class=" w-full h-full flex items-center justify-center">
+                <div class="btn" @click="requestSubGen">Generate Subtitles
+                  <i class="fa fa-bolt"></i>
+                </div>
+              </div>
+              <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 0"
+                class=" w-full h-full flex items-center justify-center">
+                <div class=" flex items-center px-2 space-x-2">
+                  <div>
+                    Subtitles Generation in Progress
+                  </div>
+                  <LoadingSpin />
+                </div>
+              </div>
+              <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == -2"
               class=" w-full h-full flex items-center justify-center">
               <PopperComponent>
                 <template #tohover>
