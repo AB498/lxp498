@@ -122,7 +122,7 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
     words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
     // window.syncer.destroy();
     var clusterize = new Clusterize({
-      rows: words.value.map(word => `<div class="flex flex-row justify-between"><div class="flex flex-row"><div class="text-xs text-gray-400">${word.word}</div></div>`),
+      rows: words.value.map(word => `<div class="text-xs text-gray-400">${word.word}</div>`),
       scrollId: 'scrollArea',
       contentId: 'contentArea'
     });
