@@ -190,8 +190,7 @@ class SubtitleServices {
     if (err || !resp) return null;
 
     const [err2, longRunningResult] = await s.safeAsync(this.getTranscriptionResults(resp.data.name), this.getTranscriptionResults);
-    console.log(longRunningResult)
-    if (err2) return null;
+    if (err2 || !longRunningResult) return null;
 
     let words = [];
     for (let result of longRunningResult.data.response.results) {
@@ -296,6 +295,7 @@ class SubtitleServices {
 
     if (response.data?.metadata?.progressPercent)
       if (response.data?.done) {
+        console.log(response.data)
       return response;
     } else {
       console.log("Polling for transcription...");
