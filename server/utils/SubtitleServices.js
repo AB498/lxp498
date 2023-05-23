@@ -41,12 +41,14 @@ class SubtitleServices {
     if (!videoId) return false;
     if (!lang) return false;
     if (this.processes[videoId]) return false;
-    this.processes[videoId] = {
-      progress: 0,
-      status: -1,
-      videoId,
-      callbacks: [],
-    };
+    if (!this.processes[videoId]) {
+      this.processes[videoId] = {
+        status: -1,
+        progress: 0,
+        videoId,
+        callbacks: [],
+      };
+    }
 
     let foundvideo = (await models.Video.findOne({ where: { ytId: videoId } }));
     if (!foundvideo) {
