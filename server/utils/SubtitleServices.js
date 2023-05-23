@@ -55,7 +55,7 @@ class SubtitleServices {
         subtitleGenerationProgress: 0,
       });
     }
-    if (foundvideo.subtitlesAvailable) {
+    if (foundvideo.subtitlesAvailable == 1) {
       this.processes[videoId].status = 1;
       this.processes[videoId].progress = 100;
       this.processes[videoId].callbacks.forEach((callback) => {
@@ -65,6 +65,8 @@ class SubtitleServices {
       return true;
     }
 
+    foundvideo.subtitlesAvailable = 0;
+    await foundvideo.save();
 
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 0;
