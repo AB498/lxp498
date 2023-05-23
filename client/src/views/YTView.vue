@@ -131,7 +131,7 @@ const playerMainLoop = setInterval(() => {
     if (words.value && glb.isIterable(words.value) && words.value.length > 0) {
 
       //binary search
-      console.log(parseFloat(words.value[0].startTime))
+      console.log(parseFloat(words.value[0]))
       let l, r, m;
       l = 0;
       r = words.value.length - 1;
