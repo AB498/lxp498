@@ -165,19 +165,22 @@ class SubtitleServices {
     return resp.data.items;
   }
   async uploadObject(name) {
-    const apiEndpoint = `https://www.googleapis.com/storage/v1/b/speech_videos/o/${name}?alt=json`;
-    const bucket_name = "speech_videos"; // Replace with your bucket name
+    const bucket_name = "lxbucket"; // Replace with your bucket name
+    const apiEndpoint = `https://www.googleapis.com/storage/v1/b/${bucket_name}/o/${name}?alt=json`;
     const file_name = name; // Replace with your desired file name
     const file_path = downloadedVideosDirectory; // Replace with the local path to your file
     const file_stream = fs.createReadStream(file_path + "/" + file_name);
     const url = `https://www.googleapis.com/upload/storage/v1/b/${bucket_name}/o?uploadType=multipart&name=${name}`;
-    const [err, funcRes] = await s.safeAsync(axios.post(url, file_stream, {
-      headers: {
-        Authorization: `Bearer ${global.glb.accessToken}`,
-        "Content-Type": "audio/mpeg",
-      },
-    }), "axios Upload Object")
-    if (err) return false;
+    try {
+      const funcRes = await axios.post(url, file_stream, {
+        headers: {
+          Authorization: `Bearer ${global.glb.accessToken}`,
+          "Content-Type": "audio/mpeg",
+        },
+      });
+    } catch (err) {
+      if (err) return false;
+    }
     return true;
 
   };
