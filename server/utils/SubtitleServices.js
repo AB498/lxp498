@@ -143,7 +143,7 @@ class SubtitleServices {
           Authorization: `Bearer ${global.glb.accessToken}`,
           "Content-Type": "application/json",
         },
-      }
+      })
     } catch (err) {
       console.log(err)
       return false;
