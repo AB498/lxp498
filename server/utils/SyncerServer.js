@@ -98,7 +98,7 @@ makeServer = (server) => {
                     videoAPIServices.addCallback(v, ({ status, progress }) => {
                         syncerObj.openYTVideo.subtitlesStatus = status;
                     })
-                    videoAPIServices.generateSubtitles('UBUNrFtufWo', 'en', 'zh')
+                    videoAPIServices.generateSubtitles(v, 'en', 'zh')
 
                 }
             } catch (e) {
