@@ -159,7 +159,7 @@ const playerMainLoop = setInterval(() => {
 
     }
   }
-}, 500)
+}, 200)
 
 </script>
 <template>
