@@ -123,11 +123,10 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
   }
 })
 let lastactword = null;
+let duration = player.value.getDuration();
 const playerMainLoop = setInterval(() => {
   if (ytPlayerReady.value) {
     let currentTime = player.value.getCurrentTime();
-    let duration = player.value.getDuration();
-    return;
     videoProgress.value = currentTime / duration * 100;
     if (words.value) {
 
@@ -137,6 +136,7 @@ const playerMainLoop = setInterval(() => {
       r = words.value.length - 1;
       while (l <= r) {
         m = Math.floor((l + r) / 2);
+        return;
         if (parseFloat(words.value[m].startTime) <= currentTime && parseFloat(words.value[m].endTime) >= currentTime) {
           break;
         }
