@@ -282,5 +282,4 @@ if (!global.__videoAPIServices) {
 }
 videoAPIServices = global.__videoAPIServices;
 
-
-export default videoAPIServices
+module.exports = videoAPIServices;
