@@ -8,6 +8,8 @@ const findPackageJson = require('find-package-json');
 const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 
+const s = require('./s');
+
 const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServices'));
 (async () => {
 
@@ -38,6 +40,6 @@ const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServi
     // models.User.sync({ force: true });
     // models.Video.sync({ force: true });
     // models.WatchHistory.sync({ force: true });
-
+    global.glb.accessToken = global.glb.getAccessToken();
     await videoAPIServices.generateSubtitles('xE_rMj35BIM', 'en', 'zh');
 })()
