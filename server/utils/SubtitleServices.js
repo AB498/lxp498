@@ -50,9 +50,9 @@ class SubtitleServices {
     });
 
     if (targetLang) {
-      const [errors5, translated] = await s.safeAsync(this.getTranslation(subtitles, lang, targetLang), this.getTranslation);
-      if (errors5) console.log(errors5);
-      else {
+      // const [errors5, translated] = await s.safeAsync(this.getTranslation(subtitles, lang, targetLang), this.getTranslation);
+      // if (errors5) console.log(errors5);
+      // else {
         // await db.video.update({
         //   where: {
         //     ytId: videoId
@@ -61,7 +61,7 @@ class SubtitleServices {
         //     translatedWords: JSON.stringify(translated)
         //   }
         // });
-      }
+      // }
 
     }
 
