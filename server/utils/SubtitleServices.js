@@ -50,6 +50,8 @@ class SubtitleServices {
         callbacks: [],
       };
     }
+    else
+      console.log("callbacks: ", this.processes[videoId].callbacks.length);
 
     let foundvideo = (await models.Video.findOne({ where: { ytId: videoId } }));
     if (!foundvideo) {
