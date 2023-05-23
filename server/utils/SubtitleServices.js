@@ -16,24 +16,70 @@ const axios = require("axios");
 const dataAPIKey = "AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y";
 class SubtitleServices {
   constructor() {
+    this.processes = {};
     this.accessToken = "";
     this.progress = 0;
     this.bucket_name = "lxbucket"; // Replace with your bucket name
   }
 
+  addCallback(videoId, callback) {
+    if (!this.processes[videoId]) {
+      this.processes[videoId] = {
+        status: -1,
+        progress: 0,
+        videoId,
+        callbacks: [],
+      };
+    }
+    this.processes[videoId].callbacks.push(callback);
+  }
+
+
   async generateSubtitles(videoId, lang, targetLang = null) {
 
 
-    if (!(await models.Video.findOne({ where: { ytId: videoId } }))) {
-      await models.Video.create({
+    if (!videoId) return false;
+    if (!lang) return false;
+    if (this.processes[videoId]) return false;
+    this.processes[videoId] = {
+      progress: 0,
+      status: -1,
+      videoId,
+      callbacks: [],
+    };
+
+    let foundvideo = (await models.Video.findOne({ where: { ytId: videoId } }));
+    if (!foundvideo) {
+      foundvideo = await models.Video.create({
         ytId: videoId,
         subtitleGenerationProgress: 0,
       });
     }
+    if (foundvideo.subtitlesAvailable) {
+      this.processes[videoId].status = 1;
+      this.processes[videoId].progress = 100;
+      this.processes[videoId].callbacks.forEach((callback) => {
+        callback({ status: 1, progress: 100 });
+      });
+    }
+
+
+    this.processes[videoId].status = 0;
+    this.processes[videoId].progress = 0;
+    this.processes[videoId].callbacks.forEach((callback) => {
+      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+    });
 
     console.log("Downloading video " + videoId);
     const [errors, downloadedFile] = await s.safeAsync(this.downloadMp3(videoId), this.downloadMp3);
     if (errors || !downloadedFile) return false;
+
+
+    this.processes[videoId].status = 0;
+    this.processes[videoId].progress = 25;
+    this.processes[videoId].callbacks.forEach((callback) => {
+      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+    });
 
     if (! await this.objectExists(downloadedFile)) {
       console.log("Uploading object cuz doesnt exist " + downloadedFile);
@@ -41,6 +87,12 @@ class SubtitleServices {
       if (errors3) return false;
     }
 
+
+    this.processes[videoId].status = 0;
+    this.processes[videoId].progress = 50;
+    this.processes[videoId].callbacks.forEach((callback) => {
+      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+    });
     console.log("Getting transcription " + downloadedFile);
     const [errors4, subtitles] = await s.safeAsync(this.getTranscription(downloadedFile, videoId, lang), this.getTranscription);
 
@@ -57,18 +109,24 @@ class SubtitleServices {
       }
     });
 
+    this.processes[videoId].status = 0;
+    this.processes[videoId].progress = 100;
+    this.processes[videoId].callbacks.forEach((callback) => {
+      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+    });
+
     if (targetLang) {
       // const [errors5, translated] = await s.safeAsync(this.getTranslation(subtitles, lang, targetLang), this.getTranslation);
       // if (errors5) console.log(errors5);
       // else {
-        // await db.video.update({
-        //   where: {
-        //     ytId: videoId
-        //   },
-        //   data: {
-        //     translatedWords: JSON.stringify(translated)
-        //   }
-        // });
+      // await db.video.update({
+      //   where: {
+      //     ytId: videoId
+      //   },
+      //   data: {
+      //     translatedWords: JSON.stringify(translated)
+      //   }
+      // });
       // }
 
     }
