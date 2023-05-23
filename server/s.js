@@ -125,7 +125,13 @@ const globalProxy = createProxy({
             console.error('Error moving file:', err);
         }
     },
-
+    tryStringify() {
+        try {
+            return JSON.stringify(this);
+        } catch (error) {
+            return null;
+        }
+    },
     handledParse(str) {
         //if already parsed object, return it
         if (typeof str === "object")
