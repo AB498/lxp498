@@ -9,40 +9,13 @@ import axios from "axios";
 import fs, { existsSync } from "fs";
 const dataAPIKey = "AIzaSyDxM2_xcNQhj4ynuKgf3Epujijq74a_mnk";
 class SubtitleServices {
-
-  public accessToken: string;
-  public progress: number;
-
   constructor() {
     this.accessToken = "";
     this.progress = 0;
-    this.init();
-  }
-  async init() {
-    this.accessToken = await this.getAccessToken();
-  }
-  async getAccessToken(): Promise<string> {
-    const { auth } = require("google-auth-library");
-
-    // load the environment variable with our keys
-    const keysEnvVar = process.env["CREDS"];
-    if (!keysEnvVar) {
-      throw new Error("The $CREDS environment variable was not found!");
-    }
-    const keys = JSON.parse(keysEnvVar);
-
-    // load the JWT or UserRefreshClient from the keys
-    const client = auth.fromJSON(keys);
-    client.scopes = [
-      "https://www.googleapis.com/auth/cloud-platform",
-      "https://www.googleapis.com/auth/youtube.readonly",
-      "https://www.googleapis.com/auth/youtubepartner"
-    ];
-    return (await client.getAccessToken()).token;
-
   }
 
-  async generateSubtitles(videoId: string, lang: string, targetLang: any = null): Promise<any> {
+
+  async generateSubtitles(videoId, lang, targetLang = null){
 
     console.log("Downloading video " + videoId);
     const [errors, downloadedFile] = await s.safeAsync(this.downloadMp3(videoId), this.downloadMp3);
@@ -93,14 +66,14 @@ class SubtitleServices {
 
   }
 
-  async getTranslation(words: any, sourceLang: string, targetLang: string) {
+  async getTranslation(words, sourceLang, targetLang) {
     //googel translate api
     let endpoint = 'https://translation.googleapis.com/v3/projects/lanxplore:translateText';
     let [err, res] = await s.safeAsync(
       axios.post(endpoint, {
         "sourceLanguageCode": sourceLang,
         "targetLanguageCode": targetLang,
-        "contents": (words.map((word: any) => word.word)),
+        "contents": (words.map((word) => word.word)),
         "mimeType": "text/plain"
       }, {
         headers: {
@@ -112,7 +85,7 @@ class SubtitleServices {
 
     let data = await res.json();
 
-    return words.map((word: any, index: any) => {
+    return words.map((word, index) => {
       try {
         return data.translations[index].translatedText;
       } catch (e) {
@@ -122,7 +95,7 @@ class SubtitleServices {
     });
   }
 
-  async getTranscription(downloadedFile: string, videoId: string, lang: string): Promise<any> {
+  async getTranscription(downloadedFile, videoId, lang){
     const endpoint = `https://speech.googleapis.com/v1p1beta1/speech:longrunningrecognize?key=${dataAPIKey}`;
     const requestData = {
       config: {
@@ -148,7 +121,7 @@ class SubtitleServices {
 
     if (err2) return null;
 
-    let words: any[] = [];
+    let words = [];
     for (let result of longRunningResult.data.response.results) {
       try {
         words = [...words, ...result.alternatives[0].words];
@@ -158,7 +131,7 @@ class SubtitleServices {
 
   }
 
-  async objectExists(name: string) {
+  async objectExists(name) {
     const apiEndpoint = `https://www.googleapis.com/storage/v1/b/speech_videos/o/${name}?alt=json`;
 
     let [err, res] = await s.safeAsync(
@@ -179,13 +152,13 @@ class SubtitleServices {
 
 
   };
-  async getSuggestions(query: string) {
+  async getSuggestions(query) {
     const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&key=${dataAPIKey}`;
     const [err, resp] = await s.safeAsync(axios.get(endpoint), "axios");
     if (err) return null;
     return resp.data.items;
   }
-  async uploadObject(name: string) {
+  async uploadObject(name) {
     const apiEndpoint = `https://www.googleapis.com/storage/v1/b/speech_videos/o/${name}?alt=json`;
     const bucket_name = "speech_videos"; // Replace with your bucket name
     const file_name = name; // Replace with your desired file name
@@ -202,7 +175,7 @@ class SubtitleServices {
     return true;
 
   };
-  downloadMp3(videoId: string): Promise<string> {
+  downloadMp3(videoId) {
     return new Promise((resolve, reject) => {
       let ytDlpEventEmitter = ytDlpWrap
         .exec([
@@ -213,7 +186,7 @@ class SubtitleServices {
           "-o",
           downloadedVideosDirectory + "/_yt_" + videoId + ".m4a",
         ])
-        .on("progress", async (progress: any) => {
+        .on("progress", async (progress) => {
           // console.log(
           //   progress.percent,
           //   progress.totalSize,
@@ -230,18 +203,18 @@ class SubtitleServices {
             }
           });
         })
-        .on("ytDlpEvent", (eventType: any, eventData: any) =>
+        .on("ytDlpEvent", (eventType, eventData) =>
         // console.log(eventType, eventData)
         { }
         )
-        .on("error", (error: any) => reject(error))
+        .on("error", (error) => reject(error))
         .on("close", () => {
           resolve("_yt_" + videoId + ".m4a");
         });
       console.log(ytDlpEventEmitter.ytDlpProcess.pid);
     });
   };
-  async getTranscriptionResults(operationName: string): Promise<any> {
+  async getTranscriptionResults(operationName){
     let longRunningResultsUrl = `https://speech.googleapis.com/v1/operations/${operationName}`;
 
     const response = await axios.get(longRunningResultsUrl, {
@@ -264,11 +237,11 @@ class SubtitleServices {
   }
 
 
-  timeout(ms: number) {
+  timeout(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async searchVideos(keywordsString: string): Promise<any> {
+  async searchVideos(keywordsString){
 
 
     // Set the API endpoint and parameters
@@ -303,11 +276,6 @@ class SubtitleServices {
   };
 }
 
-let videoAPIServices: SubtitleServices;
-
-declare global {
-  var __videoAPIServices: SubtitleServices | undefined;
-}
 
 if (!global.__videoAPIServices) {
   global.__videoAPIServices = new SubtitleServices();
@@ -316,33 +284,3 @@ videoAPIServices = global.__videoAPIServices;
 
 
 export default videoAPIServices
-function handleAxiosPromise(promise: any) {
-  return promise.then((response: any) => {
-    return response.data;
-  }).catch((error: any) => {
-    const { message, name, stack, config } = error;
-    const response = error.response ? {
-      status: error.response.status,
-      statusText: error.response.statusText,
-      headers: error.response.headers,
-      data: error.response.data
-    } : undefined;
-    const errorObject = { message, name, stack, config, response };
-
-    require('fs').writeFileSync('axiosError.log', JSON.stringify(errorObject));
-    console.log("axios error");
-    return { error: errorObject };
-  });
-}
-function handleAsyncError(asyncFn: any) {
-  return (async function (...args: any) {
-    try {
-      return await asyncFn(...args);
-    } catch (errorObject) {
-      require('fs').writeFileSync('asyncError.log', JSON.stringify(errorObject));
-      console.log("async function error");
-      return { error: errorObject };
-    }
-  })();
-}
-
