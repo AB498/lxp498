@@ -39,12 +39,6 @@ watch([() => route.params.slug, initialLoad], async () => {
 
 })
 
-watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, oldVal) => {
-  if (newVal == 1) {
-    words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
-    // window.syncer.destroy();
-  }
-})
 
 async function waitPlayerReady() {
   return new Promise((resolve, reject) => {
@@ -121,6 +115,12 @@ function loadVideoById(id, start, end) {
 initialLoad.value = false;
 const videoProgress = ref(0);
 
+watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, oldVal) => {
+  if (newVal == 1) {
+    words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
+    // window.syncer.destroy();
+  }
+})
 const playerMainLoop = setInterval(() => {
   console.log(
     bs([1, 2, 3, 4], 3, function (element, needle) { return element - needle; })
