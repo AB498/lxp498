@@ -156,7 +156,7 @@ const playerMainLoop = setInterval(async () => {
           l = m + 1;
         }
       }
-      wordsRe.value = words.value.slice(m - 5, m + 5)
+      wordsRe.value = words.value.slice(m - 50, m + 50)
       let actword = words.value[m];
       actword.active = true;
       document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
