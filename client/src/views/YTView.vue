@@ -121,6 +121,11 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
     window.glb.addNotf('Fetching subtitles...')
     words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
     // window.syncer.destroy();
+    var clusterize = new Clusterize({
+      rows: words.value,
+      scrollId: 'scrollArea',
+      contentId: 'contentArea'
+    });
   }
 })
 let lastactword = null;
@@ -164,12 +169,6 @@ const playerMainLoop = setInterval(async () => {
 
 onMounted(() => {
   // JavaScript
-  var data = ['<div>…</div>', '<div>…</div>'];
-  var clusterize = new Clusterize({
-    rows: data,
-    scrollId: 'scrollArea',
-    contentId: 'contentArea'
-  });
 
 })
 </script>
