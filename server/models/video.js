@@ -83,10 +83,10 @@ module.exports = sequelize => {
         info: {
             type: DataTypes.STRING,
             set(value) {
-                this.setDataValue('info', JSON.stringify(value));
+                this.setDataValue('info', global.glb.tryStringify(value));
             },
             get() {
-                return JSON.parse(this.getDataValue('info'));
+                return global.glb.tryParseJSON(this.getDataValue('info'));
             }
         },
     });
