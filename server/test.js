@@ -39,5 +39,5 @@ const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServi
     // models.Video.sync({ force: true });
     // models.WatchHistory.sync({ force: true });
 
-    await videoAPIServices.generateSubtitles('1', 'en', 'zh');
+    await videoAPIServices.generateSubtitles('xE_rMj35BIM', 'en', 'zh');
 })()
