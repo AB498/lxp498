@@ -81,6 +81,7 @@ module.exports = sequelize => {
             defaultValue: 0,
         },
         info: {
+            type: DataTypes.STRING,
             set(value) {
                 this.setDataValue('info', JSON.stringify(value));
             },
