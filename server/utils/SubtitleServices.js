@@ -21,7 +21,6 @@ class SubtitleServices {
     this.bucket_name = "lxbucket"; // Replace with your bucket name
   }
 
-
   async generateSubtitles(videoId, lang, targetLang = null){
 
     console.log("Downloading video " + videoId);
@@ -141,7 +140,7 @@ class SubtitleServices {
   async objectExists(name) {
 
 
-    const apiEndpoint = `https://www.googleapis.com/upload/storage/v1/b/${bucket_name}/o/${name}?alt=json`;
+    const apiEndpoint = `https://www.googleapis.com/upload/storage/v1/b/${this.bucket_name}/o/${name}?alt=json`;
     try {
       const funcRes = await axios.get(apiEndpoint, {
         headers: {
@@ -170,11 +169,11 @@ class SubtitleServices {
     return resp.data.items;
   }
   async uploadObject(name) {
-    const apiEndpoint = `https://www.googleapis.com/storage/v1/b/${bucket_name}/o/${name}?alt=json`;
+    const apiEndpoint = `https://www.googleapis.com/storage/v1/b/${this.bucket_name}/o/${name}?alt=json`;
     const file_name = name; // Replace with your desired file name
     const file_path = downloadedVideosDirectory; // Replace with the local path to your file
     const file_stream = fs.createReadStream(file_path + "/" + file_name);
-    const url = `https://www.googleapis.com/upload/storage/v1/b/${bucket_name}/o?uploadType=multipart&name=${name}`;
+    const url = `https://www.googleapis.com/upload/storage/v1/b/${this.bucket_name}/o?uploadType=multipart&name=${name}`;
     const [err, funcRes] = await s.safeAsync(axios.post(url, file_stream, {
       headers: {
         Authorization: `Bearer ${global.glb.accessToken}`,
