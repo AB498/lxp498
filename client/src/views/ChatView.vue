@@ -27,8 +27,8 @@ async function openConversation(user) {
           <div class="text-2xl p-2" v-loading-bar="{ loading: !window.glb.chats }" v-ripple>Online</div>
           <div class="" v-if="window.glb.chats">
             <div v-for="(user, index) in window.glb.chats" :key="index">
-                  <div class=" p-2 m-1 rounded hover-ripple-fast flex center-cross " v-ripple
-                      :class="window.glb.syncerObj.openChat?.otherUser?.id == user.id ? 'bg-blue-400' : 'bg-slate-600'"
+              <div class=" p-2 m-1 rounded hover-ripple-fast hover:bg-sky-400 flex center-cross " v-ripple
+                :class="window.glb.syncerObj.openChat?.otherUser?.id == user.id ? 'bg-blue-400' : 'bg-slate-600'"
                 @click="openConversation(user)">
                 <img :src="user.pfpUrl" class="w-8 h-8 rounded-full inline-block mr-2">
                 <div class="flex flex-col center-main">
@@ -38,7 +38,7 @@ async function openConversation(user) {
                     </i>
                     <i v-else class='bx bx-wifi-off text-gray-300'></i>
                   </div>
-                    <div class="username text-xs">{{ '@' + (user.username || 'nousername') }}</div>
+                  <div class="username text-xs">{{ '@' + (user.username || 'nousername') }}</div>
                 </div>
 
 
