@@ -138,12 +138,12 @@ class SubtitleServices {
 
     const apiEndpoint = `https://www.googleapis.com/upload/storage/v1/b/${this.bucket_name}/o/${name}?alt=json`;
     try {
-      const funcRes = await axios.get(apiEndpoint, {
+      const [err, funcRes] = await s.safeAsync(axios.get(apiEndpoint, {
         headers: {
           Authorization: `Bearer ${global.glb.accessToken}`,
           "Content-Type": "application/json",
         },
-      })
+      }), 'objectExists');
     } catch (err) {
       console.log(err)
       return false;
