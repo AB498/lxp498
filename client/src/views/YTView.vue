@@ -137,6 +137,7 @@ const playerMainLoop = setInterval(() => {
       r = words.value.length - 1;
       while (l <= r) {
         m = Math.floor((l + r) / 2);
+        console.log(words.value[m].startTime, currentTime, words.value[m].endTime)
         if (parseFloat(words.value[m].startTime) <= currentTime && parseFloat(words.value[m].endTime) >= currentTime) {
           break;
         }
