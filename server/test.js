@@ -1,7 +1,14 @@
 // const { getWordsFromSentence } = require('./utils/SpacyTokenizer');
 const models = require('./models');
 
-const { videoAPIServices } = require('./utils/SubtitleServices');
+const path = require('path');
+const fs = require('fs');
+const { join } = require('path');
+const findPackageJson = require('find-package-json');
+const nearestPackageJson = findPackageJson(join(__dirname));
+const rootDirectory = path.dirname(nearestPackageJson.next().filename);
+
+const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServices'));
 (async () => {
 
     // console.log(await getWordsFromSentence('zh', '我只是不知道该说什么。'))
@@ -22,7 +29,8 @@ const { videoAPIServices } = require('./utils/SubtitleServices');
     // await conversation.addUsers([user1, user2]);
 
     // const fetchedConversation = await models.Conversation.findOne({
-    //     where: { id: conversation.id },
+    //     where: { id: conversation.id }ffmpeg
+
     //     include: { model: models.User }
     // });
 
