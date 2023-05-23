@@ -206,11 +206,11 @@ const globalProxy = createProxy({
 
             const timeNow = this.getTime();
             console.log(clc.red("AsyErr: ") + functionName + " " + clc.cyanBright(timeNow))
-            console.log(errorObject)
             let fileContJSON = [];
             if (!fs.existsSync(join(logDir, "asyncError.result")))
                 fs.writeFileSync(join(logDir, "asyncError.result"), "[]");
             fileContJSON = this.isJSON(fs.readFileSync(join(logDir, "asyncError.result"))) ? JSON.parse(fs.readFileSync(join(logDir, "asyncError.result"))) : [];
+            console.log(fileContJSON)
 
             if (!this.isIterable(fileContJSON))
                 fileContJSON = [];
