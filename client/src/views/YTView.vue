@@ -208,7 +208,7 @@ initialLoad.value = false;
 
           <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
           <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.publishedAt }}</div>
-          <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.description }}</div>
+            <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.description }}</div>
                   <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info }}</div>
 
         </div>
