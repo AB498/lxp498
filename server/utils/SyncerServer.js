@@ -81,8 +81,8 @@ makeServer = (server) => {
                     let vid = (await models.Video.findOne({ where: { ytId: v } }))?.dataValues;
                     if (!vid) {
                         let vidInfo = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${v}&key=AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y`)
-                        console.log(vidInfo.data.items[0].snippet)
-                        vid = (await models.Video.create({ ytId: v, title: vidInfo.data.items[0].snippet.title, description: vidInfo.data.items[0].snippet.description, thumbnailUrl: vidInfo.data.items[0].snippet.thumbnails.default.url, info: vidInfo })).dataValues;
+                        let inf = vidInfo.data.items[0].snippet
+                        vid = (await models.Video.create({ ytId: v, title: inf.title, description: inf.description, thumbnailUrl: inf.thumbnails.default.url, info: inf })).dataValues;
                     }
                     syncerObj.openYTVideo.videoInfo = vid;
                 }
