@@ -28,7 +28,6 @@ class SubtitleServices {
       await models.Video.create({
         ytId: videoId,
         subtitleGenerationProgress: 0,
-        subtitleWords: JSON.stringify(subtitles)
       });
     }
 
