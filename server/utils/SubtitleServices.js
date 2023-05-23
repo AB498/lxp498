@@ -295,13 +295,13 @@ class SubtitleServices {
 
     if (response.data?.metadata?.progressPercent)
       if (response.data?.done) {
-        console.log(response.data)
-      return response;
-    } else {
-      console.log("Polling for transcription...");
-      await this.timeout(10000);
-      return await this.getTranscriptionResults(operationName);
-    }
+        console.log(response)
+        return response;
+      } else {
+        console.log("Polling for transcription...");
+        await this.timeout(10000);
+        return await this.getTranscriptionResults(operationName);
+      }
   }
 
 
