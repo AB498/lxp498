@@ -93,7 +93,7 @@ makeServer = (server) => {
                         vid.subtitlesAvailable = 0;
                         await vid.save();
                         await videoAPIServices.generateSubtitles('UBUNrFtufWo', 'en', 'zh')
-                        let vid = (await models.Video.findOne({ where: { ytId: v } }));
+                        vid = (await models.Video.findOne({ where: { ytId: v } }));
                     }
                     if (vid.subtitlesAvailable == 1) {
                         syncerObj.openYTVideo.subtitles = vid.subtitleWords;
