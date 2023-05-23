@@ -122,7 +122,7 @@ const playerMainLoop = setInterval(() => {
   if (ytPlayerReady.value) {
     let currentTime = player.value.getCurrentTime();
     let duration = player.value.getDuration();
-    videoProgress = currentTime / duration * 100;
+    videoProgress.value = currentTime / duration * 100;
     if (words.value && glb.isIterable(words.value) && words.value.length > 0)
       for (let word of words.value) {
         if (currentTime >= parseFloat(word.startTime) && currentTime <= parseFloat(word.endTime)) {
