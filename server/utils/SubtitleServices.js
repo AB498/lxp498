@@ -108,14 +108,10 @@ class SubtitleServices {
 
     if (!subtitles) return false;
 
-    await models.Video.update({
-      subtitleGenerationProgress: 100,
-      subtitleWords: subtitles
-    }, {
-      where: {
-        ytId: videoId
-      }
-    });
+    foundvideo.subtitlesAvailable = 1;
+    foundvideo.subtitleWords = subtitles;
+
+    await foundvideo.save();
 
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 100;

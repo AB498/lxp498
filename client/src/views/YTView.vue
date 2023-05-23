@@ -155,6 +155,7 @@ initialLoad.value = false;
                   <div>
                     Subtitles Generation in Progress
                   </div>
+                    <div>{{ window.glb.syncerObj?.openYTVideo?.subtitlesGenerationProgress }}</div>
                   <LoadingSpin />
                 </div>
               </div>
