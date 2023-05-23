@@ -135,7 +135,7 @@ const playerMainLoop = setInterval(() => {
   if (ytPlayerReady.value) {
     let currentTime = player.value.getCurrentTime();
     videoProgress.value = currentTime / duration * 100;
-    if (words.value) {
+    if (words.value && words.value.length > 0 && glb.isIterable(words.value)) {
 
       //binary search
       let l, r, m;
@@ -154,50 +154,59 @@ const playerMainLoop = setInterval(() => {
         }
       }
 
-      let actword = words.value[m];
-      // actword.active = true;
-      document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
-      if (lastactword) {
-        // lastactword.active = false;
-      }
-      lastactword = actword;
+      activeM.value = m;
+
 
 
     }
   }
-}, 500)
+}, 50)
+const activeM = ref(-1);
+watch(activeM, (newVal, oldVal) => {
+  // document.getElementById('subWordsHolderId').scrollTo(0, newVal);
+  if (newVal != oldVal) {
+
+    let actword = words.value[activeM.value];
+    actword.active = true;
+    document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);;
+    if (lastactword) {
+      lastactword.active = false;
+    }
+    lastactword = actword;
+  }
+})
 
 </script>
 <template>
-    <div class="flex items-center justify-center h-full">
-      <div class="flex bg-gray-900 text-white flex-wrap h-full w-full">
-        <div class="video-and-suggestions flex flex-col sm:basis-4/6 overflow-auto h-full">
+                <div class="flex items-center justify-center h-full">
+                  <div class="flex bg-gray-900 text-white flex-wrap h-full w-full">
+                    <div class="video-and-suggestions flex flex-col sm:basis-4/6 overflow-auto h-full">
 
-          <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
-            <!-- video -->
-            <iframe id="ytPlayerElement" class="w-full h-full border-4 bg-zinc-900" :src="'https://www.youtube.com/embed/'
-              + '' + '?enablejsapi=1&mute=1&autoplay=1&controls=0&showinfo=0&disablekb=1'" :class="borderColor"></iframe>
+                      <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
+                        <!-- video -->
+                        <iframe id="ytPlayerElement" class="w-full h-full border-4 bg-zinc-900" :src="'https://www.youtube.com/embed/'
+                          + '' + '?enablejsapi=1&mute=1&autoplay=1&controls=0&showinfo=0&disablekb=1'"
+                          :class="borderColor"></iframe>
 
-            <div class="yt-video-player-slider-holder w-full -translate-y-2  relative transition shrink-0">
-              <div class=" yt-video-player-slider-bg bg-gray-700 w-full bg-gray-800/50 h-2 absolute">
-              </div>
-              <div class=" yt-video-player-slider-bg bg-gray-700 w-full opacity-0 h-2 absolute z-10" x-ref="totalBar"
-                x-init="$watch('draggingSlider', draggingSlider => console.log(draggingSlider))">
-              </div>
-              <div class=" yt-video-player-slider bg-gray-700 h-2 absolute " :style="{ width: videoProgress + '%' }">
-                <!--mousedown -->
-                <div
-                  class=" yt-video-player-slider-cursor rounded-full h-2 bg-red-600 w-4 hover:scale-150 scale-125 right-0 absolute translate-x-1/2">
-                </div>
-              </div>
-            </div>
-            <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
-              <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
-                id="subWordsHolderId"
-                v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
-                <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
-                  <PowerWord :word-inc="word">
-                  </PowerWord>
+                        <div class="yt-video-player-slider-holder w-full -translate-y-2  relative transition shrink-0">
+                          <div class=" yt-video-player-slider-bg bg-gray-700 w-full bg-gray-800/50 h-2 absolute">
+                          </div>
+                          <div class=" yt-video-player-slider-bg bg-gray-700 w-full opacity-0 h-2 absolute z-10" x-ref="totalBar"
+                            x-init="$watch('draggingSlider', draggingSlider => console.log(draggingSlider))">
+                          </div>
+                          <div class=" yt-video-player-slider bg-gray-700 h-2 absolute " :style="{ width: videoProgress + '%' }">
+                            <!--mousedown -->
+                            <div
+                              class=" yt-video-player-slider-cursor rounded-full h-2 bg-red-600 w-4 hover:scale-150 scale-125 right-0 absolute translate-x-1/2">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
+                          <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
+                            id="subWordsHolderId"
+                            v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
+                            <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
+                                                <PowerWord :wordInc="word" />
                 </div>
               </div>
               <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == -1"

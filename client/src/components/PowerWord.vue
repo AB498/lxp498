@@ -5,17 +5,17 @@ const props = defineProps({
 })
 const word = ref(props.wordInc);
 
-word.value.active = false;
-word.value.el = null;
+// word.value.active = false;
+// word.value.el = null;
 
-const id = ref(window.glb.uuidv4());
+// const id = ref(window.glb.uuidv4());
 
-word.value.translated = ref(false)
+// word.value.translated = ref(false)
 
-onMounted(() => {
-    if (word.value.translated) return;
-    window.glb.wordTranslationStream[id.value] = word;
-})
+// onMounted(() => {
+//     if (word.value.translated) return;
+//     window.glb.wordTranslationStream[id.value] = word;
+// })
 
 </script>
 
