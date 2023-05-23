@@ -154,7 +154,7 @@ class SubtitleServices {
     }
     // if (err.response.data.error.errors[0].reason == "notFound")
     // if (err.response.status == 404)
-    if (err || !res)
+    if (err)
       return false;
 
     return true;
