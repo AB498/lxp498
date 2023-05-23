@@ -1,5 +1,7 @@
 // const { getWordsFromSentence } = require('./utils/SpacyTokenizer');
 const models = require('./models');
+
+const subtitleServices = require('./utils/SubtitleServices');
 (async () => {
 
     // console.log(await getWordsFromSentence('zh', '我只是不知道该说什么。'))
@@ -26,6 +28,6 @@ const models = require('./models');
 
     // console.log(fetchedConversation.Users);
     // models.User.sync({ force: true });
-    models.Video.sync({ force: true });
+    // models.Video.sync({ force: true });
     // models.WatchHistory.sync({ force: true });
 })()

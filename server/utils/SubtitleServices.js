@@ -1,12 +1,12 @@
-import { resolve } from "path";
-import s from "../s";
+const { resolve } = require("path");
+const s require("../s");
 const downloadedVideosDirectory = resolve("./downloadedVideos")
 const YTDlpWrap = require("yt-dlp-wrap").default;
 const binaryPath = "C:\\Users\\a\\Downloads\\yt-dlp_win\\yt-dlp.exe";
 const ytDlpWrap = new YTDlpWrap();
-import { db } from "../utils/db.server";
-import axios from "axios";
-import fs, { existsSync } from "fs";
+const { db } = require("../utils/db.server");
+const axios = require("axios");
+const fs, { existsSync } = require("fs");
 const dataAPIKey = "AIzaSyDxM2_xcNQhj4ynuKgf3Epujijq74a_mnk";
 class SubtitleServices {
   constructor() {
