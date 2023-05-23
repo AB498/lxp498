@@ -61,6 +61,7 @@ class SubtitleServices {
       this.processes[videoId].callbacks.forEach((callback) => {
         callback({ status: 1, progress: 100 });
       });
+      delete this.processes[videoId];
       return true;
     }
 
@@ -118,6 +119,7 @@ class SubtitleServices {
       callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
     });
 
+    delete this.processes[videoId];
     if (targetLang) {
       // const [errors5, translated] = await s.safeAsync(this.getTranslation(subtitles, lang, targetLang), this.getTranslation);
       // if (errors5) console.log(errors5);
