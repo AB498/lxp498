@@ -100,7 +100,11 @@ makeServer = (server) => {
                         vid.subtitlesAvailable = 0;
                         await vid.save();
                         syncerObj.openYTVideo.subtitlesStatus = "loading";
-                        await videoAPIServices.generateSubtitles('UBUNrFtufWo', 'en', 'zh')
+                        videoAPIServices.addCallback(v, (status) => {
+                            syncerObj.openYTVideo.subtitlesStatus = status;
+                        })
+
+                        videoAPIServices.generateSubtitles('UBUNrFtufWo', 'en', 'zh')
                     }
 
                 }
