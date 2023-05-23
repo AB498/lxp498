@@ -84,7 +84,7 @@ makeServer = (server) => {
                         let inf = vidInfo.data.items[0].snippet
                         vid = (await models.Video.create({ ytId: v, title: inf.title, description: inf.description, thumbnailUrl: inf.thumbnails.default.url, info: inf }));
                     }
-                    const plainData = result.get({ plain: true });
+                    const plainData = vid.get({ plain: true });
                     console.log(typeof plainData.info);
                     syncerObj.openYTVideo.videoInfo = plainData;
                 }
