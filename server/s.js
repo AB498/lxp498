@@ -206,7 +206,7 @@ const globalProxy = createProxy({
 
             const timeNow = this.getTime();
             console.log(clc.red("AsyErr: ") + functionName + " " + clc.cyanBright(timeNow))
-
+            console.log(errorObject)
             let fileContJSON = [];
             if (!fs.existsSync(join(logDir, "asyncError.result")))
                 fs.writeFileSync(join(logDir, "asyncError.result"), "[]");
