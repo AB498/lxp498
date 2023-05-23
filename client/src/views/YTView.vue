@@ -205,6 +205,10 @@ initialLoad.value = false;
           </div>
         </div>
           <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
+            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.description }}</div>
+            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.channelTitle }}</div>
+            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.publishedAt }}</div>
+          
 
         <div class="suggested-videos bg-gray-900 text-white sm:flex-wrap sm:flex ">
           <SuggestedVideos />
