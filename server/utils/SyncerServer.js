@@ -6,6 +6,7 @@ const { createProxy, rjmod, rjget, rjwatch } = require('./ReactiveJSON');
 const user = require("../models/user");
 const jwtUtil = require("./jwt");
 const models = require("../models");
+const { default: axios } = require("axios");
 
 
 makeServer = (server) => {
@@ -79,6 +80,8 @@ makeServer = (server) => {
                 if (p == '/openYTVideo/id') {
                     let vid = (await models.Video.findOne({ where: { id: v } }))?.dataValues;
                     if (!vid) {
+                        let vidInfo = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${v}&key=AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y`)
+                        console.log(vidInfo.data.items[0].snippet)
                         // vid = (await models.Video.create({ id: v, title: syncerObj.openYTVideo.videoInfo.title, description: syncerObj.openYTVideo.videoInfo.description, thumbnail: syncerObj.openYTVideo.videoInfo.thumbnail })).dataValues;
                     }
                     syncerObj.openYTVideo.videoInfo = vid;
