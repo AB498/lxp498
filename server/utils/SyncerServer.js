@@ -78,7 +78,7 @@ makeServer = (server) => {
                     syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
                 }
                 if (p == '/openYTVideo/id') {
-                    let vid = (await models.Video.findOne({ where: { id: v } }))?.dataValues;
+                    let vid = (await models.Video.findOne({ where: { ytId: v } }))?.dataValues;
                     if (!vid) {
                         let vidInfo = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${v}&key=AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y`)
                         console.log(vidInfo.data.items[0].snippet)
