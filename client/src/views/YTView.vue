@@ -280,9 +280,6 @@ onMounted(() => {
         </div>
       </div>
 
-    </div>
-    <!-- <script src="/src/js/youtube-iframe-setup.js"></script>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                <script src="/src/parts/yt.js"></script> -->
       <div class="comments flex-col bg-gray-600 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex ">
         <div id="scrollArea" class="clusterize-scroll">
           <div id="contentArea" class="clusterize-content">
@@ -290,5 +287,8 @@ onMounted(() => {
           </div>
         </div>
       </div>
+      </div>
+      <!-- <script src="/src/js/youtube-iframe-setup.js"></script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                <script src="/src/parts/yt.js"></script> -->
   </div>
 </template>
