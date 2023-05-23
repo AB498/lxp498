@@ -206,10 +206,9 @@ initialLoad.value = false;
         </div>
           <div class="info" v-if="window.glb.syncerObj.openYTVideo.videoInfo">
 
-          <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
-              <div class="">{{ Object.keys(window.glb.syncerObj.openYTVideo.videoInfo.info) || "Undefinde" }}</div>
-              <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.description }}</div>
-                  <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info }}</div>
+            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
+            <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.description }}</div>
+            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.channelTitle }}</div>
 
         </div>
 
