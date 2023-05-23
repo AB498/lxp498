@@ -46,6 +46,7 @@ class SubtitleServices {
         videoId,
         callbacks: [],
       };
+      console.log("new process", videoId);
     }
 
     let foundvideo = (await models.Video.findOne({ where: { ytId: videoId } }));
@@ -56,6 +57,8 @@ class SubtitleServices {
       });
     }
     if (foundvideo.subtitlesAvailable == 1) {
+      console.log("upd process", videoId);
+
       this.processes[videoId].status = 1;
       this.processes[videoId].progress = 100;
       this.processes[videoId].callbacks.forEach((callback) => {
