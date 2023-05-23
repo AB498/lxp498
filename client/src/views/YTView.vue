@@ -123,7 +123,7 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
   }
 })
 let lastactword = null;
-const playerMainLoop = setInterval(() => {
+const playerMainLoop = setInterval(async () => {
 
   if (ytPlayerReady.value) {
     let currentTime = player.value.getCurrentTime();
