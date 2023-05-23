@@ -111,6 +111,7 @@ global.glb.apiEndpoints = [
     { method: 'POST', url: '/api/updateVideo/:id', middlewares: { main: [], test: [], both: [videoController.updateVideo] } },
     { method: 'POST', url: '/api/getVideo/:id', middlewares: { main: [], test: [], both: [videoController.getVideo] } },
     { method: 'POST', url: '/api/generateSubtitles', middlewares: { main: [global.glb.authMiddleware], test: [], both: [videoController.generateSubtitles] } },
+    { method: 'POST', url: '/api/getYTSubtitles/:id', middlewares: { main: [], test: [], both: [videoController.getYTSubtitles] } },
     { method: 'GET', url: '/api/videos/getSuggestedVideos', middlewares: { main: [], test: [], both: [videoController.getSuggestedVideos] } },
     { method: 'GET', url: '/api/uploadbase/listVideos', middlewares: { main: [], test: [], both: [ubController.listVideos] } },
     { method: 'GET', url: '/api/uploadbase/getSuggestedVideos', middlewares: { main: [], test: [], both: [ubController.getSuggestedVideos] } },
