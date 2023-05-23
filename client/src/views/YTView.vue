@@ -204,9 +204,9 @@ initialLoad.value = false;
             <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-gear"></i>
           </div>
         </div>
-          <div class="info" v-if="window.glb.syncerObj.openYTVideo.videoInfo">
+            <div class="info p-2" v-if="window.glb.syncerObj.openYTVideo.videoInfo">
 
-            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
+              <div class="text-xl">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
             <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.description }}</div>
             <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.channelTitle }}</div>
 
