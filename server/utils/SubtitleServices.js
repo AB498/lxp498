@@ -32,6 +32,7 @@ class SubtitleServices {
       };
     }
     this.processes[videoId].callbacks.push(callback);
+    console.log("added callback, callbacks: ", this.processes[videoId].callbacks.length);
   }
 
 
