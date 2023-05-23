@@ -190,7 +190,7 @@ class SubtitleServices {
     if (err || !resp) return null;
 
     const [err2, longRunningResult] = await s.safeAsync(this.getTranscriptionResults(resp.data.name), this.getTranscriptionResults);
-
+    console.log(longRunningResult)
     if (err2) return null;
 
     let words = [];
