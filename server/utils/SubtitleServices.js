@@ -144,6 +144,8 @@ class SubtitleServices {
           "Content-Type": "application/json",
         },
       }), 'objectExists');
+      return false;
+      return true;
     } catch (err) {
       console.log(err)
       return false;
@@ -151,9 +153,6 @@ class SubtitleServices {
     // if (err.response.data.error.errors[0].reason == "notFound")
     // if (err.response.status == 404)
     if (err)
-      return false;
-
-    return true;
 
 
 
