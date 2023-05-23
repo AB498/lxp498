@@ -3,13 +3,13 @@ const fsExtra = require('fs-extra');
 const clc = require("cli-color");
 const CircularJSON = require("circular-json");
 
-const fs = require("fs");
 const jwtUtil = require("./utils/jwt");
 
-const path = require("path");
-const { join } = require("path");
+const path = require('path');
+const fs = require('fs');
+const { join } = require('path');
 const findPackageJson = require('find-package-json');
-const nearestPackageJson = findPackageJson(join(__dirname, "fword"));
+const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 
 const { resolve } = require("path");
