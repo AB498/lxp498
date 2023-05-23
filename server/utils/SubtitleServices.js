@@ -42,7 +42,7 @@ class SubtitleServices {
     if (!videoId) return false;
     if (!lang) return false;
     if (this.processes[videoId]?.status == 0) return false;
-    console.log(this.processes[videoId]);
+    console.log(this.generateSubtitles);
     if (!this.processes[videoId]) {
       console.log("creating new process");
       this.processes[videoId] = {
