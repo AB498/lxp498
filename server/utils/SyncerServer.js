@@ -99,8 +99,7 @@ makeServer = (server) => {
                     if (vid.subtitlesAvailable == -1) {
                         vid.subtitlesAvailable = 0;
                         await vid.save();
-                        syncerObj.openYTVideo.subtitlesStatus = "loading";
-                        videoAPIServices.addCallback(v, (status) => {
+                        videoAPIServices.addCallback(v, ({ status, progress }) => {
                             syncerObj.openYTVideo.subtitlesStatus = status;
                         })
 
