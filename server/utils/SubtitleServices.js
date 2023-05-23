@@ -77,7 +77,17 @@ class SubtitleServices {
 
     console.log("Downloading video " + videoId);
     const [errors, downloadedFile] = await s.safeAsync(this.downloadMp3(videoId), this.downloadMp3);
-    if (errors || !downloadedFile) return false;
+    if (errors || !downloadedFile) {
+
+      this.processes[videoId].status = -2;
+      this.processes[videoId].progress = -1;
+      this.processes[videoId].callbacks.forEach((callback) => {
+        callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+      });
+      delete this.processes[videoId];
+      return false;
+
+    }
 
 
     this.processes[videoId].status = 0;
@@ -90,7 +100,17 @@ class SubtitleServices {
     if (! await this.objectExists(downloadedFile)) {
       console.log("Uploading object cuz doesnt exist " + downloadedFile);
       const [errors3, uploaded] = await s.safeAsync(this.uploadObject(downloadedFile), this.uploadObject);
-      if (errors3) return false;
+      if (errors3) {
+
+        this.processes[videoId].status = -2;
+        this.processes[videoId].progress = -1;
+        this.processes[videoId].callbacks.forEach((callback) => {
+          callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+        });
+        delete this.processes[videoId];
+        return false;
+
+      }
     }
 
 
@@ -102,39 +122,28 @@ class SubtitleServices {
     console.log("Getting transcription " + downloadedFile);
     const [errors4, subtitles] = await s.safeAsync(this.getTranscription(downloadedFile, videoId, lang), this.getTranscription);
 
-    if (errors4) return false;
+    if (errors4 || !subtitles) {
 
-    if (!subtitles) return false;
-
-    foundvideo.subtitlesAvailable = 1;
-    foundvideo.subtitleWords = subtitles;
-
-    await foundvideo.save();
-
-
-    if (targetLang) {
-      // const [errors5, translated] = await s.safeAsync(this.getTranslation(subtitles, lang, targetLang), this.getTranslation);
-      // if (errors5) console.log(errors5);
-      // else {
-      // await db.video.update({
-      //   where: {
-      //     ytId: videoId
-      //   },
-      //   data: {
-      //     translatedWords: JSON.stringify(translated)
-      //   }
-      // });
-      // }
+      this.processes[videoId].status = -2;
+      this.processes[videoId].progress = -1;
+      this.processes[videoId].callbacks.forEach((callback) => {
+        callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+      });
+      delete this.processes[videoId];
+      return false;
 
     }
 
+
+    foundvideo.subtitlesAvailable = 1;
+    foundvideo.subtitleWords = subtitles;
+    await foundvideo.save();
     this.processes[videoId].status = 1;
     this.processes[videoId].progress = 100;
     this.processes[videoId].callbacks.forEach((callback) => {
       callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
     });
     delete this.processes[videoId];
-
     return true;
 
   }
