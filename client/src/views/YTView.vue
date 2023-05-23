@@ -153,7 +153,7 @@ const playerMainLoop = setInterval(async () => {
           l = m + 1;
         }
       }
-
+      wordsRe = words.value.slice(m - 5, m + 5)
       let actword = words.value[m];
       actword.active = true;
       document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
@@ -173,113 +173,113 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class="flex items-center justify-center h-full">
-    <div class="flex bg-gray-900 text-white flex-wrap h-full w-full">
-      <div class="video-and-suggestions flex flex-col sm:basis-4/6 overflow-auto h-full">
+    <div class="flex items-center justify-center h-full">
+      <div class="flex bg-gray-900 text-white flex-wrap h-full w-full">
+        <div class="video-and-suggestions flex flex-col sm:basis-4/6 overflow-auto h-full">
 
-        <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
-          <!-- video -->
-          <iframe id="ytPlayerElement" class="w-full h-full border-4 bg-zinc-900" :src="'https://www.youtube.com/embed/'
-            + '' + '?enablejsapi=1&mute=1&autoplay=1&controls=0&showinfo=0&disablekb=1'" :class="borderColor"></iframe>
+          <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
+            <!-- video -->
+            <iframe id="ytPlayerElement" class="w-full h-full border-4 bg-zinc-900" :src="'https://www.youtube.com/embed/'
+              + '' + '?enablejsapi=1&mute=1&autoplay=1&controls=0&showinfo=0&disablekb=1'" :class="borderColor"></iframe>
 
-          <div class="yt-video-player-slider-holder w-full -translate-y-2  relative transition shrink-0">
-            <div class=" yt-video-player-slider-bg bg-gray-700 w-full bg-gray-800/50 h-2 absolute">
-            </div>
-            <div class=" yt-video-player-slider-bg bg-gray-700 w-full opacity-0 h-2 absolute z-10" x-ref="totalBar"
-              x-init="$watch('draggingSlider', draggingSlider => console.log(draggingSlider))">
-            </div>
-            <div class=" yt-video-player-slider bg-gray-700 h-2 absolute " :style="{ width: videoProgress + '%' }">
-              <!--mousedown -->
-              <div
-                class=" yt-video-player-slider-cursor rounded-full h-2 bg-red-600 w-4 hover:scale-150 scale-125 right-0 absolute translate-x-1/2">
+            <div class="yt-video-player-slider-holder w-full -translate-y-2  relative transition shrink-0">
+              <div class=" yt-video-player-slider-bg bg-gray-700 w-full bg-gray-800/50 h-2 absolute">
               </div>
-            </div>
-          </div>
-          <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
-            <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
-              id="subWordsHolderId"
-              v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
-              <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
-                <PowerWord :word-inc="word">
-                </PowerWord>
+              <div class=" yt-video-player-slider-bg bg-gray-700 w-full opacity-0 h-2 absolute z-10" x-ref="totalBar"
+                x-init="$watch('draggingSlider', draggingSlider => console.log(draggingSlider))">
               </div>
-            </div>
-            <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == -1"
-              class=" w-full h-full flex items-center justify-center">
-              <div class="btn" @click="requestSubGen">Generate Subtitles
-                <i class="fa fa-bolt"></i>
-              </div>
-            </div>
-            <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 0"
-              class=" w-full h-full flex items-center justify-center">
-              <div class=" flex items-center px-2 space-x-2">
-                <div>
-                  Subtitles Generation in Progress
+              <div class=" yt-video-player-slider bg-gray-700 h-2 absolute " :style="{ width: videoProgress + '%' }">
+                <!--mousedown -->
+                <div
+                  class=" yt-video-player-slider-cursor rounded-full h-2 bg-red-600 w-4 hover:scale-150 scale-125 right-0 absolute translate-x-1/2">
                 </div>
-                <div>{{ window.glb.syncerObj?.openYTVideo?.subtitlesGenerationProgress }}</div>
-                <LoadingSpin />
               </div>
             </div>
-            <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == -2"
-              class=" w-full h-full flex items-center justify-center">
-              <PopperComponent>
-                <template #tohover>
-                  <div class="flex space-x-2 items-center justify-center ">
+            <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
+              <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
+                id="subWordsHolderId"
+                v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
+                <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
+                  <PowerWord :word-inc="word">
+                  </PowerWord>
+                </div>
+              </div>
+              <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == -1"
+                class=" w-full h-full flex items-center justify-center">
+                <div class="btn" @click="requestSubGen">Generate Subtitles
+                  <i class="fa fa-bolt"></i>
+                </div>
+              </div>
+              <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 0"
+                class=" w-full h-full flex items-center justify-center">
+                <div class=" flex items-center px-2 space-x-2">
+                  <div>
+                    Subtitles Generation in Progress
+                  </div>
+                  <div>{{ window.glb.syncerObj?.openYTVideo?.subtitlesGenerationProgress }}</div>
+                  <LoadingSpin />
+                </div>
+              </div>
+              <div v-else-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == -2"
+                class=" w-full h-full flex items-center justify-center">
+                <PopperComponent>
+                  <template #tohover>
+                    <div class="flex space-x-2 items-center justify-center ">
 
-                    <div class="btn" @click="requestSubGen">Generate Subtitles
-                      <i class="fa fa-bolt"></i>
+                      <div class="btn" @click="requestSubGen">Generate Subtitles
+                        <i class="fa fa-bolt"></i>
+                      </div>
+                      <i class="fa fa-warning text-yellow-400"></i>
                     </div>
-                    <i class="fa fa-warning text-yellow-400"></i>
-                  </div>
-                </template>
-                <template #popup>
-                  <div class="">
-                    Error Occured Previosly Generating Subtitles
-                  </div>
-                </template>
-              </PopperComponent>
+                  </template>
+                  <template #popup>
+                    <div class="">
+                      Error Occured Previosly Generating Subtitles
+                    </div>
+                  </template>
+                </PopperComponent>
+              </div>
+
+              <div v-else class="flex center w-full h-full">
+                <LoadingSpin />
+
+              </div>
             </div>
 
-            <div v-else class="flex center w-full h-full">
-              <LoadingSpin />
+            <div class=" controls h-10 bg-indigo-900 flex items-stretch justify-center px-2 shrink-0 self-stretch">
+              <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-play"></i>
+              <i class="fa   items-center px-2 hover:bg-blue-600 hover:outline fa-pause hidden"></i>
+              <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-backward"></i>
+              <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-forward"></i>
+              <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-volume-up" @click="toggleMute"></i>
+              <div class="grow">
 
+                {{ '' }}
+              </div>
+              <div class="flex flex-col items-center px-2 hover:bg-blue-600 hover:outline" @click="voteLanguage($event)">
+                <div class="flex text-xs">CC</div>
+                <div class="flex text-sm">{{ window.glb.videoInfo.votedLang || 'unknown' }}</div>
+              </div>
+              <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-comment"></i>
+              <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-closed-captioning"
+                @click="toggleBuiltInCaption"></i>
+              <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-gear"></i>
             </div>
           </div>
+          <div class="info p-2" v-if="window.glb.syncerObj.openYTVideo.videoInfo">
 
-          <div class=" controls h-10 bg-indigo-900 flex items-stretch justify-center px-2 shrink-0 self-stretch">
-            <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-play"></i>
-            <i class="fa   items-center px-2 hover:bg-blue-600 hover:outline fa-pause hidden"></i>
-            <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-backward"></i>
-            <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-forward"></i>
-            <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-volume-up" @click="toggleMute"></i>
-            <div class="grow">
+            <div class="text-xl">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
+            <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.description }}</div>
+            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.channelTitle }}</div>
 
-              {{ '' }}
-            </div>
-            <div class="flex flex-col items-center px-2 hover:bg-blue-600 hover:outline" @click="voteLanguage($event)">
-              <div class="flex text-xs">CC</div>
-              <div class="flex text-sm">{{ window.glb.videoInfo.votedLang || 'unknown' }}</div>
-            </div>
-            <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-comment"></i>
-            <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-closed-captioning"
-              @click="toggleBuiltInCaption"></i>
-            <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-gear"></i>
+          </div>
+
+          <div class="suggested-videos bg-gray-900 text-white sm:flex-wrap sm:flex ">
+            <SuggestedVideos />
           </div>
         </div>
-        <div class="info p-2" v-if="window.glb.syncerObj.openYTVideo.videoInfo">
 
-          <div class="text-xl">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
-          <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.description }}</div>
-          <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.channelTitle }}</div>
-
-        </div>
-
-        <div class="suggested-videos bg-gray-900 text-white sm:flex-wrap sm:flex ">
-          <SuggestedVideos />
-        </div>
-      </div>
-
-        <div class="comments bg-gray-600 text-white sm:basis-1/6 overflow-auto h-full">
+        <div class="comments flex-col bg-gray-600 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex ">
                 <div id="scrollArea" class="clusterize-scroll">
               <div id="contentArea" class="clusterize-content">
             <div class="clusterize-no-data">Loading data…</div>
