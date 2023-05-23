@@ -282,4 +282,4 @@ if (!global.__videoAPIServices) {
 }
 videoAPIServices = global.__videoAPIServices;
 
-module.exports = videoAPIServices;
+module.exports.videoAPIServices = videoAPIServices;
