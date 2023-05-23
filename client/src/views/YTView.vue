@@ -129,7 +129,7 @@ const playerMainLoop = setInterval(() => {
     let currentTime = player.value.getCurrentTime();
     let duration = player.value.getDuration();
     videoProgress.value = currentTime / duration * 100;
-    if (words.value && false) {
+    if (words.value) {
 
       //binary search
       let l, r, m;
