@@ -7,6 +7,7 @@ import { ref, watch, onUnmounted, onMounted, nextTick } from 'vue'
 import SuggestedVideos from "@/components/SuggestedVideos.vue";
 import LoadingSpin from "../components/LoadingSpin.vue";
 import bs from "binary-search";
+import Clusterize from "clusterize.js";
 
 // => 2
 
@@ -162,7 +163,7 @@ const playerMainLoop = setInterval(async () => {
 }, 500)
 
 // JavaScript
-var data = ['<div>…</div>', '<div>…</div>', …];
+var data = ['<div>…</div>', '<div>…</div>'];
 var clusterize = new Clusterize({
   rows: data,
   scrollId: 'scrollArea',
