@@ -116,11 +116,12 @@ function loadVideoById(id, start, end) {
   })
 }
 initialLoad.value = false;
+const videoProgress = ref(0);
 
 const playerMainLoop = setInterval(() => {
   if (ytPlayerReady.value) {
-    currentTime = player.value.getCurrentTime();
-    duration = player.value.getDuration();
+    let currentTime = player.value.getCurrentTime();
+    let duration = player.value.getDuration();
     videoProgress = currentTime / duration * 100;
     if (words.value && glb.isIterable(words.value) && words.value.length > 0)
       for (let word of words.value) {
