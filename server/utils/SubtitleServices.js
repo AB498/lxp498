@@ -107,7 +107,7 @@ class SubtitleServices {
         languageCode: lang,
       },
       audio: {
-        uri: "gs://speech_videos/" + downloadedFile,
+        uri: `gs://${this.bucket_name}/` + downloadedFile,
       },
     };
     const [err, resp] = await s.safeAsync(axios.post(endpoint, requestData, {
