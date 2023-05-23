@@ -5,7 +5,7 @@ const { join } = require('path');
 const findPackageJson = require('find-package-json');
 const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
-
+const models = require(join(rootDirectory, 'models'));
 const { resolve } = require("path");
 const s = require("../s");
 const downloadedVideosDirectory = join(rootDirectory, "downloadedVideos");
@@ -200,7 +200,7 @@ class SubtitleServices {
           //   progress.eta
           // );
           this.progress = progress.percent;
-          await db.video.update({
+          await models.Video.update({
             where: {
               ytId: videoId
             },
