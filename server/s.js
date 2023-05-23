@@ -125,9 +125,9 @@ const globalProxy = createProxy({
             console.error('Error moving file:', err);
         }
     },
-    tryStringify() {
+    tryStringify(s) {
         try {
-            return JSON.stringify(this);
+            return JSON.stringify();
         } catch (error) {
             return null;
         }
