@@ -21,18 +21,14 @@ class SubtitleServices {
     this.bucket_name = "lxbucket"; // Replace with your bucket name
   }
 
-  async generateSubtitles(videoId, lang, targetLang = null){
+  async generateSubtitles(videoId, lang, targetLang = null) {
 
     console.log("Downloading video " + videoId);
     const [errors, downloadedFile] = await s.safeAsync(this.downloadMp3(videoId), this.downloadMp3);
     if (errors || !downloadedFile) return false;
 
-    console.log("Checking if object exists " + downloadedFile);
-    const objExists = await this.objectExists(downloadedFile);
-    if (errors2) return false;
-
-    if (!objExists) {
-      console.log("Uploading object " + downloadedFile);
+    if (! await this.objectExists(downloadedFile)) {
+      console.log("Uploading object cuz doesnt exist " + downloadedFile);
       const [errors3, uploaded] = await s.safeAsync(this.uploadObject(downloadedFile), this.uploadObject);
       if (errors3) return false;
     }
@@ -101,7 +97,7 @@ class SubtitleServices {
     });
   }
 
-  async getTranscription(downloadedFile, videoId, lang){
+  async getTranscription(downloadedFile, videoId, lang) {
     const endpoint = `https://speech.googleapis.com/v1p1beta1/speech:longrunningrecognize?key=${dataAPIKey}`;
     const requestData = {
       config: {
@@ -222,7 +218,7 @@ class SubtitleServices {
       console.log(ytDlpEventEmitter.ytDlpProcess.pid);
     });
   };
-  async getTranscriptionResults(operationName){
+  async getTranscriptionResults(operationName) {
     let longRunningResultsUrl = `https://speech.googleapis.com/v1/operations/${operationName}`;
 
     const response = await axios.get(longRunningResultsUrl, {
@@ -249,7 +245,7 @@ class SubtitleServices {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async searchVideos(keywordsString){
+  async searchVideos(keywordsString) {
 
 
     // Set the API endpoint and parameters
