@@ -13,7 +13,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-for="(video, index) in videos" :key="index" class="basis-1/4 sm:overflow-auto  p-4 ">
+    <div v-for="(video, index) in videos" :key="index" class="basis-1/4 sm:overflow-auto h-64 p-4 ">
     <VideoCardVertical :video="{
       thumbnailUrl: video.snippet.thumbnails.medium.url,
       title: video.snippet.title, description: video.snippet.channelTitle
