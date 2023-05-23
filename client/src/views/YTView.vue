@@ -6,7 +6,9 @@ import { useRouter, useRoute } from 'vue-router'
 import { ref, watch, onUnmounted, onMounted, nextTick } from 'vue'
 import SuggestedVideos from "@/components/SuggestedVideos.vue";
 import LoadingSpin from "../components/LoadingSpin.vue";
+import bs from "binary-search";
 
+// => 2
 
 if (!window.glb.videoInfo)
   window.glb.videoInfo = {}
@@ -120,6 +122,10 @@ initialLoad.value = false;
 const videoProgress = ref(0);
 
 const playerMainLoop = setInterval(() => {
+  console.log(
+    bs([1, 2, 3, 4], 3, function (element, needle) { return element - needle; });
+
+  )
   if (ytPlayerReady.value) {
     let currentTime = player.value.getCurrentTime();
     let duration = player.value.getDuration();
