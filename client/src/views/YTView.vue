@@ -204,11 +204,14 @@ initialLoad.value = false;
             <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-gear"></i>
           </div>
         </div>
+        <div class="info">
+
           <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
-              <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.description }}</div>
-            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.channelTitle }}</div>
-            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.publishedAt }}</div>
-          
+          <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.description }}</div>
+          <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.channelTitle }}</div>
+          <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.publishedAt }}</div>
+
+        </div>
 
         <div class="suggested-videos bg-gray-900 text-white sm:flex-wrap sm:flex ">
           <SuggestedVideos />
