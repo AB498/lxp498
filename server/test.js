@@ -26,6 +26,6 @@ const models = require('./models');
 
     // console.log(fetchedConversation.Users);
     // models.User.sync({ force: true });
-    models.UBVideo.sync({ force: true });
-    models.WatchHistory.sync({ force: true });
+    models.Video.sync({ force: true });
+    // models.WatchHistory.sync({ force: true });
 })()
