@@ -142,6 +142,7 @@ initialLoad.value = false;
               </div>
             </div>
             <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
+                  {{ window.glb.syncerObj?.openYTVideo?.subtitlesStatus  }}
                 {{ words }}
               <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
                 id="subWordsHolderId"
