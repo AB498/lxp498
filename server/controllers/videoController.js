@@ -46,4 +46,6 @@ module.exports.getSuggestedVideos = async (req, res) => {
     return res.send(videos);
 }
 
-
+module.exports.getYTSubtitles = async (req, res) => {
+    return (await models.Video.findOne({ where: { id: req.params.id } })).get({ plain: true }).subtitleWords || [];
+}
