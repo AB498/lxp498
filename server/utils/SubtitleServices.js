@@ -62,7 +62,7 @@ class SubtitleServices {
         callback({ status: 1, progress: 100 });
       });
       delete this.processes[videoId];
-      return true;
+      return foundvideo.subtitleWords;
     }
 
     foundvideo.subtitlesAvailable = 0;
