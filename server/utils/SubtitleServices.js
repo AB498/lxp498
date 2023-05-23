@@ -68,7 +68,7 @@ class SubtitleServices {
     foundvideo.subtitlesAvailable = 0;
     await foundvideo.save();
 
-    console.log("starting");
+    console.log("starting, callbacks: ", this.processes[videoId].callbacks.length);
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 0;
     this.processes[videoId].callbacks.forEach((callback) => {
