@@ -293,7 +293,6 @@ class SubtitleServices {
       },
     });
 
-    if (response.data?.metadata?.progressPercent)
       if (response.data?.done) {
         console.log(response)
         return response;
