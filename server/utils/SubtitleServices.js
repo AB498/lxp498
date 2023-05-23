@@ -6,7 +6,7 @@ const binaryPath = "C:\\Users\\a\\Downloads\\yt-dlp_win\\yt-dlp.exe";
 const ytDlpWrap = new YTDlpWrap();
 const { db } = require("../utils/db.server");
 const axios = require("axios");
-const fs, { existsSync } = require("fs");
+const fs = require("fs");
 const dataAPIKey = "AIzaSyDxM2_xcNQhj4ynuKgf3Epujijq74a_mnk";
 class SubtitleServices {
   constructor() {
