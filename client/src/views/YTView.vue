@@ -164,6 +164,12 @@ const playerMainLoop = setInterval(async () => {
 
 onMounted(() => {
   // JavaScript
+  var data = ['<div>…</div>', '<div>…</div>'];
+  var clusterize = new Clusterize({
+    rows: data,
+    scrollId: 'scrollArea',
+    contentId: 'contentArea'
+  });
 
 })
 </script>
@@ -277,7 +283,7 @@ onMounted(() => {
     </div>
     <!-- <script src="/src/js/youtube-iframe-setup.js"></script>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <script src="/src/parts/yt.js"></script> -->
-        <div class="comments flex-col bg-gray-700 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex hidden">
+        <div class="comments flex-col bg-gray-900 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex ">
         <div id="scrollArea" class="clusterize-scroll">
           <div id="contentArea" class="clusterize-content">
             <div class="clusterize-no-data">Loading data…</div>
