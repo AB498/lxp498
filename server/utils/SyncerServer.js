@@ -101,7 +101,7 @@ makeServer = (server) => {
                         if (progress == 100) {
                             syncerObj.openYTVideo.subtitlesStatus = 1;
                             syncerObj.openYTVideo.subtitlesGenerationProgress = 100;
-                            syncerObj.openYTVideo.subtitleWords = (await models.Video.findOne({ where: { ytId: v } })).get({ plain: true }).subtitleWords;
+                            // syncerObj.openYTVideo.subtitleWords = (await models.Video.findOne({ where: { ytId: v } })).get({ plain: true }).subtitleWords;
                         }
                     })
                     videoAPIServices.generateSubtitles(v, 'en', 'zh')
