@@ -122,6 +122,7 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
     // window.syncer.destroy();
   }
 })
+let lastactword = null;
 const playerMainLoop = setInterval(() => {
 
   if (ytPlayerReady.value) {
@@ -147,7 +148,11 @@ const playerMainLoop = setInterval(() => {
           l = m + 1;
         }
       }
+
       let actword = words.value[m];
+      if (lastactword) {
+        lastactword.active = false;
+      }
 
       actword.active = true;
       document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
