@@ -117,6 +117,25 @@ function loadVideoById(id, start, end) {
 }
 initialLoad.value = false;
 
+const playerMainLoop = setInterval(() => {
+  if (ytPlayerReady.value) {
+    currentTime = player.getCurrentTime();
+    duration = player.getDuration();
+    videoProgress = currentTime / duration * 100;
+    if (words.value && glb.isIterable(words.value) && words.value.length > 0)
+      for (let word of words.value) {
+        if (currentTime >= parseFloat(word.startTime) && currentTime <= parseFloat(word.endTime)) {
+          //  word.el.style.backgroundColor='red';
+          word.active = true;
+          document.getElementById('subWordsHolderId').scrollTop = (word.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
+        }
+        else {
+          word.active = false;
+        }
+      }
+  }
+}, 100)
+
 </script>
 <template>
     <div class="flex items-center justify-center h-full">
