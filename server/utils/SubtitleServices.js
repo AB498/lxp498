@@ -293,14 +293,14 @@ class SubtitleServices {
       },
     });
 
-      if (response.data?.done) {
-        console.log(response)
-        return response;
-      } else {
-        console.log("Polling for transcription...");
-        await this.timeout(10000);
-        return await this.getTranscriptionResults(operationName);
-      }
+    if (response.data?.done) {
+      console.log(response)
+      return response;
+    } else {
+      global.glb.log("Polling for transcription..." + "Progress: " + (response.data?.metadata?.progressPercent || 0));
+      await this.timeout(10000);
+      return await this.getTranscriptionResults(operationName);
+    }
   }
 
 
