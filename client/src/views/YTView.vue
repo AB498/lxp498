@@ -135,6 +135,7 @@ initialLoad.value = false;
             </div>
           </div>
           <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
+              {{ window.glb.syncerObj?.openYTVideo?.subtitleWords }}
             <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
               id="subWordsHolderId"
                   v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(window.glb.syncerObj?.openYTVideo?.subtitleWords) && window.glb.syncerObj?.openYTVideo?.subtitleWords.length > 0">
