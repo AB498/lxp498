@@ -123,7 +123,7 @@ const videoProgress = ref(0);
 
 const playerMainLoop = setInterval(() => {
   console.log(
-    bs([1, 2, 3, 4], 3, function (element, needle) { return element - needle; });
+    bs([1, 2, 3, 4], 3, function (element, needle) { return element - needle; })
 
   )
   if (ytPlayerReady.value) {
