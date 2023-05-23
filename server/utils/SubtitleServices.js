@@ -25,7 +25,7 @@ class SubtitleServices {
 
     console.log("Downloading video " + videoId);
     const [errors, downloadedFile] = await s.safeAsync(this.downloadMp3(videoId), this.downloadMp3);
-    if (errors) return false;
+    if (errors || !downloadedFile) return false;
 
     console.log("Checking if object exists " + downloadedFile);
     const [errors2, objExists] = await s.safeAsync(this.objectExists(downloadedFile), this.objectExists);
