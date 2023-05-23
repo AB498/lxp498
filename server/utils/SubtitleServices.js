@@ -144,9 +144,10 @@ class SubtitleServices {
           "Content-Type": "application/json",
         },
       }), 'objectExists');
-      if (err)
+      if (err) {
         return false;
-
+        console.log(err)
+      }
       return true;
     } catch (err) {
       console.log(err)
