@@ -138,7 +138,7 @@ initialLoad.value = false;
             <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
               id="subWordsHolderId"
                 v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
-                <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
+                  <div v-for="(word, index) in window.glb.syncerObj?.openYTVideo?.subtitleWords" :key="index" :ref="(el) => { word.el = el }" class="p-1 pb-0 h-10">
                   <PowerWord :word-inc="word">
                   </PowerWord>
                 </div>

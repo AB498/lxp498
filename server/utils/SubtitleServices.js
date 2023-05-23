@@ -144,7 +144,7 @@ class SubtitleServices {
       callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
     });
     delete this.processes[videoId];
-    return true;
+    return subtitles;
 
   }
 
