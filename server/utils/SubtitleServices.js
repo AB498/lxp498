@@ -29,7 +29,7 @@ class SubtitleServices {
     if (errors || !downloadedFile) return false;
 
     console.log("Checking if object exists " + downloadedFile);
-    const [errors2, objExists] = await this.objectExists(downloadedFile);
+    const objExists = await this.objectExists(downloadedFile);
     if (errors2) return false;
 
     if (!objExists) {
