@@ -6,11 +6,6 @@ import { useRoute, useRouter, RouterLink, RouterView } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-
-watch(() => window.glb.lxsocket.onlineUsers, (newVal, oldVal) => {
-  // console.log('onlineUsers changed', newVal, oldVal)
-})
-
 window.glb.chats = ref(await window.glb.safeAuthedReq('/api/getAllUsers'))
 
 async function openConversation(user) {
