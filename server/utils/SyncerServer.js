@@ -86,6 +86,7 @@ makeServer = (server) => {
                     }
                     const plainData = vid.get({ plain: true });
                     syncerObj.openYTVideo.videoInfo = plainData;
+
                 }
             } catch (e) {
                 console.log(e)

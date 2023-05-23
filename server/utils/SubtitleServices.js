@@ -1,13 +1,19 @@
+
+const path = require('path');
+const fs = require('fs');
+const { join } = require('path');
+const findPackageJson = require('find-package-json');
+const nearestPackageJson = findPackageJson(join(__dirname));
+const rootDirectory = path.dirname(nearestPackageJson.next().filename);
+
 const { resolve } = require("path");
 const s = require("../s");
-const downloadedVideosDirectory = resolve("./downloadedVideos")
+const downloadedVideosDirectory = join(rootDirectory, "downloadedVideos");
 const YTDlpWrap = require("yt-dlp-wrap").default;
 const binaryPath = "C:\\Users\\a\\Downloads\\yt-dlp_win\\yt-dlp.exe";
 const ytDlpWrap = new YTDlpWrap();
-const { db } = require("../utils/db.server");
 const axios = require("axios");
-const fs = require("fs");
-const dataAPIKey = "AIzaSyDxM2_xcNQhj4ynuKgf3Epujijq74a_mnk";
+const dataAPIKey = "AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y";
 class SubtitleServices {
   constructor() {
     this.accessToken = "";
