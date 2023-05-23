@@ -150,7 +150,8 @@ class SubtitleServices {
         },
       })
     } catch (err) {
-      if (err) return false;
+      console.log(err)
+      return false;
     }
     // if (err.response.data.error.errors[0].reason == "notFound")
     // if (err.response.status == 404)
