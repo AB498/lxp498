@@ -30,6 +30,7 @@ class SubtitleServices {
         subtitleGenerationProgress: 0,
         subtitleWords: JSON.stringify(subtitles)
       });
+    }
 
     console.log("Downloading video " + videoId);
     const [errors, downloadedFile] = await s.safeAsync(this.downloadMp3(videoId), this.downloadMp3);
