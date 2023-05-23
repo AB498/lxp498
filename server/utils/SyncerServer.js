@@ -87,6 +87,22 @@ makeServer = (server) => {
                     const plainData = vid.get({ plain: true });
                     syncerObj.openYTVideo.videoInfo = plainData;
 
+                    vid = (await models.Video.findOne({ where: { ytId: v } }));
+                    if (vid.subtitlesAvailable == -1) {
+                        syncerObj.openYTVideo.subtitlesStatus = "loading";
+                        vid.subtitlesAvailable = 0;
+                        await vid.save();
+                        await videoAPIServices.generateSubtitles('UBUNrFtufWo', 'en', 'zh')
+                        let vid = (await models.Video.findOne({ where: { ytId: v } }));
+                    }
+                    if (vid.subtitlesAvailable == 1) {
+                        syncerObj.openYTVideo.subtitles = vid.subtitleWords;
+                    } else if (vid.subtitlesAvailable == 0) {
+                        syncerObj.openYTVideo.subtitlesStatus = "loading";
+                    } else {
+                        syncerObj.openYTVideo.subtitlesStatus = "error";
+                    }
+
                 }
             } catch (e) {
                 console.log(e)
