@@ -32,7 +32,6 @@ class SubtitleServices {
       };
     }
     this.processes[videoId].callbacks.push(callback);
-    console.log("added callback, callbacks: ", this.processes[videoId].callbacks.length);
   }
 
 
@@ -42,9 +41,7 @@ class SubtitleServices {
     if (!videoId) return false;
     if (!lang) return false;
     if (this.processes[videoId]?.status == 0) return false;
-    console.log(this.processes, videoId);
     if (!this.processes[videoId]) {
-      console.log("creating new process");
       this.processes[videoId] = {
         status: 0,
         progress: 0,
@@ -52,8 +49,6 @@ class SubtitleServices {
         callbacks: [],
       };
     }
-    else
-      console.log("callbacks: ", this.processes[videoId].callbacks.length);
 
     let foundvideo = (await models.Video.findOne({ where: { ytId: videoId } }));
     if (!foundvideo) {
