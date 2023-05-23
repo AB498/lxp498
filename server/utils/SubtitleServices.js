@@ -40,14 +40,15 @@ class SubtitleServices {
 
     if (!subtitles) return false;
 
-    await db.video.update({
+    await models.Video.update({
+      subtitleGenerationProgress: 100,
+      subtitleWords: JSON.stringify(subtitles)
+    }, {
       where: {
         ytId: videoId
-      },
-      data: {
-        subtitleWords: JSON.stringify(subtitles)
       }
     });
+
     if (targetLang) {
       const [errors5, translated] = await s.safeAsync(this.getTranslation(subtitles, lang, targetLang), this.getTranslation);
       if (errors5) console.log(errors5);
