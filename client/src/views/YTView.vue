@@ -162,14 +162,16 @@ const playerMainLoop = setInterval(async () => {
   }
 }, 500)
 
-// JavaScript
-var data = ['<div>…</div>', '<div>…</div>'];
-var clusterize = new Clusterize({
-  rows: data,
-  scrollId: 'scrollArea',
-  contentId: 'contentArea'
-});
+onMounted(() => {
+  // JavaScript
+  var data = ['<div>…</div>', '<div>…</div>'];
+  var clusterize = new Clusterize({
+    rows: data,
+    scrollId: 'scrollArea',
+    contentId: 'contentArea'
+  });
 
+})
 </script>
 <template>
   <div class="flex items-center justify-center h-full">
