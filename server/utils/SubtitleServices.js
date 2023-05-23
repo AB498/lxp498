@@ -201,12 +201,11 @@ class SubtitleServices {
           // );
           this.progress = progress.percent;
           await models.Video.update({
+            subtitleGenerationProgress: progress.percent
+          }, {
             where: {
               ytId: videoId
             },
-            data: {
-              subtitleGenerationProgress: progress.percent
-            }
           });
         })
         .on("ytDlpEvent", (eventType, eventData) =>
