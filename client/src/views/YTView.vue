@@ -207,9 +207,9 @@ initialLoad.value = false;
           <div class="info" v-if="window.glb.syncerObj.openYTVideo.videoInfo">
 
           <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
+          <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.publishedAt }}</div>
           <div class="hidden">{{ window.glb.syncerObj.openYTVideo.videoInfo.description }}</div>
                   <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info }}</div>
-            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.info.publishedAt }}</div>
 
         </div>
 
