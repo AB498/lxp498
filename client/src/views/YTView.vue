@@ -32,6 +32,7 @@ watch([() => route.params.slug, initialLoad], async () => {
   if (!player.value)
     player.value = await getOrMakePlayer()
   await waitPlayerReady()
+  duration = player.value.getDuration()
   setTimeout(() => {
     player.value.loadVideoById(route.params.slug, 0, 0)
   }, 10);
@@ -123,7 +124,7 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
   }
 })
 let lastactword = null;
-let duration = player.value.getDuration();
+let duration = null;
 const playerMainLoop = setInterval(() => {
   if (ytPlayerReady.value) {
     let currentTime = player.value.getCurrentTime();
