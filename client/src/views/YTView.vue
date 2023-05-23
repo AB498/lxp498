@@ -40,7 +40,7 @@ watch([() => route.params.slug, initialLoad], async () => {
 watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, oldVal) => {
   if (newVal == 1) {
     words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
-    window.syncer.destroy();
+    // window.syncer.destroy();
   }
 })
 
@@ -136,7 +136,7 @@ const playerMainLoop = setInterval(() => {
         }
       }
   }
-}, 100)
+}, 500)
 
 </script>
 <template>
