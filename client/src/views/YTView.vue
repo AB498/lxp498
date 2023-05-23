@@ -117,6 +117,7 @@ const videoProgress = ref(0);
 
 watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, oldVal) => {
   if (newVal == 1) {
+    window.glb.addNotf('Fetching subtitles...')
     words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
     // window.syncer.destroy();
   }
