@@ -95,7 +95,7 @@ makeServer = (server) => {
                     const plainData = vid.get({ plain: true });
                     syncerObj.openYTVideo.videoInfo = plainData;
 
-                    videoAPIServices.addCallback(v, ({ status, progress }) => {
+                    videoAPIServices.addCallback(v, async ({ status, progress }) => {
                         syncerObj.openYTVideo.subtitlesStatus = status;
                         syncerObj.openYTVideo.subtitlesGenerationProgress = progress;
                         if (progress == 100) syncerObj.openYTVideo.subtitleWords = await videoAPIServices.generateSubtitles(v, 'en', 'zh');
