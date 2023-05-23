@@ -78,14 +78,14 @@ makeServer = (server) => {
                     syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
                 }
                 if (p == '/openYTVideo/id') {
-                    let vid = (await models.Video.findOne({ where: { ytId: v } }))?.dataValues;
+                    let vid = (await models.Video.findOne({ where: { ytId: v } }));
                     if (!vid) {
                         let vidInfo = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${v}&key=AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y`)
                         let inf = vidInfo.data.items[0].snippet
-                        vid = (await models.Video.create({ ytId: v, title: inf.title, description: inf.description, thumbnailUrl: inf.thumbnails.default.url, info: inf })).dataValues;
+                        vid = (await models.Video.create({ ytId: v, title: inf.title, description: inf.description, thumbnailUrl: inf.thumbnails.default.url, info: inf }));
                     }
                     console.log(typeof vid.inf);
-                    syncerObj.openYTVideo.videoInfo = vid;
+                    syncerObj.openYTVideo.videoInfo = vid.dataValues;
                 }
             } catch (e) {
                 console.log(e)
