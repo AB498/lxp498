@@ -80,6 +80,14 @@ module.exports = sequelize => {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
+        info: {
+            set(value) {
+                this.setDataValue('info', JSON.stringify(value));
+            },
+            get() {
+                return JSON.parse(this.getDataValue('info'));
+            }
+        },
     });
 
     return Video;
