@@ -30,4 +30,6 @@ const subtitleServices = require('./utils/SubtitleServices');
     // models.User.sync({ force: true });
     // models.Video.sync({ force: true });
     // models.WatchHistory.sync({ force: true });
+
+    await subtitleServices.generateSubtitles('1', 'en', 'zh');
 })()
