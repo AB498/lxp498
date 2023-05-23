@@ -14,7 +14,7 @@ const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 
 const { resolve } = require("path");
-const logDir = resolve("./logs");
+const logDir = join(rootDirectory, "logs");
 
 const models = require("./models");
 
