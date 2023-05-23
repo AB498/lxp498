@@ -68,6 +68,7 @@ class SubtitleServices {
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 0;
     this.processes[videoId].callbacks.forEach((callback) => {
+      console.log("starting");
       callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
     });
 
@@ -79,6 +80,7 @@ class SubtitleServices {
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 25;
     this.processes[videoId].callbacks.forEach((callback) => {
+      console.log("donwloading");
       callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
     });
 
