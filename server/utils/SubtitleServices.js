@@ -295,7 +295,7 @@ class SubtitleServices {
     });
 
     if (response.data?.metadata?.progressPercent)
-    if (response.data.done) {
+      if (response.data?.done) {
       return response;
     } else {
       console.log("Polling for transcription...");
