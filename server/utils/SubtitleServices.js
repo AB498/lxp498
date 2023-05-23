@@ -17,7 +17,6 @@ const dataAPIKey = "AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y";
 class SubtitleServices {
   constructor() {
     this.processes = {};
-    this.progress = 0;
     this.bucket_name = "lxbucket"; // Replace with your bucket name
   }
 
