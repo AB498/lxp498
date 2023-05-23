@@ -281,7 +281,7 @@ onMounted(() => {
 
       <div class="comments flex-col bg-gray-600 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex ">
         <div id="scrollArea" class="clusterize-scroll">
-          <div id="contentArea" class="clusterize-content">
+            <div id="contentArea" class="clusterize-content flex flex-col">
             <div class="clusterize-no-data">Loading data…</div>
           </div>
         </div>
