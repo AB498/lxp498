@@ -1,55 +1,117 @@
-{
+w{
   "Afrikaans": {
     "code": "af",
-    "countries": ["ZA", "NA"]
+    "countries": [
+      "ZA",
+      "NA"
+    ]
   },
   "Arabic": {
     "code": "ar",
-    "countries": ["EG", "DZ", "SD", "IQ", "SA"]
+    "countries": [
+      "EG",
+      "DZ",
+      "SD",
+      "IQ",
+      "SA"
+    ]
   },
   "Bengali": {
     "code": "bn",
-    "countries": ["BD", "IN"]
+    "countries": [
+      "BD",
+      "IN"
+    ]
   },
   "Chinese": {
     "code": "zh",
-    "countries": ["CN", "TW", "HK", "SG"]
+    "countries": [
+      "CN",
+      "TW",
+      "HK",
+      "SG"
+    ]
   },
   "English": {
     "code": "en",
-    "countries": ["US", "GB", "CA", "AU", "ZA", "NZ", "IE", "IN"]
+    "countries": [
+      "US",
+      "GB",
+      "CA",
+      "AU",
+      "ZA",
+      "NZ",
+      "IE",
+      "IN"
+    ]
   },
   "French": {
     "code": "fr",
-    "countries": ["FR", "CA", "CD", "CI", "MG"]
+    "countries": [
+      "FR",
+      "CA",
+      "CD",
+      "CI",
+      "MG"
+    ]
   },
   "German": {
     "code": "de",
-    "countries": ["DE", "AT", "CH", "BE", "LU"]
+    "countries": [
+      "DE",
+      "AT",
+      "CH",
+      "BE",
+      "LU"
+    ]
   },
   "Hindi": {
     "code": "hi",
-    "countries": ["IN", "FJ", "MU"]
+    "countries": [
+      "IN",
+      "FJ",
+      "MU"
+    ]
   },
   "Italian": {
     "code": "it",
-    "countries": ["IT", "CH", "SM"]
+    "countries": [
+      "IT",
+      "CH",
+      "SM"
+    ]
   },
   "Japanese": {
     "code": "ja",
-    "countries": ["JP"]
+    "countries": [
+      "JP"
+    ]
   },
   "Korean": {
     "code": "ko",
-    "countries": ["KR", "KP"]
+    "countries": [
+      "KR",
+      "KP"
+    ]
   },
   "Portuguese": {
     "code": "pt",
-    "countries": ["BR", "PT", "AO", "MZ", "GW"]
+    "countries": [
+      "BR",
+      "PT",
+      "AO",
+      "MZ",
+      "GW"
+    ]
   },
   "Russian": {
     "code": "ru",
-    "countries": ["RU", "KZ", "BY", "KG"]
+    "countries": [
+      "RU",
+      "KZ",
+      "BY",
+      "KG"
+    ]
   },
   "Spanish": {
     "code": "es",
