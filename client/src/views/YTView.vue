@@ -122,6 +122,7 @@ initialLoad.value = false;
             + '' + '?enablejsapi=1&mute=1&autoplay=1&controls=0&showinfo=0&disablekb=1'" :class="borderColor"></iframe>
 
           <div class="yt-video-player-slider-holder w-full -translate-y-2  relative transition shrink-0">
+              <div class="title">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
             <div class=" yt-video-player-slider-bg bg-gray-700 w-full bg-gray-800/50 h-2 absolute">
             </div>
             <div class=" yt-video-player-slider-bg bg-gray-700 w-full opacity-0 h-2 absolute z-10" x-ref="totalBar"
