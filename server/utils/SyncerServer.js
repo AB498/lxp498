@@ -8,6 +8,14 @@ const jwtUtil = require("./jwt");
 const models = require("../models");
 const { default: axios } = require("axios");
 
+const path = require('path');
+const fs = require('fs');
+const { join } = require('path');
+const findPackageJson = require('find-package-json');
+const nearestPackageJson = findPackageJson(join(__dirname));
+const rootDirectory = path.dirname(nearestPackageJson.next().filename);
+
+const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServices'));
 
 makeServer = (server) => {
     let connections = []
