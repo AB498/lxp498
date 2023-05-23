@@ -61,6 +61,7 @@ class SubtitleServices {
       this.processes[videoId].callbacks.forEach((callback) => {
         callback({ status: 1, progress: 100 });
       });
+      return true;
     }
 
 
