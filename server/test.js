@@ -41,5 +41,5 @@ const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServi
     // models.Video.sync({ force: true });
     // models.WatchHistory.sync({ force: true });
     global.glb.accessToken = await global.glb.getAccessToken();
-    console.log(await videoAPIServices.generateSubtitles('xE_rMj35BIM', 'en', 'zh'));
+    console.log(await videoAPIServices.generateSubtitles('UBUNrFtufWo', 'en', 'zh'));
 })()
