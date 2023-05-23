@@ -124,11 +124,6 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
     wordsRe.value = words.value.slice(m - 5, m + 5)
 
     // window.syncer.destroy();
-    var clusterize = new Clusterize({
-      rows: words.value.map(word => `<div class="text-xs text-gray-400">${word.word}</div>`),
-      scrollId: 'scrollArea',
-      contentId: 'contentArea'
-    });
   }
 })
 let lastactword = null;
