@@ -40,7 +40,7 @@ class SubtitleServices {
 
     if (!videoId) return false;
     if (!lang) return false;
-    if (this.processes[videoId].status == 0) return false;
+    if (this.processes[videoId]?.status == 0) return false;
     if (!this.processes[videoId]) {
       this.processes[videoId] = {
         status: -1,
