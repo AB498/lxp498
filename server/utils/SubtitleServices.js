@@ -18,6 +18,7 @@ class SubtitleServices {
   constructor() {
     this.accessToken = "";
     this.progress = 0;
+    this.bucket_name = "lxbucket"; // Replace with your bucket name
   }
 
 
@@ -138,16 +139,19 @@ class SubtitleServices {
   }
 
   async objectExists(name) {
-    const apiEndpoint = `https://www.googleapis.com/storage/v1/b/speech_videos/o/${name}?alt=json`;
 
-    let [err, res] = await s.safeAsync(
-      axios.get(apiEndpoint, {
+
+    const apiEndpoint = `https://www.googleapis.com/upload/storage/v1/b/${bucket_name}/o/${name}?alt=json`;
+    try {
+      const funcRes = await axios.get(apiEndpoint, {
         headers: {
           Authorization: `Bearer ${global.glb.accessToken}`,
           "Content-Type": "application/json",
         },
-      }), "axios");
-
+      })
+    } catch (err) {
+      if (err) return false;
+    }
     // if (err.response.data.error.errors[0].reason == "notFound")
     // if (err.response.status == 404)
     if (err || !res)
@@ -165,22 +169,18 @@ class SubtitleServices {
     return resp.data.items;
   }
   async uploadObject(name) {
-    const bucket_name = "lxbucket"; // Replace with your bucket name
     const apiEndpoint = `https://www.googleapis.com/storage/v1/b/${bucket_name}/o/${name}?alt=json`;
     const file_name = name; // Replace with your desired file name
     const file_path = downloadedVideosDirectory; // Replace with the local path to your file
     const file_stream = fs.createReadStream(file_path + "/" + file_name);
     const url = `https://www.googleapis.com/upload/storage/v1/b/${bucket_name}/o?uploadType=multipart&name=${name}`;
-    try {
-      const funcRes = await axios.post(url, file_stream, {
-        headers: {
-          Authorization: `Bearer ${global.glb.accessToken}`,
-          "Content-Type": "audio/mpeg",
-        },
-      });
-    } catch (err) {
-      if (err) return false;
-    }
+    const [err, funcRes] = await s.safeAsync(axios.post(url, file_stream, {
+      headers: {
+        Authorization: `Bearer ${global.glb.accessToken}`,
+        "Content-Type": "audio/mpeg",
+      },
+    }), "axios Upload Object")
+    if (err) return false;
     return true;
 
   };
