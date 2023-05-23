@@ -5,6 +5,7 @@ const CircularJSON = require("circular-json");
 
 const jwtUtil = require("./utils/jwt");
 
+
 const path = require('path');
 const fs = require('fs');
 const { join } = require('path');
@@ -206,11 +207,11 @@ const globalProxy = createProxy({
 
             const timeNow = this.getTime();
             console.log(clc.red("AsyErr: ") + functionName + " " + clc.cyanBright(timeNow))
+
             let fileContJSON = [];
             if (!fs.existsSync(join(logDir, "asyncError.result")))
                 fs.writeFileSync(join(logDir, "asyncError.result"), "[]");
             fileContJSON = this.isJSON(fs.readFileSync(join(logDir, "asyncError.result"))) ? JSON.parse(fs.readFileSync(join(logDir, "asyncError.result"))) : [];
-            console.log(fileContJSON)
 
             if (!this.isIterable(fileContJSON))
                 fileContJSON = [];
@@ -220,8 +221,19 @@ const globalProxy = createProxy({
             const newCont = {}
 
             let error = errorObject;
+            if (errorObject.response)
+                errorObject = error.response.data;
+            else if (errorObject.request)
+                errorObject = error.request;
+            else if (errorObject.message)
+                errorObject = {};
 
-            errors = error;
+            errorObject.message = error.message;
+            errorObject.stack = { stack: { trace: error.stack } };
+            errorObject.name = error.name;
+            errorObject.code = error.code;
+            errorObject.errno = error.errno;
+
             newCont[timeNow] = errorObject;
 
             fs.writeFileSync(join(logDir,
@@ -233,7 +245,6 @@ const globalProxy = createProxy({
                     ]
                 )
             );
-
         }
         return [errors, res];
     },
