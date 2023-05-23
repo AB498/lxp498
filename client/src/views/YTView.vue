@@ -155,12 +155,6 @@ const playerMainLoop = setInterval(() => {
       }
 
       let actword = words.value[m];
-      actword.active = true;
-      document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
-      if (lastactword) {
-        lastactword.active = false;
-      }
-      lastactword = actword;
 
 
     }
