@@ -119,7 +119,13 @@ const videoProgress = ref(0);
 watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, oldVal) => {
   if (newVal == 1) {
     window.glb.addNotf('Fetching subtitles...')
-    words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
+    words.value = (await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)).map((word, i) => {
+      word.el = null;
+      word.active = false;
+      word.startTime = parseFloat(word.startTime);
+      word.endTime = parseFloat(word.endTime);
+      return word;
+    });
     // window.syncer.destroy();
   }
 })
@@ -137,10 +143,10 @@ const playerMainLoop = setInterval(() => {
       r = words.value.length - 1;
       while (l <= r) {
         m = Math.floor((l + r) / 2);
-        if (parseFloat(words.value[m].startTime) <= currentTime && parseFloat(words.value[m].endTime) >= currentTime) {
+        if ((words.value[m].startTime) <= currentTime && (words.value[m].endTime) >= currentTime) {
           break;
         }
-        else if (parseFloat(words.value[m].startTime) > currentTime) {
+        else if ((words.value[m].startTime) > currentTime) {
           r = m - 1;
         }
         else {
