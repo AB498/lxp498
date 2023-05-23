@@ -119,8 +119,8 @@ initialLoad.value = false;
 
 const playerMainLoop = setInterval(() => {
   if (ytPlayerReady.value) {
-    currentTime = player.getCurrentTime();
-    duration = player.getDuration();
+    currentTime = player.value.getCurrentTime();
+    duration = player.value.getDuration();
     videoProgress = currentTime / duration * 100;
     if (words.value && glb.isIterable(words.value) && words.value.length > 0)
       for (let word of words.value) {
