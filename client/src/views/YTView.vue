@@ -136,8 +136,7 @@ const playerMainLoop = setInterval(() => {
       })
       actword.active = true;
           document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
-        
-      }
+
     }
   }
 }, 500)
