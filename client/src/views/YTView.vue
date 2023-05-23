@@ -129,13 +129,26 @@ const playerMainLoop = setInterval(() => {
     videoProgress.value = currentTime / duration * 100;
     if (words.value && glb.isIterable(words.value) && words.value.length > 0) {
 
-      let actword = bs(words.value, { startTime: currentTime }, (a, b) => {
-        if (a.startTime < b.startTime) return -1;
-        if (a.startTime > b.startTime) return 1;
-        return 0;
-      })
+      //binary search
+      let l, r, m;
+      l = 0;
+      r = words.value.length - 1;
+      while (l <= r) {
+        m = Math.floor((l + r) / 2);
+        if (words.value[m].start <= currentTime && words.value[m].end >= currentTime) {
+          break;
+        }
+        else if (words.value[m].start > currentTime) {
+          r = m - 1;
+        }
+        else {
+          l = m + 1;
+        }
+      }
+      let actword = words.value[m];
+
       actword.active = true;
-          document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
+      document.getElementById('subWordsHolderId').scrollTop = (actword.el.offsetTop - document.getElementById('subWordsHolderId').offsetTop);
 
     }
   }
@@ -150,8 +163,7 @@ const playerMainLoop = setInterval(() => {
         <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
           <!-- video -->
           <iframe id="ytPlayerElement" class="w-full h-full border-4 bg-zinc-900" :src="'https://www.youtube.com/embed/'
-            + '' + '?enablejsapi=1&mute=1&autoplay=1&controls=0&showinfo=0&disablekb=1'"
-            :class="borderColor"></iframe>
+            + '' + '?enablejsapi=1&mute=1&autoplay=1&controls=0&showinfo=0&disablekb=1'" :class="borderColor"></iframe>
 
           <div class="yt-video-player-slider-holder w-full -translate-y-2  relative transition shrink-0">
             <div class=" yt-video-player-slider-bg bg-gray-700 w-full bg-gray-800/50 h-2 absolute">
