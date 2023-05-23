@@ -50,7 +50,7 @@ class SubtitleServices {
 
     await models.Video.update({
       subtitleGenerationProgress: 100,
-      subtitleWords: JSON.stringify(subtitles)
+      subtitleWords: subtitles
     }, {
       where: {
         ytId: videoId

@@ -43,6 +43,12 @@ module.exports = sequelize => {
         subtitleWords: {
             type: DataTypes.STRING,
             defaultValue: '[]',
+            get() {
+                return global.glb.tryParseJSON(this.getDataValue('subtitleWords'));
+            },
+            set(value) {
+                this.setDataValue('subtitleWords', global.glb.tryStringify(value) || '[]');
+            }
         },
         title: {
             type: DataTypes.STRING,
