@@ -122,7 +122,7 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
     words.value = await window.glb.safeAuthedReq('/api/getYTSubtitles/' + route.params.slug)
     // window.syncer.destroy();
     var clusterize = new Clusterize({
-      rows: words.value.map(word => `<div class="flex flex-row justify-between"><div class="flex flex-row"><div class="text-xs text-gray-400">${word.startTime}</div><div class="text-xs text-gray-400">${word.endTime}</div></div><div class="text-xs text-gray-400">${word.text}</div></div>`),
+      rows: words.value.map(word => `<div class="flex flex-row justify-between"><div class="flex flex-row"><div class="text-xs text-gray-400">${word.word}</div></div>`),
       scrollId: 'scrollArea',
       contentId: 'contentArea'
     });
@@ -280,7 +280,7 @@ onMounted(() => {
       </div>
 
       <div class="comments flex-col bg-gray-600 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex ">
-            <div id="scrollArea" class="clusterize-scroll">
+              <div id="scrollArea" class="clusterize-scroll">
               <div id="contentArea" class="clusterize-content">
             <div class="clusterize-no-data">Loading data…</div>
           </div>
