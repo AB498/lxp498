@@ -183,7 +183,7 @@ initialLoad.value = false;
 
               </div>
             </div>
-                <div class="title">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
+            <div class="">{{ window.glb.syncerObj.openYTVideo.videoInfo.title }}</div>
 
           <div class=" controls h-10 bg-indigo-900 flex items-stretch justify-center px-2 shrink-0 self-stretch">
             <i class="fa flex items-center px-2 hover:bg-blue-600 hover:outline fa-play"></i>
