@@ -133,7 +133,7 @@ let lastactword = null;
 let duration = null;
 const playerMainLoop = setInterval(() => {
   if (ytPlayerReady.value) {
-    let currentTime = player.value.getCurrentTime();
+    let currentTime = 50;//player.value.getCurrentTime();
     videoProgress.value = currentTime / duration * 100;
     if (words.value) {
 
