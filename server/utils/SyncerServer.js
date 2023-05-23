@@ -99,7 +99,8 @@ makeServer = (server) => {
                         syncerObj.openYTVideo.subtitlesStatus = status;
                         syncerObj.openYTVideo.subtitlesGenerationProgress = progress;
                         if (progress == 100) {
-                            console.log("done")
+                            syncerObj.openYTVideo.subtitlesStatus = 1;
+                            syncerObj.openYTVideo.subtitlesGenerationProgress = 100;
                             syncerObj.openYTVideo.subtitleWords = (await models.Video.findOne({ where: { ytId: v } })).get({ plain: true }).subtitleWords;
                         }
                     })
