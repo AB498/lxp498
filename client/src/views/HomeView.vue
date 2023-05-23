@@ -6,8 +6,8 @@ import { onMounted } from "vue";
 </script>
 
 <template>
-    <div class="flex flex-col sm:flex-row  sm:flex-wrap w-full bg-cyan-950 h-64 items-stretch">
-
+      <div class="flex  w-full bg-cyan-950  items-stretch">
+  <div class="h-64 flex flex-col sm:flex-row  sm:flex-wrap"></div>
     <SuggestedVideos />
   </div>
 </template>
