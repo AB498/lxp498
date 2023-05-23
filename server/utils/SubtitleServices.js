@@ -68,10 +68,10 @@ class SubtitleServices {
     foundvideo.subtitlesAvailable = 0;
     await foundvideo.save();
 
+    console.log("starting");
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 0;
     this.processes[videoId].callbacks.forEach((callback) => {
-      console.log("starting");
       callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
     });
 
