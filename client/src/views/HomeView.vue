@@ -6,10 +6,10 @@ import { onMounted } from "vue";
 </script>
 
 <template>
-          <div class="flex  w-full bg-cyan-950  items-stretch">
-      <div class=" flex flex-col sm:flex-row  sm:flex-wrap">
+    <div class="flex  w-full bg-cyan-950 ">
+      <div class=" flex flex-col sm:flex-row  sm:flex-wrap items-stretch">
 
         <SuggestedVideos />
       </div>
-      </div>
+    </div>
 </template>
