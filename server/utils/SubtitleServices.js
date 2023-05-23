@@ -145,8 +145,8 @@ class SubtitleServices {
         },
       }), 'objectExists');
       if (err) {
-        return false;
         console.log(err)
+        return false;
       }
       return true;
     } catch (err) {
