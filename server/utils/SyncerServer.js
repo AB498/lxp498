@@ -28,6 +28,7 @@ makeServer = (server) => {
     io.on('connection', async (socket) => {
         let blockemit = null;
         let user = null;
+        let inititalMessagesLimit = 100;
         try {
             const headers = socket.handshake.headers;
             if (!headers.authorization) {
@@ -73,17 +74,19 @@ makeServer = (server) => {
                 }
 
                 if (p == '/openChat/conversationId') {
-                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: v } })).map(m => m.dataValues);
+                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: v }, limit: inititalMessagesLimit, order: [['createdAt', 'DESC']], })).map(m => m.dataValues).sort((a, b) => a.createdAt - b.createdAt);
+                    syncerObj.openChat.messagesResponded = true;
+
                 }
                 if (p == '/openChat/addMessage') {
                     await models.Message.create({ ConversationId: syncerObj.openChat.conversationId, UserId: user.id, text: v });
-                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
+                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId }, limit: inititalMessagesLimit, order: [['createdAt', 'DESC']], })).map(m => m.dataValues).sort((a, b) => a.createdAt - b.createdAt);;
                 }
                 if (p == '/openChat/deleteMessage') {
                     let msg = await models.Message.findByPk(v);
                     if (msg.UserId == user.id) await msg.destroy();
                     else return syncerObj.error = "You can only delete your own messages";
-                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId } })).map(m => m.dataValues);
+                    syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId }, limit: inititalMessagesLimit, order: [['createdAt', 'DESC']], })).map(m => m.dataValues).sort((a, b) => a.createdAt - b.createdAt);;
                 }
                 if (p == '/openYTVideo/id') {
                     let vid = (await models.Video.findOne({ where: { ytId: v } }));

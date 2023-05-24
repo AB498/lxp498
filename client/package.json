@@ -19,6 +19,7 @@
     "clusterize.js": "^1.0.0",
     "feather-icons": "^4.29.0",
     "find-package-json": "^1.2.0",
+    "flexsearch": "^0.7.31",
     "fuse.js": "^6.6.2",
     "json-editor-vue": "^0.10.6",
     "quasar": "^2.6.0",
@@ -42,7 +43,7 @@
     "tailwindcss": "^3.3.2"
   },
   "engines": {
-    "node": "^18 || ^16 || ^14.19",
+    "node": ">=16.0.0",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }

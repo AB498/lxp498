@@ -168,7 +168,7 @@ const globalProxy = createProxy({
 
     },
     async safeAsync(asyncFn, func) {
-        let limit = 100;
+        let limit = 20;
 
         const fs = require('fs');
         let errors = null;
@@ -194,16 +194,15 @@ const globalProxy = createProxy({
 
             fs.writeFileSync(join(logDir,
                 "asyncResult.result"),
-                CircularJSON.stringify(
+                JSON.stringify(
                     [
                         newCont,
                         ...fileContJSON
-                    ]
+                    ], replacerFunc(), 2
                 )
             );
             console.log(clc.yellow("AsyRes: ") + functionName + " " + clc.cyanBright(/*join(logDir, "asyncResult.result")*/ timeNow))
         } catch (errorObject) {
-            let limit = 100;
 
             const timeNow = this.getTime();
             console.log(clc.red("AsyErr: ") + functionName + " " + clc.cyanBright(timeNow))
@@ -238,11 +237,11 @@ const globalProxy = createProxy({
 
             fs.writeFileSync(join(logDir,
                 "asyncError.result"),
-                CircularJSON.stringify(
+                JSON.stringify(
                     [
                         newCont,
                         ...fileContJSON
-                    ]
+                    ], replacerFunc(), 2
                 )
             );
         }

@@ -1,7 +1,11 @@
 {
-  "videosState": {},
-  "states": {},
-  "accessToken": "ya29.c.b0Aaekm1K2b9XC5cucNgDOS__SE93IO55gRognu9hNlpxW19l3JPM8EfAY7KjM3QEU439uxxvZCX5irX3PegCV4iQzvpT2nBSfb88CcT7aVabmvYEI2_dGM6EN_Q6zqHYp-lB9fj1vqSVUUHA_i2CQ8Hp5-RnKyE2RY4MgbqugFbKO8P7TsQpWpXjaOG3plTHYvVrRCgVQK40vlpUybXedwG0i7k-jIXWJIdvsc9VmOyXU4DPd4Y2BEzCWgPunGO_UCcLv47KryIRf-VEeIqkoUqMAS6jZb2yaTxXKdU0CWDeSDoWUYWRzTr9wmzHeKhxnCPnYY2DvvHggmLwG344AQ-Vb6st1Q-8qRWnWOoSF1Xzi5prc4tFecSd8d69c8Bt2ojttOkSFnOtdsk7x1ROm1-0xJwcrrj486cYq5QqgZW6eJfX4gYev23ucJOZ_fg_WfMU2rzkl0yZ_mug9RsZm4kdpowurzFY-cOJ13_1dYYebOX83xXlXfZxQ11B7kjiX4rYcoeW7bxhoWwi640rZfoS9Wefj1xbfaxmIlB17cn_V11a1x4xRXrRZ0jI0Okxvepu4eYaVj-dibbShZbyvSOZIq2ZkyJqn1QbzkpVqzIVS5dniBZXsRBv0Slok2tQj8Z1YIg4nk6su0Fs7yWpk2sJeauS1YaYUYOUZgYoO5Yn06jdc5zZfp0lzW_jI0t1QUhnXvk9lspgn1sYfUQq7ijMqpxQUrbedgtBSVpxmZXvou9aqa0oflmdWuwjYvckyxma23zVsR2qp5hQW1JJxna8lruW5MFinoIj6sUeYvFvu92nJug3xvOakrw-xk5RxaOuebSgdFfz_mrWq3421rjk4jXfBgzlfX2RxZ-7bx0yeZF1QWm_bvO97yRVbWkt7kXm_BiwIig_Yg8U_X_IRRc9fXqMi8WOvBpl1U6gJVJ6WlxqZeoqjW-cyVusrcZ0gaFfFU9wFqc_0lnrIfrMwF0zzw58azvg6eh4ZVB6eqw446cBiI88pO_i",
+  "videosState": {
+    "lastUpdatedSuggestions": 1684950461809
+  },
+  "states": {
+    "lastAccessTokenUpdate": 1684957662084
+  },
+  "accessToken": "ya29.c.b0Aaekm1IkWDH8ILPd2fm2OwkLN_t4-1btUE58K5aYBRxTKH-4BkbmgzCTcEbe82fq1mbpRNNF0dl4fH9Tu6DdjZzwnzt07u8RXyLW1ydNuTMSkOwLvu7OMLObijXlshCDdQNW1Hc3yiytahN4QJNRVhyvnobK4rbSzjsK8NKzMU0cxL0aXpIfNLKcJOUVLU4ptNoMiXV04nQofjOw-5Gs2GFOJQjQDlqAso0mm5F9UBp-p9D_9tAvxvkQDJrBDrm1YGuXJros54t5J8IQv2-F0O2PAUUc4gafeX4f3qbX3gMXldNfgFCc995f037h8cRUSLOzAMSvUnQqegG343Dwj5kn9jprw5mVxzuS1kxUuF7xrgfQg_UtdzgdjqO48hQwlsVavzcvJ1F8UOkgjobptgIpey-99gY33UXoxRShW49MF_S_i15rZg1vUQeU_f8UkMOF0Xfgpsnzbhe83dzk1j28Xdc897jZb4qsZ7tVmfo8OBUq638gIweFBr_X5873xgI4cw6oYYmBu4qrUUyzz_e6BMUBu09jpWlVzBwgUFpvY_1jtOvph2JWm9fbZZUf0g_SUv5FlfJFgFW3Zl8t4dgM6lo0Sj3z6SWrQYyMb3QV1u1OnFZIpJbxY731I9j3chwS1Uk9mRYjfS8glJQMU1e2cojencMBZwX_pd0kq9jYi-b40wgIzmIbw9iXzyQjRhFpjykxdu6cRnytmy0naMixszWaBw8lk-epSWu04_87Vb4Wfcb6yujQ-OMOa82ycnu9wo1Fh7b7VxfBnWd0Wr1n0Rfish45eagUJsR_oQFifVqwOFyzXdk-yXuocYuJ91kjBnj97IO-2g81M7BbOcXwRkQpfgyn_Vy748WufmFl_cqhMYlyx4oFI_nQ25kJYn9yhB-5S4fv3-8pgc9z8dz7hwg3oSghyJXf4ZoMrbr6aW7Jw_fVXp7UI-F9W8umfq4vQpZV7ppFz7pmM56y-fRfgeQ9QUaj__O49q439auYrsXZhWbyB0-",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -443,6 +447,43 @@
     {
       "method": "POST",
       "url": "/api/openConversation",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/getSupportedLanguages",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getTranslation",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/getTranslationSentences",
       "middlewares": {
         "main": [
           null

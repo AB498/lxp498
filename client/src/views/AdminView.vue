@@ -15,7 +15,7 @@ const router = useRouter()
         <i class="btn full center fas fa-api p-2" @click="router.push('/admin/socketpg')">SocketPG</i>
 
       </div>
-      <RouterView />
+            <RouterView />
   </div>
 </template> 
 

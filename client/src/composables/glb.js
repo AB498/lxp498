@@ -152,6 +152,18 @@ store.getFormattedTime = (date) => {
 
   return strTime
 }
+store.getFormattedDate = (date) => {
+  if (!date) return "Not a date"
+  let year = date.getFullYear()
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+
+  return month + '/' + day + '/' + year
+}
+store.getFormattedDateTime = (date) => {
+  if (!date) return "Not a date"
+  return store.getFormattedDate(date) + " " + store.getFormattedTime(date)
+}
 store.uuidv4 = uuidv4
 store.clickOutside = {
   beforeMount: (el, binding) => {

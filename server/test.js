@@ -9,6 +9,8 @@ const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 
 const s = require('./s');
+const fword = require('./fword');
+const translationServices = require(join(rootDirectory, 'utils', 'TranslationServices'));
 
 const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServices'));
 (async () => {
@@ -38,8 +40,14 @@ const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServi
 
     // console.log(fetchedConversation.Users);
     // models.User.sync({ force: true });
-    models.Video.sync({ force: true });
+    // models.Video.sync({ force: true });
     // models.WatchHistory.sync({ force: true });
     // global.glb.accessToken = await global.glb.getAccessToken();
     // console.log(await videoAPIServices.generateSubtitles('UBUNrFtufWo', 'en', 'zh'));
+    // console.log(await translationServices.getTranslation(['hello', 'test1'], 'en', 'ar'))
+    // console.log((await fword.Word.findOne({
+    //     where: {
+    //         eng: 'test1'
+    //     },
+    // })).get({ plain: true }))
 })()

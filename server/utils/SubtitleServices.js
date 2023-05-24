@@ -30,6 +30,9 @@ class SubtitleServices {
       };
     }
     this.processes[videoId].callbacks.push(callback);
+    this.processes[videoId].callbacks.forEach((callback) => {
+      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+    })
   }
 
 

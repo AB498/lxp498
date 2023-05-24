@@ -1,44 +1,56 @@
 <script setup>
+import { all } from 'axios';
+import { onMounted } from 'vue';
 import { ref, watch } from 'vue';
 
 const show = ref(false);
 const popup = ref(null);
 const tohover = ref(null);
 
-watch(() => show.value, (val, old) => {
+const mounted = ref(false);
+
+let popupVerticalDirection = ref('bottom');
+let popupHorizontalDirection = ref('right');
+
+watch([() => show.value, mounted], (val, old) => {
     if (val) {
-        popup.value.style.top = tohover.value.offsetTop + tohover.value.offsetHeight + "px";
-        // adjust if out of screen 
-        if (popup.value.offsetLeft + popup.value.offsetWidth > window.innerWidth) {
-            popup.value.style.left = window.innerWidth - popup.value.offsetWidth + "px";
+        if (tohover.value.getBoundingClientRect().top + popup.value.getBoundingClientRect().height > window.innerHeight) {
+            popupVerticalDirection.value = 'top';
         }
         else {
-            popup.value.style.left = tohover.value.offsetLeft + "px";
+            popupVerticalDirection.value = 'bottom';
         }
-        // adjust if out of screen
-        if (popup.value.offsetTop + popup.value.offsetHeight > window.innerHeight) {
-            popup.value.style.top = tohover.value.offsetTop - popup.value.offsetHeight + "px";
-        }
-        else {
-            popup.value.style.top = tohover.value.offsetTop + tohover.value.offsetHeight + "px";
-        }
-        // adjust if out of screen
-        if (popup.value.offsetLeft < 0) {
-            popup.value.style.left = 0 + "px";
+        if (tohover.value.getBoundingClientRect().left + popup.value.getBoundingClientRect().width > window.innerWidth) {
+            popupHorizontalDirection.value = 'left';
         }
         else {
-            popup.value.style.left = tohover.value.offsetLeft + "px";
+            popupHorizontalDirection.value = 'right';
         }
-        // adjust if out of screen  
-        if (popup.value.offsetTop < 0) {
-            popup.value.style.top = tohover.value.offsetTop + tohover.value.offsetHeight + "px";
+
+        if (popupVerticalDirection.value == 'top') {
+            popup.value.style.bottom = `${tohover.value.getBoundingClientRect().top}px`;
         }
         else {
-            popup.value.style.top = tohover.value.offsetTop + tohover.value.offsetHeight + "px";
+            popup.value.style.top = `${tohover.value.getBoundingClientRect().bottom}px`;
         }
+
+        if (popupHorizontalDirection.value == 'left') {
+            popup.value.style.right = `${window.innerWidth - tohover.value.getBoundingClientRect().right}px`;
+        }
+        else {
+            popup.value.style.left = `${tohover.value.getBoundingClientRect().left}px`;
+        }
+
+
+
+
 
 
     }
+})
+
+onMounted(() => {
+    mounted.value = true;
 })
 const mouseoverInhover = ref(false);
 const mouseoverPopup = ref(false);
@@ -57,14 +69,17 @@ watch(together.value, (val, old) => {
 
 </script>
 <template>
-    <div @mouseover="together[0] = true;" @mouseout=" together[0] = false" ref="tohover"
-        class="flex items-center justify-center">
-        <slot name="tohover" class="bg-red-400"></slot>
-        <div @mouseover=" together[1] = true" @mouseout=" together[1] = false"
-            :class="show ? 'opacity-100' : 'opacity-0 pointer-events-none translate-x-4'"
-            class="absolute overflow-auto max-h-[80vh] max-w-[80vw] transition text-sm font-mono text-white  bg-blue-500 shadow-md rounded p-1  "
-            ref="popup">
-            <slot name="popup"></slot>
-        </div>
+                    <div @mouseover="together[0] = true; cons(0)" @mouseout=" together[0] = false" ref="tohover"
+                        class="flex items-center justify-center relative overflow-visible">
+
+                        <div @mouseover=" together[1] = true" @mouseout=" together[1] = false"
+                            :class="show ? 'opacity-100' : 'opacity-0 pointer-events-none translate-x-4'"
+                            class="absolute max-h-[80vh] max-w-[60vw]  w-auto h-auto transition text-sm font-mono text-white  bg-blue-500 shadow-md rounded  overflow-auto"
+                            ref="popup">
+                            <div class=" bg-red-500 m-2 overflow-visible relative">
+                                <slot name="popup"></slot>
+                            </div>
+                        </div>
+                        <slot name="tohover" class="bg-red-400"></slot>
     </div>
 </template>

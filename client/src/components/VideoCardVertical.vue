@@ -9,12 +9,17 @@ import pic from "@/assets/logo.svg";
 </script>
 
 <template>
-            <div class="flex flex-col  w-full relative hover:-translate-y-1 shadow-md transition h-full">
-            <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="w-full">
-            <div
-                class="absolute h-full w-full hover:opacity-100 opacity-0  text-lg font-bold flex justify-center items-center  ">
-                <div
-                    class="w-full h-full bg-gradient-to-b from-indigo-500/75 to-emerald-700/25 break-words flex justify-center items-center space-x-2 text-yellow-400 hover-ripple-fast">
+                <div class="flex flex-col  w-full relative hover:-translate-y-1 shadow-md transition h-full rounded-xl bg-cyan-950">
+                    <div class="border relative rounded-t-xl">
+                        <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="w-full rounded-t-xl">
+                        <div class="vidinfo absolute bottom-0 bg-gray-700/75 text-xs">
+                            {{ 'Published: ' + window.glb.getFormattedDateTime(new Date(video.publishedAt)) }}
+                        </div>
+                    </div>
+                    <div
+                        class="absolute h-full w-full hover:opacity-100 opacity-0  text-lg font-bold flex justify-center items-center rounded-xl ">
+                        <div
+                            class="w-full h-full bg-gradient-to-b from-indigo-500/75 to-emerald-700/25 break-words flex justify-center items-center space-x-2 text-yellow-400 hover-ripple-fast rounded-xl">
                 <i class="fa fa-play-circle"></i>
                 <div>Play</div>
             </div>

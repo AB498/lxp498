@@ -98,18 +98,18 @@ const searchText = ref("");
 
 
 <template>
-    <div class="whole h-screen w-screen flex flex-nowrap flex-col text-white font-sans overflow-auto">
+    <div class="whole h-screen w-screen flex flex-nowrap flex-col text-white font-sans overflow-hidden">
       <NotificationStack />
       <div class="w-full h-16  shrink-0 sticky top-0 backdrop-blur-lg z-50">
-        <div class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap
-        overflow-x-auto w-full">
+        <div class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap w-full ">
+
           <div class="nav-right px-4 flex items-stretch">
             <PopperComponent>
               <template #tohover>
                 <RouterLink to="/"
                   class="flex items-center justify-center text-2xl fa  self-stretch space-x-2 font-sans font-thin">
                   <!-- loading if not connected -->
-                    <i v-if="!window.glb.con" class="">
+                  <i v-if="!window.glb.con" class="">
                     <q-spinner-radio color="brown" />
                   </i>
                   <span class="relative flex h-3 w-3 center" v-else>
@@ -119,7 +119,7 @@ const searchText = ref("");
                     </span>
                   </span>
                   <div class="font-Galada text-4xl p-1">
-                      Lx{{ window.glb.syncerObj?.a }}
+                    Lx{{ window.glb.syncerObj?.a }}
                   </div>
                 </RouterLink>
               </template>
@@ -180,8 +180,6 @@ const searchText = ref("");
               class="flex items-center justify-center text-2xl fa px-4 font-sans font-thin">
               Logout
             </RouterLink>
-            <RouterLink to="/chat" class="flex items-center justify-center text-2xl fa fa-bars px-4">
-            </RouterLink>
           </div>
           <div class="nav-right px-4 flex items-stretch flex-nowrap" v-else>
             <div class="text-md flex center px-2">
@@ -196,9 +194,20 @@ const searchText = ref("");
               <i class="fa fa-envelope m-2"></i>
               Contact
             </div>
-            <RouterLink to="/chat" class="flex items-center justify-center text-2xl fa fa-bars px-4">
-            </RouterLink>
           </div>
+          <PopperComponent>
+            <template #tohover>
+              <i class="flex items-center justify-center text-2xl fa fa-bars px-4 "></i>
+            </template>
+            <template #popup>
+              <div class="w-full h-full">
+                <JsonViewer
+                  :value="Object.fromEntries(Object.entries(window.glb).filter(([k, v]) => typeof v != 'function'))"
+                  class="bg-zinc-800" theme="my-awesome-json-theme">
+                </JsonViewer>
+              </div>
+            </template>
+          </PopperComponent>
         </div>
 
       </div>

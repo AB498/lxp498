@@ -7,6 +7,8 @@ const fword = require("./fword");
 const httpProxy = require('http-proxy');
 const express = require('express');
 require('express-async-errors');
+const fs = require('fs');
+const { join } = require('path');
 
 const http = require('http');
 const cors = require('cors');
@@ -19,6 +21,7 @@ const videoController = require('./controllers/videoController');
 const ubController = require('./controllers/ubController');
 const adminController = require('./controllers/adminController');
 const chatController = require('./controllers/chatController');
+const translationController = require('./controllers/translationController');
 const jwtUtils = require('./utils/jwt');
 const { manageSocketIO } = require('./socketIO');
 //server setup
@@ -81,7 +84,7 @@ function logResponse(req, res, next) {
     }
     next();
 }
-app.use(logResponse);
+// app.use(logResponse);
 
 
 // express routes
@@ -129,6 +132,9 @@ global.glb.apiEndpoints = [
     { method: 'POST', url: '/api/createChat', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.createChat] } },
     { method: 'POST', url: '/api/getAllUsers', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.getAllUsers] } },
     { method: 'POST', url: '/api/openConversation', middlewares: { main: [global.glb.authMiddleware], test: [], both: [chatController.openConversation] } },
+    { method: 'GET', url: '/api/getSupportedLanguages', middlewares: { main: [], test: [], both: [translationController.getSupportedLanguages] } },
+    { method: 'POST', url: '/api/getTranslation', middlewares: { main: [global.glb.authMiddleware], test: [], both: [translationController.getTranslation] } },
+    { method: 'POST', url: '/api/getTranslationSentences', middlewares: { main: [global.glb.authMiddleware], test: [], both: [translationController.getTranslationSentences] } },
 
 ]
 
@@ -262,8 +268,50 @@ app.use('/', async (req, res) => {
     server.listen(port, () => {
         global.glb.log(`Listening on port at http://localhost:${port}`);
     });
+    global.glb.serverLoop();
+
 
 })().catch(e => {
     global.glb.error(e);
 });
+
+if (!global.glb.videosState.lastUpdatedSuggestions) global.glb.videosState.lastUpdatedSuggestions = new Date().getTime();
+if (!global.glb.states.lastAccessTokenUpdate) global.glb.states.lastAccessTokenUpdate = new Date().getTime();
+
+let serverFirstInitted = false;
+global.glb.serverLoop = async function () {
+    // do stuff
+    // if last updated time is less than current time - 1 hour
+    // update suggestions
+
+    if (global.glb.videosState.lastUpdatedSuggestions < new Date().getTime() - 1000 * 60 * 60 * 6) {
+        if (!fs.existsSync(join(rootDirectory, 'mockData', "suggestedVideos.json")))
+            fs.writeFileSync(join(rootDirectory, 'mockData', "suggestedVideos.json"), JSON.stringify([]));
+        let result = await videoAPIServices.getSuggestions("new videos");
+        if (result) {
+            global.glb.log('fetched new suggestions')
+            let towrite = [
+                ...result,
+                ...global.glb.handledParse(fs.readFileSync(join(rootDirectory, 'mockData', "suggestedVideos.json"), 'utf8'))
+            ];
+            if (towrite.length > 100) {
+                towrite = towrite.slice(0, 100);
+            }
+            fs.writeFileSync(join(rootDirectory, 'mockData', "suggestedVideos.json"), JSON.stringify(
+                towrite));
+        } else
+            console.log('failed to fetch new suggestions')
+
+        global.glb.videosState.lastUpdatedSuggestions = new Date().getTime();
+    }
+    if (global.glb.states.lastAccessTokenUpdate < new Date().getTime() - 1000 * 60 * 60 * 1) {
+        global.glb.accessToken = await global.glb.getAccessToken();
+        global.glb.log('got new access token')
+        global.glb.states.lastAccessTokenUpdate = new Date().getTime();
+    }
+    serverFirstInitted = true;
+
+    await global.glb.timeout(100);
+    global.glb.serverLoop();
+}
 

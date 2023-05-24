@@ -20,6 +20,17 @@ class TranslationServices {
   async getTranslation(words, sourceLang, targetLang) {
     //googel translate api
 
+
+    let supportedLanguages = JSON.parse(fs.readFileSync(path.join(rootDirectory, 'googleSupportedLangs.json')));
+    if (!supportedLanguages) return null;
+    if (!supportedLanguages.includes(sourceLang) || !supportedLanguages.includes(targetLang)) return null;
+
+    if (!words || words.length == 0) return [];
+    if (sourceLang == targetLang) return words;
+    if (!sourceLang || !targetLang) return null;
+    if (!global.glb.iso1to3(sourceLang) || !global.glb.iso1to3(targetLang)) return null;
+
+
     let sourceLangHash = {};
     (await fword.Word.findAll({
       attributes: [global.glb.iso1to3(sourceLang), global.glb.iso1to3(targetLang)],
@@ -77,6 +88,15 @@ class TranslationServices {
     return translatedWords;
   }
   async getTranslationSentences(sentences, sourceLang, targetLang) {
+
+    let supportedLanguages = JSON.parse(fs.readFileSync(path.join(rootDirectory, 'googleSupportedLangs.json')));
+    if (!supportedLanguages) return null;
+    if (!supportedLanguages.includes(sourceLang) || !supportedLanguages.includes(targetLang)) return null;
+
+    if (!sentences || sentences.length == 0) return [];
+    if (sourceLang == targetLang) return sentences;
+    if (!sourceLang || !targetLang) return null;
+    if (!global.glb.iso1to3(sourceLang) || !global.glb.iso1to3(targetLang)) return null;
 
     let translatedSentences = Array(sentences.length).fill(null);
     let toTranslate = [];
@@ -140,6 +160,7 @@ class TranslationServices {
       if (lang.supportSource && lang.supportTarget)
         result.push(lang.languageCode);
     }
+    fs.writeFileSync(rootDirectory + 'googleSupportedLangs.json', JSON.stringify(result));
     return result;
 
   }
