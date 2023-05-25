@@ -35,6 +35,7 @@ const makeSyncer = (url, options) => {
             }); //onchange
 
             server2Socket.on('updateObj', ({ path, value }) => {
+                console.log('foreign: ', path)
                 localChange = false;
                 rjmod(syncerObj, path, value);
                 localChange = true;

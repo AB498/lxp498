@@ -51,61 +51,59 @@ async function saveEdits() {
           <div class="bg-cyan-800 w-full flex justify-center items-center px-4 ">
             <div class=""> User Info</div>
             <div class="grow"> </div>
-                  <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple" @click="editMode = true" v-if="!editMode">
-                    Edit</div>
-                  <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple" @click="saveEdits" v-if="editMode">
-                    Save</div>
+                <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple" @click="editMode = true" v-if="!editMode">
+                  Edit</div>
+                <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple" @click="saveEdits" v-if="editMode">
+                  Save</div>
 
+              </div>
+              <div class="p-2"></div>
+              <div class="px-4" v-if="!editMode">
+                <!-- name -->
+                <div class="name" @click="window.console.log(window.glb)">
+                  {{ (window.glb.user.firstName + ' ' + window.glb.user.lastName) }}
                 </div>
-                <div class="p-2"></div>
-                <div class="px-4" v-if="!editMode">
-                  <!-- name -->
-                  <div class="name" @click="window.console.log(window.glb)">{{ (window.glb.user.firstName &&
-                    window.glb.user.lastName) && (window.glb.user.firstName
-                      + ' '
-                      + window.glb.user.lastName) ||
-                    'Unavailable' }}</div>
-                  <!-- username -->
-                  <div class="window.glb.username">Username: {{ window.glb.user.username || 'Unavailable' }}</div>
-                  <!-- score -->
-                  <div class="score font-mono">{{ 'Score: ' + (window.glb.user.score || 'Unavailable') }}</div>
-                  <!-- email -->
-                  <div class="email">Email: {{ window.glb.user.email || 'Unavailable' }}</div>
-                  <!-- id -->
-                  <div class="uid">Identifier: {{ window.glb.user.ownId || 'Unavailable' }}</div>
-                  <v-divider></v-divider>
-                  <!-- langsknown -->
-                  <div class="known-languages">
-                    <div class="language">English</div>
-                    <div class="language">French</div>
-                    <div class="language">Spanish</div>
-                  </div>
-
-
+                <!-- username -->
+                <div class="window.glb.username">Username: {{ window.glb.user.username || 'Unavailable' }}</div>
+                <!-- score -->
+                <div class="score font-mono">{{ 'Score: ' + (window.glb.user.score || 'Unavailable') }}</div>
+                <!-- email -->
+                <div class="email">Email: {{ window.glb.user.email || 'Unavailable' }}</div>
+                <!-- id -->
+                <div class="uid">Identifier: {{ window.glb.user.ownId || 'Unavailable' }}</div>
+                <v-divider></v-divider>
+                <!-- langsknown -->
+                <div class="known-languages">
+                  <div class="language">English</div>
+                  <div class="language">French</div>
+                  <div class="language">Spanish</div>
                 </div>
-                <div v-else class="flex flex-col center-cross">
-                  <div class="w-64 flex space-x-1">
-                    <q-input color="blue" bg-color="" dark filled v-model="firstName" label="Firstname"
-                      class=" w-1/2 without-ring border-b-white" hint="Optional">
-                    </q-input>
-                    <q-input color="blue" bg-color="" dark filled v-model="lastName" label="Lastname"
-                      class=" w-1/2 without-ring border-b-white" hint="Optional">
-                    </q-input>
-                  </div>
-                  <!-- username -->
-                  <q-input color="blue" bg-color="" dark filled v-model="username" label="Username"
-                    class="w-64 without-ring border-b-white" hint="Optional">
+
+
+              </div>
+              <div v-else class="flex flex-col center-cross">
+                <div class="w-64 flex space-x-1">
+                  <q-input color="blue" bg-color="" dark filled v-model="firstName" label="Firstname"
+                    class=" w-1/2 without-ring border-b-white" hint="Optional">
                   </q-input>
-                  <!-- email -->
-                  <q-input color="blue" bg-color="" dark filled v-model="email" label="Email"
-                    class="w-64 without-ring border-b-white" hint="* Required">
+                  <q-input color="blue" bg-color="" dark filled v-model="lastName" label="Lastname"
+                    class=" w-1/2 without-ring border-b-white" hint="Optional">
                   </q-input>
-                  <!-- pass -->
-                  <q-input color="blue" bg-color="" dark filled v-model="password" label="Password"
-                    class="w-64 without-ring border-b-white" hint="Optional">
-                  </q-input>
-                  <v-text-field label="Last Name"></v-text-field>
-                  <!-- score -->
+                </div>
+                <!-- username -->
+                <q-input color="blue" bg-color="" dark filled v-model="username" label="Username"
+                  class="w-64 without-ring border-b-white" hint="Optional">
+                </q-input>
+                <!-- email -->
+                <q-input color="blue" bg-color="" dark filled v-model="email" label="Email"
+                  class="w-64 without-ring border-b-white" hint="* Required">
+                </q-input>
+                <!-- pass -->
+                <q-input color="blue" bg-color="" dark filled v-model="password" label="Password"
+                  class="w-64 without-ring border-b-white" hint="Optional">
+                </q-input>
+                <v-text-field label="Last Name"></v-text-field>
+                <!-- score -->
           <v-text-field label="Email"></v-text-field>
           <!-- id -->
           <v-divider></v-divider>

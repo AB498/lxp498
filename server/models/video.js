@@ -83,8 +83,13 @@ module.exports = sequelize => {
             defaultValue: 0,
         },
         comments: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
+            type: DataTypes.STRING,
+            set(value) {
+                this.setDataValue('comments', global.glb.tryStringify(value));
+            },
+            get() {
+                return global.glb.tryParseJSON(this.getDataValue('comments'));
+            }
         },
         info: {
             type: DataTypes.STRING,

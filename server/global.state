@@ -1,11 +1,11 @@
 {
   "videosState": {
-    "lastUpdatedSuggestions": 1684950461809
+    "lastUpdatedSuggestions": 1684993663424
   },
   "states": {
-    "lastAccessTokenUpdate": 1684957662084
+    "lastAccessTokenUpdate": 1685008063793
   },
-  "accessToken": "ya29.c.b0Aaekm1IkWDH8ILPd2fm2OwkLN_t4-1btUE58K5aYBRxTKH-4BkbmgzCTcEbe82fq1mbpRNNF0dl4fH9Tu6DdjZzwnzt07u8RXyLW1ydNuTMSkOwLvu7OMLObijXlshCDdQNW1Hc3yiytahN4QJNRVhyvnobK4rbSzjsK8NKzMU0cxL0aXpIfNLKcJOUVLU4ptNoMiXV04nQofjOw-5Gs2GFOJQjQDlqAso0mm5F9UBp-p9D_9tAvxvkQDJrBDrm1YGuXJros54t5J8IQv2-F0O2PAUUc4gafeX4f3qbX3gMXldNfgFCc995f037h8cRUSLOzAMSvUnQqegG343Dwj5kn9jprw5mVxzuS1kxUuF7xrgfQg_UtdzgdjqO48hQwlsVavzcvJ1F8UOkgjobptgIpey-99gY33UXoxRShW49MF_S_i15rZg1vUQeU_f8UkMOF0Xfgpsnzbhe83dzk1j28Xdc897jZb4qsZ7tVmfo8OBUq638gIweFBr_X5873xgI4cw6oYYmBu4qrUUyzz_e6BMUBu09jpWlVzBwgUFpvY_1jtOvph2JWm9fbZZUf0g_SUv5FlfJFgFW3Zl8t4dgM6lo0Sj3z6SWrQYyMb3QV1u1OnFZIpJbxY731I9j3chwS1Uk9mRYjfS8glJQMU1e2cojencMBZwX_pd0kq9jYi-b40wgIzmIbw9iXzyQjRhFpjykxdu6cRnytmy0naMixszWaBw8lk-epSWu04_87Vb4Wfcb6yujQ-OMOa82ycnu9wo1Fh7b7VxfBnWd0Wr1n0Rfish45eagUJsR_oQFifVqwOFyzXdk-yXuocYuJ91kjBnj97IO-2g81M7BbOcXwRkQpfgyn_Vy748WufmFl_cqhMYlyx4oFI_nQ25kJYn9yhB-5S4fv3-8pgc9z8dz7hwg3oSghyJXf4ZoMrbr6aW7Jw_fVXp7UI-F9W8umfq4vQpZV7ppFz7pmM56y-fRfgeQ9QUaj__O49q439auYrsXZhWbyB0-",
+  "accessToken": "ya29.c.b0Aaekm1LChIwAJUJfO2JRP-O87hOxAadeu-rODPenQLobndpkQ_0b3czLTTuX1PMgQ4RMuQAm6IQxGhdFOzEefTSTWDWpvqbA0_ixYPMIEn7CSFkkNA3_vtK_XeDxwjskHHaiskKqRbjhX5p7RPqHWC2_n6MC81C0Fbectfhhtv50oAlbs2eI-xkbs5FtwCpNO5464zhxp2verSb9Sb23KI1XPjqxG4WpVfwbrpLbC36BzFclLaIScfRk2GgAZ8r0tS_ULPo4EH778E2VvqBsMb3V1BICU1RwmPZqtDOqPJgoH7NpVo1O4GXtnbJ7_5qgSR3rrnQprLbFeB8H344AJgs0icwfpOZ-5mR9ykJv2mW9t2n-ag37n005MJViSZ0S79oysfz8IlQyvUoZxjx5uRbhXor1r3jB13zIc0WZFvQJYl9Jh-X8-Y6yMMxuZWRdtQyViivbiQJ4Ml6asM9kw7Mt2ZXq7OYk1Za6mnYf3UWtkgvyVqzMru0_Q65J4Iaa1vt_86ts0i2xgfg52Wcp-sM_ion9izecqzjdIwdcI9bo6_Ypb-MyXlOIVrW58uVpJMcuSUoUXZdiI_vUuWOqcgrVVVzzk_dh4k1b7It8xhvy2ms3IgU_uI5htuhuRzeVIcURWIrrQJmqhl8B8mhgplvRse-esx0FXodf3pYkYi0s1qOYdIWl8_IYk9VF9O65VIqiWJ2rrq61XWMgO3i1pu0jt475JU_UwB2u462y6-0kf0mU-Bttqzojw779pIjcgXarl03MgzBd4hQvak20kISOZ4BnFu5ux2scmvOR92tfSt-09YImbYz5cwyYhVIFprsIFsB0tOk6_c07zok4uIXJXRWjzkes0rgWvsR3_0yMuWJS20Bl3gIg6nkU70MSUI15VcVZW2RIoFip1O-uYh74o36yqX8rQzXmdZJ2ibB0x6I_MZZ1p6kliw_0MOelZdMI7OkScpywzpxcf0hX7ZjpOdtfQk4hmIvFys2SiBBym80YU2vm2sd",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -134,6 +134,19 @@
     },
     {
       "method": "POST",
+      "url": "/api/updateSelf",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
       "url": "/api/getUser/:id",
       "middlewares": {
         "main": [],
@@ -249,6 +262,17 @@
     {
       "method": "POST",
       "url": "/api/getYTSubtitles/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "url": "/api/getYTComments/:id",
       "middlewares": {
         "main": [],
         "test": [],

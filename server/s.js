@@ -277,7 +277,13 @@ const globalProxy = createProxy({
 
     },
     isIterable(value) {
+        if (value == null) {
+            return false;
+        }
         return value !== undefined && typeof value[Symbol.iterator] === 'function';
+    },
+    lerp(a, b, fractionFactor) {
+        return a + (b - a) * fractionFactor;
     },
 
     getTime() {

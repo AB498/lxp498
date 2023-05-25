@@ -16,6 +16,7 @@ const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 
 const { videoAPIServices } = require(join(rootDirectory, 'utils', 'SubtitleServices'));
+const videoController = require(join(rootDirectory, 'controllers', 'videoController'));
 
 makeServer = (server) => {
     let connections = []
@@ -89,6 +90,14 @@ makeServer = (server) => {
                     syncerObj.openChat.messages = (await models.Message.findAll({ where: { ConversationId: syncerObj.openChat.conversationId }, limit: inititalMessagesLimit, order: [['createdAt', 'DESC']], })).map(m => m.dataValues).sort((a, b) => a.createdAt - b.createdAt);;
                 }
                 if (p == '/openYTVideo/id') {
+                    let res = await videoController.getYTCommentsFunc(v);
+                    if (!res)
+                        syncerObj.openYTVideo.commentsError = "Comments Unavailable";
+                    else
+                        syncerObj.openYTVideo.commentsError = null;
+
+                    syncerObj.openYTVideo.comments = res
+
                     let vid = (await models.Video.findOne({ where: { ytId: v } }));
                     if (!vid) {
                         let vidInfo = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${v}&key=AIzaSyBOKyTuKxZ7JsseOhXzLvQ5ChVkYmtgG8Y`)
@@ -104,17 +113,18 @@ makeServer = (server) => {
                         if (progress == 100) {
                             syncerObj.openYTVideo.subtitlesStatus = 1;
                             syncerObj.openYTVideo.subtitlesGenerationProgress = 100;
-                            // syncerObj.openYTVideo.subtitleWords = (await models.Video.findOne({ where: { ytId: v } })).get({ plain: true }).subtitleWords;
                         }
                     })
-                    videoAPIServices.generateSubtitles(v, 'en', 'zh')
 
+                }
+                if (p == '/openYTVideo/generateSubtitles') {
+                    videoAPIServices.generateSubtitles(v, 'en', 'zh')
                 }
             } catch (e) {
                 console.log(e)
             }
         }); //onchange
-
+        socket.emit('updateObj', { path: '/', value: syncerObj });
         socket.on('updateObj', ({ path, value }) => {
             try {
                 console.log(`${'foreign change: '}: ${path} changed `)

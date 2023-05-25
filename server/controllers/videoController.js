@@ -1,6 +1,7 @@
 const models = require("../models");
 const jwtUtil = require("../utils/jwt");
 const bcrypt = require("bcrypt");
+const axios = require("axios");
 
 const fs = require("fs");
 
@@ -48,4 +49,19 @@ module.exports.getSuggestedVideos = async (req, res) => {
 
 module.exports.getYTSubtitles = async (req, res) => {
     return res.send((await models.Video.findOne({ where: { ytId: req.params.id } }))?.get({ plain: true }).subtitleWords || []);
+}
+
+module.exports.getYTComments = async (req, res) => {
+    return res.json(await this.getYTCommentsFunc(req.params.id) || []);
+}
+
+module.exports.getYTCommentsFunc = async (videoId) => {
+    let fromDb = (await models.Video.findOne({ where: { ytId: videoId } }))?.get({ plain: true }).comments;
+    fromDb = global.glb.isIterable(fromDb) ? fromDb : null;
+    if (fromDb) return fromDb;
+    let [err, result] = await global.glb.safeAsync(axios.get(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=100&key=${process.env.YOUTUBE_API_KEY}`));
+    if (err || !result) return null;
+    await models.Video.update({ comments: result.data }, { where: { ytId: videoId } });
+    return result.data;
+
 }

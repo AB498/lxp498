@@ -100,3 +100,31 @@ module.exports.listUsers = async (req, res) => {
     const users = await models.User.findAll();
     return res.send(users);
 }
+
+module.exports.updateSelf = async (req, res) => {
+    let infoToUpdate = {
+        email,
+        password,
+        username,
+        firstName,
+        lastName,
+    } = req.body;
+
+    let foundUser = (await models.User.findAll({
+        where: {
+            [Op.or]: [
+                { email: email },
+                { username: username },
+            ]
+        },
+        raw: true
+    })) || null;
+    console.log(foundUser.map(e => e.id), req.user.id)
+    if (foundUser && foundUser.some(user => user.id != req.user.id)) {
+        console.log("foundUser")
+        return res.status(400).send("Email/username already exists");
+    }
+    infoToUpdate = Object.fromEntries(Object.entries(infoToUpdate).filter(([_, v]) => v != null && v != ''));
+    const user = await models.User.update(infoToUpdate, { where: { id: req.user.id } });
+    return res.send(user);
+}

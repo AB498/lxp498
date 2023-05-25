@@ -9,20 +9,14 @@ import pic from "@/assets/logo.svg";
 </script>
 
 <template>
-    <div class="flex h-32 w-full relative hover:-translate-y-1 shadow-md transition">
-        <img :src="comment.thumbnailUrl ? comment.thumbnailUrl : pic" alt="" class="h-full ">
-        <div
-            class="absolute h-full w-full hover:opacity-100 opacity-0  text-lg font-bold flex justify-center items-center ">
-            <div
-                class="w-full h-full bg-gradient-to-b from-indigo-500/75 to-emerald-700/25 break-words flex justify-center items-center space-x-2 text-yellow-400 ">
-                <i class="fa fa-play-circle"></i>
-                <div>Play</div>
+        <div class="flex w-full relative hover:-translate-y-1 shadow-md transition p-2 space-x-2 ">
+            <img :src="comment.authorImage || pic" alt="" class="h-8 rounded-full">
+            <div class="flex flex-col w-full bg-cyan-950 rounded-md p-2 hover:bg-cyan-900 transition">
+                <div class="name text-xs text-gray-400 "> {{ comment.authorName }} </div>
+                <div class="text-md break-words line-clamp-6" v-text="comment.content || 'No Description'"
+                    @click="$event.target.classList.toggle('line-clamp-6')">
             </div>
         </div>
-        <div class="p-4">
-            <div class="text-md line-clamp-3 " v-text="comment.title || 'No Title'"></div>
-            <div class="text-sm line-clamp-2 text-gray-400 break-words" v-text="comment.description || 'No Description'">
-            </div>
-        </div>
+
     </div>
 </template>

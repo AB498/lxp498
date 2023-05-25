@@ -20,19 +20,19 @@ class SubtitleServices {
     this.bucket_name = "lxbucket"; // Replace with your bucket name
   }
 
-  addCallback(videoId, callback) {
+  async addCallback(videoId, callback, email) {
+    let subGenProg = (await models.Video.findOne({ where: { ytId: videoId } })).get({ plain: true }).subtitlesAvailable || -1;
     if (!this.processes[videoId]) {
       this.processes[videoId] = {
-        status: -1,
+        status: subGenProg,
         progress: 0,
         videoId,
         callbacks: [],
       };
     }
+    console.log(subGenProg)
     this.processes[videoId].callbacks.push(callback);
-    this.processes[videoId].callbacks.forEach((callback) => {
-      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
-    })
+    callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
   }
 
 
@@ -202,7 +202,7 @@ class SubtitleServices {
 
     if (err || !resp) return null;
 
-    const [err2, longRunningResult] = await s.safeAsync(this.getTranscriptionResults(resp.data.name), this.getTranscriptionResults);
+    const [err2, longRunningResult] = await s.safeAsync(this.getTranscriptionResults(resp.data.name, this.processes[videoId]), this.getTranscriptionResults);
     if (err2 || !longRunningResult) return null;
 
     let words = [];
@@ -296,7 +296,7 @@ class SubtitleServices {
       console.log(ytDlpEventEmitter.ytDlpProcess.pid);
     });
   };
-  async getTranscriptionResults(operationName) {
+  async getTranscriptionResults(operationName, process) {
     let longRunningResultsUrl = `https://speech.googleapis.com/v1/operations/${operationName}`;
 
     const response = await axios.get(longRunningResultsUrl, {
@@ -311,7 +311,13 @@ class SubtitleServices {
     } else {
       global.glb.log("Polling for transcription..." + "Progress: " + (response.data?.metadata?.progressPercent || 0));
       await this.timeout(10000);
-      return await this.getTranscriptionResults(operationName);
+
+      process.progress = global.glb.lerp(process.progress, 99, 0.1);
+      console.log(process.progress)
+      process.callbacks.forEach((callback) => {
+        callback({ status: process.status, progress: process.progress });
+      });
+      return await this.getTranscriptionResults(operationName, process);
     }
   }
 

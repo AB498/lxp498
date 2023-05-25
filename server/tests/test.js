@@ -1,14 +1,26 @@
-const path = require('path');
-const fs = require('fs');
-const { join } = require('path');
-const findPackageJson = require('find-package-json');
-const nearestPackageJson = findPackageJson(join(__dirname));
-const rootDirectory = path.dirname(nearestPackageJson.next().filename);
-const { createProxy } = require(join(rootDirectory, 'tests', 'Proxify.js'));
-(async () => {
 
-    let userProxy = createProxy({ name: "John", age: 30 }, null, ['df'], [(path, value) => console.log(path, value)]);
 
-    userProxy.name = "Jack";
+function interpolateAndUpdate(a, b, fractionFactor) {
+    // Perform linear interpolation between a and b
+    var newValue = a + (b - a) * fractionFactor;
 
-})();
+    // Update the value of a with the interpolated result
+    a = newValue;
+
+    // Display the updated value of a
+    console.log(a);
+
+    return a; // Return the updated value of a if needed
+}
+
+// Example usage:
+var a = 50;
+var b = 100;
+var fractionFactor = 0.01;
+
+// Perform interpolative updating 10 times
+
+setInterval(() => {
+    a = interpolateAndUpdate(a, b, fractionFactor);
+    console.log(a);
+}, 100);
