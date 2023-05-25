@@ -58,13 +58,13 @@ async function saveEdits() {
 
               </div>
               <div class="p-2"></div>
-              <div class="px-4" v-if="!editMode">
-                <!-- name -->
-                <div class="name" @click="window.console.log(window.glb)">
-                  {{ (window.glb.user.firstName + ' ' + window.glb.user.lastName) }}
-                </div>
-                <!-- username -->
-                <div class="window.glb.username">Username: {{ window.glb.user.username || 'Unavailable' }}</div>
+                        <div class="px-4 space-y-1" v-if="!editMode">
+                    <!-- name -->
+                    <div class="name text-2xl" @click="window.console.log(window.glb)">
+                      {{ (window.glb.user.firstName + ' ' + window.glb.user.lastName) }}
+                    </div>
+                    <!-- username -->
+                    <div class="window.glb.username">@{{ window.glb.user.username || 'Unavailable' }}</div>
                 <!-- score -->
                 <div class="score font-mono">{{ 'Score: ' + (window.glb.user.score || 'Unavailable') }}</div>
                 <!-- email -->

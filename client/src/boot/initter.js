@@ -98,8 +98,8 @@ export default boot(({ app }) => {
 
     app.config.globalProperties.cons = (s, m) => { console.log(s, m); return s }
     app.config.globalProperties.window = window
-    glb.baseUrl = "http://lanxplore.xyz"
-    glb.socketUrl = "http://lanxplore.xyz"
+    glb.baseUrl = "https://lanxplore.xyz"
+    glb.socketUrl = "https://lanxplore.xyz"
     // glb.baseUrl = 'http://localhost:8080'
     window.glb = glb
 

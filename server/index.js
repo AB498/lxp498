@@ -25,13 +25,22 @@ const translationController = require('./controllers/translationController');
 const jwtUtils = require('./utils/jwt');
 const { manageSocketIO } = require('./socketIO');
 //server setup
+const https = require('https');
+
 const rootDirectory = path.dirname(require.main.filename);
-const port = 80;
+const port = 443;
 
 
 var accessToken = "";
 const app = express();
-const server = http.createServer(app);
+
+const options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/lanxplore.xyz/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/lanxplore.xyz/fullchain.pem'),
+};
+
+const server = https.createServer(options, app);
+
 const proxy = httpProxy.createProxyServer();
 
 
