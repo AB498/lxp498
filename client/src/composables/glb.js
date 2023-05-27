@@ -1,32 +1,31 @@
-import { ref, watch } from 'vue'
-import { reactive } from 'vue'
+import { ref, watch } from "vue";
+import { reactive } from "vue";
 import fs from "fs";
-import axios from 'axios';
+import axios from "axios";
 
 // const logDir = resolve("./logs");
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid";
 
 const isObject = (value) => {
-  return value !== null && typeof value === 'object'
-}
+  return value !== null && typeof value === "object";
+};
 
 const tryParseJSONObject = (jsonString) => {
   if (isObject(jsonString)) {
-    return jsonString
+    return jsonString;
   }
   try {
-    var o = JSON.parse(jsonString)
+    var o = JSON.parse(jsonString);
 
-    if (o && typeof o === 'object') {
-      return o
+    if (o && typeof o === "object") {
+      return o;
     }
   } catch (e) {
-    return null
+    return null;
   }
 
-  return null
-}
-
+  return null;
+};
 
 function circularJSONReplacer() {
   const seen = new WeakSet();
@@ -34,7 +33,7 @@ function circularJSONReplacer() {
     if (typeof value === "object" && value !== null) {
       if (seen.has(value)) {
         // console.log("circular: " + key, value);
-        return ("CIRCL");//"CIRCL"+
+        return "CIRCL"; //"CIRCL"+
       }
       seen.add(value);
     }
@@ -46,7 +45,7 @@ function createProxy(obj, handler, path = []) {
   const newHandler = { ...handler, path: path };
   const proxy = new Proxy(obj, newHandler);
   for (let key in obj) {
-    if (typeof obj[key] === 'object' && obj[key] !== null) {
+    if (typeof obj[key] === "object" && obj[key] !== null) {
       obj[key] = createProxy(obj[key], handler, [...path, key]);
     }
   }
@@ -55,7 +54,7 @@ function createProxy(obj, handler, path = []) {
 
 let handler = {
   set: function (target, key, value) {
-    const pathString = [...this.path, key].join('.');
+    const pathString = [...this.path, key].join(".");
     if (typeof value === "object") {
       value = createProxy(value, this, [...this.path, key]);
     }
@@ -64,8 +63,7 @@ let handler = {
     return true;
   },
   get: function (target, key) {
-    if (typeof key === "symbol")
-      console.log(key);
+    if (typeof key === "symbol") console.log(key);
     else {
       console.log(key);
       if (!target[key]) {
@@ -73,115 +71,146 @@ let handler = {
       }
     }
     return target[key];
-
   },
   path: [],
-  callbacks: [(pathString, value) => {
-    console.log(`${pathString} -> ${value}`);
-  }]
+  callbacks: [
+    (pathString, value) => {
+      console.log(`${pathString} -> ${value}`);
+    },
+  ],
 };
 
-
-let gg = tryParseJSONObject(localStorage.glb) ? tryParseJSONObject(localStorage.glb) : {}
-gg.wordTranslationStream = {}
-gg.notifications = []
-gg._nonPersistant = {}
-let globalProxy = (gg);
-const store = reactive(globalProxy)
+let gg = tryParseJSONObject(localStorage.glb)
+  ? tryParseJSONObject(localStorage.glb)
+  : {};
+gg.wordTranslationStream = {};
+gg.notifications = [];
+gg._nonPersistant = {};
+let globalProxy = gg;
+const store = reactive(globalProxy);
 watch(store, (val, oldValue) => {
   // console.log('store changed', store.user)
   // Object.assign(store, val)
-  let strFied = JSON.stringify(Object.fromEntries(Object.entries(store).filter(([k, v]) => !k.startsWith('_') && typeof v != 'function')), circularJSONReplacer())
+  let strFied = JSON.stringify(
+    Object.fromEntries(
+      Object.entries(store).filter(
+        ([k, v]) => !k.startsWith("_") && typeof v != "function"
+      )
+    ),
+    circularJSONReplacer()
+  );
 
   localStorage.glb = strFied;
-
-})
-console.log()
-if (!store.settings) store.settings = {}
-store.tryParseJSON = tryParseJSONObject
+});
+console.log();
+if (!store.settings) store.settings = {};
+store.tryParseJSON = tryParseJSONObject;
 store.isIterable = (value) => {
-  return value !== undefined && typeof value[Symbol.iterator] === 'function'
-}
+  return value !== undefined && typeof value[Symbol.iterator] === "function";
+};
 
 store.findByCol = (arr, col, val) => {
-  return arr.find((item) => item[col] === val)
-}
+  return arr.find((item) => item[col] === val);
+};
 
 store.indexByCol = (arr, col, val) => {
-  return arr.findIndex((item) => item[col] === val)
-}
+  return arr.findIndex((item) => item[col] === val);
+};
 store.timeout = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-store.poll = async function poll(v) {
-  let res = await v()
-  if (!res[1]) {
-    await store.timeout(200)
-    return await store.poll(v)
-  } else {
-    console.log(res)
-    return res[0]
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+store.tryStringify = (s) => {
+  try {
+    return JSON.stringify(s, replacerFunc());
+  } catch (error) {
+    return null;
   }
+};
+
+function replacerFunc() {
+  const visited = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (visited.has(value)) {
+        return;
+      }
+      visited.add(value);
+    }
+    return value;
+  };
 }
+
+store.poll = async function poll(v) {
+  let res = await v();
+  if (!res[1]) {
+    await store.timeout(200);
+    return await store.poll(v);
+  } else {
+    console.log(res);
+    return res[0];
+  }
+};
 store.getTime = () => {
   let date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();
   let seconds = date.getSeconds();
   let milliseconds = date.getMilliseconds();
-  let secmilli = ('0000' + (seconds + milliseconds / 1000).toFixed(2)).slice(-5)
+  let secmilli = ("0000" + (seconds + milliseconds / 1000).toFixed(2)).slice(
+    -5
+  );
 
-  let ampm = hours >= 12 ? 'pm' : 'am';
+  let ampm = hours >= 12 ? "pm" : "am";
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  let strTime = hours + ':' + minutes + ':' + secmilli + ' ' + ampm;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  let strTime = hours + ":" + minutes + ":" + secmilli + " " + ampm;
   return strTime;
-}
+};
 store.getFormattedTime = (date) => {
-  if (!date) return "Not a date"
-  let hours = date.getHours()
-  let minutes = date.getMinutes()
-  let seconds = date.getSeconds()
+  if (!date) return "Not a date";
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
 
-  let ampm = hours >= 12 ? 'pm' : 'am'
-  hours = hours % 12
-  hours = hours ? hours : 12 // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0' + minutes : minutes
-  let strTime = hours + ':' + minutes + ' ' + ampm
+  let ampm = hours >= 12 ? "pm" : "am";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  let strTime = hours + ":" + minutes + " " + ampm;
 
-  return strTime
-}
+  return strTime;
+};
 store.getFormattedDate = (date) => {
-  if (!date) return "Not a date"
-  let year = date.getFullYear()
-  let month = date.getMonth() + 1
-  let day = date.getDate()
+  if (!date) return "Not a date";
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
 
-  return month + '/' + day + '/' + year
-}
+  return month + "/" + day + "/" + year;
+};
 store.getFormattedDateTime = (date) => {
-  if (!date) return "Not a date"
-  return store.getFormattedDate(date) + " " + store.getFormattedTime(date)
-}
-store.uuidv4 = uuidv4
+  if (!date) return "Not a date";
+  return store.getFormattedDate(date) + " " + store.getFormattedTime(date);
+};
+store.uuidv4 = uuidv4;
 store.clickOutside = {
   beforeMount: (el, binding) => {
     el.clickOutsideEvent = (event) => {
       // here I check that click was outside the el and his children
       if (!(el == event.target || el.contains(event.target))) {
         // and if it did, call method provided in attribute value
-        binding.value()
+        binding.value();
       }
-    }
-    document.addEventListener('click', el.clickOutsideEvent)
+    };
+    document.addEventListener("click", el.clickOutsideEvent);
   },
   unmounted: (el) => {
-    document.removeEventListener('click', el.clickOutsideEvent)
-  }
-}
+    document.removeEventListener("click", el.clickOutsideEvent);
+  },
+};
 
-store.uuidv4 = uuidv4
+store.uuidv4 = uuidv4;
 store._time = 0;
 window.setInterval(() => {
   // store._time = store.getTime();
@@ -193,26 +222,22 @@ store.safeAsync = async (asyncFn, func) => {
   let errors = null;
   let res = null;
   let functionName = "unknown";
-  functionName = typeof func === "function" ? func.name : (func ? func : "unknown");
+  functionName =
+    typeof func === "function" ? func.name : func ? func : "unknown";
   try {
     res = await asyncFn;
     const timeNow = store.getTime();
     let fileContJSON = [];
     fileContJSON = store._nonPersistant.asyncResult || [];
 
-    if (!store.isIterable(fileContJSON))
-      fileContJSON = [];
+    if (!store.isIterable(fileContJSON)) fileContJSON = [];
 
     if (fileContJSON.length > limit)
       fileContJSON = fileContJSON.slice(0, limit);
-    const newCont = {}
+    const newCont = {};
     newCont[timeNow] = res;
 
-
-    store._nonPersistant.asyncResult = [
-      newCont,
-      ...fileContJSON
-    ]
+    store._nonPersistant.asyncResult = [newCont, ...fileContJSON];
   } catch (errorObject) {
     let limit = 100;
 
@@ -221,21 +246,17 @@ store.safeAsync = async (asyncFn, func) => {
     let fileContJSON = [];
     fileContJSON = store.asyncError || [];
 
-    if (!store.isIterable(fileContJSON))
-      fileContJSON = [];
+    if (!store.isIterable(fileContJSON)) fileContJSON = [];
 
     if (fileContJSON.length > limit)
       fileContJSON = fileContJSON.slice(0, limit);
-    const newCont = {}
+    const newCont = {};
 
     let error = errorObject;
     try {
-      if (errorObject.response)
-        errorObject = error.response.data;
-      else if (errorObject.request)
-        errorObject = error.request;
-      else if (errorObject.message)
-        errorObject = {};
+      if (errorObject.response) errorObject = error.response.data;
+      else if (errorObject.request) errorObject = error.request;
+      else if (errorObject.message) errorObject = {};
 
       errorObject.message = error.message;
       errorObject.stack = { stack: { trace: error.stack } };
@@ -246,36 +267,35 @@ store.safeAsync = async (asyncFn, func) => {
     } catch (e) {
       newCont[timeNow] = error;
     }
-    store._nonPersistant.asyncError =
-      [
-        newCont,
-        ...fileContJSON
-      ]
+    store._nonPersistant.asyncError = [newCont, ...fileContJSON];
 
     errors = error;
   }
   return [errors, res];
-}
-store.isObject = isObject
+};
+store.isObject = isObject;
 store.errorMessages = (errorObject, lxerrormessage = [], parent, pkey) => {
   if (!parent) {
-    if (typeof errorObject !== "object")
-      return [errorObject];
+    if (typeof errorObject !== "object") return [errorObject];
   }
   parent = pkey;
-  let errMessages = []
+  let errMessages = [];
   if (store.isObject(errorObject)) {
     if (errorObject["lxerrormessage"]) {
-      console.log(errorObject["lxerrormessage"])
+      console.log(errorObject["lxerrormessage"]);
       lxerrormessage.push(errorObject["lxerrormessage"]);
       return [];
     }
     for (let key in errorObject) {
       if (lxerrormessage.length > 0) break;
       if (isObject(errorObject[key])) {
-        let nestedErrors = store.errorMessages(errorObject[key], lxerrormessage, parent, key);
-        if (nestedErrors.length > 0)
-          errMessages.push(...nestedErrors);
+        let nestedErrors = store.errorMessages(
+          errorObject[key],
+          lxerrormessage,
+          parent,
+          key
+        );
+        if (nestedErrors.length > 0) errMessages.push(...nestedErrors);
       }
       if (key === "message") {
         errMessages.push(errorObject[key]);
@@ -293,31 +313,35 @@ store.errorMessages = (errorObject, lxerrormessage = [], parent, pkey) => {
     }
   }
 
-  if (lxerrormessage.length > 0)
-    return lxerrormessage;
+  if (lxerrormessage.length > 0) return lxerrormessage;
   return errMessages.reverse();
-
-}
+};
 store.safeAuthedReq = async (url, body) => {
-  let [err, res] = await store.safeAsync(axios.post(store.baseUrl + url, body, {
-    headers: {
-      'Authorization': 'Bearer ' + store.jwt
-    }
-  }))
+  let [err, res] = await store.safeAsync(
+    axios.post(store.baseUrl + url, body, {
+      headers: {
+        Authorization: "Bearer " + store.jwt,
+      },
+    })
+  );
   if (err) {
     store.addNotf(store.errorMessages(err));
     return false;
   }
   return res.data;
-
-}
+};
 store.reloadUser = async (jwt) => {
   let [err, res] = await store.safeAsync(
-    axios.post(store.baseUrl + "/api/getSelf", {}, {
-      headers: {
-        Authorization: "Bearer " + (jwt || store.jwt)
+    axios.post(
+      store.baseUrl + "/api/getSelf",
+      {},
+      {
+        headers: {
+          Authorization: "Bearer " + (jwt || store.jwt),
+        },
       }
-    }));
+    )
+  );
   if (err) {
     store.user = null;
     store.jwt = null;
@@ -330,7 +354,7 @@ store.reloadUser = async (jwt) => {
   store.loggedIn = true;
   // store.addNotf("Logged in as " + store.user.username);
   return res.data;
-}
+};
 function randomColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16) + "cc";
 }
@@ -342,7 +366,7 @@ class Timeout {
     this.running = true;
   }
   run() {
-    this.running = true; 
+    this.running = true;
     this.startedTime = new Date().getTime();
     if (this.time > 0) {
       this.timeout = setTimeout(this.callback, this.time); // Timeout must be set if this.time is greater than 0
@@ -356,8 +380,7 @@ class Timeout {
   }
 }
 
-store.notifications = []
-
+store.notifications = [];
 
 store.addNotf = (text, content, color) => {
   let thisId = uuidv4();
@@ -368,16 +391,19 @@ store.addNotf = (text, content, color) => {
     content: content || "",
     color: color || randCol,
     tmout: new Timeout(() => {
-      store.removeNotf(thisId)
-    }, 2000)
-  })
-}
+      store.removeNotf(thisId);
+    }, 2000),
+  });
+};
 store.removeNotf = (id) => {
   let index = window.glb.indexByCol(window.glb.notifications, "id", id);
   if (index != -1) {
     window.glb.notifications.splice(index, 1);
   }
-
+};
+store.removeByProp = (arr, func) => {
+    const index = arr.findIndex(func);
+    return index != -1 && arr.splice(index, 1) && true || false;
 }
 
-export default store
+export default store;

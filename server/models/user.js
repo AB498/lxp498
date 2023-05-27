@@ -85,6 +85,7 @@ module.exports = sequelize => {
         emailVerificationCodeExpiry: DataTypes.STRING,
         loginType: DataTypes.STRING,
         pfpUrl: DataTypes.STRING,
+        country: DataTypes.STRING,
 
     });
 

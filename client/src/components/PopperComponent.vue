@@ -43,7 +43,7 @@ watch([() => show.value, mounted], (val, old) => {
 
 
 
-
+        popup.value.style.zIndex = 9999;
 
 
     }
@@ -51,10 +51,12 @@ watch([() => show.value, mounted], (val, old) => {
 
 onMounted(() => {
     mounted.value = true;
+        window.document.body.appendChild(popup.value)
+
 })
 const mouseoverInhover = ref(false);
 const mouseoverPopup = ref(false);
-const together = ref([true, false])
+const together = ref([false, false])
 const matchArrays = (arr1, arr2) => arr1.every((val, index) => val === arr2[index]);
 
 watch(together.value, (val, old) => {
@@ -69,17 +71,17 @@ watch(together.value, (val, old) => {
 
 </script>
 <template>
-                    <div @mouseover="together[0] = true; cons(0)" @mouseout=" together[0] = false" ref="tohover"
-                        class="flex items-center justify-center relative overflow-visible">
+    <div @mouseover="together[0] = true; cons(0)" @mouseleave=" together[0] = false" ref="tohover"
+        class="flex items-center justify-center relative overflow-visible">
 
-                        <div @mouseover=" together[1] = true" @mouseout=" together[1] = false"
-                            :class="show ? 'opacity-100' : 'opacity-0 pointer-events-none translate-x-4'"
-                            class="absolute max-h-[80vh] max-w-[60vw]  w-auto h-auto transition text-sm font-mono text-white  bg-blue-500 shadow-md rounded  overflow-auto"
-                            ref="popup">
-                            <div class=" bg-red-500 m-2 overflow-visible relative">
-                                <slot name="popup"></slot>
-                            </div>
-                        </div>
-                        <slot name="tohover" class="bg-red-400"></slot>
+        <div @mouseover=" together[1] = true" @mouseleave=" together[1] = false"
+            :class="show ? 'opacity-100' : 'opacity-0 pointer-events-none translate-x-4'"
+            class="fixed max-h-[80vh] max-w-[60vw]  w-auto h-auto transition-all text-sm font-mono text-white  bg-blue-500 shadow-md rounded  overflow-auto"
+            ref="popup">
+            <div class=" bg-red-500 m-2 overflow-visible relative">
+                <slot name="popup"></slot>
+            </div>
+        </div>
+        <slot name="tohover" class="bg-red-400"></slot>
     </div>
 </template>

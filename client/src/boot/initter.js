@@ -5,6 +5,9 @@ import router from '@/router'
 import { boot } from 'quasar/wrappers'
 import '@/assets/main.css'
 
+import Vue3Lottie from "vue3-lottie";
+import "vue3-lottie/dist/style.css";
+
 export default boot(({ app }) => {
 
     window.glb = {}
@@ -42,8 +45,8 @@ export default boot(({ app }) => {
             overlay.className = 'loading-overlay';
             overlay.style.display = binding.value.loading ? 'block' : 'none';
             el.appendChild(overlay);
-            
-            
+
+
             const overlay2 = document.createElement('div');
             overlay2.className = 'loading-overlay2';
             overlay2.style.display = binding.value.loading ? 'block' : 'none';
@@ -95,14 +98,24 @@ export default boot(({ app }) => {
     });
 
     app.use(router, app)
+    app.config.errorHandler = (err, vm, info) => {
+      console.error("Vue template evaluation error:", err);
+      console.error("Vue instance:", vm);
+      console.error("Additional information:", info);
+    };
 
+
+app.use(Vue3Lottie);
     app.config.globalProperties.cons = (s, m) => { console.log(s, m); return s }
     app.config.globalProperties.window = window
-    glb.baseUrl = "https://lanxplore.xyz"
-    glb.socketUrl = "https://lanxplore.xyz"
+    glb.baseUrl = "http://lanxplore.xyz"
+    glb.socketUrl = "http://lanxplore.xyz"
     // glb.baseUrl = 'http://localhost:8080'
     window.glb = glb
-
+    window.onerror = function (message, source, lineno, colno, error) {
+        console.log(message + '\n', source + ':' + lineno + ':' + colno /*error*/);
+        return true;
+    }
     app.use(JsonViewer)
 
 })

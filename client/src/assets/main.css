@@ -15,6 +15,9 @@
   .shadow-inset {
     @apply shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)];
   }
+  .shadow-inset-white {
+    @apply shadow-[inset_0_1px_4px_rgba(255,255,255,0.6)];
+  }
   .dark {
     @apply bg-gray-900 text-gray-100;
   }
@@ -38,7 +41,7 @@
     @apply bg-blue-900;
   }
   .hov {
-    @apply hover:bg-slate-400;
+    @apply hover:bg-slate-500;
   }
   input {
     @apply bg-gray-700 text-gray-100 border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-300 p-2;
@@ -78,15 +81,14 @@
     @apply flex-nowrap;
   }
   .full {
-    @apply w-full h-full ;
+    @apply w-full h-full;
   }
   .without-ring {
     @apply focus:ring-0 focus:ring-offset-0;
   }
-  input[type] {
+  input {
     @apply focus:ring-0;
   }
-
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -110,12 +112,14 @@
 }
 
 /* Ripple magic */
-.hover-ripple-fast, .hover-ripple {
+.hover-ripple-fast,
+.hover-ripple {
   position: relative;
   overflow: hidden;
 }
 
-.hover-ripple-fast:after, .hover-ripple:after {
+.hover-ripple-fast:after,
+.hover-ripple:after {
   pointer-events: none;
   content: "";
   position: absolute;
@@ -181,7 +185,6 @@
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
   animation: flashing-animation 1s ease-in-out infinite;
-
 }
 .loading-overlay2 {
   position: absolute;
@@ -190,10 +193,8 @@
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(1px);
-
+  backdrop-filter: blur(1px);
 }
-
 
 @keyframes flashing-animation {
   0% {

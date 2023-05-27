@@ -41,6 +41,7 @@ watch([() => route.params.id, initialLoad], async () => {
     const data = res.data;
     console.log(data)
     quizzes.value = data
+    window.glb._nonPersistant.quizView.language = langs.value.find(l => l.iso6393 == lang.value)
     window.glb._nonPersistant.quizView.quizzes = data
 })
 
@@ -66,15 +67,26 @@ onMounted(() => {
 
 
 <template>
-    <div class="w-full  bg-red-900 center-cross flex flex-col ">
+    <div class="full flex flex-col bg-blue-300" v-if="window.glb._nonPersistant.quizView.language">
 
-        <div v-for="(quiz, index) in quizzes" :key="quiz.id" class="w-full font-poppins"
-            v-if="route.path == '/progress/' + route.params.id">
-            {{ ' dnafobaeifsol' }}
-            <ProgressQuiz :quiz-inc="quiz" @click="() => { router.push(lang + '/' + quiz.id) }" />
+        <div class="sticky z-10 top-0 p-3 bg-blue-950 text-xl text-white flex center-cross">
+            <div class="s center p-2 text-xl hover:bg-gray-600 hover-ripple rounded  mx-2 " @click="router.go(-1)">
+                <q-icon name="arrow_back" class=""></q-icon>
+            </div>
+            <div class=" " @click="">
+                {{ window.glb._nonPersistant.quizView.language.languagename }}
+            </div>
         </div>
-        <div v-if="window.glb._nonPersistant.quizView.quizzes">
-            <RouterView class="w-full overflow-auto" />
+        <div class="full bg-red-900 center-cross flex flex-wrap">
+
+            <div v-for="(quiz, index) in quizzes" :key="quiz.id" class="basis-full md:basis-1/2 "
+                v-if="route.path == '/progress/' + route.params.id">
+                <ProgressQuiz :quiz-inc="quiz" @click="() => { router.push(lang + '/' + quiz.id) }" class="" />
+            </div>
+
+            <div v-if="window.glb._nonPersistant.quizView.quizzes" class="full ">
+                <RouterView class="full overflow-auto" />
+            </div>
         </div>
     </div>
 </template>

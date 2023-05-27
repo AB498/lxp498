@@ -20,6 +20,7 @@ const Message = require('./message')(sequelize);
 const Conversation = require('./conversation')(sequelize);
 const UBVideo = require('./ubvideo')(sequelize);
 const WatchHistory = require('./watchhistory')(sequelize);
+const Vote = require('./vote')(sequelize);
 
 const UserConversation = sequelize.define('UserConversation', {});
 
@@ -34,6 +35,11 @@ Message.belongsTo(User);
 
 User.hasMany(UBVideo);
 UBVideo.belongsTo(User);
+
+User.hasMany(Vote);
+Vote.belongsTo(User);
+Vote.belongsTo(Video);
+Vote.belongsTo(UBVideo);
 
 User.hasMany(WatchHistory);
 WatchHistory.belongsTo(User);
@@ -58,5 +64,6 @@ module.exports = {
     Conversation,
     UBVideo,
     WatchHistory,
+    Vote,
     sequelize
 };

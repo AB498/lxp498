@@ -51,7 +51,7 @@ function exit() {
 }
 
 function init() {
-    pythonProcess = spawn('python', ['-u', join(rootDirectory, 'utils', 'SpacyTokenizer.py')]);
+    pythonProcess = spawn('python3', ['-u', join(rootDirectory, 'utils', 'SpacyTokenizer.py')]);
     pythonProcess.stdout.on('data', (data) => {
         if (data.toString().trim() == 'ready') {
             ready = true;

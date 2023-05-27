@@ -7,7 +7,7 @@ import ProgressQuiz from '@/components/ProgressQuiz.vue'
 import QuizWord from '@/components/QuizWord.vue'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
-
+import Vivus from 'vivus';
 
 const route = useRoute()
 const router = useRouter()
@@ -32,17 +32,41 @@ watch([i, firstLoad], () => {
     // console.log(quiz.value.text.split(' ')[quiz.value['difficulty' + incPrg.difficulty]], quiz.value.text)
 
 })
+i.value = 0;
 firstLoad.value = false;
 
-i.value = 0;
 
 function selectAnswer(index) {
     quiz.value.selected = index;
     console.log(quiz.value.selected)
 }
+const resultShowing = ref(false);
+const correctAnswer = ref(false);
+function showResults() {
+    if (correctAnswer.value) {
+        resultShowing.value = true
+        continueCallback.value = () => {
+            resultShowing.value = false
+            i.value += 1;
+        }
+    } else {
+        //hightlight correct 
+
+        
+    }
+
+}
+
+const continueCallback = ref(() => { })
+import DoneJSON from '@/assets/done.json'
 </script>
 <template>
-    <div class="w-full bg-slate-900 center-cross flex flex-col " v-if="quiz">
+    <div class="full relative  bg-slate-900 center-cross flex flex-col  border-2" v-if="quiz">
+        <div class="absolute flex-col backdrop-blur-xl z-10 full bg-red-300/50 center space-y-4" v-if="resultShowing">
+            <Vue3Lottie :animationData="DoneJSON" class="w-16 h-16" :loop="false" />
+            <div class="text-3xl">Correct!</div>
+            <div class="btn text-3xl" @click="continueCallback">Continue</div>
+        </div>
         <div class="w-full bg-slate-500 center h-10">
             {{ 'Completed ' + i + '/' + incPrg.quizzes.length }}
         </div>
@@ -61,11 +85,12 @@ function selectAnswer(index) {
         <div>
             {{ 'Selected ' + quiz.selected }}
         </div>
-        <div class="flex space-x-2">
+        <div class="grow"></div>
+        <div class="flex space-x-2 p-2 sticky bottom-0">
             <div class="btn effects" @click="i--">
                 Previous
             </div>
-            <div class="btn effects" @click="i++">
+            <div class="btn effects" @click="showResults()">
                 Next
             </div>
         </div>

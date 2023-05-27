@@ -73,6 +73,7 @@ module.exports = configure(function (/* ctx */) {
         Object.assign(viteConf.resolve.alias, {
           '@': path.join(__dirname, './src'),
         })
+
       },
       // viteVuePluginOptions: {},
 
@@ -86,7 +87,20 @@ module.exports = configure(function (/* ctx */) {
     devServer: {
       // https: true
       port: 5173,
-      open: true // opens browser window automatically
+      open: true, // opens browser window automatically
+      server: {
+        type: 'https', // NECESSARY (alternative is type 'http')
+
+        options: {
+          // Use ABSOLUTE paths or path.join(__dirname, 'root/relative/path')
+          key: '/etc/letsencrypt/live/lanxplore.xyz/privkey.pem',
+          cert: '/etc/letsencrypt/live/lanxplore.xyz/fullchain.pem',
+          // pfx: "/path/to/server.pfx",
+          // ca: "/path/to/ca.pem",
+          // passphrase: 'webpack-dev-server' // do you need it?
+        }
+      }
+
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework

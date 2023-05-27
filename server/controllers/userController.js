@@ -1,130 +1,164 @@
 const models = require("../models");
 const jwtUtil = require("../utils/jwt");
 const bcrypt = require("bcrypt");
-const { generateFromEmail, generateUsername } = require("unique-username-generator");
+const {
+  generateFromEmail,
+  generateUsername,
+} = require("unique-username-generator");
 const { Op } = require("sequelize");
 
 module.exports.registerUser = async (req, res) => {
-    let { email, password, username, firstName, lastName } = req.body;
-    const existingUser = await models.User.findOne({
-        where:
-        {
-            [Op.or]: [
-                { email: email },
-                { username: username || '' }
-            ]
-        }
-    });
+  let { email, password, username, firstName, lastName } = req.body;
+  const existingUser = await models.User.findOne({
+    where: {
+      [Op.or]: [{ email: email }, { username: username || "" }],
+    },
+  });
 
-    if (existingUser) return res.status(400).send("User already exists");
+  if (existingUser) return res.status(400).send("User already exists");
 
-    let usernameRollIteration = 1;
-    while (!username || await models.User.findOne({ where: { username: username } })) {
-        username = generateUsername("-");
-        usernameRollIteration++;
-        if (usernameRollIteration % 10) console.log("Warning: username roll iteration exceeded " + usernameRollIteration)
-    }
-    if (!firstName && !lastName) {
-        firstName = generateFromEmail(email);
-    }
-    const user = await models.User.create({
-        email, password: password ? bcrypt.hashSync(password, 10) : null,
-        username, firstName, lastName
-    });
-    let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
-    user.jwts = [newJwt, ...(user.jwts ??= [])];
+  let usernameRollIteration = 1;
+  while (
+    !username ||
+    (await models.User.findOne({ where: { username: username } }))
+  ) {
+    username = generateUsername("-");
+    usernameRollIteration++;
+    if (usernameRollIteration % 10)
+      console.log(
+        "Warning: username roll iteration exceeded " + usernameRollIteration
+      );
+  }
+  if (!firstName && !lastName) {
+    firstName = generateFromEmail(email);
+  }
+  const user = await models.User.create({
+    email,
+    password: password ? bcrypt.hashSync(password, 10) : null,
+    username,
+    firstName,
+    lastName,
+  });
+  let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
+  user.jwts = [newJwt, ...(user.jwts ??= [])];
 
-    await user.save();
-    return res.json({ user, jwt: newJwt, username, firstName, lastName });
-}
+  await user.save();
+  return res.json({ user, jwt: newJwt, username, firstName, lastName });
+};
 module.exports.getSelf = async (req, res) => {
-    const user = await models.User.findOne({
-        where: { email: req.user.email },
-        include: [
-            { model: models.Progress, attributes: ['id', 'language'] },
-            { model: models.Conversation },
-        ],
-    });
-    if (!user) return res.status(401).send("Unauthorized");
-    return res.send({ user, jwt: req.jwt });
-}
+  const user = await models.User.findOne({
+    where: { email: req.user.email },
+    include: [
+      { model: models.Progress, attributes: ["id", "language"] },
+      { model: models.Conversation },
+    ],
+  });
+  if (!user) return res.status(401).send("Unauthorized");
+  return res.send({ user, jwt: req.jwt });
+};
 
 module.exports.loginUser = async (req, res) => {
-    const { email, password } = req.body;
-    const user = await models.User.findOne({
-        where: { email },
-        include: [
-            { model: models.Progress, attributes: ['id', 'language'] },
-            { model: models.Conversation },
-        ],
-    });
-    if (!user) return res.status(401).send("Unauthorized");
-    if (user.loginType === 'google') return res.status(401).json({ lxerrormessage: "User has no password. Please login in some other way." });
-    if (!bcrypt.compareSync(password, user.password)) return res.status(401).send("Unauthorized");
-    let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
-    user.jwts = [newJwt, ...(user.jwts ??= [])];
-    await user.save();
-    return res.json({ user, jwt: newJwt });
-}
+  const { email, password } = req.body;
+  const user = await models.User.findOne({
+    where: { email },
+    include: [
+      { model: models.Progress, attributes: ["id", "language"] },
+      { model: models.Conversation },
+    ],
+  });
+  if (!user) return res.status(401).send("Unauthorized");
+  if (user.loginType === "google")
+    return res
+      .status(401)
+      .json({
+        lxerrormessage: "User has no password. Please login in some other way.",
+      });
+  if (!bcrypt.compareSync(password, user.password))
+    return res.status(401).send("Unauthorized");
+  let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
+  user.jwts = [newJwt, ...(user.jwts ??= [])];
+  await user.save();
+  return res.json({ user, jwt: newJwt });
+};
 
 module.exports.getUserByEmail = async (req, res) => {
-    const user = await models.User.findOne({ where: { email: req.params.email } });
-    return res.send(user);
-}
+  const user = await models.User.findOne({
+    where: { email: req.params.email },
+  });
+  return res.send(user);
+};
 
 module.exports.getUser = async (req, res) => {
-    const user = await models.User.findOne({
-        where: { id: req.params.id },
-        include: [{ model: models.Progress, attributes: ['id', 'language'] }],
-    });
-    if (!user) return res.status(401).send("Unauthorized");
-    return res.send(user);
-}
+  const user = await models.User.findOne({
+    where: { id: req.params.id },
+    include: [{ model: models.Progress, attributes: ["id", "language"] }],
+  });
+  if (!user) return res.status(401).send("Unauthorized");
+  return res.send(user);
+};
 module.exports.deleteAllUsers = async (req, res) => {
-    const users = await models.User.destroy({ where: {} });
-    return res.send("Success");
-}
+  const users = await models.User.destroy({ where: {} });
+  return res.send("Success");
+};
 
 module.exports.deleteUser = async (req, res) => {
-    const user = await models.User.destroy({ where: { id: req.params.id } });
-    console.log(req.params.id);
-    return res.status(200).json(user);
-}
+  const user = await models.User.destroy({ where: { id: req.params.id } });
+  console.log(req.params.id);
+  return res.status(200).json(user);
+};
 
 module.exports.updateUser = async (req, res) => {
-    const user = await models.User.update(req.body, { where: { id: req.params.id } });
-    return res.send(user);
-}
+  const user = await models.User.update(req.body, {
+    where: { id: req.params.id },
+  });
+  return res.send(user);
+};
 
 module.exports.listUsers = async (req, res) => {
-    const users = await models.User.findAll();
-    return res.send(users);
-}
+  const users = await models.User.findAll();
+  return res.send(users);
+};
 
 module.exports.updateSelf = async (req, res) => {
-    let infoToUpdate = {
-        email,
-        password,
-        username,
-        firstName,
-        lastName,
-    } = req.body;
+  let infoToUpdate = ({
+    firstName,
+    lastName,
+    username,
+    password,
+    email,
+    learningLanguages,
+    nativeLanguages,
+    country,
+  } = req.body);
 
-    let foundUser = (await models.User.findAll({
-        where: {
-            [Op.or]: [
-                { email: email },
-                { username: username },
-            ]
-        },
-        raw: true
+  let foundUser =
+    (await models.User.findAll({
+      where: {
+        [Op.or]: [{ email: email || "" }, { username: username || "" }],
+      },
+      raw: true,
     })) || null;
-    console.log(foundUser.map(e => e.id), req.user.id)
-    if (foundUser && foundUser.some(user => user.id != req.user.id)) {
-        console.log("foundUser")
-        return res.status(400).send("Email/username already exists");
-    }
-    infoToUpdate = Object.fromEntries(Object.entries(infoToUpdate).filter(([_, v]) => v != null && v != ''));
-    const user = await models.User.update(infoToUpdate, { where: { id: req.user.id } });
-    return res.send(user);
-}
+    console.log(
+      foundUser.map((e) => e.id),
+        req.user.id,
+      password
+    );
+  if (password && password !='')  {
+    password = bcrypt.hashSync(password, 10);
+    infoToUpdate.password = password;
+    infoToUpdate.loginType = "password";
+  }
+  if (foundUser && foundUser.some((user) => user.id != req.user.id)) {
+    console.log("foundUser");
+    return res.status(400).send("Email/username already exists");
+  }
+  console.log(infoToUpdate)
+  infoToUpdate = Object.fromEntries(
+    Object.entries(infoToUpdate).filter(([_, v]) => v != null && v != "")
+  );
+  const user = await models.User.update(infoToUpdate, {
+    where: { id: req.user.id },
+  });
+  console.log(user);
+  return res.send(user);
+};

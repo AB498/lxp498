@@ -21,7 +21,7 @@ const word = ref(props.wordInc);
 
 <template>
             <div :class="word.active ? 'bg-blue-600/50' : 'bg-red-700'"
-            class="h-full px-1 hover:bg-gray-400/50 rounded  flex flex-col ">
+            class="h-full px-1 hover:bg-gray-400/50 rounded  flex flex-col min-w-[100px]">
             <div class="mainWord shrink-0 center h-1/2">
                 {{ word.word }}
             </div>

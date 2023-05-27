@@ -1,0 +1,11 @@
+
+ytvew
+    target lang
+
+progrssview
+    full
+quzvew
+    next button
+        show answer 
+            nexr
+    tabs for lang

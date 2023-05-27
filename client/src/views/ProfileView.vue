@@ -1,15 +1,36 @@
 <script setup>
 import glb from "@/composables/glb";
 import { useRouter, useRoute } from 'vue-router'
-import { ref, watch, onUnmounted, onMounted, nextTick } from 'vue'
+import { ref, watch, onUnmounted, reactive, onMounted, nextTick } from 'vue'
 import axios from 'axios'
+import langsImp from "../assets/json/langs_out.json";
+import SelectLang from "src/components/SelectLang.vue";
 
 const router = useRouter()
 const route = useRoute()
 
 onMounted(async () => {
   window.glb.reloadUser();
+  uploadedVideos.value = await window.glb.safeAuthedReq('/api/uploadbase/getVideoSelf');
 })
+
+let langs = ref(Object.entries(langsImp).map(([key, value]) => {
+  return {
+    languagecode: value['languagecode'],
+    languagename: value['languagename'],
+    countrynames: value['countrynames'],
+    countrycodes: value['countrycodes'],
+    isocode: value['isocode'],
+  };
+}).sort((a, b) => {
+  if (a.languagename < b.languagename) return -1;
+  if (a.languagename > b.languagename) return 1;
+  return 0;
+}))
+
+const langsToggle = reactive(Object.fromEntries(Object.entries(langs.value).map((obj) => {
+  return [obj.languagename, true]
+})))
 
 const editMode = ref(false)
 
@@ -21,12 +42,16 @@ const email = ref("");
 
 async function saveEdits() {
   editMode.value = false;
+  console.log(window.glb.tryStringify())
   const [err, res] = await window.glb.safeAsync(axios.post(glb.baseUrl + "/api/updateSelf", {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    username: username.value,
+    firstName: window.glb.user.firstName,
+    lastName: window.glb.user.lastName,
+    username: window.glb.user.username,
+    email: window.glb.user.email,
+    learningLanguages: ([...(window.glb.user.learningLanguages || [])]),
     password: password.value,
-    email: email.value,
+    nativeLanguages: ([...(window.glb.user.nativeLanguages || [])]),
+    country: window.glb.user.country
   },
     {
       headers: {
@@ -35,118 +60,251 @@ async function saveEdits() {
     }
   ));
   if (err || !res) {
-    window.glb.addNotf(window.glb.errorMessages(err));
+    window.glb.addNotf((err));
     return;
   }
   await window.glb.reloadUser();
 
 }
+const tab = ref('mails')
+
+
+const uploadedVideos = ref([])
+
+
 </script>
 
 <template>
-    <div class="flex flex-col w-full h-full">
-      <div class="flex w-full h-full">
-        <div class="basis-2/6 h-full flex flex-col overflow-auto">
-          <img src="@/assets/logo.svg" class="w-96 h-32 bg-blue-400/25 self-center" />
+  <div class="flex flex-col w-full h-full">
+    <div class="flex w-full h-full">
+      <div class=" relative basis-3/12 h-full flex flex-col overflow-auto">
+        <div class="flex flex-col w-full sticky top-0 backdrop-blur-md z-10">
+          <img src="@/assets/logo.svg" class="w-96 h-32 bg-blue-400/75 self-center" />
           <div class="bg-cyan-800 w-full flex justify-center items-center px-4 ">
             <div class=""> User Info</div>
             <div class="grow"> </div>
-                <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple" @click="editMode = true" v-if="!editMode">
-                  Edit</div>
-                <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple" @click="saveEdits" v-if="editMode">
-                  Save</div>
-
-              </div>
-              <div class="p-2"></div>
-                        <div class="px-4 space-y-1" v-if="!editMode">
-                    <!-- name -->
-                    <div class="name text-2xl" @click="window.console.log(window.glb)">
-                      {{ (window.glb.user.firstName + ' ' + window.glb.user.lastName) }}
-                    </div>
-                    <!-- username -->
-                    <div class="window.glb.username">@{{ window.glb.user.username || 'Unavailable' }}</div>
-                <!-- score -->
-                <div class="score font-mono">{{ 'Score: ' + (window.glb.user.score || 'Unavailable') }}</div>
-                <!-- email -->
-                <div class="email">Email: {{ window.glb.user.email || 'Unavailable' }}</div>
-                <!-- id -->
-                <div class="uid">Identifier: {{ window.glb.user.ownId || 'Unavailable' }}</div>
-                <v-divider></v-divider>
-                <!-- langsknown -->
-                <div class="known-languages">
-                  <div class="language">English</div>
-                  <div class="language">French</div>
-                  <div class="language">Spanish</div>
-                </div>
-
-
-              </div>
-              <div v-else class="flex flex-col center-cross">
-                <div class="w-64 flex space-x-1">
-                  <q-input color="blue" bg-color="" dark filled v-model="firstName" label="Firstname"
-                    class=" w-1/2 without-ring border-b-white" hint="Optional">
-                  </q-input>
-                  <q-input color="blue" bg-color="" dark filled v-model="lastName" label="Lastname"
-                    class=" w-1/2 without-ring border-b-white" hint="Optional">
-                  </q-input>
-                </div>
-                <!-- username -->
-                <q-input color="blue" bg-color="" dark filled v-model="username" label="Username"
-                  class="w-64 without-ring border-b-white" hint="Optional">
-                </q-input>
-                <!-- email -->
-                <q-input color="blue" bg-color="" dark filled v-model="email" label="Email"
-                  class="w-64 without-ring border-b-white" hint="* Required">
-                </q-input>
-                <!-- pass -->
-                <q-input color="blue" bg-color="" dark filled v-model="password" label="Password"
-                  class="w-64 without-ring border-b-white" hint="Optional">
-                </q-input>
-                <v-text-field label="Last Name"></v-text-field>
-                <!-- score -->
-          <v-text-field label="Email"></v-text-field>
-          <!-- id -->
-          <v-divider></v-divider>
-          <!-- langsknown -->
-          <div class="known-languages">
-            <v-text-field label="Search Languages"></v-text-field>
-            <div class="flex w-full flex-wrap">
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
-              <div class="px-1 m-1 rounded-md bg-blue-800">ddsffa</div>
+            <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = true"
+              v-if="!editMode">
+              Edit</div>
+            <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = false" v-if="editMode">
+              Cancel
+            </div>
+            <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = false; saveEdits()" v-if="editMode">
+              Save
             </div>
 
           </div>
         </div>
+        <div class="p-2"></div>
+        <div class="px-4 ">
+          <!-- name -->
+          <div class="flex flex-col text-md text-blue-200">
+            <div class="name text-2xl" @click="window.console.log(window.glb)" v-if="!editMode">
+              {{ (window.glb.user.firstName + ' ' + window.glb.user.lastName) }}
+            </div>
+            <div v-else>
+              <q-field dark filled outlined>
+                <template v-slot:prepend>
+                  <div class="text-sm">
+                    Fisrt Name
+                  </div>
+                </template> <template v-slot:control>
+                  <input class="w-full h-full bg-transparent" v-model="window.glb.user.firstName">
+                </template>
+              </q-field>
+              <q-field dark filled outlined>
+                <template v-slot:prepend>
+                  <div class="text-sm">
+                    Last Name
+                  </div>
+                </template> <template v-slot:control>
+                  <input class="w-full h-full bg-transparent" v-model="window.glb.user.lastName">
+                </template>
+              </q-field>
+
+            </div>
+            <!-- username -->
+            <div class="window.glb.username" v-if="!editMode">@{{ window.glb.user.username || 'Unavailable' }}</div>
+            <div v-else>
+              <q-field dark filled outlined>
+                <template v-slot:prepend>
+                  <div class="text-sm">
+                    Username
+                  </div>
+                </template> <template v-slot:control>
+                  <input class="w-full h-full bg-transparent" v-model="window.glb.user.username">
+                </template>
+              </q-field>
+              <q-field dark filled outlined>
+                <template v-slot:prepend>
+                  <div class="text-sm">
+                    Password
+                  </div>
+                </template> <template v-slot:control>
+                  <input class="w-full h-full bg-transparent" v-model="password">
+                </template>
+              </q-field>
+
+            </div>
+          </div>
+
+          <!-- score -->
+          <div class="flex flex-col text-md text-gray-400">
+
+            <div class="score ">{{ 'Rank: ' + (window.glb.user.rank || 'Novice') }}</div>
+            <div class="uid">Identifier: {{ window.glb.user.id || 'Unavailable' }}</div>
+            <br>
+            <q-field dark stack-label label="Bio">
+              <template v-slot:control>
+                <input class="w-full h-full bg-transparent" :readonly="!editMode"
+                  :value="window.glb.user.bio || 'No Bio ...'">
+              </template>
+            </q-field>
+          </div>
+
+          <br>
+
+
+
+
+          <!-- email -->
+          <q-field dark filled outlined>
+            <template v-slot:prepend>
+              <div class="text-sm">
+                Email
+              </div>
+            </template> <template v-slot:control>
+              <input class="w-full h-full bg-transparent" :readonly="!editMode" v-model="window.glb.user.email">
+            </template>
+          </q-field>
+          <q-field dark filled outlined>
+            <template v-slot:prepend>
+              <div class="text-sm">
+                Country
+              </div>
+            </template> <template v-slot:control>
+              <input class="w-full h-full bg-transparent" :readonly="!editMode" v-model="window.glb.user.country">
+            </template>
+          </q-field>
+          <q-field dark filled outlined>
+            <template v-slot:prepend>
+              <div class="text-sm">
+                Joined
+              </div>
+            </template> <template v-slot:control>
+              <input class="w-full h-full bg-transparent" readonly :disabled="editMode"
+                :value="window.glb.getFormattedDate(new Date(window.glb.user.createdAt))">
+            </template>
+          </q-field>
+          <!-- id -->
+          <!-- langsknown -->
+          <div class="known-languages py-2  flex flex-col">
+            <div class="rounded-t-md bg-gray-700 p-2 flex center">
+              <div class="">Languages you know</div>
+              <div class="grow"></div>
+              <div class="btn" v-if="editMode" @click="window.glb.openSelectLang({ multiselect: true, startingPoint: window.glb.user.nativeLanguages }, (e) => {
+                console.log(e)
+                window.glb.user.nativeLanguages = e
+              })">Edit</div>
+            </div>
+            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-if="window.glb.user.nativeLanguages?.length > 0">
+              <div v-for="lang in window.glb.user.nativeLanguages">
+                <q-chip :removable="editMode"
+                  @remove="window.glb.removeByProp(window.glb.user.nativeLanguages, e => e.languagename == lang.languagename)">
+                  <q-avatar>
+                    <img class="rounded-full p-1" :src="'https://flagcdn.com/h60/' + lang.countrycodes[0] + '.png'" />
+                  </q-avatar>
+                  {{ lang.languagename }}</q-chip>
+              </div>
+            </div>
+            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-else>
+              Nothing Selected
+            </div>
+          </div>
+          <div class="learning-languages py-2  flex flex-col">
+            <div class="rounded-t-md bg-gray-700 p-2 flex center">
+              <div class="">Languages you're learning</div>
+              <div class="grow"></div>
+              <div class="btn" v-if="editMode" @click="window.glb.openSelectLang({ multiselect: true, startingPoint: window.glb.user.learningLanguages }, (e) => {
+                console.log(e)
+                window.glb.user.learningLanguages = e
+              })">Edit</div>
+            </div>
+            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-if="window.glb.user.learningLanguages?.length > 0">
+              <div v-for="lang in window.glb.user.learningLanguages">
+                <q-chip :removable="editMode" @remove="window.glb.removeByProp(window.glb.user.learningLanguages, e => e.languagename == lang.languagename)">
+                  <q-avatar>
+                    <img class="rounded-full p-1" :src="'https://flagcdn.com/h60/' + lang.countrycodes[0] + '.png'" />
+                  </q-avatar>
+                  {{ lang.languagename }}</q-chip>
+              </div>
+            </div>
+            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-else>
+              Nothing Selected
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="basis-4/6 h-full flex flex-col items-center bg-cyan-950 ">
+      <div class="basis-9/12 h-full flex flex-col items-center bg-cyan-950 ">
+        <q-tabs v-model="tab" dense align="left" class="bg-primary text-white shadow-2 w-full" :breakpoint="0">
+          <q-tab name="mails" icon="mail" />
+          <q-tab name="alarms" icon="alarm" />
+        </q-tabs>
+        <q-tab-panels v-model="tab" animated swipeable vertical transition-prev="jump-up" transition-next="jump-up"
+          class="dark">
+          <q-tab-panel name="mails">
+            <div class=" q-mb-md">Mails</div>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
+              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
+              libero.</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
+              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
+              libero.</p>
+          </q-tab-panel>
 
-        <div class="card w-96 mt-6">
-          <div class="card-header">
-            My Uploads
-          </div>
-          <div class="card-body rounded-b min-h-[5rem]">
-            Nothing found
-          </div>
-        </div>
+          <q-tab-panel name="alarms">
+            <div class=" q-mb-md">Alarms</div>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
+              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
+              libero.</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
+              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
+              libero.</p>
+          </q-tab-panel>
+
+          <q-tab-panel name="movies">
+            <div class=" q-mb-md">Movies</div>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
+              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
+              libero.</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
+              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
+              libero.</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
+              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
+              libero.</p>
+          </q-tab-panel>
+        </q-tab-panels>
+
+
         <div class="card w-96 m-6">
           <div class="card-header">
-            Contributions
+            Uploads
           </div>
           <div class="card-body rounded-b min-h-[5rem]">
-            Nothing found
+            <table class=" w-full table-fixed ">
+
+              <tr v-for="upd in uploadedVideos" class="">
+                <td class=" text-center">{{ window.glb.getFormattedDate(new Date(upd.createdAt)) }}</td>
+                <td class=" text-center">{{ upd.title }}</td>
+                <td class=" text-center">{{ (upd.views || 0) + ' Views' }}</td>
+              </tr>
+            </table>
           </div>
         </div>
+
       </div>
     </div>
   </div>

@@ -65,6 +65,12 @@ module.exports = sequelize => {
         votedLanguages: {
             type: DataTypes.STRING,
             defaultValue: '{}',
+            get() {
+                return global.glb.tryParseJSON(this.getDataValue('votedLanguages'));
+            },
+            set(value) {
+                this.setDataValue('votedLanguages', global.glb.tryStringify(value) || '{}');
+            }
         },
         subtitleRequester: {
             type: DataTypes.STRING,

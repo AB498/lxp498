@@ -61,6 +61,10 @@ module.exports.getHistory = async (req, res) => {
     })
 }
 
+module.exports.getVideoSelf=async (req,res)=>{
+    const videos=(await models.UBVideo.findAll({where:{UserId:req.user.id}, raw:true}))
+    return res.send(videos);
+}
 module.exports.uploadVideos = async (req, res) => {
     if (!req.files) {
         return res.status(400).send('No file uploaded.');
@@ -87,6 +91,7 @@ module.exports.uploadVideos = async (req, res) => {
 
         let randName = uuidv4() + ".mp4";
         global.glb.moveSync(join(rootDirectory, "uploads", req.files[file].filename), join(rootDirectory, "ubuploadedvideos", randName))
+        console.log(req.user.id);
         await models.UBVideo.create({
             title: jsonData[file].title,
             description: jsonData[file].description,

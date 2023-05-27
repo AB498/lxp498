@@ -23,14 +23,13 @@ const completedSteps = ref(0)
 
 
 <template>
-    <div class="w-full  bg-red-900 center">
-        <div class=" h-full bg-blue-600 center flex flex-col m-4 w-3/4 rounded effects px-6 py-4 text-sm">
-            <div class=" text-white">{{ 'Level: ' + quiz.difficulty }}</div>
-            <div class="flex space-x-16 w-full center">
+    <div class="bg-red-900 center" >
+        <div class=" h-full bg-blue-600 center flex flex-col m-4 w-full rounded effects px-6 py-4">
+            <div class=" text-white text-2xl">{{ 'Level: ' + quiz.difficulty }}</div>
+            <div class="flex space-x-8 w-full center">
                 <div class="flex  flex-col">
-                    <div class=" text-white">{{ quiz.id }}</div>
-                    <div class=" text-white">{{ 'Words learned' }}</div>
-                    <div class=" text-white">{{ 'Remaining' }}</div>
+                    <div class="text-xl text-white">{{ 'Words learned' }}</div>
+                    <div class="text-sm text-white">{{ 'Remaining' }}</div>
                 </div>
                 <RadialProgressBar :diameter="150" :completed-steps="completedSteps" :total-steps="totalSteps" te>
                     <div class="text-2xl">
