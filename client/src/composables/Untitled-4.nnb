@@ -1,0 +1,11 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "let x= 32\n\nimport  axios from 'axios'\n\naxios.get('https://www.baidu.com').then(res=>{\n    console.log(res)\n}\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

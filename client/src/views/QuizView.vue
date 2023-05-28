@@ -5,6 +5,7 @@ import { defineProps } from 'vue'
 import { computed } from 'vue'
 import ProgressQuiz from '@/components/ProgressQuiz.vue'
 import QuizWord from '@/components/QuizWord.vue'
+import PowerWord from '@/components/PowerWord.vue'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
 import Vivus from 'vivus';
@@ -28,6 +29,10 @@ watch([i, firstLoad], () => {
     console.log('qv', incPrg)
     quiz.value = incPrg.quizzes[i.value];
     words.value = quiz.value.text.split(' ').map((w, i) => ({ word: w, active: (i == quiz.value['difficulty' + incPrg.difficulty]) }))
+    words.value.forEach(word=>{
+        word.sourceLang = window.glb._nonPersistant.quizView.language.languagecode
+        word.targetLang = window.glb.settings.targetLang;
+    })
     options.value = quiz.value.text.split(' ').map((w, i) => ({ word: w, active: (i == quiz.value['difficulty' + incPrg.difficulty]) }))
     // console.log(quiz.value.text.split(' ')[quiz.value['difficulty' + incPrg.difficulty]], quiz.value.text)
 
@@ -52,7 +57,7 @@ function showResults() {
     } else {
         //hightlight correct 
 
-        
+
     }
 
 }
@@ -72,7 +77,7 @@ import DoneJSON from '@/assets/done.json'
         </div>
         <div class="flex flex-wrap center" v-if="words.length > 0">
             <div v-for="(word, index) in words" class="p-2" :key="uuidv4()">
-                <QuizWord :word-inc="word" />
+                <PowerWord :word-inc="word" />
             </div>
         </div>
 

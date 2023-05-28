@@ -1,0 +1,24 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "import axios from 'axios';\n\nfunction flattenJSON(obj, parentKey = '') {\n  let result = {};\n  for (let key in obj) {\n    if (typeof obj[key] === 'object' && obj[key] !== null) {\n      let flattened = flattenJSON(obj[key], parentKey + key + '.');\n      result = { ...result, ...flattened };\n    } else {\n      result[parentKey + key] = obj[key];\n    }\n  }\n  return result;\n}\n\n\nfunction unflattenJSON(obj) {\n    let result = {};\n    for (let key in obj) {\n        let keys = key.split('.');\n    let currentObj = result;\n    for (let i = 0; i < keys.length - 1; i++) {\n        let currentKey = keys[i];\n        if (!currentObj[currentKey]) {\n        currentObj[currentKey] = {};\n    }\n    currentObj = currentObj[currentKey];\n}\n    currentObj[keys[keys.length - 1]] = obj[key];\n}\nreturn result;\n}\n\nconst data = {\n  hello: ['world1', 'world2'],\n  foo: {\n    bar: 'baz',\n  },\n};\nconst flattened = flattenJSON(data);\n\nlet translated=(await axios.post('http://lanxplore.xyz/test/api/getTranslation', {\n    words: Object.values(flattened),\n    sourceLang: 'en',\n    targetLang: 'ar',\n})).data\n\nObject.entries(flattened).forEach(([key, value], i) => {\n    flattened[key] = translated[i];\n});\nconsole.log(data);\nconst unflattened = unflattenJSON(flattened);\nconsole.log(unflattened);\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{ 'hello.0': 'world1', 'hello.1': 'world2', 'foo.bar': 'baz' }",
+                                "{ hello: { '0': 'العالم 1', '1': 'العالم 2' }, foo: { bar: 'باز' } }",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

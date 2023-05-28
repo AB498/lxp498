@@ -96,6 +96,33 @@ const searchText = ref("");
 //ds dsa
 ///// rnerwqa's
 
+
+if (!window.glb._nonPersistant.wordTranslationStream)
+  window.glb._nonPersistant.wordTranslationStream = {}
+
+let trslnterv = setInterval(async () => {
+
+  for (let streamkey in window.glb._nonPersistant.wordTranslationStream) {
+    let keys = Object.values(window.glb._nonPersistant.wordTranslationStream[streamkey]).map(e => e.id)
+    if (keys.length <= 0) continue
+    console.log(streamkey +' ' + keys.length)
+    let words = Object.values(window.glb._nonPersistant.wordTranslationStream[streamkey]).map(e => e.word)
+    let translated = await window.glb.safeAuthedReq('/api/getTranslation', {
+      words: words,
+      sourceLang: streamkey.split('-')[0],
+      targetLang: streamkey.split('-')[1]
+    })
+    translated.forEach((e, i) => {
+      // console.log(window.glb._nonPersistant.wordTranslationStream[streamkey][keys[i]])
+      window.glb._nonPersistant.wordTranslationStream[streamkey][keys[i]].translatedWord = e;
+      delete window.glb._nonPersistant.wordTranslationStream[streamkey][keys[i]]
+    })
+  }
+}, 1000);
+onUnmounted(() => {
+  if (trslnterv)
+    clearInterval(trslnterv)
+})
 </script>
 
 
@@ -105,10 +132,11 @@ const searchText = ref("");
     <SelectLang class="absolute z-10" />
 
     <div class="w-full h-16  shrink-0 relative backdrop-blur-lg z-0">
-      <div class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap w-full z-50">
+      <div
+        class="nav flex justify-between h-full bg-gray-800 transition-all duration-200  shadow flex-nowrap w-full z-50">
 
         <div class="nav-right px-4 flex items-stretch">
-          <q-tooltip hint="dsfdaf"/>
+          <q-tooltip hint="dsfdaf" />
           <PopperComponent>
             <template #tohover>
               <RouterLink to="/"

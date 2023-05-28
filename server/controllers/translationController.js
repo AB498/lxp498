@@ -17,6 +17,7 @@ module.exports.getTranslation = async (req, res) => {
     const { words, sourceLang, targetLang } = req.body;
     const translatedWords = await translationServices.getTranslation(words, sourceLang, targetLang);
     if (!translatedWords) return res.status(500).send("Error");
+    console.log(words, sourceLang, translatedWords);
     return res.send(translatedWords);
 }
 

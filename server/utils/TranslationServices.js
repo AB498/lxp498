@@ -26,7 +26,10 @@ class TranslationServices {
     if (!supportedLanguages.includes(sourceLang) || !supportedLanguages.includes(targetLang)) return null;
 
     if (!words || words.length == 0) return [];
-    if (sourceLang == targetLang) return words;
+    if (sourceLang == targetLang) {
+      console.log("sourceLang == targetLang");
+      return words;
+    }
     if (!sourceLang || !targetLang) return null;
     if (!global.glb.iso1to3(sourceLang) || !global.glb.iso1to3(targetLang)) return null;
 
