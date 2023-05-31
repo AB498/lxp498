@@ -346,6 +346,7 @@ const darkmode = ref(false);
                   <div>
                     Logout
                   </div>
+                </div>
                 <div
                   class="nav-center flex items-center transition-all duration-150 flex-nowrap space-x-1 sm:w-auto w-0  "
                   v-if="window.glb.loggedIn">
