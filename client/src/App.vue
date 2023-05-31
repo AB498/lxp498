@@ -288,15 +288,15 @@ const darkmode = ref(false);
         </div>
         <div class="nav-center flex items-center transition-all duration-150 flex-nowrap space-x-1 sm:w-auto w-0  "
           v-if="window.glb.loggedIn">
-            <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
-            <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
-            <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
-            <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
-            <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
-            <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
+          <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
+          <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
+          <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
+          <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
+          <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
+          <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
         </div>
         <div class="nav-right px-1 flex items-stretch flex-nowrap"
-        :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
+          :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
           <div class="nav-right px-4 flex items-stretch flex-nowrap" v-if="window.glb.loggedIn">
             <RouterLink to="/" @click="" class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
               {{ (window.glb.user && window.glb.user.lxt || 0) + ' ' }}
@@ -346,20 +346,16 @@ const darkmode = ref(false);
                   <div>
                     Logout
                   </div>
+                <div
+                  class="nav-center flex items-center transition-all duration-150 flex-nowrap space-x-1 sm:w-auto w-0  "
+                  v-if="window.glb.loggedIn">
+                  <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
+                  <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
+                  <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
+                  <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
+                  <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
+                  <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="router.push('/profile')">
-                  <q-icon name="account_circle" class=""></q-icon>
-                  <div>
-                    Profile
-                  </div>
-                </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="router.push('/settings')">
-                  <q-icon name="settings" class=""></q-icon>
-                  <div>
-                    Settings
-                  </div>
-                </div>
-
               </div>
             </template>
           </PopperComponent>
