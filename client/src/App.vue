@@ -343,31 +343,31 @@ const darkmode = ref(false);
               <div class="w-full  h-full flex flex-col">
                 <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
                   <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
-                    <div>
+                  <div>
                     Home
                   </div>
                 </div>
                 <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                    <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
-                    <div>
+                  <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
+                  <div>
                     Profile
                   </div>
                 </div>
                 <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                    <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
-                    <div>
+                  <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
+                  <div>
                     Chat
                   </div>
                 </div>
                 <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                    <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
-                    <div>
+                  <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
+                  <div>
                     UploadBase
                   </div>
                 </div>
                 <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                    <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
-                    <div>
+                  <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
+                  <div>
                     Progress
                   </div>
                 </div>
