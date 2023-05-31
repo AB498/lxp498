@@ -63,12 +63,14 @@ const tab = ref('mails')
                     </div>
                     <div class="w-full center p-2">
 
-            <q-icon name="add" class="text-3xl self-center effects outline outline-3 outline-blue-400 rounded-full"  @click="window.glb.openSelectLang(null, addProgressCallback)"></q-icon>
+                        <q-icon name="add"
+                            class="text-3xl self-center effects outline outline-3 outline-blue-400 rounded-full"
+                            @click="window.glb.openSelectLang(null, addProgressCallback)"></q-icon>
                     </div>
                 </q-tabs>
 
             </div>
-            <div  class="center full basis-11/12"  v-if="route.path == '/progress/' + route.params.id">
+            <div class="center full basis-11/12" v-if="route.path == '/progress/'">
                 <div class="flex flex-col p-16 themed-bg-tertiary rounded-xl center-cross">
                     <div class="text-2xl">Select a language</div>
                     <div class="text-xl">to see your progress</div>
