@@ -248,8 +248,7 @@ const darkmode = ref(false);
           <div :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
             <PopperComponent>
               <template #tohover>
-                <RouterLink to="/"
-                  class="flex items-center justify-center  fa  self-stretch space-x-2 font-sans font-thin">
+                <RouterLink to="/" class="flex center fa self-stretch space-x-2 font-sans font-thin">
                   <!-- loading if not connected -->
                   <i v-if="!window.glb.con" class="">
                     <q-spinner-radio color="brown" />
@@ -261,8 +260,8 @@ const darkmode = ref(false);
 
                     </span>
                   </span>
-                  <div class="font-Galada text-4xl p-1">
-                    Lx{{ window.glb.syncerObj?.a }}
+                  <div class="font-Galada center text-2xl p-1">
+                    Lx
                   </div>
                 </RouterLink>
               </template>
@@ -286,7 +285,8 @@ const darkmode = ref(false);
               @click.prevent="searchCollapsed = !searchCollapsed; searchText = ''"></a>
           </div>
         </div>
-        <div class="nav-center flex items-center transition-all duration-150 flex-nowrap space-x-1 sm:w-auto w-0  "
+        <div
+          class="nav-center items-center transition-all duration-150 flex-nowrap space-x-1 flex overflow-hidden w-0 sm:w-auto "
           v-if="window.glb.loggedIn">
           <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
           <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
@@ -297,7 +297,7 @@ const darkmode = ref(false);
         </div>
         <div class="nav-right px-1 flex items-stretch flex-nowrap"
           :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
-          <div class="nav-right px-4 flex items-stretch flex-nowrap" v-if="window.glb.loggedIn">
+          <div class="nav-right items-stretch flex-nowrap flex overflow-hidden w-0 sm:w-auto" v-if="window.glb.loggedIn">
             <RouterLink to="/" @click="" class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
               {{ (window.glb.user && window.glb.user.lxt || 0) + ' ' }}
               <i class="fa fa-bolt"></i>
@@ -309,7 +309,7 @@ const darkmode = ref(false);
             </RouterLink>
 
           </div>
-          <div class="nav-right px-4 flex items-stretch flex-nowrap" v-else>
+          <div class="sm:flex hidden nav-right px-4  items-stretch flex-nowrap" v-else>
             <div class="text-md flex center px-2">
               <i class="fa fa-book m-2"></i>
               Documentation
@@ -341,44 +341,49 @@ const darkmode = ref(false);
             </template>
             <template #popup>
               <div class="w-full  h-full flex flex-col">
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/')" >
+                  <q-icon name="home" class="effects"></q-icon>
                   <div>
                     Home
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/profile')"
+                  >
+                  <q-icon name="account_circle" class="effects"></q-icon>
                   <div>
                     Profile
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/chat')"
+                  >
+                  <q-icon name="chat" class="effects"></q-icon>
                   <div>
                     Chat
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/uploadbase')"
+                  >
+                  <q-icon name="cloud_circle" class="effects"></q-icon>
                   <div>
                     UploadBase
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/progress')"
+                  >
+                  <q-icon name="model_training" class="effects"></q-icon>
                   <div>
                     Progress
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon @click="router.push('/admin')" name="admin_panel_settings" class="effects"></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/admin')"
+                  >
+                  <q-icon name="admin_panel_settings" class="effects"></q-icon>
                   <div>
                     Admin
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon name="power_settings_new" class=""></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="logout">
+                  <q-icon name="power_settings_new" class="effects"></q-icon>
                   <div>
                     Logout
                   </div>

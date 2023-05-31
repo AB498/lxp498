@@ -94,7 +94,7 @@ function togglePopup() {
 </script>
 <template>
     <div @mouseover="together[0] = true;" @mouseleave=" together[0] = false" ref="tohover" @click="togglePopup"
-        class="flex items-center justify-center relative overflow-visible " :class="window.glb?.dark && ' dark'">
+        class="flex full center relative overflow-visible " :class="window.glb?.dark && ' dark'">
 
         <div @mouseover=" together[1] = true" @mouseleave=" together[1] = false"
             v-click-outside="() => { console.log(0); if (mode == 'click') show = false }"
