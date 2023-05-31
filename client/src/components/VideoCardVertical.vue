@@ -26,7 +26,7 @@ import pic from "@/assets/logo.svg";
                 <div>Play</div>
             </div>
         </div>
-        <div class="p-4 w-16 overflow-auto">
+        <div class="p-4 w-full overflow-auto">
             <div class="text-ellipsis text-xs line-clamp-3 " v-text="video.title || 'No Title'"></div>
             <div class="text-ellipsis text-xs themed-text-secondary line-clamp-2 break-words" v-text="video.description || 'No Description'">
             </div>
