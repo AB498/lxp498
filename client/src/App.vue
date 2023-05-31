@@ -288,30 +288,12 @@ const darkmode = ref(false);
         </div>
         <div class="nav-center flex items-center transition-all duration-150 flex-nowrap space-x-1 sm:w-auto w-0  "
           v-if="window.glb.loggedIn">
-          <RouterLink to="/" v-ripple
-            class="hover-ripple ">
-            <q-icon name="home" class="effects"></q-icon>
-          </RouterLink>
-          <RouterLink to="/profile" v-ripple
-            class="hover-ripple ">
-            <q-icon name="account_circle" class="effects"></q-icon>
-          </RouterLink>
-          <RouterLink to="/chat" v-ripple
-            class="hover-ripple ">
-            <q-icon name="chat" class="effects"></q-icon>
-          </RouterLink>
-          <RouterLink to="/uploadbase" v-ripple
-            class="hover-ripple ">
-            <q-icon name="cloud_circle" class="effects"></q-icon>
-          </RouterLink>
-          <div @click="router.push('/progress')" v-ripple
-            class="hover-ripple ">
-            <q-icon name="model_training" class="effects"></q-icon>
-          </div>
-          <RouterLink to="/admin" v-ripple v-if="window.glb.user?.admin"
-            class="hover-ripple ">
-            <q-icon name="admin_panel_settings" class="effects"></q-icon>
-          </RouterLink>
+            <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
+            <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
+            <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
+            <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
+            <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
+            <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
         </div>
         <div class="nav-right px-1 flex items-stretch flex-nowrap"
         :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
