@@ -50,7 +50,7 @@
     @apply  p-3 m-1 mb-0 flex items-center justify-center;
   }
   .effects {
-    @apply hover:shadow-xl transition-all hover:bg-blue-700 active:outline-none active:ring-2 active:ring-gray-300 active:bg-blue-900;
+    @apply transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500;
   }
   .effects-dark {
     @apply hover:shadow-xl hover:bg-gray-700 active:outline-none active:ring-2 active:ring-gray-300 active:bg-gray-900;
