@@ -314,7 +314,7 @@ const darkmode = ref(false);
           </RouterLink>
         </div>
         <div class="nav-right px-1 flex items-stretch flex-nowrap"
-        :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''"></div>
+        :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
           <div class="nav-right px-4 flex items-stretch flex-nowrap" v-if="window.glb.loggedIn">
             <RouterLink to="/" @click="" class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
               {{ (window.glb.user && window.glb.user.lxt || 0) + ' ' }}
