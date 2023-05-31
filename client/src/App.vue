@@ -293,23 +293,23 @@ const darkmode = ref(false);
             <q-icon name="home" class=""></q-icon>
           </RouterLink>
           <RouterLink to="/profile" v-ripple
-            class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
+            class="hover-ripple effects">
             <q-icon name="account_circle" class=""></q-icon>
           </RouterLink>
           <RouterLink to="/chat" v-ripple
-            class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
+            class="hover-ripple effects">
             <q-icon name="chat" class=""></q-icon>
           </RouterLink>
           <RouterLink to="/uploadbase" v-ripple
-            class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
+            class="hover-ripple effects">
             <q-icon name="cloud_circle" class=""></q-icon>
           </RouterLink>
           <div @click="router.push('/progress')" v-ripple
-            class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
+            class="hover-ripple effects">
             <q-icon name="model_training" class=""></q-icon>
           </div>
           <RouterLink to="/admin" v-ripple v-if="window.glb.user?.admin"
-            class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
+            class="hover-ripple effects">
             <q-icon name="admin_panel_settings" class=""></q-icon>
           </RouterLink>
         </div>
