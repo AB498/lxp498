@@ -347,11 +347,42 @@ const darkmode = ref(false);
                     Logout
                   </div>
                 </div>
-                  <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
-                  <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
-                  <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
-                  <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
-                  <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
+                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
+                    <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
+                    <div>
+                    Profile
+                  </div>
+                </div>
+                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
+                    <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
+                    <div>
+                    Chat
+                  </div>
+                </div>
+                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
+                    <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
+                    <div>
+                    UploadBase
+                  </div>
+                </div>
+                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
+                    <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
+                    <div>
+                    Progress
+                  </div>
+                </div>
+                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
+                  <q-icon name="power_settings_new" class=""></q-icon>
+                  <div>
+                    Logout
+                  </div>
+                </div>
+                <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
+                    <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
+                    <div>
+                    Home
+                  </div>
+                </div>
                   <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
               </div>
             </template>
