@@ -47,31 +47,36 @@ const tab = ref('mails')
 
 <template>
     <div class="   flex overflow-auto">
-        <div class="w-full h-full flex overflow-auto">
+        <div class="w-full h-full flex ">
 
-            <div class="flex flex-col h-full basis-1/12 bg-slate-600 ">
-                <q-tabs vertical v-model="tab" dense align="left" class="bg-primary text-white shadow-2 w-full "
+            <div class="flex flex-col h-full basis-1/12  ">
+                <q-tabs vertical v-model="tab" dense align="left" class="themed-bg-secondary  shadow-2 w-full "
                     :breakpoint="0">
                     <div v-for="( [key, langPrg], index ) in Object.entries(langPrgs)" :key="(langPrg.language)">
-                        <q-tab :name="langPrg.language" @click="router.push('/progress/' + langPrg.language)"> 
-                                <div class=" flex flex-col space-x-2 center-cross">
-                                    <img :src="'https://flagcdn.com/256x192/' + Object.values(langImp).find(l => l.iso6393 == langPrg.language).countrycodes[0] + '.png'"
-                                        class="w-6 h-6" />
-                                    <div class="text-sm text-white">{{ langPrg.language }}</div>
-                                </div>
+                        <q-tab :name="langPrg.language" @click="router.push('/progress/' + langPrg.language)">
+                            <div class=" flex flex-col space-x-2 center-cross">
+                                <img :src="'https://flagcdn.com/256x192/' + Object.values(langImp).find(l => l.iso6393 == langPrg.language).countrycodes[0] + '.png'"
+                                    class="w-6 h-6" />
+                                <div class="text-sm ">{{ langPrg.language }}</div>
+                            </div>
                         </q-tab>
                     </div>
                     <div class="w-full center p-2">
 
-                        <i class=" fa fa-plus-circle fa-2x text-red-500 self-center effects outline outline-1 outline-blue-400 rounded-full"
-                        @click="window.glb.openSelectLang(null, addProgressCallback)"></i>
+            <q-icon name="add" class="text-3xl self-center effects outline outline-3 outline-blue-400 rounded-full"  @click="window.glb.openSelectLang(null, addProgressCallback)"></q-icon>
                     </div>
                 </q-tabs>
-               
+
             </div>
-        <div class="flex flex-col full basis-11/12 bg-slate-800 overflow-auto">
-                <RouterView class="overflow-auto full"></RouterView>
+            <div class="flex flex-col full basis-11/12  " v-if="route.path == '/progress/' + route.params.id">
+                <RouterView class=" full"></RouterView>
             </div>
+            <div v-else class="center full basis-11/12">
+                <div class="flex flex-col p-16 themed-bg-tertiary rounded-xl center-cross">
+                    <div class="text-2xl">Select a language</div>
+                    <div class="text-xl">to see your progress</div>
+                </div>
+                </div>
         </div>
     </div>
 </template>

@@ -90,3 +90,14 @@ module.exports.getProgressByUser = async (req, res) => {
     const progress = await models.Progress.findAll({ where: { UserId: user.id } });
     return res.send(progress);
 }
+
+module.exports.submitLearnedWords = async (req, res) => {
+    const user = req.user;
+    
+    console.log( { UserId: user.id, language: (req.body.language), difficulty: req.body.difficulty , words: req.body.words});
+    const progress = await models.Progress.findOne({ where: { UserId: user.id, language: global.glb.iso1to3(req.body.language), difficulty: req.body.difficulty } });
+    if (!progress) return res.status(400).send("Progress not found");
+    progress.words = req.body.words;
+    await progress.save();
+    return res.send(progress);
+}

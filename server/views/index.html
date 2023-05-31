@@ -14,7 +14,7 @@
 
 </head>
 
-<body class="text-white bg-cyan-950">
+<body class=" bg-cyan-950">
     <div x-data="{ open: false, apiEndpoints: [] }" x-init="
         apiEndpoints = (await (await fetch('http://lanxplore.xyz/admin/apis')).json())
         //console.log(apiEndpoints)

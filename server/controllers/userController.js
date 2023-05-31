@@ -1,6 +1,15 @@
 const models = require("../models");
 const jwtUtil = require("../utils/jwt");
 const bcrypt = require("bcrypt");
+
+const { v4: uuidv4 } = require("uuid");
+
+const path = require("path");
+const fs = require("fs");
+const { join } = require("path");
+const findPackageJson = require("find-package-json");
+const nearestPackageJson = findPackageJson(join(__dirname));
+const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 const {
   generateFromEmail,
   generateUsername,
@@ -32,6 +41,7 @@ module.exports.registerUser = async (req, res) => {
   if (!firstName && !lastName) {
     firstName = generateFromEmail(email);
   }
+  // let tempName = uuidv4();
   const user = await models.User.create({
     email,
     password: password ? bcrypt.hashSync(password, 10) : null,
@@ -41,6 +51,11 @@ module.exports.registerUser = async (req, res) => {
   });
   let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
   user.jwts = [newJwt, ...(user.jwts ??= [])];
+  let pfpUrl = await global.glb.savePng(
+    ((firstName || "")[0] || "") + ((lastName || "")[0] || ""),
+    join(rootDirectory, "static", "pfps", user.id + ".png")
+  );
+  user.pfpUrl =global.glb.baseUrl+"/"+ join( "static", "pfps", user.id + ".png");
 
   await user.save();
   return res.json({ user, jwt: newJwt, username, firstName, lastName });
@@ -68,11 +83,9 @@ module.exports.loginUser = async (req, res) => {
   });
   if (!user) return res.status(401).send("Unauthorized");
   if (user.loginType === "google")
-    return res
-      .status(401)
-      .json({
-        lxerrormessage: "User has no password. Please login in some other way.",
-      });
+    return res.status(401).json({
+      lxerrormessage: "User has no password. Please login in some other way.",
+    });
   if (!bcrypt.compareSync(password, user.password))
     return res.status(401).send("Unauthorized");
   let newJwt = await jwtUtil.encode({ id: user.id, email: user.email });
@@ -138,12 +151,12 @@ module.exports.updateSelf = async (req, res) => {
       },
       raw: true,
     })) || null;
-    console.log(
-      foundUser.map((e) => e.id),
-        req.user.id,
-      password
-    );
-  if (password && password !='')  {
+  console.log(
+    foundUser.map((e) => e.id),
+    req.user.id,
+    password
+  );
+  if (password && password != "") {
     password = bcrypt.hashSync(password, 10);
     infoToUpdate.password = password;
     infoToUpdate.loginType = "password";
@@ -152,7 +165,7 @@ module.exports.updateSelf = async (req, res) => {
     console.log("foundUser");
     return res.status(400).send("Email/username already exists");
   }
-  console.log(infoToUpdate)
+  console.log(infoToUpdate);
   infoToUpdate = Object.fromEntries(
     Object.entries(infoToUpdate).filter(([_, v]) => v != null && v != "")
   );

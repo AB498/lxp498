@@ -21,7 +21,7 @@ import pic from "@/assets/logo.svg";
         </div>
         <div class="p-4">
             <div class="text-md line-clamp-3 " v-text="video.title || 'No Title'"></div>
-            <div class="text-sm line-clamp-2 text-gray-400 break-words" v-text="video.description || 'No Description'">
+            <div class="text-sm line-clamp-2  break-words" v-text="video.description || 'No Description'">
             </div>
         </div>
     </div>

@@ -1,11 +1,11 @@
 {
   "videosState": {
-    "lastUpdatedSuggestions": 1685231271054
+    "lastUpdatedSuggestions": 1685490477691
   },
   "states": {
-    "lastAccessTokenUpdate": 1685236770524
+    "lastAccessTokenUpdate": 1685510377263
   },
-  "accessToken": "ya29.c.b0Aaekm1KGefew2c8VhU1tAA92XFVRLO6S2bbfeK-1NpjKGqEDbTRYW-MZGPpRv7CF4goWMloOAyMh4q-6mnv3er2VSYIkcF31XURZxnC7egbjMMnDZFX1uDox5V6y-tsQlRapsTJbvWRmK121hc5Mn-Bzik57PNi1LCt95_J8BKpo6mGpUBNwzoO-ITLu8vzd2gnXMre_BxsAIaWZ-RRz7JKgOhNlu1cKSG3tziFmOYA_sYFECpBxY9A7gBHJs0EAte5Jp6SWty0g26BEs9_QlPcx25P0hlwhv-nnb6nzbatAGW2uO0H8YLJfpvr62QgkDAzTJN0Ximk5igAN344DXBIF-k6zssoM73ZxFXRajFifgpdsYhzJ6yZRbOa-q33QrBj3i9v4Yo9kl916sgd2fvWwJ8YFB5-I_XmseRQtxYiOe1BYZc6zy0aIx5bq--mc0erx49wYx5XzJOyhwW8YRz6W3gXQnRsS9ZQi6yxn-Btj3-Ino-6znw_1jyv_uz5z_6vUYruqlOY3bh8O9ldWqcSx2_hvBacO9I1RcJ83eOYkoSuq2_m19sx97wZOQkh2bf5uxYvxOXVOoIYaOV9dOmcp-q45gz8rU-UOgd8x7z5jWW3VjJi4_cgMqn_UoqwYhvb_eJ9-u9W-5thJSdFMYyjY6Ov81oXX4txibaFuFWo2YgJ0a-51ucpwqgVp4wYZqp58WVdg2gJ2hQeUXyxVisc-jqVuqfF3XZoZ1UywtVlUv25rqS74ZpflgQwXv7lf4Fm9OeI8gV2SJftoiJx4O5g7_vkSqbFV0q5lbIFoR0buqeu2x6skSMdgziz2ofvg0Sx74OR-j8VcvwoZixVxVvBwdZ-dydmJpys7XVRvQl3rFUvtpylMw3t5sg83Rjrh4jBuQp-Fe-7yfb7jjMdaWMiV8fxM-4tfXBjsJyiB0wRcYmhpffWdre3tzdfMdV-72X9MdMku7hY29WUisw3i4QXV_ymRVx-mIdMml5jBhvc5FOzYcI24ysn",
+  "accessToken": "ya29.c.b0Aaekm1Kl0ZrHVatpZD44gMejwlO7j7i9VsVVg9SHYIQ7DvQTDseb1jGctsYXlmAT_0N_63AO6RQJsKFWOaJt5I5TAAkvetxeWN6kPeaSA-BSektgwm5d0llFypTyzqBIjogVXRXIJdRnyEijJ6RDR10jYSnjc-PqfKAwXPuGlOdcrjNGSEXK6bVX9RTpN88XL-RkGcrLp1GbFIRnzyjwhfCM9mT-Guepp7Mq8R9fYTa-Hh90jBf_xdUX47TWaLjxLJ57-qvmw_05HQdZrcnFjRS1rlh2Jl8nzuTuEmAoj6FGlHuvurXfb3f8EsAssH604L1Y9K8NGSSdT_4G344PjxpdnZaYcXF-tSr6J0Mmd5j2MyujS-aqd5X0RIsIpnk7fesMnInXsaYnmIV2F9XFtszdZgQrgc8S8UonhZgppc2VXmOccU8oWzurB4QaxpwymgqQoRaOvq82SthcnM7uypIcnSY2etJ63uvwyk9mivqRo7UeVtwfqMgB_5bw-u_eZOtdRIynq9Q7uYWxc5oIvIyoFpt3egjMOfFMMfZpfaS4Jf72cQvZbd_jmFFVhwB2J2J2UBQiUoF_wlc2bYRfc6Q9sZlOpst7Qxzz2mxW4f42Uz_Xbw8JYI6azo-64bdIdB9ROhgU5pbX03VIi0v1Vg0zVtyWt6O553gQ2V549nOrUpnqe0I9t14bUbMvSekBgk6bzeiSaQ6J71BbfmOanaXXJWXVcgisWMQmbkF55ItOIzV8fwk1ug2x6IwlbyaRUv47_Rp_kmtoFlBkaZBZa9k640kZ4Rlt-IZoJYb4Ug_bRXO-1ympubba0UMfcXyXme8hhVMpyF24JQIkVd3W-d19Yq-mlmidF53p5jkajer0moj1B86zrXnoQ7X94dc_8pb88OISZsgoqz6uv1vfaFeFoZgqwz2yRv_vkm_WUr_147_y4399M27h3sbFI68Blj1B7ylrXRuUU-JYb093740l2WdyvykOVYRr790fjy4hjx017J7lbg_",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -67,6 +67,19 @@
     {
       "method": "POST",
       "url": "/api/getProgress",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/submitLearnedWords",
       "middlewares": {
         "main": [
           null
@@ -555,5 +568,6 @@
         ]
       }
     }
-  ]
+  ],
+  "baseUrl": "http://lanxplore.xyz"
 }

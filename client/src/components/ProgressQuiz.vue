@@ -13,9 +13,9 @@ const props = defineProps({
     }
 })
 
-const quiz = ref(props.quizInc)
+const prg = ref(props.quizInc)
 
-const totalSteps = ref(quiz.value.quizzes.length)
+const totalSteps = ref(prg.value.quizzes.length)
 const completedSteps = ref(0)
 
 </script>
@@ -23,17 +23,17 @@ const completedSteps = ref(0)
 
 
 <template>
-    <div class="bg-red-900 center" >
-        <div class=" h-full bg-blue-600 center flex flex-col m-4 w-full rounded effects px-6 py-4">
-            <div class=" text-white text-2xl">{{ 'Level: ' + quiz.difficulty }}</div>
+    <div class="center" >
+        <div class=" h-full themed-bg-tertiary center flex flex-col m-4 w-full rounded effects px-6 py-4">
+            <div class="  text-2xl">{{ 'Level: ' + prg.difficulty }}</div>
             <div class="flex space-x-8 w-full center">
                 <div class="flex  flex-col">
-                    <div class="text-xl text-white">{{ 'Words learned' }}</div>
-                    <div class="text-sm text-white">{{ 'Remaining' }}</div>
+                    <div class="text-xl ">{{ 'Words learned' }}</div>
+                    <div class="text-sm ">{{ 'Remaining' }}</div>
                 </div>
-                <RadialProgressBar :diameter="150" :completed-steps="completedSteps" :total-steps="totalSteps" te>
+                <RadialProgressBar :diameter="150" :completed-steps="prg.words.length" :total-steps="prg.quizzes.length" >
                     <div class="text-2xl">
-                        {{ completedSteps }} / {{ totalSteps }}
+                        {{ prg.words.length }} / {{ prg.quizzes.length }}
                     </div>
                 </RadialProgressBar>
             </div>

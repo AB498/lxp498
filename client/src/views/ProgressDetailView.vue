@@ -24,8 +24,7 @@ let langs = ref(Object.entries(langsImp).map(([key, value]) => {
 }))
 
 const initialLoad = ref(true)
-
-const quizzes = ref([])//window.glb.tryParseJSON(incPrg.data).quizzes
+const progresses = ref([])//window.glb.tryParseJSON(incPrg.data).quizzes
 window.glb._nonPersistant.quizView = {}
 watch([() => route.params.id, initialLoad], async () => {
     if (initialLoad.value)
@@ -40,7 +39,8 @@ watch([() => route.params.id, initialLoad], async () => {
     }
     const data = res.data;
     console.log(data)
-    quizzes.value = data
+    progresses.value = data
+    console.log("pval",progresses.value[0])
     window.glb._nonPersistant.quizView.language = langs.value.find(l => l.iso6393 == lang.value)
     window.glb._nonPersistant.quizView.quizzes = data
 })
@@ -67,9 +67,9 @@ onMounted(() => {
 
 
 <template>
-    <div class="full flex flex-col bg-blue-300" v-if="window.glb._nonPersistant.quizView.language">
+    <div class="full flex flex-col " v-if="window.glb._nonPersistant.quizView.language">
 
-        <div class="sticky z-10 top-0 p-3 bg-blue-950 text-xl text-white flex center-cross">
+        <div class="sticky z-10 top-0 p-3 themed-bg-secondary shadow text-xl  flex center-cross">
             <div class="s center p-2 text-xl hover:bg-gray-600 hover-ripple rounded  mx-2 " @click="router.go(-1)">
                 <q-icon name="arrow_back" class=""></q-icon>
             </div>
@@ -77,15 +77,15 @@ onMounted(() => {
                 {{ window.glb._nonPersistant.quizView.language.languagename }}
             </div>
         </div>
-        <div class="full bg-red-900 center-cross flex flex-wrap">
+        <div class="full overflow-auto center-cross flex flex-wrap">
 
-            <div v-for="(quiz, index) in quizzes" :key="quiz.id" class="basis-full md:basis-1/2 "
+            <div v-for="(quiz, index) in progresses" :key="quiz.id" class="basis-full md:basis-1/2 "
                 v-if="route.path == '/progress/' + route.params.id">
                 <ProgressQuiz :quiz-inc="quiz" @click="() => { router.push(lang + '/' + quiz.id) }" class="" />
             </div>
 
-            <div v-if="window.glb._nonPersistant.quizView.quizzes" class="full ">
-                <RouterView class="full overflow-auto" />
+            <div v-if="window.glb._nonPersistant.quizView.quizzes.find(l => l.id == route.params.quizId)" class="full " >
+                <RouterView class="full " />
             </div>
         </div>
     </div>

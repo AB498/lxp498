@@ -85,12 +85,12 @@ async function loginWithGoogle() {
             @mouseover="">
             <div class="bg-violet-900/50  w-full flex flex-nowrap items-center justify-around rounded">
               <div
-                :class="!window.glb.showSignUp && 'bg-indigo-700 border-b-2 border-red-500 shadow-white' || 'text-gray-500'"
+                :class="!window.glb.showSignUp && 'bg-indigo-700 border-b-2 border-red-500 shadow-white' || ''"
                 class=" p-4 w-full center-main rounded-t" @click="window.glb.showSignUp = false">
                 Login
               </div>
               <div
-                :class="window.glb.showSignUp && 'bg-indigo-700 border-b-2 border-red-500 shadow-white' || 'text-gray-500'"
+                :class="window.glb.showSignUp && 'bg-indigo-700 border-b-2 border-red-500 shadow-white' || ''"
                 class=" p-4 w-full center-main rounded-t " @click="window.glb.showSignUp = true">
                 Sign Up
               </div>
@@ -108,13 +108,13 @@ async function loginWithGoogle() {
             <form id="signupForm" method="post" @submit.prevent=""
               class="space-y-4 flex  flex-col items-start m-2 without-ring" v-if="!window.glb.showSignUp">
               <div class="flex-row login-error bg-secondary border-b-3 border-red-600"></div>
-              <q-input color="blue" bg-color="" dark filled v-model="email" label="Email"
+              <q-input color="blue" bg-color="" :dark="window.glb?.dark" filled v-model="email" label="Email"
                 class="w-64 without-ring border-b-white" hint="* Required">
                 <template v-slot:prepend>
                   <q-icon name="email" />
                 </template>
               </q-input>
-              <q-input color="blue" bg-color="" dark filled v-model="password" :type="isPwd ? 'password' : 'text'"
+              <q-input color="blue" bg-color="" :dark="window.glb?.dark" filled v-model="password" :type="isPwd ? 'password' : 'text'"
                 label="Password" class="w-64 without-ring border-b-white" hint="Optional">
                 <template v-slot:prepend>
                   <q-icon name="key" />
@@ -123,9 +123,9 @@ async function loginWithGoogle() {
                   <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
                 </template>
               </q-input>
-              <q-checkbox label="Remember me" v-model="rememberMe" dark />
+              <q-checkbox label="Remember me" v-model="rememberMe" :dark="window.glb?.dark" />
               <a type="submit" class="btn hover-ripple" @click="login" v-ripple>Submit</a>
-              <p class="text-white">Not registered yet? <a class="link text-white" @click="window.glb.showSignUp = true">
+              <p class="">Not registered yet? <a class="link " @click="window.glb.showSignUp = true">
                   Sign
                   Up </a> </p>
             </form>
@@ -135,26 +135,26 @@ async function loginWithGoogle() {
               </div>
 
               <div class="w-64 flex space-x-1">
-                <q-input color="blue" bg-color="" dark filled v-model="firstName" label="Firstname"
+                <q-input color="blue" bg-color="" :dark="window.glb?.dark" filled v-model="firstName" label="Firstname"
                   class=" w-1/2 without-ring border-b-white" hint="Optional">
                 </q-input>
-                <q-input color="blue" bg-color="" dark filled v-model="lastName" label="Lastname"
+                <q-input color="blue" bg-color="" :dark="window.glb?.dark" filled v-model="lastName" label="Lastname"
                   class=" w-1/2 without-ring border-b-white" hint="Optional">
                 </q-input>
               </div>
-              <q-input color="blue" bg-color="" dark filled v-model="username" label="Username"
+              <q-input color="blue" bg-color="" :dark="window.glb?.dark" filled v-model="username" label="Username"
                 class="w-64 without-ring border-b-white" hint="Optional">
                 <template v-slot:prepend>
                   <q-icon name="@" />
                 </template>
               </q-input>
-              <q-input color="blue" bg-color="" dark filled v-model="email" label="Email"
+              <q-input color="blue" bg-color="" :dark="window.glb?.dark" filled v-model="email" label="Email"
                 class="w-64 without-ring border-b-white" hint="* Required">
                 <template v-slot:prepend>
                   <q-icon name="email" />
                 </template>
               </q-input>
-              <q-input color="blue" bg-color="" dark filled v-model="password" :type="isPwd ? 'password' : 'text'"
+              <q-input color="blue" bg-color="" :dark="window.glb?.dark" filled v-model="password" :type="isPwd ? 'password' : 'text'"
                 label="Password" class="w-64 without-ring border-b-white" hint="Optional">
                 <template v-slot:prepend>
                   <q-icon name="key" />
@@ -163,9 +163,9 @@ async function loginWithGoogle() {
                   <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
                 </template>
               </q-input>
-              <q-checkbox label="Remember me" v-model="rememberMe" dark />
+              <q-checkbox label="Remember me" v-model="rememberMe" :dark="window.glb?.dark" />
               <a type="submit" class="btn hover-ripple" @click="signUp" v-ripple>Submit</a>
-              <p class="text-white">Have an account? <a class="link text-white" @click="window.glb.showSignUp = false">
+              <p class="">Have an account? <a class="link " @click="window.glb.showSignUp = false">
                   Login
                 </a> </p>
             </form>

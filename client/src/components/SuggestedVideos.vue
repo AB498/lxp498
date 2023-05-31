@@ -13,11 +13,13 @@ onMounted(async () => {
 </script>
 
 <template>
-        <div v-for="(video, index) in videos" :key="index" class="basis-1/4 sm:overflow-auto p-4 self-stretch">
-    <VideoCardVertical :video="{
-      thumbnailUrl: video.snippet.thumbnails.medium.url,
-      title: video.snippet.title, description: video.snippet.channelTitle,
-      publishedAt: video.snippet.publishedAt,
-    }" @click="$router.push('/yt/' + video.id.videoId)" />
+  <div class="flex flex-wrap items-stretch ">
+      <div v-for="(video, index) in videos" :key="index" class=" basis-1/4 sm:overflow-auto p-4 self-stretch">
+      <VideoCardVertical :video="{
+        thumbnailUrl: video.snippet.thumbnails.medium.url,
+        title: video.snippet.title, description: video.snippet.channelTitle,
+        publishedAt: video.snippet.publishedAt,
+      }" @click="$router.push('/yt/' + video.id.videoId)" />
   </div>
+</div>
 </template>

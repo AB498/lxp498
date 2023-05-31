@@ -10,7 +10,7 @@ const router = useRouter()
 const route = useRoute()
 
 onMounted(async () => {
-  window.glb.reloadUser();
+ await window.glb.reloadUser();
   uploadedVideos.value = await window.glb.safeAuthedReq('/api/uploadbase/getVideoSelf');
 })
 
@@ -71,25 +71,28 @@ const tab = ref('mails')
 
 const uploadedVideos = ref([])
 
+import pic from '@/assets/logo.svg'
 
 </script>
 
 <template>
   <div class="flex flex-col w-full h-full">
     <div class="flex w-full h-full">
-      <div class=" relative basis-3/12 h-full flex flex-col overflow-auto">
+      <div class=" relative w-[400px] h-full flex flex-col overflow-auto border-r-2 left-part shadow-xl">
         <div class="flex flex-col w-full sticky top-0 backdrop-blur-md z-10">
-          <img src="@/assets/logo.svg" class="w-96 h-32 bg-blue-400/75 self-center" />
-          <div class="bg-cyan-800 w-full flex justify-center items-center px-4 ">
+          <img :src="window.glb.user.pfpUrl || pic " class="w-32 h-32  self-center" />
+          <div class=" w-full flex justify-center items-center px-4 themed-bg-secondary shadow-md">
             <div class=""> User Info</div>
             <div class="grow"> </div>
             <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = true"
               v-if="!editMode">
               Edit</div>
-            <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = false" v-if="editMode">
+            <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = false"
+              v-if="editMode">
               Cancel
             </div>
-            <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = false; saveEdits()" v-if="editMode">
+            <div v-ripple class="editProfileButton btn m-1 p-1 hover-ripple px-3" @click="editMode = false; saveEdits()"
+              v-if="editMode">
               Save
             </div>
 
@@ -98,12 +101,12 @@ const uploadedVideos = ref([])
         <div class="p-2"></div>
         <div class="px-4 ">
           <!-- name -->
-          <div class="flex flex-col text-md text-blue-200">
+          <div class="flex flex-col text-md ">
             <div class="name text-2xl" @click="window.console.log(window.glb)" v-if="!editMode">
               {{ (window.glb.user.firstName + ' ' + window.glb.user.lastName) }}
             </div>
             <div v-else>
-              <q-field dark filled outlined>
+              <q-field :dark="window.glb?.dark" filled outlined>
                 <template v-slot:prepend>
                   <div class="text-sm">
                     Fisrt Name
@@ -112,7 +115,7 @@ const uploadedVideos = ref([])
                   <input class="w-full h-full bg-transparent" v-model="window.glb.user.firstName">
                 </template>
               </q-field>
-              <q-field dark filled outlined>
+              <q-field :dark="window.glb?.dark" filled outlined>
                 <template v-slot:prepend>
                   <div class="text-sm">
                     Last Name
@@ -126,7 +129,7 @@ const uploadedVideos = ref([])
             <!-- username -->
             <div class="window.glb.username" v-if="!editMode">@{{ window.glb.user.username || 'Unavailable' }}</div>
             <div v-else>
-              <q-field dark filled outlined>
+              <q-field :dark="window.glb?.dark" filled outlined>
                 <template v-slot:prepend>
                   <div class="text-sm">
                     Username
@@ -135,7 +138,7 @@ const uploadedVideos = ref([])
                   <input class="w-full h-full bg-transparent" v-model="window.glb.user.username">
                 </template>
               </q-field>
-              <q-field dark filled outlined>
+              <q-field :dark="window.glb?.dark" filled outlined>
                 <template v-slot:prepend>
                   <div class="text-sm">
                     Password
@@ -149,12 +152,12 @@ const uploadedVideos = ref([])
           </div>
 
           <!-- score -->
-          <div class="flex flex-col text-md text-gray-400">
+          <div class="flex flex-col text-md ">
 
             <div class="score ">{{ 'Rank: ' + (window.glb.user.rank || 'Novice') }}</div>
             <div class="uid">Identifier: {{ window.glb.user.id || 'Unavailable' }}</div>
             <br>
-            <q-field dark stack-label label="Bio">
+            <q-field filled :dark="window.glb?.dark" stack-label label="Bio">
               <template v-slot:control>
                 <input class="w-full h-full bg-transparent" :readonly="!editMode"
                   :value="window.glb.user.bio || 'No Bio ...'">
@@ -168,7 +171,7 @@ const uploadedVideos = ref([])
 
 
           <!-- email -->
-          <q-field dark filled outlined>
+          <q-field :dark="window.glb?.dark" filled outlined>
             <template v-slot:prepend>
               <div class="text-sm">
                 Email
@@ -177,7 +180,7 @@ const uploadedVideos = ref([])
               <input class="w-full h-full bg-transparent" :readonly="!editMode" v-model="window.glb.user.email">
             </template>
           </q-field>
-          <q-field dark filled outlined>
+          <q-field :dark="window.glb?.dark" filled outlined>
             <template v-slot:prepend>
               <div class="text-sm">
                 Country
@@ -186,7 +189,7 @@ const uploadedVideos = ref([])
               <input class="w-full h-full bg-transparent" :readonly="!editMode" v-model="window.glb.user.country">
             </template>
           </q-field>
-          <q-field dark filled outlined>
+          <q-field :dark="window.glb?.dark" filled outlined>
             <template v-slot:prepend>
               <div class="text-sm">
                 Joined
@@ -199,7 +202,7 @@ const uploadedVideos = ref([])
           <!-- id -->
           <!-- langsknown -->
           <div class="known-languages py-2  flex flex-col">
-            <div class="rounded-t-md bg-gray-700 p-2 flex center">
+            <div class="rounded-t-md themed-bg-tertiary p-2 flex center">
               <div class="">Languages you know</div>
               <div class="grow"></div>
               <div class="btn" v-if="editMode" @click="window.glb.openSelectLang({ multiselect: true, startingPoint: window.glb.user.nativeLanguages }, (e) => {
@@ -207,7 +210,8 @@ const uploadedVideos = ref([])
                 window.glb.user.nativeLanguages = e
               })">Edit</div>
             </div>
-            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-if="window.glb.user.nativeLanguages?.length > 0">
+            <div class="flex w-full flex-wrap themed-bg-secondary shadow-md p-2"
+              v-if="window.glb.user.nativeLanguages?.length > 0">
               <div v-for="lang in window.glb.user.nativeLanguages">
                 <q-chip :removable="editMode"
                   @remove="window.glb.removeByProp(window.glb.user.nativeLanguages, e => e.languagename == lang.languagename)">
@@ -217,12 +221,12 @@ const uploadedVideos = ref([])
                   {{ lang.languagename }}</q-chip>
               </div>
             </div>
-            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-else>
+            <div class="flex w-full flex-wrap themed-bg-secondary shadow-md p-2" v-else>
               Nothing Selected
             </div>
           </div>
           <div class="learning-languages py-2  flex flex-col">
-            <div class="rounded-t-md bg-gray-700 p-2 flex center">
+            <div class="rounded-t-md themed-bg-tertiary p-2 flex center border-b-2">
               <div class="">Languages you're learning</div>
               <div class="grow"></div>
               <div class="btn" v-if="editMode" @click="window.glb.openSelectLang({ multiselect: true, startingPoint: window.glb.user.learningLanguages }, (e) => {
@@ -230,16 +234,18 @@ const uploadedVideos = ref([])
                 window.glb.user.learningLanguages = e
               })">Edit</div>
             </div>
-            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-if="window.glb.user.learningLanguages?.length > 0">
+            <div class="flex w-full flex-wrap themed-bg-secondary shadow-md p-2"
+              v-if="window.glb.user.learningLanguages?.length > 0">
               <div v-for="lang in window.glb.user.learningLanguages">
-                <q-chip :removable="editMode" @remove="window.glb.removeByProp(window.glb.user.learningLanguages, e => e.languagename == lang.languagename)">
+                <q-chip :removable="editMode"
+                  @remove="window.glb.removeByProp(window.glb.user.learningLanguages, e => e.languagename == lang.languagename)">
                   <q-avatar>
                     <img class="rounded-full p-1" :src="'https://flagcdn.com/h60/' + lang.countrycodes[0] + '.png'" />
                   </q-avatar>
                   {{ lang.languagename }}</q-chip>
               </div>
             </div>
-            <div class="flex w-full flex-wrap bg-slate-500 p-2" v-else>
+            <div class="flex w-full flex-wrap themed-bg-secondary shadow-md p-2" v-else>
               Nothing Selected
             </div>
           </div>
@@ -247,50 +253,10 @@ const uploadedVideos = ref([])
 
       </div>
 
-      <div class="basis-9/12 h-full flex flex-col items-center bg-cyan-950 ">
-        <q-tabs v-model="tab" dense align="left" class="bg-primary text-white shadow-2 w-full" :breakpoint="0">
-          <q-tab name="mails" icon="mail" />
-          <q-tab name="alarms" icon="alarm" />
-        </q-tabs>
-        <q-tab-panels v-model="tab" animated swipeable vertical transition-prev="jump-up" transition-next="jump-up"
-          class="dark">
-          <q-tab-panel name="mails">
-            <div class=" q-mb-md">Mails</div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
-              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
-              libero.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
-              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
-              libero.</p>
-          </q-tab-panel>
+      <div class="basis-9/12 h-full flex flex-col items-center  ">
 
-          <q-tab-panel name="alarms">
-            <div class=" q-mb-md">Alarms</div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
-              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
-              libero.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
-              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
-              libero.</p>
-          </q-tab-panel>
-
-          <q-tab-panel name="movies">
-            <div class=" q-mb-md">Movies</div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
-              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
-              libero.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
-              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
-              libero.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem,
-              quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In,
-              libero.</p>
-          </q-tab-panel>
-        </q-tab-panels>
-
-
-        <div class="card w-96 m-6">
-          <div class="card-header">
+        <div class="card w-96 m-6 themed-bg-secondary">
+          <div class="card-header themed-bg-tertiary">
             Uploads
           </div>
           <div class="card-body rounded-b min-h-[5rem]">

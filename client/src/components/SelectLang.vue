@@ -133,19 +133,19 @@ window.glb.openSelectLang = (opts, cb) => {
 
 <template>
     <div :class="window.glb.settings.showSelectLangModal && 'opacity-100 pointer-events-auto' || 'opacity-0 pointer-events-none'"
-        class="absolute z-50 flex flex-col items-center justify-center bg-red-300/25 w-screen h-screen top-0 left-0 overflow-hidden transition-all backdrop-blur-sm">
+        class="absolute z-50 flex flex-col items-center justify-center bg-pink-700/25 w-screen h-screen top-0 left-0 overflow-hidden transition-all backdrop-blur-sm">
         <!-- v-click-outside="clcOut" -->
-        <div class="h-5/6 flex flex-col bg-slate-900 overflow-auto rounded sm:w-96 w-[80%] relative"
+        <div class="h-5/6 flex flex-col border themed-bg-primary overflow-auto rounded sm:w-96 w-[80%] relative"
             v-click-outside="clcOut">
             <!-- <input type="text" class="w-full h-full p-4 bg-gray-700" placeholder="Search language"
                         v-model="langSearchText" @input="searchLang" ref="searchInput"> -->
-            <q-input dark filled v-model="langSearchText" @update:model-value="searchLang" ref="searchInput"
-                class="p-2 w-full sticky top-0 bg-gray-900/75 backdrop-blur-sm z-10" placeholder="Search language "
+            <q-input :dark="window.glb?.dark" filled v-model="langSearchText" @update:model-value="searchLang" ref="searchInput"
+                class="p-2 w-full sticky top-0 themed-bg-secondary backdrop-blur-sm z-10" placeholder="Search language "
                 :loading="searchLoading" />
             <div class="flex flex-col space-y-3 px-4 ">
                 <div v-for="(lang, index) in langs" :key="index" :ref="(el) => task(el, lang)" @click="toggle(index)"
                     class=" flex p-2 items-center rounded  relative cursor-pointer" v-ripple
-                    :class="lang.checked && 'bg-blue-700' || 'bg-blue-950'">
+                    :class="lang.checked && 'bg-blue-700' || 'themed-bg-secondary'">
                     <img class="rounded-full w-6 h-6 mx-3"
                         :src="'https://flagcdn.com/h60/' + lang.countrycodes[0] + '.png'" />
                     <div class="flex flex-col items-start justify-center overflow-hidden ">
@@ -163,7 +163,7 @@ window.glb.openSelectLang = (opts, cb) => {
                 </div>
             </div>
             <div class="grow"></div>
-            <div class="sticky bottom-0 w-full p-2 bg-gray-900/75 flex items-stretch justify-center ">
+            <div class="sticky bottom-0 w-full p-2 themed-bg-tertiary flex items-stretch justify-center ">
                 <div v-ripple class="hover-ripple basis-full flex items-center justify-center cursor-pointer"
                     @click="clcOut">Cancel</div>
                 <div v-ripple class="hover-ripple basis-full flex items-center justify-center btn" @click="select">Select

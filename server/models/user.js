@@ -86,6 +86,12 @@ module.exports = sequelize => {
         loginType: DataTypes.STRING,
         pfpUrl: DataTypes.STRING,
         country: DataTypes.STRING,
+        bio: DataTypes.STRING,
+        lastLogin: DataTypes.DATE,
+        lastLogout: DataTypes.DATE,
+        lastIp: DataTypes.STRING,
+        lastUserAgent: DataTypes.STRING,
+        lastLocation: DataTypes.STRING,
 
     });
 

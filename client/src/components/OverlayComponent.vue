@@ -85,7 +85,7 @@ function toggle(i) {
         class="absolute z-50 flex flex-col items-center justify-center bg-red-300/25 w-screen h-screen top-0 left-0 overflow-hidden transition-all">
         <!-- v-click-outside="clcOut" -->
         <div class="h-5/6 bg-slate-900 overflow-auto rounded sm:w-80" v-click-outside="clcOut">
-            <div class="w-full h-12 p-2 sticky top-0   bg-slate-900">
+            <div class="w-full h-12 p-2 sticky top-0   themed-bg-primary">
                 <input type="text" class="w-full h-full  bg-gray-700" placeholder="Search language">
             </div>
             <div v-for="(lang, index) in langs" :key="index" :ref="(el) => task(el, lang)" @click="toggle(index)"

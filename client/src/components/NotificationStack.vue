@@ -27,7 +27,7 @@ watch(hovering, (newVal, oldVal) => {
 </script>
 
 <template>
-    <div class="absolute w-screen h-screen flex flex-col items-center justify-end text-white z-50 pointer-events-none"
+    <div class="absolute w-screen h-screen flex flex-col items-center justify-end  z-50 pointer-events-none"
         @click="">
         <div v-for="(item, index) in window.glb.notifications " :key="item.id"
             class="min-h-[3rem] max-w-[30rem] min-w-[20rem] p-3 rounded border-2  pointer-events-auto m-1 overflow-auto "

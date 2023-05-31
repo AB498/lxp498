@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import axios from 'axios';
 
 const fileNames = ref([])
@@ -42,6 +42,11 @@ function removeFile(idx) {
     files.value.splice(idx, 1)
     fileData.value.splice(idx, 1)
 }
+onMounted(async () => {
+    uploadedVideos.value = await window.glb.safeAuthedReq('/api/uploadbase/getVideoSelf');
+})
+
+const uploadedVideos = ref([])
 
 </script>
 
@@ -60,12 +65,11 @@ function removeFile(idx) {
         <div class="flex flex-col items-stretch center w-96 bg-cyan-900 rounded shadow-xl border-2 border-blue-600">
             <div class="w-full p-2 center bg-red-400">New Upload</div>
             <div class="w-full p-1 center bg-red-600/50">
-                {{ fileNames.length + ' files Selected' }}
+                {{ fileNames?.length + ' files Selected' }}
 
             </div>
-            <v-divider :thickness="4"></v-divider>
-            <div class="flex flex-col px-8 space-y-2 py-2" v-for="(fileName, index) in fileNames"
-                v-if="fileNames.length > 0" :key="index">
+                <div class="flex flex-col px-8 space-y-2 py-2" v-for="(fileName, index) in fileNames"
+                v-if="fileNames?.length > 0" :key="index">
                 <div class="flex dark center rounded shadow h-10">
                     <div
                         class="bg-slate-600 text-ellipsis overflow-auto line-clamp-1 h-full px-2 flex center rounded-l shrink-0">
@@ -80,11 +84,11 @@ function removeFile(idx) {
                     </a>
                 </div>
                 <!-- <video :src="files[index]"></video> -->
-                                        <q-input dark color="sky" label="Video Title" v-model="fileData[index].title" hide-details></q-input>
-                                        <q-input dark color="sky" label="Description" hide-details></q-input>
+                <q-input dark color="sky" label="Video Title" v-model="fileData[index].title" hide-details></q-input>
+                <q-input dark color="sky" label="Description" hide-details></q-input>
                 <label :for="'pic-upload' + index"
                     class="fas p-3 fa-upload bg-blue-600 m-2 rounded shadow active:shadow-xl self-center"
-                    v-if="fileNames.length == 0">
+                    v-if="fileNames?.length == 0">
                     <input :id="'pic-upload' + index" type="file" v-on:change="picChange($event, index)" class="hidden"
                         name="files" />
                     Select Thumbnail
@@ -95,10 +99,25 @@ function removeFile(idx) {
                 </a>
             </div>
             <label for="file-upload" class="fas p-3 fa-upload bg-blue-600 m-2 rounded shadow active:shadow-xl self-center"
-                v-if="fileNames.length == 0">
+                v-if="fileNames?.length == 0">
                 <input id="file-upload" type="file" v-on:change="fileChange" class="hidden" multiple name="files" />
                 Select File(s)
             </label>
+        </div>
+        <div class="card w-96 m-6 themed-bg-secondary">
+            <div class="card-header themed-bg-tertiary">
+                Uploads
+            </div>
+            <div class="card-body rounded-b min-h-[5rem]" v-if="uploadedVideos">
+                <table class=" w-full table-fixed ">
+
+                    <tr v-for="upd in uploadedVideos" class="" >
+                        <td class=" text-center">{{ window.glb.getFormattedDate(new Date(upd.createdAt)) }}</td>
+                        <td class=" text-center">{{ upd.title }}</td>
+                        <td class=" text-center">{{ (upd.views || 0) + ' Views' }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </template>

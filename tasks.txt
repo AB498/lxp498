@@ -2,10 +2,12 @@
 ytvew
     target lang
 
-progrssview
-    full
-quzvew
-    next button
-        show answer 
-            nexr
-    tabs for lang
+Ub 
+    thumbnails
+
+chat multi cliemts
+
+store
+    pricing
+
+    

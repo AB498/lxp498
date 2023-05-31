@@ -98,8 +98,11 @@ function logResponse(req, res, next) {
 
 // express routes
 
+
+
 app.use("/static", express.static(path.join(__dirname, "./static/")));
 
+global.glb.baseUrl= "http://lanxplore.xyz";
 
 global.glb.apiEndpoints = [
     { method: 'GET', url: '/api/listProgress', middlewares: { main: [], test: [], both: [progressController.listProgress] } },
@@ -108,6 +111,7 @@ global.glb.apiEndpoints = [
     { method: 'POST', url: '/api/deleteProgress/:id', middlewares: { main: [], test: [], both: [progressController.deleteProgress] } },
     { method: 'POST', url: '/api/updateProgress/:id', middlewares: { main: [], test: [], both: [progressController.updateProgress] } },
     { method: 'POST', url: '/api/getProgress', middlewares: { main: [global.glb.authMiddleware], test: [], both: [progressController.getProgress] } },
+    { method: 'POST', url: '/api/submitLearnedWords', middlewares: { main: [global.glb.authMiddleware], test: [], both: [progressController.submitLearnedWords] } },
     { method: 'GET', url: '/api/listUsers', middlewares: { main: [], test: [], both: [userController.listUsers] } },
     { method: 'POST', url: '/api/registerUser', middlewares: { main: [], test: [], both: [userController.registerUser] } },
     { method: 'POST', url: '/api/deleteAllUsers', middlewares: { main: [], test: [], both: [userController.deleteAllUsers] } },

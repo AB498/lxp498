@@ -197,10 +197,10 @@ store.uuidv4 = uuidv4;
 store.clickOutside = {
   beforeMount: (el, binding) => {
     el.clickOutsideEvent = (event) => {
-      // here I check that click was outside the el and his children
+      // here I check that click was outside the el and his childrens
       if (!(el == event.target || el.contains(event.target))) {
         // and if it did, call method provided in attribute value
-        binding.value();
+        binding.value(event, el);
       }
     };
     document.addEventListener("click", el.clickOutsideEvent);
@@ -402,8 +402,32 @@ store.removeNotf = (id) => {
   }
 };
 store.removeByProp = (arr, func) => {
-    const index = arr.findIndex(func);
-    return index != -1 && arr.splice(index, 1) && true || false;
-}
+  const index = arr.findIndex(func);
+  return (index != -1 && arr.splice(index, 1) && true) || false;
+};
+store.randInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+store.shuffle = (array) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+};
 
 export default store;

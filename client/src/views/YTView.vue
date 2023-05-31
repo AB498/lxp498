@@ -201,7 +201,7 @@ function requestSubGen() {
 </script>
 <template>
         <div class="flex items-center justify-center h-full">
-          <div class="flex bg-gray-900 text-white flex-wrap h-full w-full">
+          <div class="flex bg-gray-900  flex-wrap h-full w-full">
             <div class="video-and-suggestions flex flex-col sm:basis-4/6 overflow-auto h-full">
 
               <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
@@ -222,7 +222,7 @@ function requestSubGen() {
                     </div>
                   </div>
                 </div>
-                <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0           ">
+                <div class="w-full h-20 subtitles  bg-zinc-900   shrink-0           ">
                   <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
                     id="subWordsHolderId"
                     v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
@@ -308,16 +308,16 @@ function requestSubGen() {
 
               </div>
 
-              <div class="suggested-videos bg-gray-900 text-white sm:flex-wrap sm:flex ">
+              <div class="suggested-videos bg-gray-900  sm:flex-wrap sm:flex ">
                 <SuggestedVideos />
               </div>
             </div>
 
-            <div class="comments flex-col bg-gray-900 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex">
+            <div class="comments flex-col bg-gray-900  sm:basis-1/6 grow overflow-auto h-full sm:flex">
               <div v-if="window.glb.syncerObj?.openYTVideo.commentsError" class="full center dark">
                 {{ window.glb.syncerObj?.openYTVideo.commentsError }}
               </div>
-              <div class="comments flex-col bg-gray-900 text-white h-full w-full"
+              <div class="comments flex-col bg-gray-900  h-full w-full"
                 v-else-if="window.glb.syncerObj?.openYTVideo?.comments?.items">
                 <CommentsComponent :comments="window.glb.syncerObj?.openYTVideo?.comments"
                   v-for="(comment, index) in window.glb.syncerObj?.openYTVideo?.comments?.items" :key="index" :comment="{

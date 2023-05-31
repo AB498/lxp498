@@ -35,7 +35,7 @@ initialLoad.value = false;
 </script>
 <template>
   <div class="flex items-center justify-center h-full">
-    <div class="flex bg-gray-900 text-white flex-wrap h-full w-full">
+    <div class="flex bg-gray-900  flex-wrap h-full w-full">
       <div class="video-and-suggestions flex flex-col sm:basis-4/6 overflow-auto h-full">
 
         <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
@@ -57,7 +57,7 @@ initialLoad.value = false;
               </div>
             </div>
           </div>
-          <div class="w-full h-20 subtitles  bg-zinc-900 text-gray-300  shrink-0 
+          <div class="w-full h-20 subtitles  bg-zinc-900   shrink-0 
           ">
             <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth "
               id="subWordsHolderId"
@@ -127,7 +127,7 @@ initialLoad.value = false;
             <i class="flex items-center px-2 hover:bg-blue-600 hover:outline fa fa-gear"></i>
           </div>
         </div>
-        <div class="suggested-videos bg-gray-900 text-white sm:flex-wrap sm:flex ">
+        <div class="suggested-videos bg-gray-900  sm:flex-wrap sm:flex ">
           <UBSuggestedVideos />
         </div>
       </div>
@@ -135,6 +135,6 @@ initialLoad.value = false;
     </div>
     <!-- <script src="/src/js/youtube-iframe-setup.js"></script>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <script src="/src/parts/yt.js"></script> -->
-    <div class="comments flex-col bg-gray-900 text-white sm:basis-1/6 grow overflow-auto h-full sm:flex hidden"></div>
+    <div class="comments flex-col bg-gray-900  sm:basis-1/6 grow overflow-auto h-full sm:flex hidden"></div>
   </div>
 </template>
