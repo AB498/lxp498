@@ -70,7 +70,7 @@ const tab = ref('mails')
                 </q-tabs>
 
             </div>
-            <div class="center full basis-11/12" v-if="route.path == '/progress/'">
+            <div class="center full basis-11/12" v-if="route.path == '/progress'">
                 <div class="flex flex-col p-16 themed-bg-tertiary rounded-xl center-cross">
                     <div class="text-2xl">Select a language</div>
                     <div class="text-xl">to see your progress</div>
