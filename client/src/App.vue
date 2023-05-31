@@ -246,7 +246,7 @@ const darkmode = ref(false);
 
         <div class="nav-right px-4 flex items-stretch" :class="!searchCollapsed ? 'center basis-full' : ''">
           <q-tooltip hint="dsfdaf" />
-          <PopperComponent :class="!searchCollapsed ? ' sm:block' : ''">
+          <PopperComponent :class="!searchCollapsed ? 'hidden sm:inline' : ''">
             <template #tohover>
               <RouterLink to="/" class="flex items-center justify-center  fa  self-stretch space-x-2 font-sans font-thin">
                 <!-- loading if not connected -->
