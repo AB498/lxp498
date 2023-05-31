@@ -245,7 +245,7 @@ const darkmode = ref(false);
         class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
 
         <div class="nav-right px-4 flex items-stretch" 
-        :class="searchCollapsed?'hidden sm:flex'"
+        :class="searchCollapsed?'hidden sm:flex':''"
         >
           <q-tooltip hint="dsfdaf" />
           <PopperComponent>
