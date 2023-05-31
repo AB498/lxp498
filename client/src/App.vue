@@ -347,7 +347,7 @@ const darkmode = ref(false);
                     Logout
                   </div>
                 </div>
-                  <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>dsf<br></br>
+                  <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>dsf<br>
                   <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
                   <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
                   <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
