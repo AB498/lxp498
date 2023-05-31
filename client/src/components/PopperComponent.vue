@@ -93,7 +93,7 @@ function togglePopup() {console.log(1);
 </script>
 <template>
     <div @mouseover="together[0] = true; " @mouseleave=" together[0] = false" ref="tohover" @click="togglePopup"
-        class="flex items-center justify-center relative overflow-visible " :class="window.glb?.dark && ' dark'"
+        class=" items-center justify-center relative overflow-visible " :class="window.glb?.dark && ' dark'"
 >
 
         <div @mouseover=" together[1] = true" @mouseleave=" together[1] = false"
