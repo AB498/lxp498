@@ -16,8 +16,8 @@ import VideoCardVertical from './VideoCardVertical.vue';
 </script>
 
 <template>
-  <div class="flex flex-wrap items-stretch ">
-    <div v-for="(video, index) in videos" :key="index" class=" basis-1/4 sm:overflow-auto  p-4 ">
+  <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch full">
+    <div v-for="(video, index) in videos" :key="index" class=" sm:basis-1/4 sm:overflow-auto w-full  p-4 ">
       <VideoCardVertical @click="$router.push('/uploadbase/watch/' + video.id)" :video="video" />
     </div>
   </div>

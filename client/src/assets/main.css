@@ -50,6 +50,9 @@
     @apply  p-3 m-1 mb-0 flex items-center justify-center;
   }
   .effects {
+    @apply transition-all duration-200 hover:duration-0 rounded flex items-center justify-center hover:bg-gray-500;
+  }
+  .effects-square {
     @apply transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500;
   }
   .effects-dark {
@@ -229,6 +232,7 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f5f5f5;
   --bg-tertiary: #dfd7f3;
+  --bg-highlight: #7308ff;
   border-color: var(--text-primary);
   
 }
@@ -239,6 +243,7 @@
   --bg-primary: #142136;
   --bg-secondary: #22395d;
   --bg-tertiary: #59526c;
+  --bg-highlight: #7308ff;
   border-color: var(--text-primary);
   
 }
@@ -260,4 +265,7 @@
 }
 .themed-text-tertiary {
   color: var(--bg-tertiary);
+}
+.themed-bg-highlight {
+  background-color: var(--bg-highlight);
 }

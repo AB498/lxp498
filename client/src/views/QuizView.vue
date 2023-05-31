@@ -154,14 +154,14 @@ import DoneJSON from '@/assets/done.json'
         <br>
 
         <div class="flex flex-wrap center" v-if="words.length > 0">
-            <div v-for="(word, index) in words" class="p-2" :key="uuidv4()">
+            <div v-for="(word, index) in words" class=" p-1  sm:p-2" :key="uuidv4()">
                 <PowerWord :word-inc="word" />
             </div>
         </div>
 
         <br>
         <div class="flex flex-col" v-if="options.length > 0">
-            <div v-for="(option, index) in options.slice(0, 4)" class="min-w-[200px] center m-2 p-2 border-2 shadow rounded-full " :key="uuidv4()"
+            <div v-for="(option, index) in options.slice(0, 4)" class="sm:min-w-[200px] min-w-[100px] center m-2 p-2 border-2 shadow rounded-full " :key="uuidv4()"
                 :class="option.green?'answer-reveal bg-green-400' :(quiz.selected == option  ?'bg-blue-300':' themed-bg-secondary' )" @click="selectAnswer(option)">
                 {{ option.word?.translatedWord || 'undefined' }}
             </div>
@@ -170,7 +170,7 @@ import DoneJSON from '@/assets/done.json'
             {{ 'Selected ' + quiz.selected?.correct }}
         </div> -->
         <div class="grow"></div>
-        <div class="flex space-x-2 p-2 ">
+        <div class="flex space-x-2 p-2 sticky bottom-0 w-full themed-bg-secondary center">
             <div class="btn effects" @click="i!=0 && i--">
                 Previous
             </div>

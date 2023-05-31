@@ -40,7 +40,7 @@ watch([() => route.params.id, initialLoad], async () => {
     const data = res.data;
     console.log(data)
     progresses.value = data
-    console.log("pval",progresses.value[0])
+    console.log("pval", progresses.value[0])
     window.glb._nonPersistant.quizView.language = langs.value.find(l => l.iso6393 == lang.value)
     window.glb._nonPersistant.quizView.quizzes = data
 })
@@ -77,14 +77,14 @@ onMounted(() => {
                 {{ window.glb._nonPersistant.quizView.language.languagename }}
             </div>
         </div>
-        <div class="full overflow-auto center-cross flex flex-wrap">
+        <div class="full overflow-auto center-cross flex flex-col sm:flex-row sm:flex-wrap">
 
             <div v-for="(quiz, index) in progresses" :key="quiz.id" class="basis-full md:basis-1/2 "
                 v-if="route.path == '/progress/' + route.params.id">
                 <ProgressQuiz :quiz-inc="quiz" @click="() => { router.push(lang + '/' + quiz.id) }" class="" />
             </div>
 
-            <div v-if="window.glb._nonPersistant.quizView.quizzes.find(l => l.id == route.params.quizId)" class="full " >
+            <div v-if="window.glb._nonPersistant.quizView.quizzes.find(l => l.id == route.params.quizId)" class="full ">
                 <RouterView class="full " />
             </div>
         </div>

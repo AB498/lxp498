@@ -25,11 +25,11 @@ onMounted(() => {
 
 <template>
     <div :class="word.active ? 'bg-blue-600' : 'themed-bg-secondary'"
-        class="h-full px-1 rounded border-b-2 flex flex-col min-w-[50px] text-lg">
+        class="h-full px-1 rounded border-b-2 flex flex-col sm:min-w-[50px] text-md sm:text-lg">
         <div class="mainWord shrink-0 center h-1/2">
             {{ word.word }}
         </div>
-        <div class="mainWord shrink-0 themed-text-secondary center h-1/2">
+        <div class="mainWord shrink-0 themed-text-secondary center h-1/2 text-xs sm:text-md">
             {{ word.hideTranslation && '...' || word.translatedWord   }} 
         </div>
     </div>

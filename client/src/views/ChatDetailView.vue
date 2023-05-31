@@ -20,6 +20,8 @@ const sendMessage = () => {
         window.glb.syncerObj.openChat.addMessage = chatSendText.value
         chatSendText.value = ''
     }
+    chatSendInput.value.focus()
+
 }
 
 watch(() => window.glb.syncerObj?.openChat?.messages, (newVal, oldVal) => {
@@ -78,34 +80,24 @@ initialLoad.value = false
 </script>
 
 <template>
-        <div class="w-full h-full  bg-slate-800 overflow-auto"
-                v-loading-bar="{ loading: !window.glb.syncerObj.openChat?.messages }">
-                <div class="flex flex-col w-full h-full overflow-auto" v-if="window.glb.syncerObj.openChat?.conversationId">
-                    <div class="flex center-cross">
-                        <div class="text-2xl p-1 m-1 px-2 hover-ripple hover:cursor-pointer hover:bg-gray-600 rounded-lg ">{{
-                            window.glb.syncerObj.openChat.otherUser?.firstName || 'Username' }}
-                        </div>
-                        <div class="grow"></div>
-                        <q-icon name="more_vert" class="p-2 text-xl hover:bg-gray-600 hover-ripple rounded  mx-2" />
-                        <!-- <span class="material-symbols-outlined"> more_vert </span> -->
-
+    <div class="w-full h-full overflow-auto" v-loading-bar="{ loading: !window.glb.syncerObj.openChat?.messages }">
+        <div class="flex flex-col w-full h-full  overflow-auto" v-if="window.glb.syncerObj.openChat?.conversationId">
+            <div class="h-full w-full themed-bg-primary flex flex-col  overflow-auto " id="chat-messages"
+                v-if="window.glb.syncerObj.openChat.messages">
+                <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id" class="">
+                    <UserMessage :message="message"
+                        :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
+                        index="message.id" />
+                    <div class="px-8  w-full">
+                        <div class="h-[1px] bg-gray-200/50"></div>
                     </div>
-                    <div class="h-full w-full bg-teal-900 flex flex-col  overflow-auto " id="chat-messages"
-                        v-if="window.glb.syncerObj.openChat.messages">
-                        <div v-for="(message, index) in window.glb.syncerObj.openChat.messages" :key="message.id" class="">
-                            <UserMessage :message="message"
-                                :user="window.glb.syncerObj.openChat.participants.find(u => u.id == message.UserId)"
-                                index="message.id" />
-                            <div class="px-8  w-full">
-                                <div class="h-[1px] bg-gray-200/50"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-center">
-                        <textarea :style="{ height: clamp((1 * numLines) + 2, 0, 6) + 'rem' }" ref="chatSendInput"
-                        class="center p-2 m-2 w-full bg-gray-700" type="text" v-model="chatSendText"
-                        @keydown.enter.exact.prevent="sendMessage()" :readonly="textAreaDisabled" />
-                    <button class="p-2 m-2 ml-0 btn" @click="sendMessage">Send</button>
+                </div>
+            </div>
+            <div class="flex justify-center sticky bottom-0">
+                <textarea :style="{ height: clamp((1 * numLines) + 2, 0, 6) + 'rem' }" ref="chatSendInput"
+                    class="center p-2 m-2 w-full bg-gray-700" type="text" v-model="chatSendText"
+                    @keydown.enter.exact.prevent="sendMessage()" :readonly="textAreaDisabled" />
+                <button class="p-2 m-2 ml-0 btn" @click="sendMessage">Send</button>
             </div>
         </div>
     </div>

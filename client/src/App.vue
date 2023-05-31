@@ -105,14 +105,20 @@ chance.mixin({
 
 onMounted(() => {
 
+  window.addEventListener('resize', () => {
 
-  window.document.querySelector('#svgg').innerHTML = chance.svg({
-    lines: 20,
-    triangles: 10,
-    circles: 10,
-    max_size: 30,
-    opacity: 0.7
+    window.glb.screenWidth = document.documentElement.clientWidth;
+    window.glb.screenHeight = document.documentElement.clientHeight;
+
   });
+
+window.document.querySelector('#svgg').innerHTML = chance.svg({
+  lines: 20,
+  triangles: 10,
+  circles: 10,
+  max_size: 30,
+  opacity: 0.7
+});
 })
 
 const route = useRoute()
@@ -288,15 +294,15 @@ const darkmode = ref(false);
         <div
           class="nav-center items-center transition-all duration-150 flex-nowrap space-x-1 flex overflow-hidden w-0 sm:w-auto "
           v-if="window.glb.loggedIn">
-          <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
-          <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
-          <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
-          <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
-          <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
-          <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
+          <q-icon @click="router.push('/')" name="home" class="effects-square"></q-icon>
+          <q-icon @click="router.push('/profile')" name="account_circle" class="effects-square"></q-icon>
+          <q-icon @click="router.push('/chat')" name="chat" class="effects-square"></q-icon>
+          <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects-square"></q-icon>
+          <q-icon @click="router.push('/progress')" name="model_training" class="effects-square"></q-icon>
+          <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects-square"></q-icon>
         </div>
-        <div class="nav-right px-1 flex items-stretch flex-nowrap"
-          :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
+        <div class="nav-right flex items-stretch flex-nowrap"
+          :class="!searchCollapsed ? 'w-0 px-0 overflow-hidden sm:w-auto' : 'px-1  '">
           <div class="nav-right items-stretch flex-nowrap flex overflow-hidden w-0 sm:w-auto" v-if="window.glb.loggedIn">
             <RouterLink to="/" @click="" class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
               {{ (window.glb.user && window.glb.user.lxt || 0) + ' ' }}
@@ -336,47 +342,41 @@ const darkmode = ref(false);
           </PopperComponent>
           <PopperComponent :mode="'click'">
             <template #tohover>
-              <i
-                class="flex items-center justify-center  fa fa-bars px-4 cursor-pointer hover:bg-gray-500 hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded"></i>
+              <q-icon name="menu" class="effects-square"></q-icon>
             </template>
             <template #popup>
-              <div class="w-full  h-full flex flex-col">
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/')" >
+              <div class="  h-full flex flex-col w-[90vw] max-w-[200px] ">
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/')">
                   <q-icon name="home" class="effects"></q-icon>
                   <div>
                     Home
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/profile')"
-                  >
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/profile')">
                   <q-icon name="account_circle" class="effects"></q-icon>
                   <div>
                     Profile
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/chat')"
-                  >
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/chat')">
                   <q-icon name="chat" class="effects"></q-icon>
                   <div>
                     Chat
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/uploadbase')"
-                  >
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/uploadbase')">
                   <q-icon name="cloud_circle" class="effects"></q-icon>
                   <div>
                     UploadBase
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/progress')"
-                  >
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/progress')">
                   <q-icon name="model_training" class="effects"></q-icon>
                   <div>
                     Progress
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/admin')"
-                  >
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/admin')">
                   <q-icon name="admin_panel_settings" class="effects"></q-icon>
                   <div>
                     Admin

@@ -135,14 +135,14 @@ window.glb.openSelectLang = (opts, cb) => {
     <div :class="window.glb.settings.showSelectLangModal && 'opacity-100 pointer-events-auto' || 'opacity-0 pointer-events-none'"
         class="absolute z-50 flex flex-col items-center justify-center bg-pink-700/25 w-screen h-screen top-0 left-0 overflow-hidden transition-all backdrop-blur-sm">
         <!-- v-click-outside="clcOut" -->
-        <div class="h-5/6 flex flex-col border themed-bg-primary overflow-auto rounded sm:w-96 w-[80%] relative"
+        <div class="h-5/6 flex flex-col border themed-bg-primary overflow-auto rounded sm:w-96 w-[95%] relative p-2 "
             v-click-outside="clcOut">
             <!-- <input type="text" class="w-full h-full p-4 bg-gray-700" placeholder="Search language"
                         v-model="langSearchText" @input="searchLang" ref="searchInput"> -->
             <q-input :dark="window.glb?.dark" filled v-model="langSearchText" @update:model-value="searchLang" ref="searchInput"
-                class="p-2 w-full sticky top-0 themed-bg-secondary backdrop-blur-sm z-10" placeholder="Search language "
+                class="w-full sticky top-0 themed-bg-secondary backdrop-blur-sm z-10" placeholder="Search language "
                 :loading="searchLoading" />
-            <div class="flex flex-col space-y-3 px-4 ">
+            <div class="flex flex-col space-y-3 overflow-auto p-1">
                 <div v-for="(lang, index) in langs" :key="index" :ref="(el) => task(el, lang)" @click="toggle(index)"
                     class=" flex p-2 items-center rounded  relative cursor-pointer" v-ripple
                     :class="lang.checked && 'bg-blue-700' || 'themed-bg-secondary'">

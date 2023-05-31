@@ -52,7 +52,7 @@ const uploadedVideos = ref([])
 
 
 <template>
-    <div class="w-full h-full bg-cyan-900 flex-col center-cross p-6 overflow-auto">
+    <div class="w-full h-full flex-col center-cross p-6 overflow-auto">
         <div :class="errorMessage != '' ? 'h-16 ' : 'h-0 opacity-0'"
             class="w-full flex flex-col items-center justify-center transition-all">
             <div class="flex w-full items-center justify-center space-x-2">
@@ -62,30 +62,29 @@ const uploadedVideos = ref([])
             </div>
             <div class="w-3/4 h-0.5 bg-red-600"></div>
         </div>
-        <div class="flex flex-col items-stretch center w-96 bg-cyan-900 rounded shadow-xl border-2 border-blue-600">
-            <div class="w-full p-2 center bg-red-400">New Upload</div>
-            <div class="w-full p-1 center bg-red-600/50">
+        <div class="flex flex-col items-stretch center w-full sm:w-96  rounded shadow border-2 themed-bg-secondary">
+            <div class="w-full p-2 center themed-bg-tertiary shadow-md border-b-2">New Upload</div>
+            <div class="w-full p-1 center themed-bg-tertiary shadow-md border-b-2">
                 {{ fileNames?.length + ' files Selected' }}
-
             </div>
-                <div class="flex flex-col px-8 space-y-2 py-2" v-for="(fileName, index) in fileNames"
+                <div class="flex flex-col px-8 space-y-2 py-2 " v-for="(fileName, index) in fileNames"
                 v-if="fileNames?.length > 0" :key="index">
-                <div class="flex dark center rounded shadow h-10">
+                <div class="flex center rounded shadow h-10 themed-bg-tertiary">
                     <div
-                        class="bg-slate-600 text-ellipsis overflow-auto line-clamp-1 h-full px-2 flex center rounded-l shrink-0">
+                        class="shrink-0 text-ellipsis overflow-auto line-clamp-1 h-full px-2 flex center rounded-l ">
                         File
                     </div>
-                    <div class="overflow-x-auto truncate  h-full flex center">
+                    <div class="overflow-x-auto truncate themed-bg-secondary w-full h-full flex center">
                         {{ fileName }}
                     </div>
                     <div class="grow"></div>
                     <a href="" @click.prevent="removeFile(index)"
-                        class="fas fa-times text-red-400 bg-slate-600 center  h-full p-2 rounded-r effects-gray">
+                        class="fas fa-times  center  h-full p-2 rounded-r effects-gray">
                     </a>
                 </div>
                 <!-- <video :src="files[index]"></video> -->
-                <q-input dark color="sky" label="Video Title" v-model="fileData[index].title" hide-details></q-input>
-                <q-input dark color="sky" label="Description" hide-details></q-input>
+                <q-input :dark="window.glb.dark" color="sky" label="Video Title" v-model="fileData[index].title" hide-details></q-input>
+                <q-input :dark="window.glb.dark" color="sky" label="Description" hide-details></q-input>
                 <label :for="'pic-upload' + index"
                     class="fas p-3 fa-upload bg-blue-600 m-2 rounded shadow active:shadow-xl self-center"
                     v-if="fileNames?.length == 0">
@@ -94,7 +93,7 @@ const uploadedVideos = ref([])
                     Select Thumbnail
                 </label>
                 <a href="" @click.prevent="() => uploadVideo(index)"
-                    class="flex fas fa-up bg-blue-800 p-3 rounded effects-blue shadow self-center">
+                    class="flex fas fa-up shadow-md  p-3 rounded effects-blue themed-bg-tertiary self-center">
                     Submit
                 </a>
             </div>
@@ -104,19 +103,21 @@ const uploadedVideos = ref([])
                 Select File(s)
             </label>
         </div>
-        <div class="card w-96 m-6 themed-bg-secondary">
+        <div class="card w-full sm:w-96 m-6 themed-bg-secondary">
             <div class="card-header themed-bg-tertiary">
                 Uploads
             </div>
             <div class="card-body rounded-b min-h-[5rem]" v-if="uploadedVideos">
-                <table class=" w-full table-fixed ">
-
+                <table class=" w-full table-fixed " v-if="uploadedVideos.length > 0">
                     <tr v-for="upd in uploadedVideos" class="" >
                         <td class=" text-center">{{ window.glb.getFormattedDate(new Date(upd.createdAt)) }}</td>
                         <td class=" text-center">{{ upd.title }}</td>
                         <td class=" text-center">{{ (upd.views || 0) + ' Views' }}</td>
                     </tr>
                 </table>
+                <div class="center full" v-else>
+                    <div class="text-center text-gray-400">No Uploads</div>
+                    </div>
             </div>
         </div>
     </div>

@@ -77,8 +77,8 @@ import pic from '@/assets/logo.svg'
 
 <template>
   <div class="flex flex-col w-full h-full">
-    <div class="flex w-full h-full">
-      <div class=" relative w-[400px] h-full flex flex-col overflow-auto border-r-2 left-part shadow-xl">
+    <div class="flex w-full h-full sm:flex-row flex-col border overflow-auto">
+      <div class="shrink-0 relative w-full flex-col sm:w-[400px] sm:overflow-auto flex sm: border-r-2 left-part shadow-xl">
         <div class="flex flex-col w-full sticky top-0 backdrop-blur-md z-10">
           <img :src="window.glb.user.pfpUrl || pic " class="w-32 h-32  self-center" />
           <div class=" w-full flex justify-center items-center px-4 themed-bg-secondary shadow-md">
@@ -253,9 +253,9 @@ import pic from '@/assets/logo.svg'
 
       </div>
 
-      <div class="basis-9/12 h-full flex flex-col items-center  ">
+      <div class=" flex flex-col items-center  ">
 
-        <div class="card w-96 m-6 themed-bg-secondary">
+        <div class="card sm:w-96 m-6 themed-bg-secondary">
           <div class="card-header themed-bg-tertiary">
             Uploads
           </div>
