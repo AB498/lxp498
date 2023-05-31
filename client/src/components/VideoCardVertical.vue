@@ -9,7 +9,7 @@ import pic from "@/assets/logo.svg";
 </script>
 
 <template>
-    <div class=" flex flex-col  w-full relative hover:-translate-y-1 shadow-md transition h-full rounded-xl">
+    <div class=" flex flex-col w-full relative hover:-translate-y-1 shadow-md transition h-full rounded-xl">
         <div class="border relative rounded-t-xl">
             <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="w-full rounded-t-xl">
             <div class="vidinfo absolute bottom-0  themed-text-primary bg-opacity-80 text-xs"
