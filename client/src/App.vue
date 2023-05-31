@@ -245,11 +245,12 @@ const darkmode = ref(false);
         class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
 
         <div class="nav-right px-4 flex items-stretch" 
+        :class="!searchCollapsed ? 'center' : ''"
         >
           <q-tooltip hint="dsfdaf" />
           <PopperComponent 
-        :class="!searchCollapsed?'hidden sm:flex':''"
-          >
+        :class="!searchCollapsed ? 'hidden sm:flex' : ''"
+            >
             <template #tohover>
               <RouterLink to="/" class="flex items-center justify-center  fa  self-stretch space-x-2 font-sans font-thin">
                 <!-- loading if not connected -->
@@ -288,7 +289,9 @@ const darkmode = ref(false);
           </div>
         </div>
         <div class="nav-center  items-center transition-all duration-150 flex-nowrap space-x-1 sm:flex hidden"
-          v-if="window.glb.loggedIn">
+          v-if="window.glb.loggedIn"
+        :class="!searchCollapsed?'hidden sm:flex':''"
+          >
           <RouterLink to="/" v-ripple
             class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
             <q-icon name="home" class=""></q-icon>
