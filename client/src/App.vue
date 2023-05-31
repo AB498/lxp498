@@ -275,6 +275,7 @@ const darkmode = ref(false);
               </div>
             </template>
           </PopperComponent>
+        </div>
 
           <div
             class="rounded-full h-8 self-center mx-2 themed-bg-tertiary flex  focus-within:ring-2 ring-blue-500 transition-all">
@@ -283,7 +284,6 @@ const darkmode = ref(false);
             <a href="" class="fa self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover-ripple"
               :class="searchCollapsed ? 'fa-search' : 'fa-times'"
               @click.prevent="searchCollapsed = !searchCollapsed; searchText = ''"></a>
-          </div>
           </div>
         </div>
         <div class="nav-center  items-center transition-all duration-150 flex-nowrap space-x-1 sm:flex hidden"
