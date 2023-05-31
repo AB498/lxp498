@@ -245,7 +245,7 @@ const darkmode = ref(false);
         class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
 
         <div class="nav-right px-4 flex items-stretch" :class="!searchCollapsed ? 'center basis-full sm:basis-auto' : ''">
-          <div :class="!searchCollapsed ? 'w-0 sm:w-auto' : ''">
+          <div :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
             <PopperComponent>
               <template #tohover>
                 <RouterLink to="/"
