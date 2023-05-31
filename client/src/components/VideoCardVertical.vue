@@ -27,8 +27,9 @@ import pic from "@/assets/logo.svg";
             </div>
         </div>
         <div class="p-4 break-words">
-            <div class="text-xs line-clamp-3 " v-text="video.title || 'No Title'"></div>
-            <div class="text-xs themed-text-secondary line-clamp-2 break-words" v-text="video.description || 'No Description'">
+            <div class="text-xs line-clamp-3 " >{{ video.title || 'No Title' }}</div>
+            <div class="text-xs themed-text-secondary line-clamp-2 break-words">
+                {{ video.description || 'No Description' }}
             </div>
         </div>
     </div>
