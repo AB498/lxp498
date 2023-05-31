@@ -244,7 +244,7 @@ const darkmode = ref(false);
       <div
         class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
 
-        <div class="nav-right px-4  items-stretch" :class="!searchCollapsed ? 'center basis-full' : ''">
+        <div class="nav-right px-4 flex items-stretch" :class="!searchCollapsed ? 'center basis-full' : ''">
           <q-tooltip hint="dsfdaf" />
           <PopperComponent :class="!searchCollapsed ? 'hidden sm:flex' : ''">
             <template #tohover>
