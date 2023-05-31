@@ -101,7 +101,7 @@ function togglePopup() {console.log(1);
             :class="show ? 'opacity-100' : 'opacity-0 pointer-events-none translate-x-4'"
             class="fixed max-h-[80vh] max-w-[60vw]  w-auto h-auto transition-all  text-sm themed-bg-secondary  border-2  shadow-md rounded  overflow-auto"
             ref="popup">
-            <div class= m-1 overflow-visible relative">
+            <div class="m-1 overflow-visible relative">
                 <slot name="popup"></slot>
             </div>
         </div>
