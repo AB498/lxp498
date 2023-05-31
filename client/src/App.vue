@@ -275,7 +275,7 @@ const darkmode = ref(false);
           </PopperComponent>
 
           <div
-            class="  rounded-full h-8 self-center mx-2 bg-zinc-700 flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
+            class="  rounded-full h-8 self-center mx-2 themed-bg-secondary flex focus-within:bg-gray-600 focus-within:ring-2 ring-blue-500 transition-all">
             <input class="h-full rounded-full without-ring bg-transparent transition-all " placeholder="Search ..."
               :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4  w-52'" v-model="searchText" />
             <a href=""
