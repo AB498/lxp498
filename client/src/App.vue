@@ -245,7 +245,7 @@ const darkmode = ref(false);
         class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
 
         <div class="nav-right px-4 flex items-stretch" 
-        :class="!searchCollapsed ? 'center' : ''"
+        :class="!searchCollapsed ? 'center basis-full' : ''"
         >
           <q-tooltip hint="dsfdaf" />
           <PopperComponent 
@@ -281,7 +281,7 @@ const darkmode = ref(false);
           <div
             class="rounded-full h-8 self-center mx-2 themed-bg-tertiary flex  focus-within:ring-2 ring-blue-500 transition-all">
             <input class="h-full rounded-full without-ring bg-transparent transition-all " placeholder="Search ..."
-              :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4  w-full'" v-model="searchText" />
+              :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4  w-52'" v-model="searchText" />
             <a href=""
               class="fa self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover-ripple"
               :class="searchCollapsed ? 'fa-search' : 'fa-times'"
