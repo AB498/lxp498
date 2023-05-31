@@ -245,37 +245,37 @@ const darkmode = ref(false);
         class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
 
         <div class="nav-right px-4 flex items-stretch" :class="!searchCollapsed ? 'center basis-full sm:basis-auto' : ''">
-          <q-tooltip hint="dsfdaf" />
-          <div
-          :class="!searchCollapsed ? 'hidden sm:flex' : ''">
-          <PopperComponent >
-            <template #tohover>
-              <RouterLink to="/" class="flex items-center justify-center  fa  self-stretch space-x-2 font-sans font-thin">
-                <!-- loading if not connected -->
-                <i v-if="!window.glb.con" class="">
-                  <q-spinner-radio color="brown" />
-                </i>
-                <span class="relative flex h-3 w-3 center" v-else>
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500">
+          <div :class="!searchCollapsed ? 'hidden flex' : ''">
+            <PopperComponent>
+              <template #tohover>
+                <RouterLink to="/"
+                  class="flex items-center justify-center  fa  self-stretch space-x-2 font-sans font-thin">
+                  <!-- loading if not connected -->
+                  <i v-if="!window.glb.con" class="">
+                    <q-spinner-radio color="brown" />
+                  </i>
+                  <span class="relative flex h-3 w-3 center" v-else>
+                    <span
+                      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500">
 
+                    </span>
                   </span>
-                </span>
-                <div class="font-Galada text-4xl p-1">
-                  Lx{{ window.glb.syncerObj?.a }}
+                  <div class="font-Galada text-4xl p-1">
+                    Lx{{ window.glb.syncerObj?.a }}
+                  </div>
+                </RouterLink>
+              </template>
+              <template #popup>
+                <div class="w-full h-full">
+                  <JsonViewer
+                    :value="Object.fromEntries(Object.entries(window.glb).filter(([k, v]) => typeof v != 'function'))"
+                    class=" " theme="my-awesome-json-theme">
+                  </JsonViewer>
                 </div>
-              </RouterLink>
-            </template>
-            <template #popup>
-              <div class="w-full h-full">
-                <JsonViewer
-                  :value="Object.fromEntries(Object.entries(window.glb).filter(([k, v]) => typeof v != 'function'))"
-                  class=" " theme="my-awesome-json-theme">
-                </JsonViewer>
-              </div>
-            </template>
-          </PopperComponent>
-        </div>
+              </template>
+            </PopperComponent>
+          </div>
 
           <div
             class="rounded-full h-8 self-center mx-2 themed-bg-tertiary flex  focus-within:ring-2 ring-blue-500 transition-all">
