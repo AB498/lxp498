@@ -347,16 +347,12 @@ const darkmode = ref(false);
                     Logout
                   </div>
                 </div>
-                <div
-                  class="nav-center flex items-center transition-all duration-150 flex-nowrap space-x-1 sm:w-auto w-0  "
-                  v-if="window.glb.loggedIn">
                   <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
                   <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
                   <q-icon @click="router.push('/chat')" name="chat" class="effects"></q-icon>
                   <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects"></q-icon>
                   <q-icon @click="router.push('/progress')" name="model_training" class="effects"></q-icon>
                   <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
-                </div>
               </div>
             </template>
           </PopperComponent>
