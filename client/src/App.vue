@@ -343,9 +343,7 @@ const darkmode = ref(false);
               <div class="w-full  h-full flex flex-col">
                 <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
                   <q-icon name="power_settings_new" class=""></q-icon>
-                  <div>
                     Logout
-                  </div>
                 </div>
                   <q-icon @click="router.push('/')" name="home" class="effects"></q-icon>
                   <q-icon @click="router.push('/profile')" name="account_circle" class="effects"></q-icon>
