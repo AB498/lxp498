@@ -13,7 +13,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex sm:flex-col flex-wrap items-stretch ">
+  <div class="flex flex-col sm:flex-row flex-wrap items-stretch ">
       <div v-for="(video, index) in videos" :key="index" class=" basis-1/4 shrink-0 grow-0 p-4 ">
       <VideoCardVertical :video="{
         thumbnailUrl: video.snippet.thumbnails.medium.url,
