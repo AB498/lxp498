@@ -9,9 +9,9 @@ import pic from "@/assets/logo.svg";
 </script>
 
 <template>
-    <div class=" flex flex-col w-full border relative hover:-translate-y-1 shadow-md transition h-full rounded-xl ">
+    <div class=" flex flex-col  w-full relative hover:-translate-y-1 shadow-md transition h-full rounded-xl">
         <div class="border relative rounded-t-xl">
-            <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="w-16 rounded-t-xl">
+            <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="w-full rounded-t-xl">
             <div class="vidinfo absolute bottom-0  themed-text-primary bg-opacity-80 text-xs"
             :class="!window.glb.dark ? 'bg-slate-200' : 'bg-slate-950'"
             >
@@ -26,9 +26,9 @@ import pic from "@/assets/logo.svg";
                 <div>Play</div>
             </div>
         </div>
-        <div class="w-full overflow-auto break-all">
-            <div class="w-full text-xs line-clamp-3 " v-text="video.title || 'No Title'"></div>
-            <div class="w-full text-xs themed-text-secondary line-clamp-2 break-words" v-text="video.description || 'No Description'">
+        <div class="p-4 break-all">
+            <div class="text-xs line-clamp-3 " v-text="video.title || 'No Title'"></div>
+            <div class="text-xs themed-text-secondary line-clamp-2 break-words" v-text="video.description || 'No Description'">
             </div>
         </div>
     </div>
