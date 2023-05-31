@@ -372,7 +372,7 @@ const darkmode = ref(false);
                   </div>
                 </div>
                 <div class="w-full p-2 px-4 space-x-2 effects flex center-cross" @click="logout">
-                  <q-icon name="power_settings_new" class=""></q-icon>
+                  <q-icon @click="router.push('/admin')" name="admin_panel_settings" class="effects"></q-icon>
                   <div>
                     Logout
                   </div>
@@ -383,7 +383,6 @@ const darkmode = ref(false);
                     Home
                   </div>
                 </div>
-                  <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects"></q-icon>
               </div>
             </template>
           </PopperComponent>
