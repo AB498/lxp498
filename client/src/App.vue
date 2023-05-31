@@ -244,13 +244,9 @@ const darkmode = ref(false);
       <div
         class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
 
-        <div class="nav-right px-4 flex items-stretch" 
-        :class="!searchCollapsed ? 'center basis-full' : ''"
-        >
+        <div class="nav-right px-4 flex items-stretch" :class="!searchCollapsed ? 'center basis-full' : ''">
           <q-tooltip hint="dsfdaf" />
-          <PopperComponent 
-        :class="!searchCollapsed ? 'hidden sm:flex' : ''"
-            >
+          <PopperComponent :class="!searchCollapsed ? 'hidden sm:flex' : ''">
             <template #tohover>
               <RouterLink to="/" class="flex items-center justify-center  fa  self-stretch space-x-2 font-sans font-thin">
                 <!-- loading if not connected -->
@@ -282,8 +278,7 @@ const darkmode = ref(false);
             class="rounded-full h-8 self-center mx-2 themed-bg-tertiary flex  focus-within:ring-2 ring-blue-500 transition-all">
             <input class="h-full rounded-full without-ring bg-transparent transition-all " placeholder="Search ..."
               :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4  w-52'" v-model="searchText" />
-            <a href=""
-              class="fa self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover-ripple"
+            <a href="" class="fa self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover-ripple"
               :class="searchCollapsed ? 'fa-search' : 'fa-times'"
               @click.prevent="searchCollapsed = !searchCollapsed; searchText = ''"></a>
           </div>
@@ -311,13 +306,11 @@ const darkmode = ref(false);
             <q-icon name="model_training" class=""></q-icon>
           </div>
           <RouterLink to="/admin" v-ripple v-if="window.glb.user?.admin"
-          class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
-          <q-icon name="admin_panel_settings" class=""></q-icon>
+            class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
+            <q-icon name="admin_panel_settings" class=""></q-icon>
           </RouterLink>
         </div>
-        <div class="nav-right px-1 flex items-stretch flex-nowrap"
-        :class="!searchCollapsed ? 'hidden sm:flex' : ''"
-          >
+        <div class="nav-right px-1 flex items-stretch flex-nowrap" :class="!searchCollapsed ? 'hidden sm:flex' : ''">
           <div class="nav-right px-4 flex items-stretch flex-nowrap" v-if="window.glb.loggedIn">
             <RouterLink to="/" @click="" class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
               {{ (window.glb.user && window.glb.user.lxt || 0) + ' ' }}
