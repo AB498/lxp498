@@ -68,7 +68,7 @@ const together = ref([false, false])
 const matchArrays = (arr1, arr2) => arr1.every((val, index) => val === arr2[index]);
 
 watch(together.value, (val, old) => {
-    if (mode.value == 'hover'){
+    if (mode.value == 'hover') {
         if (val[0] || val[1]) {
             show.value = true;
         }
@@ -80,24 +80,24 @@ watch(together.value, (val, old) => {
 
 const mode = ref(props.mode || 'hover');
 
-function togglePopup() {console.log(1);
+function togglePopup() {
+    console.log(1);
     let v = !show.value;
     setTimeout(() => {
-        
+
         if (mode.value == 'click') {
             show.value = v;
         }
-    },0);
+    }, 0);
 }
 
 </script>
 <template>
-    <div @mouseover="together[0] = true; " @mouseleave=" together[0] = false" ref="tohover" @click="togglePopup"
-        class="flex items-center justify-center relative overflow-visible " :class="window.glb?.dark && ' dark'"
->
+    <div @mouseover="together[0] = true;" @mouseleave=" together[0] = false" ref="tohover" @click="togglePopup"
+        class="flex items-center justify-center relative overflow-visible " :class="window.glb?.dark && ' dark'">
 
         <div @mouseover=" together[1] = true" @mouseleave=" together[1] = false"
-                v-click-outside="() => {console.log(0); if(mode == 'click') show = false}"
+            v-click-outside="() => { console.log(0); if (mode == 'click') show = false }"
             :class="show ? 'opacity-100' : 'opacity-0 pointer-events-none translate-x-4'"
             class="fixed max-h-[80vh] max-w-[60vw]  w-auto h-auto transition-all  text-sm themed-bg-secondary  border-2  shadow-md rounded  overflow-auto"
             ref="popup">
