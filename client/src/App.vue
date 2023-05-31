@@ -284,7 +284,7 @@ const darkmode = ref(false);
               @click.prevent="searchCollapsed = !searchCollapsed; searchText = ''"></a>
           </div>
         </div>
-        <div class="nav-center  items-center transition-all duration-150 flex-nowrap space-x-1 sm:flex flex"
+        <div class="nav-center  items-center transition-all duration-150 flex-nowrap space-x-1 sm:flex hidden"
           v-if="window.glb.loggedIn">
           <RouterLink to="/" v-ripple
             class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
