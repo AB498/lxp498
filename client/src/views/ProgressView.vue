@@ -68,15 +68,15 @@ const tab = ref('mails')
                 </q-tabs>
 
             </div>
-            <div class="flex flex-col full basis-11/12  " v-if="route.path == '/progress/' + route.params.id">
-                <RouterView class=" full"></RouterView>
-            </div>
-            <div v-else class="center full basis-11/12">
+            <div  class="center full basis-11/12"  v-if="route.path == '/progress/' + route.params.id">
                 <div class="flex flex-col p-16 themed-bg-tertiary rounded-xl center-cross">
                     <div class="text-2xl">Select a language</div>
                     <div class="text-xl">to see your progress</div>
                 </div>
-                </div>
+            </div>
+            <div v-else class="flex flex-col full basis-11/12  ">
+                <RouterView class=" full"></RouterView>
+            </div>
         </div>
     </div>
 </template>
