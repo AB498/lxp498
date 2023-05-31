@@ -27,9 +27,9 @@ import pic from "@/assets/logo.svg";
             </div>
         </div>
         <div class="w-full p-4 break-words">
-            <p class="w-full text-xs line-clamp-3 break-words" v-text="video.title || 'No Title'"></p>
-            <p class="w-full text-xs themed-text-secondary line-clamp-2 break-words" v-text="video.description || 'No Description'">
-            </p>
+            <div class="w-full text-xs line-clamp-3 break-words" v-text="video.title || 'No Title'"></div>
+            <div class="w-full text-xs themed-text-secondary line-clamp-2 break-words" v-text="video.description || 'No Description'">
+            </div>
         </div>
     </div>
 </template>
