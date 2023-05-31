@@ -289,9 +289,7 @@ const darkmode = ref(false);
           </div>
         </div>
         <div class="nav-center  items-center transition-all duration-150 flex-nowrap space-x-1 sm:flex hidden"
-          v-if="window.glb.loggedIn"
-        :class="!searchCollapsed?'hidden sm:flex':''"
-          >
+          v-if="window.glb.loggedIn">
           <RouterLink to="/" v-ripple
             class="hover-ripple transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500">
             <q-icon name="home" class=""></q-icon>
@@ -317,7 +315,9 @@ const darkmode = ref(false);
           <q-icon name="admin_panel_settings" class=""></q-icon>
           </RouterLink>
         </div>
-        <div class="nav-right px-1 flex items-stretch flex-nowrap">
+        <div class="nav-right px-1 flex items-stretch flex-nowrap"
+        :class="!searchCollapsed ? 'hidden sm:flex' : ''"
+          >
           <div class="nav-right px-4 flex items-stretch flex-nowrap" v-if="window.glb.loggedIn">
             <RouterLink to="/" @click="" class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
               {{ (window.glb.user && window.glb.user.lxt || 0) + ' ' }}
