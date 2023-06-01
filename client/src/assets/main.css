@@ -370,6 +370,10 @@
 .themed-bg-highlight {
   background-color: var(--bg-highlight);
 }
+.themed-bg-blur{
+  filter: blur(1px);
+  opacity: 0.5;
+}
 .themed-text-gray {
   color: #a0aec0;
 }

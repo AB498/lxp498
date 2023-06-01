@@ -112,13 +112,13 @@ onMounted(() => {
 
   });
 
-window.document.querySelector('#svgg').innerHTML = chance.svg({
-  lines: 20,
-  triangles: 10,
-  circles: 10,
-  max_size: 30,
-  opacity: 0.7
-});
+  window.document.querySelector('#svgg').innerHTML = chance.svg({
+    lines: 20,
+    triangles: 10,
+    circles: 10,
+    max_size: 30,
+    opacity: 0.7
+  });
 })
 
 const route = useRoute()
@@ -303,11 +303,12 @@ const darkmode = ref(false);
           <q-icon @click="router.push('/progress')" name="model_training" class="effects-square"></q-icon>
           <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects-square"></q-icon>
         </div>
-        <div class="nav-right flex items-stretch flex-nowrap"
-          :class="!searchCollapsed ? 'w-0 px-0 overflow-hidden sm:w-auto' : 'px-1  '">
-          <div class="nav-right items-stretch flex-nowrap flex overflow-hidden w-0 sm:w-auto" v-if="window.glb.loggedIn">
-            <RouterLink to="/" @click="" class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
-              {{ (window.glb.user && window.glb.user.lxt || 0) + ' ' }}
+        <div class="nav-right flex items-stretch flex-nowrap overflow-hidden w-0 sm:w-auto"
+          :class="!searchCollapsed ? 'w-0 px-0 border sm:w-auto' : 'px-1  '">
+          <div class="nav-right items-stretch flex-nowrap flex  " v-if="window.glb.loggedIn">
+            <RouterLink to="/" @click="" class="flex items-center space-x-2 justify-center fa px-2	">
+              <!-- {{ (window.glb.user && window.glb.user.lxt || 0) }} -->
+              <q-icon name="all_inclusive" class=""></q-icon>
               <i class="fa fa-bolt"></i>
             </RouterLink>
             <RouterLink to="/" @click="e => window.glb.addNotf()"
@@ -331,6 +332,9 @@ const darkmode = ref(false);
               Contact
             </div>
           </div>
+        </div>
+        <div class="flex center-cross">
+          
           <PopperComponent>
             <template #tohover>
               <q-toggle v-model="window.glb.dark" checked-icon="dark_mode" color="" unchecked-icon="light_mode">

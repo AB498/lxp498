@@ -8,170 +8,182 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: HomeView,
       meta: {
-        middleware: [auth]
-      }
+        middleware: [auth],
+      },
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: "/about",
+      name: "about",
+      component: () => import("../views/AboutView.vue"),
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('../views/ProfileView.vue'),
+      path: "/profile",
+      name: "profile",
+      component: () => import("../views/ProfileView.vue"),
       meta: {
-        middleware: [auth]
-      }
+        middleware: [auth],
+      },
     },
     {
-      path: '/chat',
-      name: 'chat',
-      component: () => import('../views/ChatView.vue'),
+      path: "/chat",
+      name: "chat",
+      component: () => import("../views/ChatView.vue"),
       children: [
         {
-          path: ':id',
-          component: () => import('../views/ChatDetailView.vue'),
-        }
+          path: ":id",
+          component: () => import("../views/ChatDetailView.vue"),
+        },
       ],
       meta: {
-        middleware: [auth]
-      }
+        middleware: [auth],
+      },
     },
     {
-      path: '/progress',
-      name: 'progress',
-      component: () => import('../views/ProgressView.vue'),
+      path: "/progress",
+      name: "progress",
+      component: () => import("../views/ProgressView.vue"),
       children: [
         {
-          path: ':id',
-          component: () => import('../views/ProgressDetailView.vue'),
+          path: ":id",
+          component: () => import("../views/ProgressDetailView.vue"),
           children: [
             {
-              path: ':quizId',
-              component: () => import('../views/QuizView.vue'),
-            }
-          ]
-        }
+              path: ":quizId",
+              component: () => import("../views/QuizView.vue"),
+            },
+          ],
+        },
       ],
       meta: {
-        middleware: [auth]
-      }
+        middleware: [auth],
+      },
     },
     {
-      path: '/uploadbase',
-      name: 'uploadbase',
-      component: () => import('../views/UploadbaseView.vue'),
+      path: "/uploadbase",
+      name: "uploadbase",
+      component: () => import("../views/UploadbaseView.vue"),
       children: [
         {
-          path: '/uploadbase',
-          component: () => import('../views/UBHomeView.vue'),
+          path: "/uploadbase",
+          component: () => import("../views/UBHomeView.vue"),
         },
         {
-          path: '/uploadbase/settings',
-          component: () => import('../views/UBSettingsView.vue'),
+          path: "/uploadbase/settings",
+          component: () => import("../views/UBSettingsView.vue"),
         },
         {
-          path: '/uploadbase/myuploads',
-          component: () => import('../views/UBMyUploadsView.vue'),
+          path: "/uploadbase/myuploads",
+          component: () => import("../views/UBMyUploadsView.vue"),
         },
         {
-          path: '/uploadbase/history',
-          component: () => import('../views/UBHistoryView.vue'),
+          path: "/uploadbase/history",
+          component: () => import("../views/UBHistoryView.vue"),
         },
         {
-          path: '/uploadbase/watch/:slug',
-          component: () => import('../views/UBVideoView.vue'),
+          path: "/uploadbase/watch/:slug",
+          component: () => import("../views/UBVideoView.vue"),
         },
       ],
       meta: {
-        middleware: [auth]
-      }
+        middleware: [auth],
+      },
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: () => import('../views/SettingsView.vue'),
+      path: "/settings",
+      name: "settings",
+      component: () => import("../views/SettingsView.vue"),
       meta: {
-        middleware: [auth]
+        middleware: [auth],
       },
       children: [
         {
-          path: '/settings/general',
-          component: () => import('../views/SettingsGeneralView.vue'),
+          path: "/settings/general",
+          component: () => import("../views/SettingsGeneralView.vue"),
         },
         {
-          path: '/settings/appearance',
-          component: () => import('../views/SettingsAppearanceView.vue'),
+          path: "/settings/appearance",
+          component: () => import("../views/SettingsAppearanceView.vue"),
         },
         {
-          path: '/settings/account',
-          component: () => import('../views/SettingsAccountView.vue'),
+          path: "/settings/account",
+          component: () => import("../views/SettingsAccountView.vue"),
         },
         {
-          path: '/settings/security',
-          component: () => import('../views/SettingsSecurityView.vue'),
+          path: "/settings/security",
+          component: () => import("../views/SettingsSecurityView.vue"),
         },
         {
-          path: '/settings/notifications',
-          component: () => import('../views/SettingsNotificationsView.vue'),
+          path: "/settings/notifications",
+          component: () => import("../views/SettingsNotificationsView.vue"),
         },
         {
-          path: '/settings/privacy',
-          component: () => import('../views/SettingsPrivacyView.vue'),
+          path: "/settings/privacy",
+          component: () => import("../views/SettingsPrivacyView.vue"),
         },
         {
-          path: '/settings/billing',
-          component: () => import('../views/SettingsBillingView.vue'),
+          path: "/settings/billing",
+          component: () => import("../views/SettingsBillingView.vue"),
         },
         {
-          path: '/settings/help',
-          component: () => import('../views/SettingsHelpView.vue'),
-        },
-      ]
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      component: () => import('../views/AdminView.vue'),
-      children: [
-        {
-          path: '/admin/apicontrols',
-          component: () => import('../views/ApiControlsView.vue')
+          path: "/settings/privacypolicy",
+          component: () => import("../views/SettingsPrivacyPolicyView.vue"),
         },
         {
-          path: '/admin/socketpg',
-          component: () => import('../views/SocketPGView.vue')
+          path: "/settings/tos",
+          component: () => import("../views/SettingsTOSView.vue"),
+        },
+        {
+          path: "/settings/help",
+          component: () => import("../views/SettingsHelpView.vue"),
+        },
+        {
+          path: "/settings/about",
+          component: () => import("../views/SettingsAboutView.vue"),
         },
       ],
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/LoginView.vue'),
-      meta: {
-        middleware: [guest]
-      }
+      path: "/admin",
+      name: "admin",
+      component: () => import("../views/AdminView.vue"),
+      children: [
+        {
+          path: "/admin/apicontrols",
+          component: () => import("../views/ApiControlsView.vue"),
+        },
+        {
+          path: "/admin/socketpg",
+          component: () => import("../views/SocketPGView.vue"),
+        },
+      ],
     },
     {
-      path: '/logout',
-      name: 'logout',
-      component: () => import('../views/HomeView.vue'),
+      path: "/login",
+      name: "login",
+      component: () => import("../views/LoginView.vue"),
       meta: {
-        middleware: [auth]
-      }
+        middleware: [guest],
+      },
     },
     {
-      path: '/yt/:slug',
-      name: 'yt',
-      component: () => import('../views/YTView.vue')
-    }
-  ]
-})
+      path: "/logout",
+      name: "logout",
+      component: () => import("../views/HomeView.vue"),
+      meta: {
+        middleware: [auth],
+      },
+    },
+    {
+      path: "/yt/:slug",
+      name: "yt",
+      component: () => import("../views/YTView.vue"),
+    },
+  ],
+});
 
 
 async function cookieAutoLogin({ next, store }) {

@@ -84,7 +84,7 @@ const { videoAPIServices } = require(join(
   //     include: { model: models.User }
   // });
   // console.log(fetchedConversation.Users);
-  await models.User.sync({ alter: true });
+  await models.UBVideo.sync({ alter: true });
   // models.Video.sync({ force: true });
   // models.WatchHistory.sync({ force: true });
   // global.glb.accessToken = await global.glb.getAccessToken();

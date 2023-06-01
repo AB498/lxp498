@@ -141,6 +141,7 @@ global.glb.apiEndpoints = [
     { method: 'POST', url: '/api/uploadbase/getVideo/:id', middlewares: { main: [], test: [], both: [ubController.getVideo] } },
     { method: 'POST', url: '/api/uploadbase/getVideoSelf', middlewares: { main: [global.glb.authMiddleware], test: [], both: [ubController.getVideoSelf] } },
     { method: 'POST', url: '/api/uploadbase/generateSubtitles', middlewares: { main: [], test: [], both: [ubController.generateSubtitles] } },
+    { method: 'POST', url: '/api/uploadbase/getUBSubtitles/:id', middlewares: { main: [], test: [], both: [ubController.getUBSubtitles] } },
     { method: 'POST', url: '/api/uploadbase/uploadVideos', middlewares: { main: [global.glb.authMiddleware], test: [], both: [upload.array('files'), ubController.uploadVideos] } },
     { method: 'POST', url: '/api/uploadbase/getHistory', middlewares: { main: [global.glb.authMiddleware], test: [], both: [ubController.getHistory] } },
     { method: 'POST', url: '/api/uploadbase/addHistory', middlewares: { main: [global.glb.authMiddleware], test: [], both: [ubController.addHistory] } },

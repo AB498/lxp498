@@ -1,11 +1,11 @@
 {
   "videosState": {
-    "lastUpdatedSuggestions": 1685620082112
+    "lastUpdatedSuggestions": 1685641683157
   },
   "states": {
-    "lastAccessTokenUpdate": 1685625580471
+    "lastAccessTokenUpdate": 1685650782054
   },
-  "accessToken": "ya29.c.b0Aaekm1IvzC8QsyJ9n3hlx-jSqY8q0BH9OAXx8EDKDbRZDET4yqcGEQuyq_6mfdU7RJzdO9AR42gz67aGCzw3an06B_5ob-pBeq9vU2IKqXtkL-yTX7DLPZSQFzd7QkuDVFtsfi1GX8Qtb92KjCQ_xs1PvlqEAv3t8oHOeNE1LmT31yoW9dyg2lP2o4n_UQcLKskU7kx74UMP6b2rE0WPGxzX8hZdhHR-Zb457f8T4DioedFmzs7V70bxkXLLzOSSZfDrr_atX_d-LacdXxQOJqWv5Z7qEkijP8pvx6WEDn22gcPfUZaVh5ubTrbgBDIOwdasZT5so4SyHwG343KizBrseUpkmegpBsSq-hYn1r8745OMX92cg2BvM0lo9gYlm-_d9gYahbnaZQ0RckgVzf_-YWtn12dfgWpXv9z15ttS0V38mbvy52fY8-pV2YIttUBdlSzehyRjiyUMaargIU3OjMex7V4bfRRey5Ro9967QwvlaJiwI0Beax-elIzggp7vnzUxIS5fvhmb-6MOg5v6uQqyqJvzktOyS8Qw1fh0rIcb7IXBOhpkbXOiffOYYZYpqOj0O1I2OJmwtqeSJVMgwte5VgUB4eypb1VWqlpMw0knps_jRgS8daiy6rcrZ9Oe3cjFfakyxp8RYs2e1ytukSVViJl6dOg5krQIO_zi_hs5Z8gIh_8u2gz-duvXFX9gVBz0VfwtfV047h35mjUpMQ2Bfn6g_MtVcQ727uXMpxi9hky2pdwy3qbR2x_zch1zZF10Q4d4fmJpVqf69xr55syJt0Q2xwQFg5viZy68Sv-0z2abkU2j4bFR9xiZuz_QaW0z0nMxom1qh5UMv0zfqs3f1Xs86jO5Oh-QvaISn5gJhqQkv-ZqvJ-XZl7i18Fy74vyaccsxa9OeVhVx7IV9e5pFMUnuOFxt7tkxeYw3vqznl91lcV8zfZJZrJn_dpaQV5boOIJfcsomhRF3d5QfthWII9VY2rhn9QrMrgU4xMt-RuVQrl",
+  "accessToken": "ya29.c.b0Aaekm1Jdo3FPbENPouCaB6uHRghQvOygWFc4WeLehzvbDC_6uZbSNRA0xHwKXzc0n-0Bb_3FFuGIMbgBzR8jPMUUxNpnP-2ztJ0mNH3NFHcH3fnvD4Xe98pi6YPaIwt_NOtDlDaplLlTx8ZyZ5xP1mtOJ8VAGYvbSIKv0-zXmkTPLQpxD7tAVfwfcQRb0CsqrMzJvEphDjyPgt6P9KePeeAMSgveI6Br7V-5bEQ_I1Nf6hbm8WSMyXJIliDz0ezJaz3iAzzGUJ3uy5tS20sLGjlK17b66DS09CRb2Z_MvPOliTuG9L1xo1HwWMZk2sDMpvNAymKZxrhQMiwT344PlFu1m2WZQzn1d3lSudUggzpMZcvkQkhSg627-nuhwl_15R4B2ggyv_k8kOYd-y7sqR2IU1FaQ0fJlbQQ3cI6ekYcvrg8QS8QBOB9ldkmF36VY-qwBvttw0X9qf9eZZBeOlxpyQVnsr_670kfFhs1pkckoZbZmerW0M8cdswy7Udvxad_U-U8MVxl656Og_aqR7MVioRgkd8wr5go0_aS_ugyopQR1h9neeXYmWaYBx-lM0qZhpg00vnfQt3l26c0x_kjIqVeorchRgMkaxzI72fZMmnWXBwSemr7qFjjdI02piUvM1mcSBeojQ_w8Yr5n9XsJMBvglvgo4xUZ0y2VIgivxc9tjr2lW9Ip54-Ji3Fc_2B4IXIzsBfhza0FVSfIjq3qy4Jg9lhWdkrOtBvqg2ni7R2VOs2salvshZYMyxhc4XqgdIo1WVuvryhFI9_ma96V3-Yy0sdnbts4xa8IZYpBwcmpysU0aspXu6VXXq9xqInIW7M5X7_QZqxeVObk3k9l4o5frwkFqw6luavvifaM1prmt50U6yXqp_08l5l86mUfcggYiur41O9V0VYmBgqt9fxaSJX5sB8BMZ4X0BWmRpcWtqxbdIpQMYz_Iyh6vvFj6Rbqb7MsRylq_oRzh4SwuckY7p4FpStS7if8kroU5cjumSRr4j",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -411,6 +411,17 @@
     {
       "method": "POST",
       "url": "/api/uploadbase/generateSubtitles",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/getUBSubtitles/:id",
       "middlewares": {
         "main": [],
         "test": [],

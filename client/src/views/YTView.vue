@@ -235,7 +235,7 @@ function toggleComments() {
           <div class="w-full h-20 subtitles  themed-bg-secondary   shrink-0           ">
             <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth"
               id="subWordsHolderId"
-              v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
+              v-if="sm: overflow - visible == 1 && glb.isIterable(words) && words.length > 0">
               <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 h-10  ">
                 <div :class="index == activeM ? 'bg-blue-600/50' : 'themed-bg-tertiary'"
                   class="h-full p-1 min-w-[30px] hover:bg-gray-400/50 rounded  flex flex-col">
@@ -295,19 +295,19 @@ function toggleComments() {
           </div>
 
           <div class=" controls h-10 themed-bg-tertiary center-cross flex px-2 shrink-0 self-stretch">
-            <i class="fa effects w-8 h-8 fa-play"></i>
-            <i class="fa effects w-8 h-8 fa-pause hidden"></i>
-            <i class="fa effects w-8 h-8 fa-backward"></i>
-            <i class="fa effects w-8 h-8 fa-forward"></i>
-            <i class="fa effects w-8 h-8 fa-volume-up" @click="toggleMute"></i>
+            <i class="fa  center effects w-8 h-8 fa-play"></i>
+            <i class="fa  center effects w-8 h-8 fa-pause hidden"></i>
+            <i class="fa  center effects w-8 h-8 fa-backward"></i>
+            <i class="fa  center effects w-8 h-8 fa-forward"></i>
+            <i class="fa  center effects w-8 h-8 fa-volume-up" @click="toggleMute"></i>
             <div class="grow"> </div>
-            <div class="effects flex flex-col" @click="voteLanguage($event)">
+            <div class=" center effects flex flex-col" @click="voteLanguage($event)">
               <div class="flex text-xs">CC</div>
               <div class="flex text-sm">{{ window.glb.videoInfo.votedLang || 'unknown' }}</div>
             </div>
-            <i class="effects w-8 h-8 fa fa-comment"></i>
-            <i class="effects w-8 h-8 fa fa-closed-captioning" @click="toggleBuiltInCaption"></i>
-            <i class="effects w-8 h-8 fa fa-gear"></i>
+            <i class=" center effects w-8 h-8 fa fa-comment"></i>
+            <i class=" center effects w-8 h-8 fa fa-closed-captioning" @click="toggleBuiltInCaption"></i>
+            <i class=" center effects w-8 h-8 fa fa-gear"></i>
           </div>
         </div>
         <div class="info p-2" v-if="window.glb.syncerObj.openYTVideo.videoInfo">
@@ -331,7 +331,7 @@ function toggleComments() {
           <q-icon name="close" class="w-8 h-8"></q-icon>
           <div>Close</div>
         </div>
-        <div class="center flex flex-col ">
+        <div class="center flex flex-col full">
 
           <div v-if="window.glb.syncerObj?.openYTVideo.commentsError" class="full center dark">
             {{ window.glb.syncerObj?.openYTVideo.commentsError }}
