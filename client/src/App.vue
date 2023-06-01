@@ -235,12 +235,13 @@ const darkmode = ref(false);
 
 
 
+
 </script>
 
 
 <template>
   <div id="root-app"
-    class="whole relative h-screen w-screen flex flex-nowrap flex-col font-sans overflow-hidden themed-bg-primary themed-text-primary"
+    class="whole relative h-screen w-screen flex flex-nowrap flex-col font-Exo2 overflow-hidden themed-bg-primary themed-text-primary"
     :class="window.glb?.dark && ' dark'">
     <NotificationStack />
     <SelectLang class="absolute z-10" />
@@ -298,6 +299,7 @@ const darkmode = ref(false);
           <q-icon @click="router.push('/profile')" name="account_circle" class="effects-square"></q-icon>
           <q-icon @click="router.push('/chat')" name="chat" class="effects-square"></q-icon>
           <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects-square"></q-icon>
+          <q-icon @click="router.push('/settings')" name="settings" class="effects-square"></q-icon>
           <q-icon @click="router.push('/progress')" name="model_training" class="effects-square"></q-icon>
           <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects-square"></q-icon>
         </div>
@@ -374,6 +376,12 @@ const darkmode = ref(false);
                   <q-icon name="model_training" class="effects"></q-icon>
                   <div>
                     Progress
+                  </div>
+                </div>
+                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/settings')">
+                  <q-icon name="settings" class="effects"></q-icon>
+                  <div>
+                    Settings
                   </div>
                 </div>
                 <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/admin')">

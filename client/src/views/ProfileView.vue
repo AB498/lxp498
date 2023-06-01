@@ -10,7 +10,7 @@ const router = useRouter()
 const route = useRoute()
 
 onMounted(async () => {
- await window.glb.reloadUser();
+  await window.glb.reloadUser();
   uploadedVideos.value = await window.glb.safeAuthedReq('/api/uploadbase/getVideoSelf');
 })
 
@@ -78,9 +78,10 @@ import pic from '@/assets/logo.svg'
 <template>
   <div class="flex flex-col w-full h-full">
     <div class="flex w-full h-full sm:flex-row flex-col border overflow-auto">
-      <div class="shrink-0 relative w-full flex-col sm:w-[400px] sm:overflow-auto flex sm: border-r-2 left-part shadow-xl">
+      <div
+        class="shrink-0 relative w-full flex-col sm:w-[400px] sm:overflow-auto flex sm: border-r-2 left-part shadow-xl">
         <div class="flex flex-col w-full sticky top-0 backdrop-blur-md z-10">
-          <img :src="window.glb.user.pfpUrl || pic " class="w-32 h-32  self-center" />
+          <img :src="window.glb.user.pfpUrl || pic" class="w-32 h-32  self-center" />
           <div class=" w-full flex justify-center items-center px-4 themed-bg-secondary shadow-md">
             <div class=""> User Info</div>
             <div class="grow"> </div>
@@ -259,15 +260,19 @@ import pic from '@/assets/logo.svg'
           <div class="card-header themed-bg-tertiary">
             Uploads
           </div>
-          <div class="card-body rounded-b min-h-[5rem]">
-            <table class=" w-full table-fixed ">
 
+          <div class="card-body rounded-b min-h-[5rem]" v-if="uploadedVideos">
+            <table class=" w-full table-fixed " v-if="uploadedVideos.length > 0">
               <tr v-for="upd in uploadedVideos" class="">
-                <td class=" text-center">{{ window.glb.getFormattedDate(new Date(upd.createdAt)) }}</td>
-                <td class=" text-center">{{ upd.title }}</td>
-                <td class=" text-center">{{ (upd.views || 0) + ' Views' }}</td>
+                <td class="break-words text-xs text-center">{{ window.glb.getFormattedDate(new Date(upd.createdAt)) }}
+                </td>
+                <td class="break-words text-xs text-center">{{ upd.title }}</td>
+                <td class="break-words text-xs text-center">{{ (upd.views || 0) + ' Views' }}</td>
               </tr>
             </table>
+            <div class="center full" v-else>
+              <div class="text-center text-gray-400">No Uploads</div>
+            </div>
           </div>
         </div>
 

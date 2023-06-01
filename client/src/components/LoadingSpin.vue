@@ -31,7 +31,7 @@ const props = defineProps({
         </svg> -->
                   <!-- <q-spinner-radio color="brown" /> -->
           <q-spinner
-                    color="white"
+                    :color="window.glb.dark? 'white' : 'blue'"
                 size="3em"
               />
 

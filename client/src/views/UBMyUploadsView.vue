@@ -110,9 +110,9 @@ const uploadedVideos = ref([])
             <div class="card-body rounded-b min-h-[5rem]" v-if="uploadedVideos">
                 <table class=" w-full table-fixed " v-if="uploadedVideos.length > 0">
                     <tr v-for="upd in uploadedVideos" class="" >
-                        <td class=" text-center">{{ window.glb.getFormattedDate(new Date(upd.createdAt)) }}</td>
-                        <td class=" text-center">{{ upd.title }}</td>
-                        <td class=" text-center">{{ (upd.views || 0) + ' Views' }}</td>
+                        <td class="break-words text-xs text-center">{{ window.glb.getFormattedDate(new Date(upd.createdAt)) }}</td>
+                        <td class="break-words text-xs text-center">{{ upd.title }}</td>
+                        <td class="break-words text-xs text-center">{{ (upd.views || 0) + ' Views' }}</td>
                     </tr>
                 </table>
                 <div class="center full" v-else>

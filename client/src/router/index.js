@@ -98,7 +98,41 @@ const router = createRouter({
       component: () => import('../views/SettingsView.vue'),
       meta: {
         middleware: [auth]
-      }
+      },
+      children: [
+        {
+          path: '/settings/general',
+          component: () => import('../views/SettingsGeneralView.vue'),
+        },
+        {
+          path: '/settings/appearance',
+          component: () => import('../views/SettingsAppearanceView.vue'),
+        },
+        {
+          path: '/settings/account',
+          component: () => import('../views/SettingsAccountView.vue'),
+        },
+        {
+          path: '/settings/security',
+          component: () => import('../views/SettingsSecurityView.vue'),
+        },
+        {
+          path: '/settings/notifications',
+          component: () => import('../views/SettingsNotificationsView.vue'),
+        },
+        {
+          path: '/settings/privacy',
+          component: () => import('../views/SettingsPrivacyView.vue'),
+        },
+        {
+          path: '/settings/billing',
+          component: () => import('../views/SettingsBillingView.vue'),
+        },
+        {
+          path: '/settings/help',
+          component: () => import('../views/SettingsHelpView.vue'),
+        },
+      ]
     },
     {
       path: '/admin',

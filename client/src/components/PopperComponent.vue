@@ -81,7 +81,6 @@ watch(together.value, (val, old) => {
 const mode = ref(props.mode || 'hover');
 
 function togglePopup() {
-    console.log(1);
     let v = !show.value;
     setTimeout(() => {
 
@@ -97,7 +96,7 @@ function togglePopup() {
         class="flex full center relative overflow-visible " :class="window.glb?.dark && ' dark'">
 
         <div @mouseover=" together[1] = true" @mouseleave=" together[1] = false"
-            v-click-outside="() => { console.log(0); if (mode == 'click') show = false }"
+            v-click-outside="() => { if (mode == 'click') show = false }"
             :class="show ? 'opacity-100' : 'opacity-0 pointer-events-none translate-x-4'"
             class="fixed w-auto h-auto transition-all  text-sm themed-bg-secondary  border-2  shadow-md rounded  overflow-auto"
             ref="popup">

@@ -3,6 +3,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Signika&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Galada&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -50,7 +52,7 @@
     @apply  p-3 m-1 mb-0 flex items-center justify-center;
   }
   .effects {
-    @apply transition-all duration-200 hover:duration-0 rounded flex items-center justify-center hover:bg-gray-500;
+    @apply transition-all duration-200 hover:duration-0 rounded   hover:bg-gray-500;
   }
   .effects-square {
     @apply transition-all duration-200 hover:duration-0 w-10 h-10 rounded flex items-center justify-center hover:bg-gray-500;
@@ -100,6 +102,7 @@
   {
     @apply shadow-xl;
   }
+
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -234,8 +237,107 @@
   --bg-tertiary: #dfd7f3;
   --bg-highlight: #7308ff;
   border-color: var(--text-primary);
-  
+ 
+  --font-size: 16px;
+  --base-font-size: 16px;
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
 }
+.reactive-text-1{
+  --base-font-size: calc(0.25 * var(--font-size));
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+.reactive-text-2{
+  --base-font-size: calc(0.5 * var(--font-size));
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+.reactive-text-3{
+  --base-font-size: calc(0.75 * var(--font-size));
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+.reactive-text-4 {
+  --base-font-size: var(--font-size);
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+.reactive-text-5 {
+  --base-font-size: calc(1.25 * var(--font-size));
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+.reactive-text-6 {
+  --base-font-size: calc(1.5 * var(--font-size));
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+.reactive-text-7 {
+  --base-font-size: calc(1.875 * var(--font-size));
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+.reactive-text-8 {
+  --base-font-size: calc(2.25 * var(--font-size));
+  --text-xs: calc(0.75 * var(--base-font-size));
+  --text-sm: calc(0.875 * var(--base-font-size));
+  --text-md: var(--base-font-size);
+  --text-lg: calc(1.125 * var(--base-font-size));
+  --text-xl: calc(1.25 * var(--base-font-size));
+  --text-2xl: calc(1.5 * var(--base-font-size));
+  --text-3xl: calc(1.875 * var(--base-font-size));
+  --text-4xl: calc(2.25 * var(--base-font-size));
+}
+
 .dark {
   --text-primary: #ffffff;
   --text-secondary: #d6c3ff;
@@ -245,7 +347,6 @@
   --bg-tertiary: #59526c;
   --bg-highlight: #7308ff;
   border-color: var(--text-primary);
-  
 }
 
 .themed-bg-primary {
@@ -268,4 +369,32 @@
 }
 .themed-bg-highlight {
   background-color: var(--bg-highlight);
+}
+.themed-text-gray {
+  color: #a0aec0;
+}
+
+.text-xs {
+  font-size: var(--text-xs);
+}
+.text-sm {
+  font-size: var(--text-sm);
+}
+.text-md {
+  font-size: var(--text-base);
+}
+.text-lg {
+  font-size: var(--text-lg);
+}
+.text-xl {
+  font-size: var(--text-xl);
+}
+.text-2xl {
+  font-size: var(--text-2xl);
+}
+.text-3xl {
+  font-size: var(--text-3xl);
+}
+.text-4xl {
+  font-size: var(--text-4xl);
 }

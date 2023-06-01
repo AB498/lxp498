@@ -1,8 +1,11 @@
 <script setup>
 import { ref, watch, onUnmounted, onMounted, nextTick } from 'vue'
-import Toggle from '@vueform/toggle'
 import SelectLang from '../components/SelectLang.vue';
+import { useRouter, useRoute } from 'vue-router';
 
+
+const router = useRouter()
+const route = useRoute()
 
 if (!window.glb.settings.showingWindow)
   window.glb.settings.showingWindow = 0
@@ -14,52 +17,50 @@ if (!window.glb.settings.translationOn)
   window.glb.settings.translationOn = false
 
 
-let toggleStyle = {
-  container: 'inline-block rounded-full outline-none focus:ring focus:ring-green-500 focus:ring-opacity-30',
-  toggle: 'flex w-12 h-5 rounded-full relative cursor-pointer transition items-center box-content border-2 text-xs leading-none',
-  toggleOn: 'bg-red-700 border-green-500 justify-start ',
-  toggleOff: 'bg-gray-400 border-gray-100 justify-end ',
-  toggleOnDisabled: 'bg-gray-300 border-gray-200 justify-start  cursor-not-allowed',
-  toggleOffDisabled: 'bg-gray-200 border-gray-200 justify-end  cursor-not-allowed',
-  handle: 'inline-block bg-white w-5 h-5 top-0 rounded-full absolute transition-all',
-  handleOn: 'left-full transform -translate-x-full',
-  handleOff: 'left-0',
-  handleOnDisabled: 'bg-gray-100 left-full transform -translate-x-full',
-  handleOffDisabled: 'bg-gray-100 left-0',
-  label: 'text-center w-8 border-box whitespace-nowrap select-none',
+function routeTo(e) {
+  router.push('/settings' + e.path)
+  window.glb.settings.currentHeader = e.name
+  window.glb.settings.showSettingsList = false
 }
+
+const routs = [
+  { name: 'General', path: '/general' },
+  { name: 'Appearance', path: '/appearance' },
+  { name: 'Notifications', path: '/notifications' },
+  { name: 'Privacy', path: '/privacy' },
+  { name: 'Security', path: '/security' },
+  { name: 'Help', path: '/help' },
+  { name: 'About', path: '/about' },
+  { name: 'Legal', path: '/legal' },
+  { name: 'Sign Out', path: '/signout' },
+]
 
 </script>
 <template>
   <div class="w-full h-full ">
-    <div class="flex flex-row h-full w-full">
+    <div class="flex flex-row h-full w-full relative">
 
-      <div class="flex flex-col basis-1/4 themed-bg-secondary shadow border-r-2 h-full ">
-        <div class="general col-item btn">General</div>
-        <div class="general col-item btn">Account</div>
-        <div class="general col-item btn">Privacy</div>
+      <div
+        class="flex flex-col basis-1/4 themed-bg-secondary shadow border-r-2 absolute sm:static top-0 left-0 w-full h-full z-10"
+        :class="'transition-all duration-500 ' + (window.glb.settings.showSettingsList ? '-translate-x-0 ' : '-translate-x-full sm:-translate-x-0') + ''">
+        <div class="w-full p-2 flex effects center-cross space-x-2 text-xl sm:hidden"
+          @click="window.glb.settings.showSettingsList = !window.glb.settings.showSettingsList;">
+          <q-icon name="chevron_left" class="text-xl float-right cursor-pointer"></q-icon>
+          <div>Back</div>
+        </div>
+
+        <div v-for="rout in routs" class="general col-item  themed-bg-tertiary themed-text-primary"
+          :class="rout.name == window.glb.settings.currentHeader ? 'themed-bg-highlight' : 'effects'"
+          @click="routeTo(rout)">{{ rout.name }}</div>
       </div>
-      <div class="flex flex-col basis-3/4 h-full ">
-        <div class="generalWindow m-10 p-6 rounded " v-if="window.glb.settings.showingWindow == 0">
-          <div class="col-item effects">General</div>
-          <div class="col-item effects">
-            <div class="left-grow">Start Muted</div>
-            <Toggle :classes="toggleStyle" v-model="window.glb.settings.startMuted" class="toggle-red" />
+      <div class="flex flex-col h-full w-full border sm:basis-3/4 z-0">
+        <div class="full flex flex-col ">
+          <div class="w-full p-2 flex effects center-cross space-x-2 themed-bg-secondary shadow"
+            @click="window.glb.settings.showSettingsList = !window.glb.settings.showSettingsList">
+            <q-icon name="chevron_left" class="text-xl float-right cursor-pointer"></q-icon>
+            <div class="text-xl">{{ window.glb.settings.currentHeader }}</div>
           </div>
-          <div class="col-item effects">
-            <div class="left-grow">Auto Translate</div>
-            <Toggle :classes="toggleStyle" v-model="window.glb.settings.translationOn" class="toggle-red" />
-          </div>
-          <SelectLang />
-          <div class="col-item effects">
-            <div class="left-grow">
-              Select Translation Language
-            </div>
-            <div class="bg-red-400 p-1 px-2 rounded btn"
-              @click="window.setTimeout(() => { window.glb.settings.showSelectLangModal = true }, 0)">
-              <i class="fas fa-chevron-down"></i> {{ window.glb.settings.targetTranslationLang }}
-            </div>
-          </div>
+          <RouterView />
         </div>
       </div>
     </div>
