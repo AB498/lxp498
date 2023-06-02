@@ -29,6 +29,11 @@ const videoController = require(join(
   "controllers",
   "videoController"
 ));
+const ubVideoController = require(join(
+  rootDirectory,
+  "controllers",
+  "ubController"
+));
 
 makeServer = (server) => {
   let connections = [];
@@ -166,12 +171,24 @@ makeServer = (server) => {
             });
           }
           if (p == "/openYTVideo/generateSubtitles") {
-            videoAPIServices.generateSubtitles(v, "en", "zh");
+            let mostVoted = await videoController.getMostVotedLanguageFunc(v);
+            console.log(mostVoted)
+            if (!mostVoted) {
+              syncerObj.error = "No votes yet";
+              return;
+            }
+            videoAPIServices.generateSubtitles(v, mostVoted);
           }
           if (p == "/openUBVideo/generateSubtitles") {
-            console.log("requested generateSubtitlesUB");
-            ubVideoAPIServices.generateSubtitles(v, "en", "zh");
+            let mostVoted = await ubVideoController.getMostVotedLanguageFunc(v);
+            console.log(mostVoted)
+            if (!mostVoted) {
+              syncerObj.error = "No votes yet";
+              return;
+            }
+            ubVideoAPIServices.generateSubtitles(v, mostVoted);
           }
+
           if (p == "/openUBVideo/id") {
             let vid = await models.UBVideo.findOne({ where: { id: v } });
             const plainData = vid.get({ plain: true });
@@ -184,6 +201,34 @@ makeServer = (server) => {
                 syncerObj.openUBVideo.subtitlesGenerationProgress = 100;
               }
             });
+          }
+          if (p == "/openUBVideo/voteLanguage") {
+            syncerObj.openUBVideo.voteDone =
+              await ubVideoController.voteLanguageFunc(
+                syncerObj.openUBVideo.id,
+                user.id,
+                v
+              );
+            syncerObj.openUBVideo.mostVoted =
+              await ubVideoController.getMostVotedLanguageFunc(v);
+          }
+          if (p == "/openUBVideo/getMostVotedLanguage") {
+            syncerObj.openUBVideo.mostVoted =
+              await ubVideoController.getMostVotedLanguageFunc(v);
+          }
+          if (p == "/openYTVideo/voteLanguage") {
+            syncerObj.openYTVideo.voteDone =
+              await videoController.voteLanguageFunc(
+                syncerObj.openYTVideo.id,
+                user.id,
+                v
+              );
+            syncerObj.openYTVideo.mostVoted =
+              await videoController.getMostVotedLanguageFunc(v);
+          }
+          if (p == "/openYTVideo/getMostVotedLanguage") {
+            syncerObj.openYTVideo.mostVoted =
+              await videoController.getMostVotedLanguageFunc(v);
           }
         } catch (e) {
           console.log(e);

@@ -26,7 +26,7 @@ let playerMainLoop = null
 watch([() => route.params.slug, initialLoad], async () => {
   if (playerMainLoop) clearInterval(playerMainLoop)
   window.glb.syncerObj.openUBVideo.id = route.params.slug
-
+  window.glb.syncerObj.openUBVideo.getMostVotedLanguage = route.params.slug;
 })
 
 initialLoad.value = false;
@@ -45,8 +45,8 @@ watch(() => window.glb.syncerObj?.openUBVideo?.subtitlesStatus, async (newVal, o
     let translatedWords = await window.glb.safeAuthedReq('/api/getTranslation',
       {
         words: words.value.map(word => word.word),
-        sourceLang: 'en',
-        targetLang: 'ar',
+        sourceLang: window.glb.syncerObj.openYTVideo.mostVoted,
+        targetLang: window.glb.settings.translationLanguage || window.glb.syncerObj.openYTVideo.getMostVotedLanguage
       }
     );
     words.value.forEach((word, i) => {
@@ -58,7 +58,7 @@ watch(() => window.glb.syncerObj?.openUBVideo?.subtitlesStatus, async (newVal, o
   }
 })
 
-function requestSubGen(){
+function requestSubGen() {
   window.glb.syncerObj.openUBVideo.generateSubtitles = route.params.slug;
 }
 
@@ -208,9 +208,18 @@ onUnmounted(() => {
             <i class="fa effects center w-8 h-8 fa-forward"></i>
             <i class="fa effects center w-8 h-8 fa-volume-up" @click="toggleMute"></i>
             <div class="grow"> </div>
-            <div class="effects center flex flex-col" @click="voteLanguage($event)">
+                        <div class=" center effects px-2 flex flex-col"  @click="window.glb.openSelectLang({ multiselect: false, startingPoint: null }, (e) => {
+                          window.glb.settings.translationLanguage = e.languagecode
+                        })">
+                <div class="flex text-xs reactive-text-3">Translation</div>
+                <div class="flex text-xs reactive-text-3">Language</div>
+                <div class="flex text-sm reactive-text-3">{{ window.glb.settings.translationLanguage || 'unknown' }}</div>
+              </div>
+            <div class=" center effects px-2 flex flex-col" @click="window.glb.openSelectLang({ multiselect: false, startingPoint: null }, (e) => {
+              window.glb.syncerObj.openUBVideo.voteLanguage = e.languagecode
+            })">
               <div class="flex text-xs">CC</div>
-              <div class="flex text-sm">{{ window.glb.videoInfo.votedLang || 'unknown' }}</div>
+              <div class="flex text-sm">{{ window.glb.syncerObj?.openUBVideo?.mostVoted || 'unknown' }}</div>
             </div>
             <i class="effects center w-8 h-8 fa fa-comment"></i>
             <i class="effects center w-8 h-8 fa fa-closed-captioning" @click="toggleBuiltInCaption"></i>

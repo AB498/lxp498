@@ -1,11 +1,10 @@
-
-const path = require('path');
-const fs = require('fs');
-const { join } = require('path');
-const findPackageJson = require('find-package-json');
+const path = require("path");
+const fs = require("fs");
+const { join } = require("path");
+const findPackageJson = require("find-package-json");
 const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
-const models = require(join(rootDirectory, 'models'));
+const models = require(join(rootDirectory, "models"));
 const { resolve } = require("path");
 const s = require("../s");
 const downloadedVideosDirectory = join(rootDirectory, "downloadedVideos");
@@ -21,7 +20,10 @@ class SubtitleServices {
   }
 
   async addCallback(videoId, callback, email) {
-    let subGenProg = (await models.Video.findOne({ where: { ytId: videoId } })).get({ plain: true }).subtitlesAvailable || -1;
+    let subGenProg =
+      (await models.Video.findOne({ where: { ytId: videoId } })).get({
+        plain: true,
+      }).subtitlesAvailable || -1;
     if (!this.processes[videoId]) {
       this.processes[videoId] = {
         status: subGenProg,
@@ -30,15 +32,15 @@ class SubtitleServices {
         callbacks: [],
       };
     }
-    console.log(subGenProg)
+    console.log(subGenProg);
     this.processes[videoId].callbacks.push(callback);
-    callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+    callback({
+      status: this.processes[videoId].status,
+      progress: this.processes[videoId].progress,
+    });
   }
 
-
   async generateSubtitles(videoId, lang, targetLang = null) {
-
-
     if (!videoId) return false;
     if (!lang) return false;
     if (this.processes[videoId]?.status == 0) return false;
@@ -51,7 +53,7 @@ class SubtitleServices {
       };
     }
 
-    let foundvideo = (await models.Video.findOne({ where: { ytId: videoId } }));
+    let foundvideo = await models.Video.findOne({ where: { ytId: videoId } });
     if (!foundvideo) {
       foundvideo = await models.Video.create({
         ytId: videoId,
@@ -71,72 +73,93 @@ class SubtitleServices {
     foundvideo.subtitlesAvailable = 0;
     await foundvideo.save();
 
-    console.log("starting, callbacks: ", this.processes[videoId].callbacks.length);
+    console.log(
+      "starting, callbacks: ",
+      this.processes[videoId].callbacks.length
+    );
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 0;
     this.processes[videoId].callbacks.forEach((callback) => {
-      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+      callback({
+        status: this.processes[videoId].status,
+        progress: this.processes[videoId].progress,
+      });
     });
 
     console.log("Downloading video " + videoId);
-    const [errors, downloadedFile] = await s.safeAsync(this.downloadMp3(videoId), this.downloadMp3);
+    const [errors, downloadedFile] = await s.safeAsync(
+      this.downloadMp3(videoId),
+      this.downloadMp3
+    );
     if (errors || !downloadedFile) {
-
       this.processes[videoId].status = -2;
       this.processes[videoId].progress = -1;
       this.processes[videoId].callbacks.forEach((callback) => {
-        callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+        callback({
+          status: this.processes[videoId].status,
+          progress: this.processes[videoId].progress,
+        });
       });
       delete this.processes[videoId];
       return false;
-
     }
-
 
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 25;
     this.processes[videoId].callbacks.forEach((callback) => {
       console.log("donwloading");
-      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+      callback({
+        status: this.processes[videoId].status,
+        progress: this.processes[videoId].progress,
+      });
     });
 
-    if (! await this.objectExists(downloadedFile)) {
+    if (!(await this.objectExists(downloadedFile))) {
       console.log("Uploading object cuz doesnt exist " + downloadedFile);
-      const [errors3, uploaded] = await s.safeAsync(this.uploadObject(downloadedFile), this.uploadObject);
+      const [errors3, uploaded] = await s.safeAsync(
+        this.uploadObject(downloadedFile),
+        this.uploadObject
+      );
       if (errors3) {
-
         this.processes[videoId].status = -2;
         this.processes[videoId].progress = -1;
         this.processes[videoId].callbacks.forEach((callback) => {
-          callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+          callback({
+            status: this.processes[videoId].status,
+            progress: this.processes[videoId].progress,
+          });
         });
         delete this.processes[videoId];
         return false;
-
       }
     }
-
 
     this.processes[videoId].status = 0;
     this.processes[videoId].progress = 50;
     this.processes[videoId].callbacks.forEach((callback) => {
-      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+      callback({
+        status: this.processes[videoId].status,
+        progress: this.processes[videoId].progress,
+      });
     });
     console.log("Getting transcription " + downloadedFile);
-    const [errors4, subtitles] = await s.safeAsync(this.getTranscription(downloadedFile, videoId, lang), this.getTranscription);
+    const [errors4, subtitles] = await s.safeAsync(
+      this.getTranscription(downloadedFile, videoId, lang),
+      this.getTranscription
+    );
 
     if (errors4 || !subtitles) {
-
       this.processes[videoId].status = -2;
       this.processes[videoId].progress = -1;
       this.processes[videoId].callbacks.forEach((callback) => {
-        callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+        callback({
+          status: this.processes[videoId].status,
+          progress: this.processes[videoId].progress,
+        });
       });
       delete this.processes[videoId];
       return false;
-
     }
-
 
     foundvideo.subtitlesAvailable = 1;
     foundvideo.subtitleWords = subtitles;
@@ -144,28 +167,37 @@ class SubtitleServices {
     this.processes[videoId].status = 1;
     this.processes[videoId].progress = 100;
     this.processes[videoId].callbacks.forEach((callback) => {
-      callback({ status: this.processes[videoId].status, progress: this.processes[videoId].progress });
+      callback({
+        status: this.processes[videoId].status,
+        progress: this.processes[videoId].progress,
+      });
     });
     delete this.processes[videoId];
     return subtitles;
-
   }
 
   async getTranslation(words, sourceLang, targetLang) {
     //googel translate api
-    let endpoint = 'https://translation.googleapis.com/v3/projects/lanxplore:translateText';
+    let endpoint =
+      "https://translation.googleapis.com/v3/projects/lanxplore:translateText";
     let [err, res] = await s.safeAsync(
-      axios.post(endpoint, {
-        "sourceLanguageCode": sourceLang,
-        "targetLanguageCode": targetLang,
-        "contents": (words.map((word) => word.word)),
-        "mimeType": "text/plain"
-      }, {
-        headers: {
-          Authorization: `Bearer ${global.glb.accessToken}`,
-          "Content-Type": "application/json",
+      axios.post(
+        endpoint,
+        {
+          sourceLanguageCode: sourceLang,
+          targetLanguageCode: targetLang,
+          contents: words.map((word) => word.word),
+          mimeType: "text/plain",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${global.glb.accessToken}`,
+            "Content-Type": "application/json",
+          },
         }
-      }), "axios");
+      ),
+      "axios"
+    );
     if (err || !res) return null;
 
     let data = await res.json();
@@ -174,8 +206,8 @@ class SubtitleServices {
       try {
         return data.translations[index].translatedText;
       } catch (e) {
-        console.log(e)
-        return '';
+        console.log(e);
+        return "";
       }
     });
   }
@@ -193,31 +225,33 @@ class SubtitleServices {
         uri: `gs://${this.bucket_name}/` + downloadedFile,
       },
     };
-    const [err, resp] = await s.safeAsync(axios.post(endpoint, requestData, {
-      headers: {
-        Authorization: `Bearer ${global.glb.accessToken}`,
-        "Content-Type": "application/json",
-      },
-    }))
+    const [err, resp] = await s.safeAsync(
+      axios.post(endpoint, requestData, {
+        headers: {
+          Authorization: `Bearer ${global.glb.accessToken}`,
+          "Content-Type": "application/json",
+        },
+      })
+    );
 
     if (err || !resp) return null;
 
-    const [err2, longRunningResult] = await s.safeAsync(this.getTranscriptionResults(resp.data.name, this.processes[videoId]), this.getTranscriptionResults);
+    const [err2, longRunningResult] = await s.safeAsync(
+      this.getTranscriptionResults(resp.data.name, this.processes[videoId]),
+      this.getTranscriptionResults
+    );
     if (err2 || !longRunningResult) return null;
 
     let words = [];
     for (let result of longRunningResult.data.response.results) {
       try {
         words = [...words, ...result.alternatives[0].words];
-      } catch (error) { }
+      } catch (error) {}
     }
     return words;
-
   }
 
   async objectExists(name) {
-
-
     const apiEndpoint = `https://www.googleapis.com/storage/v1/b/${this.bucket_name}/o/${name}?alt=json`;
     try {
       const funcRes = await axios.get(apiEndpoint, {
@@ -225,7 +259,7 @@ class SubtitleServices {
           Authorization: `Bearer ${global.glb.accessToken}`,
           "Content-Type": "application/json",
         },
-      })
+      });
     } catch (err) {
       // console.log(err)
       return false;
@@ -233,10 +267,7 @@ class SubtitleServices {
     return true;
     // if (err.response.data.error.errors[0].reason == "notFound")
     // if (err.response.status == 404)
-
-
-
-  };
+  }
   async getSuggestions(query) {
     const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&key=${dataAPIKey}`;
     const [err, resp] = await s.safeAsync(axios.get(endpoint), "axios");
@@ -249,16 +280,18 @@ class SubtitleServices {
     const file_path = downloadedVideosDirectory; // Replace with the local path to your file
     const file_stream = fs.createReadStream(file_path + "/" + file_name);
     const url = `https://www.googleapis.com/upload/storage/v1/b/${this.bucket_name}/o?uploadType=multipart&name=${name}`;
-    const [err, funcRes] = await s.safeAsync(axios.post(url, file_stream, {
-      headers: {
-        Authorization: `Bearer ${global.glb.accessToken}`,
-        "Content-Type": "audio/mpeg",
-      },
-    }), "axios Upload Object")
+    const [err, funcRes] = await s.safeAsync(
+      axios.post(url, file_stream, {
+        headers: {
+          Authorization: `Bearer ${global.glb.accessToken}`,
+          "Content-Type": "audio/mpeg",
+        },
+      }),
+      "axios Upload Object"
+    );
     if (err) return false;
     return true;
-
-  };
+  }
   downloadMp3(videoId) {
     return new Promise((resolve, reject) => {
       let ytDlpEventEmitter = ytDlpWrap
@@ -277,17 +310,20 @@ class SubtitleServices {
           //   progress.currentSpeed,
           //   progress.eta
           // );
-          await models.Video.update({
-            subtitleGenerationProgress: progress.percent
-          }, {
-            where: {
-              ytId: videoId
+          await models.Video.update(
+            {
+              subtitleGenerationProgress: progress.percent,
             },
-          });
+            {
+              where: {
+                ytId: videoId,
+              },
+            }
+          );
         })
         .on("ytDlpEvent", (eventType, eventData) =>
-        // console.log(eventType, eventData)
-        { }
+          // console.log(eventType, eventData)
+          {}
         )
         .on("error", (error) => reject(error))
         .on("close", () => {
@@ -295,7 +331,7 @@ class SubtitleServices {
         });
       console.log(ytDlpEventEmitter.ytDlpProcess.pid);
     });
-  };
+  }
   async getTranscriptionResults(operationName, process) {
     let longRunningResultsUrl = `https://speech.googleapis.com/v1/operations/${operationName}`;
 
@@ -309,11 +345,15 @@ class SubtitleServices {
     if (response.data?.done) {
       return response;
     } else {
-      global.glb.log("Polling for transcription..." + "Progress: " + (response.data?.metadata?.progressPercent || 0));
+      global.glb.log(
+        "Polling for transcription..." +
+          "Progress: " +
+          (response.data?.metadata?.progressPercent || 0)
+      );
       await this.timeout(10000);
 
       process.progress = global.glb.lerp(process.progress, 99, 0.1);
-      console.log(process.progress)
+      console.log(process.progress);
       process.callbacks.forEach((callback) => {
         callback({ status: process.status, progress: process.progress });
       });
@@ -321,14 +361,11 @@ class SubtitleServices {
     }
   }
 
-
   timeout(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   async searchVideos(keywordsString) {
-
-
     // Set the API endpoint and parameters
     const apiEndpoint = "https://www.googleapis.com/youtube/v3/search";
     const params = {
@@ -358,9 +395,8 @@ class SubtitleServices {
       console.log(error);
       return null;
     }
-  };
+  }
 }
-
 
 if (!global.__videoAPIServices) {
   global.__videoAPIServices = new SubtitleServices();

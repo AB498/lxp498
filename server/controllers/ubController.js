@@ -184,3 +184,74 @@ module.exports.getUBSubtitles = async (req, res) => {
     }).subtitleWords || []
   );
 };
+
+module.exports.voteLanguageFunc = async (videoId, userId, languageVote) => {
+  let video = await models.UBVideo.findOne({ where: { id: videoId } });
+  if (!video) return;
+  let userVote = await models.Vote.findOne({
+    where: {
+      UserId: userId,
+      UBVideoId: video.id,
+    },
+  });
+  if (!userVote) {
+    userVote = await models.Vote.create({
+      UserId: userId,
+      UBVideoId: video.id,
+      type: "langaugeVote",
+      value: languageVote,
+    });
+  }
+  userVote.value = languageVote;
+  userVote.save();
+  return video.votedLanguages;
+};
+
+
+module.exports.getMostVotedLanguageFunc = async (videoId) => {
+  let video = await models.Video.findOne({
+    where: {
+      id: videoId,
+    },
+  });
+  let allVotes = await models.Vote.findAll({
+    where: {
+      UBVideoId: video.id,
+    },
+  });
+  let votes = {};
+  allVotes.forEach((vote) => {
+    if (!votes[vote.value]) votes[vote.value] = 0;
+    votes[vote.value]++;
+  });
+  let max = 0;
+  let maxLang = null;
+  Object.keys(votes).forEach((key) => {
+    if (votes[key] > max) {
+      max = votes[key];
+      maxLang = key;
+    }
+  });
+  return maxLang;
+};
+
+module.exports.voteVideoLanguage = async (req, res) => {
+
+  const { language } = req.body;
+  if (!language) return res.status(400).send("Language not provided");
+  return res.send(
+    await module.exports.voteLanguageFunc(req.params.id, req.user.id, language)
+  );
+}
+
+module.exports.getMostVotedLanguage = async (req, res) => { 
+  return res.send(await module.exports.getMostVotedLanguageFunc(req.params.id))
+}
+
+module.exports.listVotes = async (req, res) => { 
+  return res.send(await models.Vote.findAll({
+    where: {
+      UBVideoId: req.params.id,
+    },
+  }))
+}

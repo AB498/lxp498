@@ -15,6 +15,7 @@ const translationServices = require(join(rootDirectory, "utils", "TranslationSer
 
 module.exports.getTranslation = async (req, res) => {
     const { words, sourceLang, targetLang } = req.body;
+    console.log(sourceLang, targetLang);
     const translatedWords = await translationServices.getTranslation(words, sourceLang, targetLang);
     if (!translatedWords) return res.status(500).send("Error");
     return res.send(translatedWords);

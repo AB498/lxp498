@@ -1,13 +1,7 @@
 
-ytvew
-    target lang
-
 Ub 
     thumbnails
-
+yt 
+    google suggestions
 chat multi cliemts
-
-store
-    pricing
-
     

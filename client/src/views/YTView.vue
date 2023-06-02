@@ -40,6 +40,7 @@ watch([() => route.params.slug, initialLoad], async () => {
     player.value.loadVideoById(route.params.slug, 0, 0)
   }, 10);
   window.glb.syncerObj.openYTVideo.id = route.params.slug
+  window.glb.syncerObj.openYTVideo.getMostVotedLanguage = route.params.slug;
 
 })
 
@@ -132,8 +133,8 @@ watch(() => window.glb.syncerObj?.openYTVideo?.subtitlesStatus, async (newVal, o
     let translatedWords = await window.glb.safeAuthedReq('/api/getTranslation',
       {
         words: words.value.map(word => word.word),
-        sourceLang: 'en',
-        targetLang: 'ar',
+        sourceLang: window.glb.syncerObj.openYTVideo.mostVoted,
+        targetLang: window.glb.settings.translationLanguage || window.glb.syncerObj.openYTVideo.getMostVotedLanguage
       }
     );
     words.value.forEach((word, i) => {
@@ -206,15 +207,17 @@ const commentsOpen = ref(false);
 function toggleComments() {
   commentsOpen.value = !commentsOpen.value;
 }
+
+
 </script>
 <template>
   <div class="flex items-center justify-center h-full">
     <div class="flex flex-wrap h-full w-full   relative">
       <div class="video-and-suggestions flex flex-col sm:basis-4/6 h-full  overflow-auto">
 
-        <div class=" sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
+        <div class="themed-bg-primary shadow-md sm:h-96 h-80 w-full flex flex-col pointer-none sticky top-0 items-center z-10 shrink-0">
           <!-- video -->
-          <iframe id="ytPlayerElement" class="w-full h-full themed-bg-secondary" :src="'https://www.youtube.com/embed/'
+          <iframe id="ytPlayerElement" class="w-full h-full themed-bg-primary" :src="'https://www.youtube.com/embed/'
             + '' + '?enablejsapi=1&autoplay=1'"></iframe>
           <!-- :class="borderColor" -->
           <!-- &mute=1&controls=0&showinfo=0&disablekb=1 -->
@@ -232,10 +235,10 @@ function toggleComments() {
               </div>
             </div>
           </div>
-          <div class="w-full h-20 subtitles  themed-bg-secondary   shrink-0           ">
+          <div class="w-full h-20 subtitles shrink-0">
             <div class="flex items-center justify-center flex-wrap overflow-auto w-full h-full scroll-smooth"
               id="subWordsHolderId"
-              v-if="sm: overflow - visible == 1 && glb.isIterable(words) && words.length > 0">
+              v-if="window.glb.syncerObj?.openYTVideo?.subtitlesStatus == 1 && glb.isIterable(words) && words.length > 0">
               <div v-for="(word, index) in words" :key="index" :ref="(el) => { word.el = el }" class="p-1 h-10  ">
                 <div :class="index == activeM ? 'bg-blue-600/50' : 'themed-bg-tertiary'"
                   class="h-full p-1 min-w-[30px] hover:bg-gray-400/50 rounded  flex flex-col">
@@ -301,9 +304,18 @@ function toggleComments() {
             <i class="fa  center effects w-8 h-8 fa-forward"></i>
             <i class="fa  center effects w-8 h-8 fa-volume-up" @click="toggleMute"></i>
             <div class="grow"> </div>
-            <div class=" center effects flex flex-col" @click="voteLanguage($event)">
+            <div class=" center effects px-2 flex flex-col"  @click="window.glb.openSelectLang({ multiselect: false, startingPoint: null }, (e) => {
+              window.glb.settings.translationLanguage = e.languagecode
+                        })">
+              <div class="flex text-xs reactive-text-3">Translation</div>
+              <div class="flex text-xs reactive-text-3">Language</div>
+              <div class="flex text-sm reactive-text-3">{{ window.glb.settings.translationLanguage || 'unknown' }}</div>
+            </div>
+            <div class=" center effects px-2 flex flex-col"  @click="window.glb.openSelectLang({ multiselect: false, startingPoint: null }, (e) => {
+              window.glb.syncerObj.openYTVideo.voteLanguage = e.languagecode
+                        })">
               <div class="flex text-xs">CC</div>
-              <div class="flex text-sm">{{ window.glb.videoInfo.votedLang || 'unknown' }}</div>
+              <div class="flex text-sm">{{ window.glb.syncerObj?.openYTVideo?.mostVoted || 'unknown' }}</div>
             </div>
             <i class=" center effects w-8 h-8 fa fa-comment"></i>
             <i class=" center effects w-8 h-8 fa fa-closed-captioning" @click="toggleBuiltInCaption"></i>

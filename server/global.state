@@ -1,11 +1,11 @@
 {
   "videosState": {
-    "lastUpdatedSuggestions": 1685641683157
+    "lastUpdatedSuggestions": 1685684884485
   },
   "states": {
-    "lastAccessTokenUpdate": 1685650782054
+    "lastAccessTokenUpdate": 1685686782981
   },
-  "accessToken": "ya29.c.b0Aaekm1Jdo3FPbENPouCaB6uHRghQvOygWFc4WeLehzvbDC_6uZbSNRA0xHwKXzc0n-0Bb_3FFuGIMbgBzR8jPMUUxNpnP-2ztJ0mNH3NFHcH3fnvD4Xe98pi6YPaIwt_NOtDlDaplLlTx8ZyZ5xP1mtOJ8VAGYvbSIKv0-zXmkTPLQpxD7tAVfwfcQRb0CsqrMzJvEphDjyPgt6P9KePeeAMSgveI6Br7V-5bEQ_I1Nf6hbm8WSMyXJIliDz0ezJaz3iAzzGUJ3uy5tS20sLGjlK17b66DS09CRb2Z_MvPOliTuG9L1xo1HwWMZk2sDMpvNAymKZxrhQMiwT344PlFu1m2WZQzn1d3lSudUggzpMZcvkQkhSg627-nuhwl_15R4B2ggyv_k8kOYd-y7sqR2IU1FaQ0fJlbQQ3cI6ekYcvrg8QS8QBOB9ldkmF36VY-qwBvttw0X9qf9eZZBeOlxpyQVnsr_670kfFhs1pkckoZbZmerW0M8cdswy7Udvxad_U-U8MVxl656Og_aqR7MVioRgkd8wr5go0_aS_ugyopQR1h9neeXYmWaYBx-lM0qZhpg00vnfQt3l26c0x_kjIqVeorchRgMkaxzI72fZMmnWXBwSemr7qFjjdI02piUvM1mcSBeojQ_w8Yr5n9XsJMBvglvgo4xUZ0y2VIgivxc9tjr2lW9Ip54-Ji3Fc_2B4IXIzsBfhza0FVSfIjq3qy4Jg9lhWdkrOtBvqg2ni7R2VOs2salvshZYMyxhc4XqgdIo1WVuvryhFI9_ma96V3-Yy0sdnbts4xa8IZYpBwcmpysU0aspXu6VXXq9xqInIW7M5X7_QZqxeVObk3k9l4o5frwkFqw6luavvifaM1prmt50U6yXqp_08l5l86mUfcggYiur41O9V0VYmBgqt9fxaSJX5sB8BMZ4X0BWmRpcWtqxbdIpQMYz_Iyh6vvFj6Rbqb7MsRylq_oRzh4SwuckY7p4FpStS7if8kroU5cjumSRr4j",
+  "accessToken": "ya29.c.b0Aaekm1KomB7HP0Yx4E76-voTyI5Jj_TaU3PpYo78TkdJyMPybhcyzQTj05mzWfn55lD_ehjhHPudYWqu3U_01rCvYnhosUdQRRfJWK7AhMuWuPgZoI7hvwV-uY1q-KrJ4_g5GnR06Cr1WWQkRjilvb-f_Q7_MtQ7tHkg0umfns5s9KX4KA-QSJfbZxsxUizRM03ruDqnN-_DTSbJSfXZ0F2Kric7sJyZwZ9ziIKZVulbjB-29ly2hSLa1aD8Liop63WmpDhqIqegh6sbqGKjrLPFJsH50FhR29XaHJMydCFunFGoY5Gfp-Dao4KHKnwPqkovg0RrFcAHDBoH344A3Oz91i-gyUp-5yB8wiliJMX5f2pQ_jd62kQs9n7lnUtU1-4uV68_lfOIv9dwWu6Rchpvoo6kM-he68FYo-M5l2mgj023V_Ojse66eOxSpszjepyZ6FyhUsrBptzWO35-nBJXdZmq2Wlub7o9jVgYoUJ1FZg81UrzSw2pWz-rwnv6ac7W9kwRRc-taBUU8i2zt_qQ5e-8lszObmW1iJaVp3_MVjZFnmagdepMqUw9RkpS84nQtgn4al7qivev75l4qWO49RM57MeRaJU3bMUg9mtcfWmb2U4Xf2dYB6rWIOaM7Bcx2OeUR1yYhX_fjOae1jBio6et91XZ_j3R7xFJF6uQ42rlySab1cabimV4wi3-bMlvWMYctuQOy0h-QIayXSv76BqO8lIR8wfRU4suU41ht2ii5gvVhtszJS4pj2wcjddyrb-l3WBk0YR1govwlU32kfVUmkVB0S23IOyg9X8ZqV5Y5bj3xZbe3coQFw2IMV-w857yUlhsJy09S0MfVeXJ3OzYYap7SW6F36aUu-xea92JthY4OiWxW4aWqqsdzvBFn5FBBUr9ueO-m7JdU95nY8mRgYjSeVshxtyqnl_vU7sBfJyYo-iWOUp2k0c7Q7nZbcQ-lgvFqmbbtpxr-rkc1hnZZyWmJQqnIzMn7kBVMBFbt9aQMnf",
   "apiEndpoints": [
     {
       "method": "GET",
@@ -330,6 +330,28 @@
       }
     },
     {
+      "method": "POST",
+      "url": "/api/getMostVotedLanguage/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/listVotes/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
       "method": "GET",
       "url": "/api/uploadbase/listVideos",
       "middlewares": {
@@ -422,6 +444,41 @@
     {
       "method": "POST",
       "url": "/api/uploadbase/getUBSubtitles/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/voteVideoLanguage/:id",
+      "middlewares": {
+        "main": [
+          null
+        ],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/getMostVotedLanguage/:id",
+      "middlewares": {
+        "main": [],
+        "test": [],
+        "both": [
+          null
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/uploadbase/listVotes/:id",
       "middlewares": {
         "main": [],
         "test": [],

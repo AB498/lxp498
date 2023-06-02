@@ -8,6 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const { join } = require("path");
 const findPackageJson = require("find-package-json");
+const video = require("../models/video");
 const nearestPackageJson = findPackageJson(join(__dirname, "fword"));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 
@@ -82,8 +83,12 @@ module.exports.getYTCommentsFunc = async (videoId) => {
 };
 
 module.exports.voteVideoLanguage = async (req, res) => {
-  const video = await models.Video.findOne({ where: { ytId: req.params.id } });
-  if (!video) return res.status(404).send("Video not found");
+  let video = await models.Video.findOne({ where: { ytId: req.params.id } });
+  if (!video) {
+    video = await models.Video.create({
+      ytId: req.params.id,
+    });
+  }
   const { language } = req.body;
   if (!language) return res.status(400).send("Language not provided");
 
@@ -105,4 +110,99 @@ module.exports.voteVideoLanguage = async (req, res) => {
   userVote.save();
 
   return res.send(video.votedLanguages);
+};
+
+module.exports.getMostVotedLanguage = async (req, res) => {
+  let video = await models.Video.findOne({
+    where: {
+      ytId: req.params.id,
+    },
+  });
+  let allVotes = await models.Vote.findAll({
+    where: {
+      VideoId: video.id,
+    },
+  });
+  let votes = {};
+  allVotes.forEach((vote) => {
+    if (!votes[vote.value]) votes[vote.value] = 0;
+    votes[vote.value]++;
+  });
+  let max = 0;
+  let maxLang = null;
+  Object.keys(votes).forEach((key) => {
+    if (votes[key] > max) {
+      max = votes[key];
+      maxLang = key;
+    }
+  });
+  return res.send(maxLang);
+};
+
+module.exports.listVotes = async (req, res) => {
+  let video = await models.Video.findOne({
+    where: {
+      ytId: req.params.id,
+    }
+  });
+  const votes = await models.Vote.findAll({
+    where: { VideoId: video.id },
+  });
+  return res.send(votes);
+};
+
+
+module.exports.getMostVotedLanguageFunc = async (videoId) => {
+  let video = await models.Video.findOne({
+    where: {
+      ytId: videoId,
+    },
+  });
+  let allVotes = await models.Vote.findAll({
+    where: {
+      VideoId: video.id,
+    },
+  });
+  let votes = {};
+  allVotes.forEach((vote) => {
+    if (!votes[vote.value]) votes[vote.value] = 0;
+    votes[vote.value]++;
+  });
+  let max = 0;
+  let maxLang = null;
+  Object.keys(votes).forEach((key) => {
+    if (votes[key] > max) {
+      max = votes[key];
+      maxLang = key;
+    }
+  });
+  return maxLang;
+};
+
+module.exports.voteLanguageFunc = async (videoId, userId, langaugeVote) => {
+  let video = await models.Video.findOne({ where: { ytId: videoId } });
+  if (!video) {
+    video = await models.Video.create({
+      ytId: videoId,
+    });
+  }
+  if (!langaugeVote) return;
+  let userVote = await models.Vote.findOne({
+    where: {
+      UserId: userId,
+      VideoId: video.id,
+    },
+  });
+  if (!userVote) {
+    userVote = await models.Vote.create({
+      UserId: userId,
+      VideoId: video.id,
+      type: "langaugeVote",
+      value: langaugeVote,
+    });
+  }
+  userVote.value = langaugeVote;
+  userVote.save();
+  return video.votedLanguages;
+  
 };

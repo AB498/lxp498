@@ -9,7 +9,7 @@ const findPackageJson = require("find-package-json");
 const nearestPackageJson = findPackageJson(join(__dirname));
 const rootDirectory = path.dirname(nearestPackageJson.next().filename);
 
-// const s = require("./s");
+const s = require("./s");
 // const fword = require("./fword");
 const translationServices = require(join(
   rootDirectory,
@@ -84,7 +84,7 @@ const { videoAPIServices } = require(join(
   //     include: { model: models.User }
   // });
   // console.log(fetchedConversation.Users);
-  await models.UBVideo.sync({ alter: true });
+  // await models.UBVideo.sync({ alter: true });
   // models.Video.sync({ force: true });
   // models.WatchHistory.sync({ force: true });
   // global.glb.accessToken = await global.glb.getAccessToken();
@@ -104,4 +104,7 @@ const { videoAPIServices } = require(join(
   //   console.log(arr); // [ { age: 25, name: 'Peter' } ]
 
   // await savePng("A");
+  console.log(s.iso1to3('ja'))
+  
+  
 })();

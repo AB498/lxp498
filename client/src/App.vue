@@ -273,7 +273,7 @@ const darkmode = ref(false);
                 </RouterLink>
               </template>
               <template #popup>
-                <div class="w-full h-full">
+                <div class="w-full h-full overflow-auto">
                   <JsonViewer
                     :value="Object.fromEntries(Object.entries(window.glb).filter(([k, v]) => typeof v != 'function'))"
                     class=" " theme="my-awesome-json-theme">

@@ -23,7 +23,10 @@ class TranslationServices {
 
     let supportedLanguages = JSON.parse(fs.readFileSync(path.join(rootDirectory, 'googleSupportedLangs.json')));
     if (!supportedLanguages) return null;
-    if (!supportedLanguages.includes(sourceLang) || !supportedLanguages.includes(targetLang)) return null;
+    if (!supportedLanguages.includes(sourceLang) || !supportedLanguages.includes(targetLang)) {
+      console.log("supportedLanguages");
+      return null
+    };
 
     if (!words || words.length == 0) return [];
     if (sourceLang == targetLang) {
@@ -31,7 +34,11 @@ class TranslationServices {
       return words;
     }
     if (!sourceLang || !targetLang) return null;
-    if (!global.glb.iso1to3(sourceLang) || !global.glb.iso1to3(targetLang)) return null;
+    if (!global.glb.iso1to3(sourceLang) || !global.glb.iso1to3(targetLang)) {
+      console.log("iso1to3");
+      console.log(global.glb.iso1to3(sourceLang), global.glb.iso1to3(targetLang));
+      return null;
+    }
 
 
     let sourceLangHash = {};

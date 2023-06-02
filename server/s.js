@@ -24,6 +24,8 @@ const iso6391 = require("iso-639-language")
 const iso6393 = require("iso-639-language")
   .default.getType(3)
   .getFullLanguageAll();
+
+  const langs_imp =Object.values( require(join(rootDirectory, 'json', "langs_out.json")));
 // const rootDirectory = path.dirname(require.main.filename);
 
 require("dotenv").config({ path: join(rootDirectory, ".env") });
@@ -353,14 +355,14 @@ const globalProxy = createProxy(
     },
     iso3to1(iso3) {
       try {
-        return iso6393.find((l) => l.iso639_3 == iso3).iso639_1.trim();
+        return langs_imp.find((l) => l.iso6393 == iso3).iso6391.trim();
       } catch (e) {
         return null;
       }
     },
     iso1to3(iso1) {
       try {
-        return iso6393.find((l) => l.iso639_1 == iso1).iso639_3.trim();
+        return langs_imp.find((l) => l.iso6391 == iso1).iso6393.trim();
       } catch (e) {
         return null;
       }

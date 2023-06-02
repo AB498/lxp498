@@ -1,0 +1,252 @@
+[
+    {
+        "languagecode": "am",
+        "countrycode": "et",
+        "speakers": 22.5
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "eg",
+        "speakers": 97.6
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "sa",
+        "speakers": 34.2
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "jo",
+        "speakers": 9.6
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "ae",
+        "speakers": 4.6
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "kw",
+        "speakers": 3.4
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "qa",
+        "speakers": 2.6
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "lb",
+        "speakers": 4.1
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "so",
+        "speakers": 16.6
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "ps",
+        "speakers": 4.9
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "ly",
+        "speakers": 4.4
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "sd",
+        "speakers": 28.2
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "tn",
+        "speakers": 11.7
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "iq",
+        "speakers": 39.0
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "om",
+        "speakers": 2.7
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "dz",
+        "speakers": 29.0
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "sy",
+        "speakers": 21.1
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "ye",
+        "speakers": 28.0
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "bh",
+        "speakers": 1.6
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "ma",
+        "speakers": 33.0
+    },
+    {
+        "languagecode": "ar",
+        "countrycode": "mr",
+        "speakers": 0.8
+    },
+    {
+        "languagecode": "az",
+        "countrycode": "az",
+        "speakers": 9.8
+    },
+    {
+        "languagecode": "be",
+        "countrycode": "by",
+        "speakers": 9.5
+    },
+    {
+        "languagecode": "bg",
+        "countrycode": "bg",
+        "speakers": 7.5
+    },
+    {
+        "languagecode": "bn",
+        "countrycode": "bd",
+        "speakers": 243.0
+    },
+    {
+        "languagecode": "bs",
+        "countrycode": "ba",
+        "speakers": 2.5
+    },
+    {
+        "languagecode": "ca",
+        "countrycode": "ad",
+        "speakers": 0.03
+    },
+    {
+        "languagecode": "cs",
+        "countrycode": "cz",
+        "speakers": 10.7
+    },
+    {
+        "languagecode": "da",
+        "countrycode": "dk",
+        "speakers": 5.8
+    },
+    {
+        "languagecode": "de",
+        "countrycode": "li",
+        "speakers": 0.04
+    },
+    {
+        "languagecode": "de",
+        "countrycode": "ch",
+        "speakers": 5.5
+    },
+    {
+        "languagecode": "de",
+        "countrycode": "at",
+        "speakers": 8.8
+    },
+    {
+        "languagecode": "de",
+        "countrycode": "de",
+        "speakers": 76.4
+    },
+    {
+        "languagecode": "en",
+        "countrycode": "us",
+        "speakers": 328.2
+    },
+    {
+        "languagecode": "en",
+        "countrycode": "gb",
+        "speakers": 66
+    },
+    {
+        "languagecode": "es",
+        "countrycode": "es",
+        "speakers": 47
+    },
+    {
+        "languagecode": "es",
+        "countrycode": "mx",
+        "speakers": 129.2
+    },
+    {
+        "languagecode": "fr",
+        "countrycode": "fr",
+        "speakers": 67.4
+    },
+    {
+        "languagecode": "fr",
+        "countrycode": "ca",
+        "speakers": 8.3
+    },
+    {
+        "languagecode": "hi",
+        "countrycode": "in",
+        "speakers": 528
+    },
+    {
+        "languagecode": "it",
+        "countrycode": "it",
+        "speakers": 59.6
+    },
+    {
+        "languagecode": "ja",
+        "countrycode": "jp",
+        "speakers": 126.5
+    },
+    {
+        "languagecode": "ko",
+        "countrycode": "kr",
+        "speakers": 51.8
+    },
+    {
+        "languagecode": "nl",
+        "countrycode": "nl",
+        "speakers": 17.2
+    },
+    {
+        "languagecode": "pl",
+        "countrycode": "pl",
+        "speakers": 38.4
+    },
+    {
+        "languagecode": "pt",
+        "countrycode": "pt",
+        "speakers": 10.3
+    },
+    {
+        "languagecode": "pt",
+        "countrycode": "br",
+        "speakers": 211.8
+    },
+    {
+        "languagecode": "ru",
+        "countrycode": "ru",
+        "speakers": 144.5
+    },
+    {
+        "languagecode": "tr",
+        "countrycode": "tr",
+        "speakers": 83.4
+    },
+    {
+        "languagecode": "uk",
+        "countrycode": "ua",
+        "speakers": 42.4
+    }
+]
