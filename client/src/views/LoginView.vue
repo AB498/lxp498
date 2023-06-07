@@ -40,6 +40,7 @@ async function signUp() {
 
 }
 async function login() {
+  console.log(glb.baseUrl + "/api/loginUser")
   const [err, res] = await window.glb.safeAsync(axios.post(glb.baseUrl + "/api/loginUser", {
     email: email.value,
     password: password.value,
@@ -51,7 +52,8 @@ async function login() {
     hideTimeout.value = setTimeout(() => errorMessage.value = "", 3000);
     return;
   }
-  const user = res.data;
+  const user = res.data; 
+  
   console.log(user)
 
   window.glb.loggedIn = true;

@@ -1,0 +1,13 @@
+{
+    "ignore": [
+        "**/tests/**",
+        "**/test.js",
+        "README"
+    ],
+    "watch": [
+        "./src/**/*.vue",
+        "./package.json"
+    ],
+    "ext": "vue",
+    "exec": "node ~/lxp498/maintain.js '{\"client\": {\"status\": false}}' && sudo quasar build && sudo node ~/lxp498/client/serveSPA.js  && node ~/lxp498/maintain.js '{\"client\": {\"status\": true}}'"
+}

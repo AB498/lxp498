@@ -43,7 +43,11 @@ const email = ref("");
 async function saveEdits() {
   editMode.value = false;
   console.log(window.glb.tryStringify())
-  const [err, res] = await window.glb.safeAsync(axios.post(glb.baseUrl + "/api/updateSelf", {
+
+  const formData = new FormData();
+  formData.append('pfpFile', pfpFile.value);
+
+  let body = {
     firstName: window.glb.user.firstName,
     lastName: window.glb.user.lastName,
     username: window.glb.user.username,
@@ -52,7 +56,13 @@ async function saveEdits() {
     password: password.value,
     nativeLanguages: ([...(window.glb.user.nativeLanguages || [])]),
     country: window.glb.user.country
-  },
+  }
+
+  for (let key in body) {
+    formData.append(key, body[key])
+  }
+
+  const [err, res] = await window.glb.safeAsync(axios.post(glb.baseUrl + "/api/updateSelf", formData,
     {
       headers: {
         Authorization: "Bearer " + window.glb.jwt,
@@ -64,14 +74,19 @@ async function saveEdits() {
     return;
   }
   await window.glb.reloadUser();
-
-}
+  }
 const tab = ref('mails')
 
+watch(() => window.glb.user.pfpUrl, (newVal, oldVal) => {
+  console.log(newVal, oldVal)
+})
 
 const uploadedVideos = ref([])
 
 import pic from '@/assets/logo.svg'
+
+
+const pfpFile = ref(null)
 
 </script>
 
@@ -81,7 +96,19 @@ import pic from '@/assets/logo.svg'
       <div
         class="shrink-0 relative w-full flex-col sm:w-[400px] sm:overflow-auto flex sm: border-r-2 left-part shadow-xl">
         <div class="flex flex-col w-full sticky top-0 backdrop-blur-md z-10">
-          <img :src="window.glb.user.pfpUrl || pic" class="w-32 h-32  self-center" />
+          <div class="relative w-32 h-32 self-center">
+            <div class="absolute full opacity-50 hover:opacity-100 bg-blue-400 backdrop-blur-sm bg-opacity-5 center"
+              v-if="editMode">
+              <div class="p-2 btn bg-red-500 z-10" @click="window.glb.getFileInput((event) => {
+                const selectedFiles = event.target.files;
+                console.log(selectedFiles);
+                pfpFile = selectedFiles[0];
+              })">Pick File</div>
+            </div>
+            <img
+                :src="(pfpFile && editMode) ? window.URL.createObjectURL(pfpFile) : ((window.glb.baseUrl + window.glb.user.pfpUrl + '?' + (new Date()).getTime()) || pic)"
+                class="full" />
+          </div>
           <div class=" w-full flex justify-center items-center px-4 themed-bg-secondary shadow-md">
             <div class=""> User Info</div>
             <div class="grow"> </div>

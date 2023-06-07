@@ -112,14 +112,14 @@ export default boot(({ app }) => {
     return s;
   };
   app.config.globalProperties.window = window;
-  glb.baseUrl = "http://lanxplore.xyz";
-  glb.socketUrl = "http://lanxplore.xyz";
+  glb.baseUrl = "https://lanxplore.xyz";
+  glb.socketUrl = glb.baseUrl;
   // glb.baseUrl = 'http://localhost:8080'
   window.glb = glb;
   window.onerror = function (message, source, lineno, colno, error) {
     console.log(message + "\n", source + ":" + lineno + ":" + colno /*error*/);
     return true;
-  };
+  }; 
   app.use(JsonViewer);
 });
 

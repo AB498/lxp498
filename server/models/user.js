@@ -92,6 +92,7 @@ module.exports = sequelize => {
         lastIp: DataTypes.STRING,
         lastUserAgent: DataTypes.STRING,
         lastLocation: DataTypes.STRING,
+        globalChatVisibility: DataTypes.STRING,
 
     });
 

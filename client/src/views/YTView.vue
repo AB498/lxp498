@@ -27,9 +27,9 @@ const playerReadyCallbacks = ref([() => {
 }])
 
 
-window.glb.syncerObj.openYTVideo = {}
 
 watch([() => route.params.slug, initialLoad], async () => {
+  window.glb.syncerObj.openYTVideo = {'init': true}
   if (playerMainLoop) clearInterval(playerMainLoop)
   if (!player.value)
     player.value = await getOrMakePlayer()

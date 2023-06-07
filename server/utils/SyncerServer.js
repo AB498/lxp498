@@ -35,8 +35,7 @@ const ubVideoController = require(join(
   "ubController"
 ));
 
-makeServer = (server) => {
-  let connections = [];
+makeServer = (server, connections) => {
   const io = new Server(server, {
     cors: {
       origin: "*",
@@ -65,18 +64,21 @@ makeServer = (server) => {
         console.log("No user");
         return socket.disconnect();
       }
-      if (connections.find((c) => c.user.id == user.id)) {
-        console.log("Already connected");
-        return socket.disconnect();
-      }
+      // if (connections.find((c) => c.user.id == user.id)) {
+      //   // console.log("Already connected");
+      //   // return socket.disconnect();
+      // }
       user = user.toJSON();
       console.log(typeof user.createdAt, user.createdAt instanceof Date);
       delete user.password;
       delete user.jwts;
-      connections.push({ user, socket });
 
-      console.log(user.email + " connected");
+      console.log(user.email + " connected", socket.id);
       var syncerObj = createProxy({});
+
+      connections[socket.id] = { user, socket, syncerObj };
+      console.log("connections", Object.keys(connections).length);
+      console.log("connections", Object.keys(connections));
       let localChange = true;
 
       rjwatch(syncerObj, null, async (o, n, p, k, v) => {
@@ -172,7 +174,7 @@ makeServer = (server) => {
           }
           if (p == "/openYTVideo/generateSubtitles") {
             let mostVoted = await videoController.getMostVotedLanguageFunc(v);
-            console.log(mostVoted)
+            console.log(mostVoted);
             if (!mostVoted) {
               syncerObj.error = "No votes yet";
               return;
@@ -181,7 +183,7 @@ makeServer = (server) => {
           }
           if (p == "/openUBVideo/generateSubtitles") {
             let mostVoted = await ubVideoController.getMostVotedLanguageFunc(v);
-            console.log(mostVoted)
+            console.log(mostVoted);
             if (!mostVoted) {
               syncerObj.error = "No votes yet";
               return;
@@ -210,7 +212,9 @@ makeServer = (server) => {
                 v
               );
             syncerObj.openUBVideo.mostVoted =
-              await ubVideoController.getMostVotedLanguageFunc(v);
+              await ubVideoController.getMostVotedLanguageFunc(
+                syncerObj.openUBVideo.id
+              );
           }
           if (p == "/openUBVideo/getMostVotedLanguage") {
             syncerObj.openUBVideo.mostVoted =
@@ -224,11 +228,21 @@ makeServer = (server) => {
                 v
               );
             syncerObj.openYTVideo.mostVoted =
-              await videoController.getMostVotedLanguageFunc(v);
+              await videoController.getMostVotedLanguageFunc(
+                syncerObj.openYTVideo.id
+              );
           }
           if (p == "/openYTVideo/getMostVotedLanguage") {
             syncerObj.openYTVideo.mostVoted =
               await videoController.getMostVotedLanguageFunc(v);
+          }
+
+          if (p == "/userSettings") {
+            let [key, value] = Object.entries(v)[0];
+            let userGot = await models.User.findByPk(user.id);
+            userGot[key] = value;
+            console.log(userGot, key, value);
+            await userGot.save();
           }
         } catch (e) {
           console.log(e);
@@ -246,14 +260,14 @@ makeServer = (server) => {
       }); //onreceive
 
       socket.on("disconnect", () => {
-        console.log("user disconnected");
-        connections = connections.filter((c) => c.socket.id != socket.id);
+        console.log("user disconnected", socket.id, Object.keys(connections));
+        delete connections[socket.id];
       });
     } catch (e) {
-      connections = connections.filter((c) => c.socket.id != socket.id);
+      delete connections[socket.id];
       socket.disconnect();
 
-      return console.log(e);
+      console.log(e);
     }
   });
   return { io, connections };

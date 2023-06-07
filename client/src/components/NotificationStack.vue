@@ -31,8 +31,8 @@ watch(hovering, (newVal, oldVal) => {
         @click="">
         <div v-for="(item, index) in window.glb.notifications " :key="item.id"
             class="min-h-[3rem] max-w-[30rem] min-w-[20rem] p-3 rounded border-2  pointer-events-auto m-1 overflow-auto "
-                            :class="item.tmout.running ? 'bg-blue-800' : 'bg-blue-300'"
-                        :style="{ backgroundColor: (hoveredEl != item.id) ? item.color : '#333' }"
+                            :class="item.tmout.running ? 'themed-bg-tertiary' : 'bg-blue-300'"
+                        :style="{ backgroundColor: (hoveredEl != item.id) ? (item.color || '') : '#333' }"
                     @mouseover="hovering = true; hoveredEl = item.id; cons(hoveredEl)"
                     @mouseleave=" hovering = false; hoveredEl = null">
                 <div class="flex items-stretch justify-center px-2">

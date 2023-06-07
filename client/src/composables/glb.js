@@ -335,12 +335,13 @@ store.errorMessages = (errorObject, lxerrormessage = [], parent, pkey) => {
   if (lxerrormessage.length > 0) return lxerrormessage;
   return errMessages.reverse();
 };
-store.safeAuthedReq = async (url, body) => {
+store.safeAuthedReq = async (url, body, config) => {
   let [err, res] = await store.safeAsync(
     axios.post(store.baseUrl + url, body, {
       headers: {
         Authorization: "Bearer " + store.jwt,
       },
+      ...config 
     })
   );
   if (err) {
@@ -408,7 +409,7 @@ store.addNotf = (text, content, color) => {
     id: thisId,
     text: text || "Notification number " + window.glb.notifications.length,
     content: content || "",
-    color: color || randCol,
+    color: color,
     tmout: new Timeout(() => {
       store.removeNotf(thisId);
     }, 2000),

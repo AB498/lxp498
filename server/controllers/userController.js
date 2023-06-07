@@ -55,7 +55,7 @@ module.exports.registerUser = async (req, res) => {
     ((firstName || "")[0] || "") + ((lastName || "")[0] || ""),
     join(rootDirectory, "static", "pfps", user.id + ".png")
   );
-  user.pfpUrl =global.glb.baseUrl+"/"+ join( "static", "pfps", user.id + ".png");
+  user.pfpUrl ="/" + join("static", "pfps", user.id + ".png");
 
   await user.save();
   return res.json({ user, jwt: newJwt, username, firstName, lastName });
@@ -73,6 +73,7 @@ module.exports.getSelf = async (req, res) => {
 };
 
 module.exports.loginUser = async (req, res) => {
+  console.log("loginUser");
   const { email, password } = req.body;
   const user = await models.User.findOne({
     where: { email },
@@ -143,6 +144,16 @@ module.exports.updateSelf = async (req, res) => {
     nativeLanguages,
     country,
   } = req.body);
+
+  let pfpFile = req.file;
+
+  if (pfpFile) {
+     global.glb.moveSync(
+       join(rootDirectory, "uploads", pfpFile.filename),
+       join(rootDirectory, "static", "pfps", req.user.id + ".png")
+     );
+    infoToUpdate.pfpUrl = "/" + join("static", "pfps", req.user.id + ".png");
+  }
 
   let foundUser =
     (await models.User.findAll({

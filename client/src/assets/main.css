@@ -371,8 +371,9 @@
   background-color: var(--bg-highlight);
 }
 .themed-bg-blur{
-  filter: blur(1px);
-  opacity: 0.5;
+  backdrop-filter: blur(8px);
+  background: #000000;
+  opacity: 0.9;
 }
 .themed-text-gray {
   color: #a0aec0;

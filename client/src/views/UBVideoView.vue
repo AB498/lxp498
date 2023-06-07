@@ -20,11 +20,11 @@ const commentText = ref('')
 const commentsOpen = ref(false)
 const words = ref([])
 
-window.glb.syncerObj.openUBVideo = {}
 
 let playerMainLoop = null
+window.glb.syncerObj.openUBVideo = { 'init': true }
 watch([() => route.params.slug, initialLoad], async () => {
-  if (playerMainLoop) clearInterval(playerMainLoop)
+  window.glb.syncerObj.openUBVideo = { 'init': true }
   window.glb.syncerObj.openUBVideo.id = route.params.slug
   window.glb.syncerObj.openUBVideo.getMostVotedLanguage = route.params.slug;
 })
@@ -45,8 +45,8 @@ watch(() => window.glb.syncerObj?.openUBVideo?.subtitlesStatus, async (newVal, o
     let translatedWords = await window.glb.safeAuthedReq('/api/getTranslation',
       {
         words: words.value.map(word => word.word),
-        sourceLang: window.glb.syncerObj.openYTVideo.mostVoted,
-        targetLang: window.glb.settings.translationLanguage || window.glb.syncerObj.openYTVideo.getMostVotedLanguage
+        sourceLang: window.glb.syncerObj.openUBVideo.mostVoted,
+        targetLang: window.glb.settings.translationLanguage || window.glb.syncerObj.openUBVideo.getMostVotedLanguage
       }
     );
     words.value.forEach((word, i) => {

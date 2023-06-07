@@ -2,6 +2,11 @@
 
 import Toggle from '@vueform/toggle'
 
+import { ref, onUnmounted, onMounted, nextTick, watch } from 'vue'
+
+watch(() => window.glb.settings.globalChatVisibility, (val) => {
+    window.glb.syncerObj.userSettings=  { globalChatVisibility: val?'public':'onlyme' }
+})
 
 
 </script>
@@ -15,14 +20,13 @@ import Toggle from '@vueform/toggle'
             <div class="left-grow">Send optional error data</div>
             <q-toggle :classes="window.glb.toggleStyle" v-model="window.glb.settings.sendErrorData" class="toggle-red" />
         </div>
-            <div class="col-item effects space-x-2">
-                <div class="flex flex-col left-grow">
-                    <div class="">Show online status to global chatroom</div>
-                    <div class="text-sm themed-text-gray">Enables you to find other online users</div>
-                </div>
-                <q-toggle :classes="window.glb.toggleStyle" v-model="window.glb.settings.showOnlineGlobal"
-                    class="toggle-red" />
+        <div class="col-item effects space-x-2">
+            <div class="flex flex-col left-grow">
+                <div class="">Show online status to global chatroom</div>
+                <div class="text-sm themed-text-gray">Enables you to find other online users</div>
             </div>
+            <q-toggle :classes="window.glb.toggleStyle" v-model="window.glb.settings.globalChatVisibility" class="toggle-red" />
+        </div>
         <div class="col-item effects space-x-2">
             <div class="flex flex-col left-grow">
                 <div class="">Phone number visibility</div>
@@ -38,8 +42,7 @@ import Toggle from '@vueform/toggle'
                 <div class="text-sm themed-text-gray">{{ !window.glb.settings.emailVisibility ? '(Only me)' :
                     '(Public)' }}</div>
             </div>
-            <q-toggle :classes="window.glb.toggleStyle" v-model="window.glb.settings.emailVisibility"
-                class="toggle-red" />
+            <q-toggle :classes="window.glb.toggleStyle" v-model="window.glb.settings.emailVisibility" class="toggle-red" />
         </div>
     </div>
 </template>

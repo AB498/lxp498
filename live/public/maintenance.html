@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.2/socket.io.js"
+        integrity="sha512-jMNwWSmjje4fjYut9MBGKXw5FZA6D67NHAuC9szpjbbjg51KefquNfvn4DalCbGfkcv/jHsHnPo1o47+8u4biA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/0.6.1/progressbar.min.js"
+        integrity="sha512-7IoDEsIJGxz/gNyJY/0LRtS45wDSvPFXGPuC7Fo4YueWMNOmWKMAllEqo2Im3pgOjeEwsOoieyliRgdkZnY0ow=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        body {
+            background-color: #222
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="flex items-center justify-center h-screen w-screen overflow-auto">
+        <div class="flex flex-col items-center justify-center w-full h-full text-center p-2 ">
+            <!-- maintenance mode -->
+            <i class="material-icons text-9xl text-yellow-500 ">construction</i>
+            <div class="flex flex-col items-center justify-center">
+                <h1 class="text-2xl sm:text-4xl text-yellow-700">503 | Server Under Maintenance</h1>
+                <p class="text-sm sm:text-2xl text-yellow-500">We are currently under maintenance.</p>
+                <p class="text-sm sm:text-2xl text-yellow-500">Please wait, you will be redirected automatically.</p>
+                <p class="text-xm sm:text-xl text-yellow-500">Thank you for your patience.</p>
+            </div>
+            <div class="progress py-6  sm:py-16 relative w-full px-4 sm:px-16 h-1" id="progress"></div>
+            <div id="progres" class="text-yellow-500"></div>
+
+        </div>
+    </div>
+
+    <script>
+
+
+        console.log(window.location.origin + '')
+        const socket = io(window.location.origin, {
+            path: "/maintenance"
+        });
+        socket.on('connect', () => {
+            console.log('connected');
+        });
+        socket.on('disconnect', () => {
+            console.log('disconnected');
+        });
+        socket.on('maintenance', (status) => {
+            console.log('maintenance', status);
+            if (!status) {
+                // relaod
+                clearInterval(intv);
+                bar.animate(1);
+                document.querySelector('#progres').textContent = (100).toFixed(2) + '%';
+
+                window.location.reload();
+            }
+        });
+        socket.on('maintenance-end', () => {
+            console.log('maintenance-end');
+        });
+
+        var bar = new ProgressBar.Line("#progress", {
+            strokeWidth: 2,
+            easing: 'easeInOut',
+            duration: 100,
+            color: '#FFEA82',
+            trailColor: '#eee',
+            trailWidth: 1,
+            svgStyle: {width: '100%', height: '100%'},
+            text: {
+                style: {
+                    // Text color.
+                    // Default: same as stroke color (options.color)
+                    color: '#999',
+                    position: 'absolute',
+                    right: '0',
+                    top: '30px',
+                    padding: 0,
+                    margin: 0,
+                    transform: null
+                },
+                autoStyleContainer: false
+            },
+            from: {color: '#FFEA82'},
+            to: {color: '#ED6A5A'},
+            step: (state, bar) => {
+                // bar.setText(Math.round(bar.value() * 100) + ' %');
+            }
+        });
+
+        let a = 0, b = 1;
+        let intv = setInterval(() => {
+            a = a + (b - a) * 0.01;
+            document.querySelector('#progres').textContent = (a * 100).toFixed(2) + '%';
+            bar.animate(a);
+        }, 100);
+
+    </script>
+
+</body>
+
+</html>

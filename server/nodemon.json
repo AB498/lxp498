@@ -6,8 +6,10 @@
     ],
     "watch": [
         "**/*.js",
+        "**/*.vue",
         "./nodemon.json",
         "./package.json"
     ],
-    "ext": "js"
+    "ext": "js",
+    "exec": "node ~/lxp498/maintain.js '{\"server\": {\"status\": false}}' && sudo node index.js && node ~/lxp498/maintain.js '{\"server\": {\"status\": true}}'"
 }

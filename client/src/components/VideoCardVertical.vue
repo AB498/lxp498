@@ -4,14 +4,14 @@ const props = defineProps({
     video: Object,
     index: Number,
 })
-import pic from "@/assets/logo.svg";
+import pic from "@/assets/noimage.svg";
 
 </script>
 
 <template>
     <div class=" flex flex-col w-full relative hover:-translate-y-1 shadow-md transition rounded-xl">
         <div class="border relative rounded-t-xl">
-            <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="aspect-video object-cover w-full rounded-t-xl">
+            <img :src="video.thumbnailUrl ? video.thumbnailUrl : pic" alt="" class="aspect-video object-contain w-full rounded-t-xl">
             <div class="vidinfo absolute bottom-0  themed-text-primary bg-opacity-80 text-xs"
             :class="!window.glb.dark ? 'bg-slate-200' : 'bg-slate-950'"
             >

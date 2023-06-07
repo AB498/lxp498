@@ -47,7 +47,7 @@ module.exports.generateSubtitles = async (req, res) => {
 module.exports.getSuggestedVideos = async (req, res) => {
   const videos = await models.UBVideo.findAll({
     order: models.sequelize.random(),
-    limit: 10,
+    limit: 50,
   });
 
   return res.send(videos);
@@ -72,43 +72,49 @@ module.exports.uploadVideos = async (req, res) => {
   if (!req.files) {
     return res.status(400).send("No file uploaded.");
   }
+  let file = req.files.file[0];
+  let thumbnail = req.files.thumbnail[0];
 
-  const jsonData = global.glb.tryParseJSON(req.body.jsonData);
+  const { title, name, description } = req.body;
 
-  if (!jsonData || jsonData.length != req.files.length) {
+  if (!title) {
     return res.status(400).send("Invalid video informations.");
   }
 
   // Read song.mp3 metadata
+  console.log(thumbnail);
+  let metadata = await getVideoMeta(file.filename);
 
-  for (let file in req.files) {
-    let metadata = await getVideoMeta(req.files[file].filename);
+  if (!metadata) return res.status(400).send("Invalid video informations.");
+  console.log(metadata);
+  const durationInSeconds = metadata.format.duration;
+  const maxDuration = 10 * 60 * 60; // 10 hours in seconds
 
-    if (!metadata) return res.status(400).send("Invalid video informations.");
-    console.log(metadata);
-    const durationInSeconds = metadata.format.duration;
-    const maxDuration = 10 * 60 * 60; // 10 hours in seconds
+  if (durationInSeconds > maxDuration)
+    return res.status(400).send("Video is too long.");
 
-    if (durationInSeconds > maxDuration)
-      return res.status(400).send("Video is too long.");
-
-    let randName = uuidv4() + ".mp4";
+  let randName = uuidv4() + ".mp4";
+  global.glb.moveSync(
+    join(rootDirectory, "uploads", file.filename),
+    join(rootDirectory, "ubuploadedvideos", randName)
+  );
+  console.log(req.user.id);
+  let createdVideo = await models.UBVideo.create({
+    title: title,
+    description: description || "",
+    fileName: randName,
+    UserId: req.user.id,
+  });
+  
+  if (thumbnail) {
     global.glb.moveSync(
-      join(rootDirectory, "uploads", req.files[file].filename),
-      join(rootDirectory, "ubuploadedvideos", randName)
+      join(rootDirectory, "uploads", thumbnail.filename),
+      join(rootDirectory, "static", "ubThumbnails", createdVideo.id + ".png")
     );
-    console.log(req.user.id);
-    await models.UBVideo.create({
-      title: jsonData[file].title,
-      description: jsonData[file].description,
-      fileName: randName,
-      UserId: req.user.id,
-    });
   }
+  createdVideo.thumbnailUrl = "/static/ubThumbnails/" + createdVideo.id + ".png";
+  await createdVideo.save();
 
-  // Process the file and additional data as needed
-
-  // File upload successful
   return res.status(200).send("File uploaded.");
 };
 
@@ -207,7 +213,6 @@ module.exports.voteLanguageFunc = async (videoId, userId, languageVote) => {
   return video.votedLanguages;
 };
 
-
 module.exports.getMostVotedLanguageFunc = async (videoId) => {
   let video = await models.Video.findOne({
     where: {
@@ -236,22 +241,23 @@ module.exports.getMostVotedLanguageFunc = async (videoId) => {
 };
 
 module.exports.voteVideoLanguage = async (req, res) => {
-
   const { language } = req.body;
   if (!language) return res.status(400).send("Language not provided");
   return res.send(
     await module.exports.voteLanguageFunc(req.params.id, req.user.id, language)
   );
-}
+};
 
-module.exports.getMostVotedLanguage = async (req, res) => { 
-  return res.send(await module.exports.getMostVotedLanguageFunc(req.params.id))
-}
+module.exports.getMostVotedLanguage = async (req, res) => {
+  return res.send(await module.exports.getMostVotedLanguageFunc(req.params.id));
+};
 
-module.exports.listVotes = async (req, res) => { 
-  return res.send(await models.Vote.findAll({
-    where: {
-      UBVideoId: req.params.id,
-    },
-  }))
-}
+module.exports.listVotes = async (req, res) => {
+  return res.send(
+    await models.Vote.findAll({
+      where: {
+        UBVideoId: req.params.id,
+      },
+    })
+  );
+};

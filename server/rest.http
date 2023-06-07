@@ -33,9 +33,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q0O
 ###
 POST http://localhost:8080/api/getUser/6
 
+####
+POST http://localhost:80/api/listVideos
+####
+ https://lanxplore.xyz/
 
 ####
-POST http://localhost:8080/api/registerUser
+POST https://lanxplore.xyz/test/api/getSelfConversations
 
 {
     "email": "email1@gmail.com",

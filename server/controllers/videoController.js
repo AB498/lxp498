@@ -118,6 +118,7 @@ module.exports.getMostVotedLanguage = async (req, res) => {
       ytId: req.params.id,
     },
   });
+  if(!video) return res.send(null);
   let allVotes = await models.Vote.findAll({
     where: {
       VideoId: video.id,
@@ -158,6 +159,7 @@ module.exports.getMostVotedLanguageFunc = async (videoId) => {
       ytId: videoId,
     },
   });
+  if (!video) return res.send(null);
   let allVotes = await models.Vote.findAll({
     where: {
       VideoId: video.id,

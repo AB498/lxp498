@@ -123,15 +123,16 @@ onMounted(() => {
 
 const route = useRoute()
 const router = useRouter()
-const URL = window.glb.baseUrl;
+const URL = window.glb.socketUrl;
 
 let syncer = makeSyncer(URL, {
   extraHeaders: {
     Authorization: `Bearer ${window.glb?.jwt || ''}`
-  }
+  },
+  autoConnect: false,
 })
 syncer.init()
-window.syncer = syncer;
+window.glb.syncer = syncer;
 
 rjwatch(syncer.syncerObj, null, (o, n, p, k, v) => {
   window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
@@ -142,19 +143,41 @@ rjwatch(syncer.syncerObj, 'error', (o, n, p, k, v) => {
     window.glb.addNotf('error', v)
   }
 })
+rjwatch(syncer.syncerObj, 'reload', (o, n, p, k, v) => {
+  if (v) {
+    window.glb.addNotf('Maintenance', 'Force Reload')
+    window.location.reload();
+  }
+})
 window.glb.syncerObj = syncer.syncerObj;
 // window.glb.syncerObjRef = syncer.syncerObj;
 
 
 syncer.connectedCallbacks.push(() => {
   console.log("connected");
-  window.glb.con = true;
 })
 
 syncer.disconnectedCallbacks.push(() => {
   console.log("disconnected");
-  window.glb.con = false;
 })
+
+
+const fileInput = ref(null)
+
+let selectedFilesHandler = (event) => {
+  const selectedFiles = event.target.files;
+  console.log(selectedFiles);
+};
+
+window.glb.getFileInput = (cb) => {
+
+  fileInput.value.removeEventListener("change", selectedFilesHandler);
+  selectedFilesHandler = cb
+  fileInput.value.addEventListener("change", selectedFilesHandler);
+
+  fileInput.value.click();
+}
+
 
 function logout() {
   window.glb.loggedIn = false
@@ -231,6 +254,8 @@ onUnmounted(() => {
 })
 
 
+
+
 const darkmode = ref(false);
 
 
@@ -243,6 +268,8 @@ const darkmode = ref(false);
   <div id="root-app"
     class="whole relative h-screen w-screen flex flex-nowrap flex-col font-Exo2 overflow-hidden themed-bg-primary themed-text-primary"
     :class="window.glb?.dark && ' dark'">
+    <input type="file" ref="fileInput" id="fileInput" style="display: none;">
+
     <NotificationStack />
     <SelectLang class="absolute z-10" />
     <div id="svgg" class="h-screen w-screen absolute -z-10"></div>
@@ -255,29 +282,31 @@ const darkmode = ref(false);
           <div :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
             <PopperComponent>
               <template #tohover>
-                <RouterLink to="/" class="flex center fa self-stretch space-x-2 font-sans font-thin">
+                <div class="flex center fa self-stretch space-x-2 font-sans font-thin">
                   <!-- loading if not connected -->
-                  <i v-if="!window.glb.con" class="">
+                  <!-- <i v-if="!window.glb.syncer.socketState.connected" class="">
                     <q-spinner-radio color="brown" />
-                  </i>
-                  <span class="relative flex h-3 w-3 center" v-else>
+                  </i> -->
+                  <!-- <span class="relative flex h-3 w-3 center" v-else>
                     <span
                       class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500">
 
                     </span>
-                  </span>
-                  <div class="font-Galada center text-2xl p-1">
+                  </span> -->
+                  <div class="font-Galada center text-2xl p-1 "
+                    :class="window.glb.syncer.socketState.connected ? 'animate-lights' : ''">
                     Lx
                   </div>
-                </RouterLink>
+                </div>
               </template>
               <template #popup>
                 <div class="w-full h-full overflow-auto">
-                  <JsonViewer
+                  <!-- <JsonViewer
                     :value="Object.fromEntries(Object.entries(window.glb).filter(([k, v]) => typeof v != 'function'))"
                     class=" " theme="my-awesome-json-theme">
-                  </JsonViewer>
+                  </JsonViewer> -->
+                  You are connected 
                 </div>
               </template>
             </PopperComponent>
@@ -301,21 +330,21 @@ const darkmode = ref(false);
           <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects-square"></q-icon>
           <q-icon @click="router.push('/settings')" name="settings" class="effects-square"></q-icon>
           <q-icon @click="router.push('/progress')" name="model_training" class="effects-square"></q-icon>
-          <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects-square"></q-icon>
+          <!-- <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects-square"></q-icon> -->
         </div>
         <div class="nav-right flex items-stretch flex-nowrap overflow-hidden w-0 sm:w-auto"
           :class="!searchCollapsed ? 'w-0 px-0 border sm:w-auto' : 'px-1  '">
           <div class="nav-right items-stretch flex-nowrap flex  " v-if="window.glb.loggedIn">
-            <RouterLink to="/" @click="" class="flex items-center space-x-2 justify-center fa px-2	">
+            <div @click="" class="flex items-center space-x-2 justify-center fa px-2	">
               <!-- {{ (window.glb.user && window.glb.user.lxt || 0) }} -->
               <q-icon name="all_inclusive" class=""></q-icon>
               <i class="fa fa-bolt"></i>
-            </RouterLink>
-            <RouterLink to="/" @click="e => window.glb.addNotf()"
+            </div>
+            <div @click="e => window.glb.addNotf()"
               class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
               {{ (window.glb.notifications?.length) || '0' }}
               <i class="fa-solid fa-comments "></i>
-            </RouterLink>
+            </div>
 
           </div>
           <div class="sm:flex hidden nav-right px-4  items-stretch flex-nowrap" v-else>
@@ -334,7 +363,7 @@ const darkmode = ref(false);
           </div>
         </div>
         <div class="flex center-cross">
-          
+
           <PopperComponent>
             <template #tohover>
               <q-toggle v-model="window.glb.dark" checked-icon="dark_mode" color="" unchecked-icon="light_mode">
@@ -388,12 +417,12 @@ const darkmode = ref(false);
                     Settings
                   </div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/admin')">
+                <!-- <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/admin')">
                   <q-icon name="admin_panel_settings" class="effects"></q-icon>
                   <div>
                     Admin
                   </div>
-                </div>
+                </div> -->
                 <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="logout">
                   <q-icon name="power_settings_new" class="effects"></q-icon>
                   <div>

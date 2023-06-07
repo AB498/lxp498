@@ -136,6 +136,7 @@ const globalProxy = createProxy(
 
     moveSync(oldPath, newPath) {
       try {
+        if(fs.existsSync(newPath)) fs.unlinkSync(newPath) 
         fsExtra.moveSync(oldPath, newPath);
       } catch (err) {
         console.error("Error moving file:", err);

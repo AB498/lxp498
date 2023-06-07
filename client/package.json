@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
-    "dev": "quasar dev",
+    "dev": "nodemon",
+    "serve": "serve -s dist/spa -l 5173 --cors",
     "build": "quasar build"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "binary-search": "^1.3.6",
     "chance": "^1.1.11",
     "clusterize.js": "^1.0.0",
+    "cors": "^2.8.5",
     "feather-icons": "^4.29.0",
     "find-package-json": "^1.2.0",
     "flexsearch": "^0.7.31",

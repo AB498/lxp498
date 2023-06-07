@@ -49,5 +49,4 @@ let toggleStyle = {
                 <i class="fas fa-chevron-down"></i> {{ window.glb.settings.targetTranslationLang }}
             </div>
         </div>
-    </div>
 </div></template>
