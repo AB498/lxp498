@@ -56,7 +56,7 @@ export default boot(({ app }) => {
       el.dataset.loadingOverlayElement2 = overlay2;
       // Add a class to the parent div to indicate it has a loading bar
       el.classList.add("loading-bar-container");
-      console.log("mounted");
+      ("mounted");
     },
     updated(el, binding) {
       // Get the loading bar and overlay elements
@@ -119,7 +119,7 @@ export default boot(({ app }) => {
   window.onerror = function (message, source, lineno, colno, error) {
     console.log(message + "\n", source + ":" + lineno + ":" + colno /*error*/);
     return true;
-  }; 
+  };
   app.use(JsonViewer);
 });
 

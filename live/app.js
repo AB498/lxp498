@@ -29,11 +29,10 @@ const options = {
 const server = https.createServer(options, app);
 const { createServer } = require("http");
 const { Server } = require("socket.io");
-let activeConnections = {}
+let activeConnections = {};
 let maintenanceData = JSON.parse(
   fs.readFileSync(join(rootDirectory, "..", "maintenance.json"))
 );
-
 
 const io = new Server(server, {
   path: "/maintenance",
@@ -45,7 +44,6 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   activeConnections[socket.id] = socket;
-  console.log("a user connected", socket.id);
 });
 app.use(
   cors({
@@ -121,12 +119,11 @@ fs.watch(filePath, (eventType, filename) => {
     }
 
     try {
-       maintenanceData = JSON.parse(data) || {}; /*  */
+      maintenanceData = JSON.parse(data) || {}; /*  */
       inMaintenanceMode =
         !maintenanceData.server.status || !maintenanceData.client.status;
 
-      
-      if(!inMaintenanceMode){
+      if (!inMaintenanceMode) {
         Object.keys(activeConnections).forEach((socketId) => {
           // activeConnections[socketId].emit("maintenance", false);
           // activeConnections[socketId].disconnect();

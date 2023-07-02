@@ -1,18 +1,14 @@
-
-
-
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const selected = ref(false)
-
-
+const selected = ref(false);
 </script>
 
-
-
 <template>
-    <div :style="{ backgroundColor: selected ? 'lightblue' : '' }" @click="selected = true; console.log('clc', selected)">
-        {{ selected }} <slot></slot>
-    </div>
+  <div
+    :style="{ backgroundColor: selected ? 'lightblue' : '' }"
+    @click="selected = true"
+  >
+    {{ selected }} <slot></slot>
+  </div>
 </template>

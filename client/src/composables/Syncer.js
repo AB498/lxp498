@@ -24,7 +24,6 @@ const makeSyncer = (url, options) => {
       socketState.connected = true;
       connectedCallbacks.forEach((cb) => cb());
       connectedCallbacks = [];
-console.log("my id ", server2Socket.id);
       rjwatch(syncerObj, null, (o, n, p, k, v) => {
         //(oldval, newval, modpath, key, value)
         if (localChange) server2Socket.emit("updateObj", { path: p, value: v });
@@ -33,16 +32,13 @@ console.log("my id ", server2Socket.id);
 
       server2Socket.on("updateObj", ({ path, value }) => {
         try {
-          console.log("foreign: ", path);
           localChange = false;
           rjmod(syncerObj, path, value);
-          if (path == "/") console.log("SyncerObj", syncerObj);
+          if (path == "/");
           localChange = true;
-        } catch (e) {
-          console.log("Error in updateObj", e);
-        }
+        } catch (e) {}
       }); //onreceive
-      server2Socket.on("maintenance", (e) => { 
+      server2Socket.on("maintenance", (e) => {
         console.log("maintenance", e);
         if (e) {
           window.location.reload();

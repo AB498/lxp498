@@ -63,9 +63,8 @@ let handler = {
     return true;
   },
   get: function (target, key) {
-    if (typeof key === "symbol") console.log(key);
+    if (typeof key === "symbol");
     else {
-      console.log(key);
       if (!target[key]) {
         target[key] = new Proxy({}, handler);
       }
@@ -73,11 +72,7 @@ let handler = {
     return target[key];
   },
   path: [],
-  callbacks: [
-    (pathString, value) => {
-      console.log(`${pathString} -> ${value}`);
-    },
-  ],
+  callbacks: [(pathString, value) => {}],
 };
 
 let gg = tryParseJSONObject(localStorage.glb)
@@ -102,7 +97,6 @@ watch(store, (val, oldValue) => {
 
   localStorage.glb = strFied;
 });
-console.log();
 if (!store.settings) store.settings = {};
 store.tryParseJSON = tryParseJSONObject;
 store.isIterable = (value) => {
@@ -341,7 +335,7 @@ store.safeAuthedReq = async (url, body, config) => {
       headers: {
         Authorization: "Bearer " + store.jwt,
       },
-      ...config 
+      ...config,
     })
   );
   if (err) {

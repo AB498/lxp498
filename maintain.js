@@ -16,7 +16,6 @@ function resolveHomeDirectory(dirPath) {
   return dirPath;
 }
 
-
 // Access command-line argument
 const jsonArg = process.argv[2];
 
@@ -30,15 +29,18 @@ if (!fs.existsSync(join(rootDirectory, "maintenance.json"))) {
   fs.writeFileSync(join(rootDirectory, "maintenance.json"), JSON.stringify({}));
 }
 if (jsonData.server) {
-  let maintenanceData = JSON.parse(fs.readFileSync(join(rootDirectory, "maintenance.json")));
+  let maintenanceData = JSON.parse(
+    fs.readFileSync(join(rootDirectory, "maintenance.json"))
+  );
   fs.writeFileSync(
     join(rootDirectory, "maintenance.json"),
     JSON.stringify({ ...maintenanceData, server: jsonData.server })
   );
 }
 if (jsonData.client) {
-  console.log("Parsed JSON data:", jsonData);
-    let maintenanceData = JSON.parse(fs.readFileSync(join(rootDirectory, "maintenance.json")));
+  let maintenanceData = JSON.parse(
+    fs.readFileSync(join(rootDirectory, "maintenance.json"))
+  );
   fs.writeFileSync(
     join(rootDirectory, "maintenance.json"),
     JSON.stringify({ ...maintenanceData, client: jsonData.client })

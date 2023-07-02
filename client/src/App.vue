@@ -1,34 +1,36 @@
 <script>
-import { defineComponent } from 'vue'
-
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'App'
-})
-
+  name: "App",
+});
 </script>
 
-
 <script setup>
-
-import { useRoute, useRouter, RouterLink, RouterView } from 'vue-router'
-import { ref, reactive, computed, watch, onMounted, onBeforeMount, onBeforeUnmount, onUnmounted } from 'vue'
+import { useRoute, useRouter, RouterLink, RouterView } from "vue-router";
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  onMounted,
+  onBeforeMount,
+  onBeforeUnmount,
+  onUnmounted,
+} from "vue";
 import PopperComponent from "@/components/PopperComponent.vue";
 import LoadingSpin from "@/components/LoadingSpin.vue";
 import NotificationStack from "@/components/NotificationStack.vue";
 import SelectLang from "@/components/SelectLang.vue";
 
-
 import "vue3-json-viewer/dist/index.css";
 import { io } from "socket.io-client";
 
-import { createProxy, rjwatch, rjmod } from '@/composables/ReactiveJSON'
-import { makeSyncer } from '@/composables/Syncer'
+import { createProxy, rjwatch, rjmod } from "@/composables/ReactiveJSON";
+import { makeSyncer } from "@/composables/Syncer";
 import tinycolor from "tinycolor2";
 
-
-
-import Chance from 'chance';
+import Chance from "chance";
 var chance = new Chance();
 
 let size = 30;
@@ -41,8 +43,8 @@ let x = 0;
 let y = 0;
 let z = 0;
 let rotate = 0;
-var randomColor = chance.color({ format: 'hex' });
-console.log('randomColor', randomColor);
+var randomColor = chance.color({ format: "hex" });
+"randomColor", randomColor;
 function darkenColor(color, amount) {
   var darkColor = tinycolor(color).darken(amount).toString();
   return darkColor;
@@ -51,17 +53,17 @@ let perc = 50;
 
 // Darken the generated color
 var darkColor = darkenColor(randomColor, 0.1); // Adjust the darkness amount as needed
-console.log('darkColor', darkColor);
 // Generate a svg randomly
 chance.mixin({
   svg: function (options) {
     options = options || {};
     options.size = options.max_size || 30;
-    if (typeof options.lines === 'undefined') options.lines = 20;
-    if (typeof options.circles === 'undefined') options.circles = 10;
-    if (typeof options.triangles === 'undefined') options.triangles = 10;
-    if (typeof options.opacity === 'undefined') options.opacity = 0.3;
-    options.background = options.background || darkenColor(chance.color(), perc);
+    if (typeof options.lines === "undefined") options.lines = 20;
+    if (typeof options.circles === "undefined") options.circles = 10;
+    if (typeof options.triangles === "undefined") options.triangles = 10;
+    if (typeof options.opacity === "undefined") options.opacity = 0.3;
+    options.background =
+      options.background || darkenColor(chance.color(), perc);
 
     // Create a coordinate within an area bigger than the svg
     function point(min, max) {
@@ -73,7 +75,7 @@ chance.mixin({
     // viewBox use: stackoverflow.com/q/17498855
     var svg = '<svg version="1.1" viewBox="0 0 100 100"';
     svg += 'xmlns="http://www.w3.org/2000/svg"';
-    svg += "class=\"themed-bg-primary\"" + '>';
+    svg += 'class="themed-bg-primary"' + ">";
     for (var i = 0; i < options.lines; i++) {
       svg += '<line stroke="' + darkenColor(chance.color(), perc) + '" ';
       svg += 'stroke-width="' + point(1, 5) + '" ';
@@ -89,102 +91,90 @@ chance.mixin({
       svg += 'fill="' + darkenColor(chance.color(), perc) + '"/>';
     }
     for (var i = 0; i < options.triangles; i++) {
-      var s = size = options.max_size;
-      svg += '<polygon fill="' + darkenColor(chance.color(), perc) + '" points="';
-      svg += (x = point()) + ',' + (y = point()) + ' ';
-      svg += (x + point(-s, s)) + ',' + (y + point(-s, s)) + ' ';
-      svg += (x + point(-s, s)) + ',' + (y + point(-s, s));
+      var s = (size = options.max_size);
+      svg +=
+        '<polygon fill="' + darkenColor(chance.color(), perc) + '" points="';
+      svg += (x = point()) + "," + (y = point()) + " ";
+      svg += x + point(-s, s) + "," + (y + point(-s, s)) + " ";
+      svg += x + point(-s, s) + "," + (y + point(-s, s));
       svg += '" opacity="' + options.opacity + '" ';
       svg += 'fill="' + darkenColor(chance.color(), perc) + '"/>';
     }
-    return svg + '</svg>';
-  }
+    return svg + "</svg>";
+  },
 });
 // Function to darken the color
 
-
 onMounted(() => {
-
-  window.addEventListener('resize', () => {
-
+  window.addEventListener("resize", () => {
     window.glb.screenWidth = document.documentElement.clientWidth;
     window.glb.screenHeight = document.documentElement.clientHeight;
-
   });
 
-  window.document.querySelector('#svgg').innerHTML = chance.svg({
+  window.document.querySelector("#svgg").innerHTML = chance.svg({
     lines: 20,
     triangles: 10,
     circles: 10,
     max_size: 30,
-    opacity: 0.7
+    opacity: 0.7,
   });
-})
+});
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 const URL = window.glb.socketUrl;
 
 let syncer = makeSyncer(URL, {
   extraHeaders: {
-    Authorization: `Bearer ${window.glb?.jwt || ''}`
+    Authorization: `Bearer ${window.glb?.jwt || ""}`,
   },
   autoConnect: false,
-})
-syncer.init()
+});
+syncer.init();
 window.glb.syncer = syncer;
 
 rjwatch(syncer.syncerObj, null, (o, n, p, k, v) => {
   window.glb.syncerObj = JSON.parse(JSON.stringify({ ...syncer.syncerObj }));
   window.glb.syncerObj = syncer.syncerObj;
-})
-rjwatch(syncer.syncerObj, 'error', (o, n, p, k, v) => {
+});
+rjwatch(syncer.syncerObj, "error", (o, n, p, k, v) => {
   if (v) {
-    window.glb.addNotf('error', v)
+    window.glb.addNotf("error", v);
   }
-})
-rjwatch(syncer.syncerObj, 'reload', (o, n, p, k, v) => {
+});
+rjwatch(syncer.syncerObj, "reload", (o, n, p, k, v) => {
   if (v) {
-    window.glb.addNotf('Maintenance', 'Force Reload')
+    window.glb.addNotf("Maintenance", "Force Reload");
     window.location.reload();
   }
-})
+});
 window.glb.syncerObj = syncer.syncerObj;
 // window.glb.syncerObjRef = syncer.syncerObj;
 
+syncer.connectedCallbacks.push(() => {});
 
-syncer.connectedCallbacks.push(() => {
-  console.log("connected");
-})
+syncer.disconnectedCallbacks.push(() => {});
 
-syncer.disconnectedCallbacks.push(() => {
-  console.log("disconnected");
-})
-
-
-const fileInput = ref(null)
+const fileInput = ref(null);
 
 let selectedFilesHandler = (event) => {
   const selectedFiles = event.target.files;
-  console.log(selectedFiles);
 };
 
 window.glb.getFileInput = (cb) => {
-
   fileInput.value.removeEventListener("change", selectedFilesHandler);
-  selectedFilesHandler = cb
+  selectedFilesHandler = cb;
   fileInput.value.addEventListener("change", selectedFilesHandler);
 
   fileInput.value.click();
-}
-
+};
 
 function logout() {
-  window.glb.loggedIn = false
-  window.glb.user = null
-  window.glb.jwt = null
-  window.glb._nonPersistant = {}
-  router.push('/login');
+  window.glb.loggedIn = false;
+  window.glb.user = null;
+  window.glb.jwt = null;
+  window.glb._nonPersistant = {};
+  router.push("/login");
 }
 // if (window.glb.user) {
 //   console.log("connecting to socket");
@@ -194,11 +184,9 @@ function logout() {
 const initializeLoad = ref(false);
 watch([() => window.glb.loggedIn, initializeLoad], (newVal, oldVal) => {
   if (window.glb.loggedIn) {
-    console.log("connecting to socket");
   } else {
-    console.log("disconnecting from socket");
   }
-})
+});
 
 initializeLoad.value = true;
 
@@ -208,8 +196,8 @@ window.glb._serverSynced = {};
 const socketURL = window.glb.socketUrl;
 const socketOptions = computed(() => ({
   extraHeaders: {
-    Authorization: `Bearer ${window.glb?.jwt || ''}`
-  }
+    Authorization: `Bearer ${window.glb?.jwt || ""}`,
+  },
 }));
 
 const searchCollapsed = ref(true);
@@ -218,71 +206,79 @@ const searchText = ref("");
 //ds dsa
 ///// rnerwqa's
 
-
 if (!window.glb._nonPersistant.wordTranslationStream)
-  window.glb._nonPersistant.wordTranslationStream = {}
+  window.glb._nonPersistant.wordTranslationStream = {};
 
 window.glb.putTranslation = (kvp, w) => {
   return new Promise((resolve, reject) => {
-    w.resolver = resolve
+    w.resolver = resolve;
     window.glb._nonPersistant.wordTranslationStream[kvp][w.id] = w;
-  })
-}
+  });
+};
 
 let trslnterv = setInterval(async () => {
-
   for (let streamkey in window.glb._nonPersistant.wordTranslationStream) {
-    let keys = Object.values(window.glb._nonPersistant.wordTranslationStream[streamkey]).map(e => e.id)
-    if (keys.length <= 0) continue
-    console.log(streamkey + ' ' + keys.length)
-    let words = Object.values(window.glb._nonPersistant.wordTranslationStream[streamkey]).map(e => e.word)
-    let translated = await window.glb.safeAuthedReq('/api/getTranslation', {
+    let keys = Object.values(
+      window.glb._nonPersistant.wordTranslationStream[streamkey]
+    ).map((e) => e.id);
+    if (keys.length <= 0) continue;
+    let words = Object.values(
+      window.glb._nonPersistant.wordTranslationStream[streamkey]
+    ).map((e) => e.word);
+    let translated = await window.glb.safeAuthedReq("/api/getTranslation", {
       words: words,
-      sourceLang: streamkey.split('-')[0],
-      targetLang: streamkey.split('-')[1]
-    })
+      sourceLang: streamkey.split("-")[0],
+      targetLang: streamkey.split("-")[1],
+    });
     translated.forEach((e, i) => {
-      window.glb._nonPersistant.wordTranslationStream[streamkey][keys[i]].translatedWord = e;
-      window.glb._nonPersistant.wordTranslationStream[streamkey][keys[i]].resolver(e);
-      delete window.glb._nonPersistant.wordTranslationStream[streamkey][keys[i]]
-    })
+      window.glb._nonPersistant.wordTranslationStream[streamkey][
+        keys[i]
+      ].translatedWord = e;
+      window.glb._nonPersistant.wordTranslationStream[streamkey][
+        keys[i]
+      ].resolver(e);
+      delete window.glb._nonPersistant.wordTranslationStream[streamkey][
+        keys[i]
+      ];
+    });
   }
 }, 1000);
 onUnmounted(() => {
-  if (trslnterv)
-    clearInterval(trslnterv)
-})
-
-
-
+  if (trslnterv) clearInterval(trslnterv);
+});
 
 const darkmode = ref(false);
-
-
-
-
 </script>
 
-
 <template>
-  <div id="root-app"
+  <div
+    id="root-app"
     class="whole relative h-screen w-screen flex flex-nowrap flex-col font-Exo2 overflow-hidden themed-bg-primary themed-text-primary"
-    :class="window.glb?.dark && ' dark'">
-    <input type="file" ref="fileInput" id="fileInput" style="display: none;">
+    :class="window.glb?.dark && ' dark'"
+  >
+    <input type="file" ref="fileInput" id="fileInput" style="display: none" />
 
     <NotificationStack />
     <SelectLang class="absolute z-10" />
     <div id="svgg" class="h-screen w-screen absolute -z-10"></div>
-    <div id="svggblur" class="h-screen w-screen absolute -z-10 backdrop-blur-sm"></div>
-    <div class="w-full h-12  shadow-md  shrink-0 relative backdrop-blur-lg z-0">
+    <div
+      id="svggblur"
+      class="h-screen w-screen absolute -z-10 backdrop-blur-sm"
+    ></div>
+    <div class="w-full h-12 shadow-md shrink-0 relative backdrop-blur-lg z-0">
       <div
-        class="nav text-xl themed-bg-secondary  flex justify-between h-full  transition-all duration-200  shadow flex-nowrap w-full z-50">
-
-        <div class="nav-right px-4 flex items-stretch" :class="!searchCollapsed ? 'center basis-full sm:basis-auto' : ''">
+        class="nav text-xl themed-bg-secondary flex justify-between h-full transition-all duration-200 shadow flex-nowrap w-full z-50"
+      >
+        <div
+          class="nav-right px-4 flex items-stretch"
+          :class="!searchCollapsed ? 'center basis-full sm:basis-auto' : ''"
+        >
           <div :class="!searchCollapsed ? 'w-0 overflow-hidden sm:w-auto' : ''">
             <PopperComponent>
               <template #tohover>
-                <div class="flex center fa self-stretch space-x-2 font-sans font-thin">
+                <div
+                  class="flex center fa self-stretch space-x-2 font-sans font-thin"
+                >
                   <!-- loading if not connected -->
                   <!-- <i v-if="!window.glb.syncer.socketState.connected" class="">
                     <q-spinner-radio color="brown" />
@@ -294,8 +290,14 @@ const darkmode = ref(false);
 
                     </span>
                   </span> -->
-                  <div class="font-Galada center text-2xl p-1 "
-                    :class="window.glb.syncer.socketState.connected ? 'animate-lights' : ''">
+                  <div
+                    class="font-Galada center text-2xl p-1"
+                    :class="
+                      window.glb.syncer.socketState.connected
+                        ? 'animate-lights'
+                        : ''
+                    "
+                  >
                     Lx
                   </div>
                 </div>
@@ -306,48 +308,96 @@ const darkmode = ref(false);
                     :value="Object.fromEntries(Object.entries(window.glb).filter(([k, v]) => typeof v != 'function'))"
                     class=" " theme="my-awesome-json-theme">
                   </JsonViewer> -->
-                  You are connected 
+                  You are connected
                 </div>
               </template>
             </PopperComponent>
           </div>
 
           <div
-            class="rounded-full h-8 self-center mx-2 themed-bg-tertiary flex  focus-within:ring-2 ring-blue-500 transition-all">
-            <input class="h-full rounded-full without-ring bg-transparent transition-all " placeholder="Search ..."
-              :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4 sm:w-52 w-full'" v-model="searchText" />
-            <a href="" class="fa self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover-ripple"
+            class="rounded-full h-8 self-center mx-2 themed-bg-tertiary flex focus-within:ring-2 ring-blue-500 transition-all"
+          >
+            <input
+              class="h-full rounded-full without-ring bg-transparent transition-all"
+              placeholder="Search ..."
+              :class="searchCollapsed ? 'w-0 px-0 m-0' : 'px-4 sm:w-52 w-full'"
+              v-model="searchText"
+            />
+            <a
+              href=""
+              class="fa self-center hover:text-yellow-600 w-8 h-8 rounded-full flex center hover-ripple"
               :class="searchCollapsed ? 'fa-search' : 'fa-times'"
-              @click.prevent="searchCollapsed = !searchCollapsed; searchText = ''"></a>
+              @click.prevent="
+                searchCollapsed = !searchCollapsed;
+                searchText = '';
+              "
+            ></a>
           </div>
         </div>
         <div
-          class="nav-center items-center transition-all duration-150 flex-nowrap space-x-1 flex overflow-hidden w-0 sm:w-auto "
-          v-if="window.glb.loggedIn">
-          <q-icon @click="router.push('/')" name="home" class="effects-square"></q-icon>
-          <q-icon @click="router.push('/profile')" name="account_circle" class="effects-square"></q-icon>
-          <q-icon @click="router.push('/chat')" name="chat" class="effects-square"></q-icon>
-          <q-icon @click="router.push('/uploadbase')" name="cloud_circle" class="effects-square"></q-icon>
-          <q-icon @click="router.push('/settings')" name="settings" class="effects-square"></q-icon>
-          <q-icon @click="router.push('/progress')" name="model_training" class="effects-square"></q-icon>
+          class="nav-center items-center transition-all duration-150 flex-nowrap space-x-1 flex overflow-hidden w-0 sm:w-auto"
+          v-if="window.glb.loggedIn"
+        >
+          <q-icon
+            @click="router.push('/')"
+            name="home"
+            class="effects-square"
+          ></q-icon>
+          <q-icon
+            @click="router.push('/profile')"
+            name="account_circle"
+            class="effects-square"
+          ></q-icon>
+          <q-icon
+            @click="router.push('/chat')"
+            name="chat"
+            class="effects-square"
+          ></q-icon>
+          <q-icon
+            @click="router.push('/uploadbase')"
+            name="cloud_circle"
+            class="effects-square"
+          ></q-icon>
+          <q-icon
+            @click="router.push('/settings')"
+            name="settings"
+            class="effects-square"
+          ></q-icon>
+          <q-icon
+            @click="router.push('/progress')"
+            name="model_training"
+            class="effects-square"
+          ></q-icon>
           <!-- <q-icon @click="router.push('admin/')" name="admin_panel_settings" class="effects-square"></q-icon> -->
         </div>
-        <div class="nav-right flex items-stretch flex-nowrap overflow-hidden w-0 sm:w-auto"
-          :class="!searchCollapsed ? 'w-0 px-0 border sm:w-auto' : 'px-1  '">
-          <div class="nav-right items-stretch flex-nowrap flex  " v-if="window.glb.loggedIn">
-            <div @click="" class="flex items-center space-x-2 justify-center fa px-2	">
+        <div
+          class="nav-right flex items-stretch flex-nowrap overflow-hidden w-0 sm:w-auto"
+          :class="!searchCollapsed ? 'w-0 px-0 border sm:w-auto' : 'px-1  '"
+        >
+          <div
+            class="nav-right items-stretch flex-nowrap flex"
+            v-if="window.glb.loggedIn"
+          >
+            <div
+              @click=""
+              class="flex items-center space-x-2 justify-center fa px-2"
+            >
               <!-- {{ (window.glb.user && window.glb.user.lxt || 0) }} -->
               <q-icon name="all_inclusive" class=""></q-icon>
               <i class="fa fa-bolt"></i>
             </div>
-            <div @click="e => window.glb.addNotf()"
-              class="flex items-center justify-center  fa px-2 whitespace-pre-wrap	">
-              {{ (window.glb.notifications?.length) || '0' }}
-              <i class="fa-solid fa-comments "></i>
+            <div
+              @click="(e) => window.glb.addNotf()"
+              class="flex items-center justify-center fa px-2 whitespace-pre-wrap"
+            >
+              {{ window.glb.notifications?.length || "0" }}
+              <i class="fa-solid fa-comments"></i>
             </div>
-
           </div>
-          <div class="sm:flex hidden nav-right px-4  items-stretch flex-nowrap" v-else>
+          <div
+            class="sm:flex hidden nav-right px-4 items-stretch flex-nowrap"
+            v-else
+          >
             <div class="text-md flex center px-2">
               <i class="fa fa-book m-2"></i>
               Documentation
@@ -363,15 +413,19 @@ const darkmode = ref(false);
           </div>
         </div>
         <div class="flex center-cross">
-
           <PopperComponent>
             <template #tohover>
-              <q-toggle v-model="window.glb.dark" checked-icon="dark_mode" color="" unchecked-icon="light_mode">
+              <q-toggle
+                v-model="window.glb.dark"
+                checked-icon="dark_mode"
+                color=""
+                unchecked-icon="light_mode"
+              >
               </q-toggle>
             </template>
             <template #popup>
               <div class="w-full h-full p-2">
-                Currrently {{ window.glb.dark ? 'Dark' : 'Light' }}
+                Currrently {{ window.glb.dark ? "Dark" : "Light" }}
               </div>
             </template>
           </PopperComponent>
@@ -380,42 +434,48 @@ const darkmode = ref(false);
               <q-icon name="menu" class="effects-square"></q-icon>
             </template>
             <template #popup>
-              <div class="  h-full flex flex-col w-[90vw] max-w-[200px] ">
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/')">
+              <div class="h-full flex flex-col w-[90vw] max-w-[200px]">
+                <div
+                  class="w-full p-2 px-4 space-x-2 effects flex justify-start"
+                  @click="router.push('/')"
+                >
                   <q-icon name="home" class="effects"></q-icon>
-                  <div>
-                    Home
-                  </div>
+                  <div>Home</div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/profile')">
+                <div
+                  class="w-full p-2 px-4 space-x-2 effects flex justify-start"
+                  @click="router.push('/profile')"
+                >
                   <q-icon name="account_circle" class="effects"></q-icon>
-                  <div>
-                    Profile
-                  </div>
+                  <div>Profile</div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/chat')">
+                <div
+                  class="w-full p-2 px-4 space-x-2 effects flex justify-start"
+                  @click="router.push('/chat')"
+                >
                   <q-icon name="chat" class="effects"></q-icon>
-                  <div>
-                    Chat
-                  </div>
+                  <div>Chat</div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/uploadbase')">
+                <div
+                  class="w-full p-2 px-4 space-x-2 effects flex justify-start"
+                  @click="router.push('/uploadbase')"
+                >
                   <q-icon name="cloud_circle" class="effects"></q-icon>
-                  <div>
-                    UploadBase
-                  </div>
+                  <div>UploadBase</div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/progress')">
+                <div
+                  class="w-full p-2 px-4 space-x-2 effects flex justify-start"
+                  @click="router.push('/progress')"
+                >
                   <q-icon name="model_training" class="effects"></q-icon>
-                  <div>
-                    Progress
-                  </div>
+                  <div>Progress</div>
                 </div>
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/settings')">
+                <div
+                  class="w-full p-2 px-4 space-x-2 effects flex justify-start"
+                  @click="router.push('/settings')"
+                >
                   <q-icon name="settings" class="effects"></q-icon>
-                  <div>
-                    Settings
-                  </div>
+                  <div>Settings</div>
                 </div>
                 <!-- <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="router.push('/admin')">
                   <q-icon name="admin_panel_settings" class="effects"></q-icon>
@@ -423,32 +483,31 @@ const darkmode = ref(false);
                     Admin
                   </div>
                 </div> -->
-                <div class="w-full p-2 px-4 space-x-2 effects flex justify-start" @click="logout">
+                <div
+                  class="w-full p-2 px-4 space-x-2 effects flex justify-start"
+                  @click="logout"
+                >
                   <q-icon name="power_settings_new" class="effects"></q-icon>
-                  <div>
-                    Logout
-                  </div>
+                  <div>Logout</div>
                 </div>
               </div>
             </template>
           </PopperComponent>
         </div>
       </div>
-
     </div>
-    <div class="bg-red-900 w-full h-[2px]" v-loading-bar="{ loading: true, height: '2px' }"></div>
+    <div
+      class="bg-red-900 w-full h-[2px]"
+      v-loading-bar="{ loading: true, height: '2px' }"
+    ></div>
     <Suspense class="w-full h-full flex flex-col overflow-auto">
       <div class="w-full h-full flex flex-col overflow-auto">
-        <RouterView class="w-full h-full flex flex-col overflow-auto " />
+        <RouterView class="w-full h-full flex flex-col overflow-auto" />
       </div>
       <template #fallback>
-        <div class="full center">
-
-          Loading...
-        </div>
+        <div class="full center">Loading...</div>
       </template>
     </Suspense>
-
   </div>
 </template>
 
@@ -473,44 +532,44 @@ const darkmode = ref(false);
   }
 
   .jv-button {
-    color: var(--text-secondary)
+    color: var(--text-secondary);
   }
 
   .jv-key {
-    color: var(--text-primary)
+    color: var(--text-primary);
   }
 
   .jv-item {
     &.jv-array {
-      color: var(--text-tertiary)
+      color: var(--text-tertiary);
     }
 
     &.jv-boolean {
-      color: var(--text-tertiary)
+      color: var(--text-tertiary);
     }
 
     &.jv-function {
-      color: var(--text-tertiary)
+      color: var(--text-tertiary);
     }
 
     &.jv-number {
-      color: var(--text-tertiary)
+      color: var(--text-tertiary);
     }
 
     &.jv-number-float {
-      color: var(--text-tertiary)
+      color: var(--text-tertiary);
     }
 
     &.jv-number-integer {
-      color: var(--text-tertiary)
+      color: var(--text-tertiary);
     }
 
     &.jv-object {
-      color: var(--text-tertiary)
+      color: var(--text-tertiary);
     }
 
     &.jv-undefined {
-      color: #ffb94e
+      color: #ffb94e;
     }
 
     &.jv-string {
@@ -535,4 +594,4 @@ const darkmode = ref(false);
     }
   }
 }
-</style> 
+</style>
